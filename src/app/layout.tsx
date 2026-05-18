@@ -35,12 +35,18 @@ export default function RootLayout({
             radial-gradient(circle at 85% 25%, rgba(255, 218, 185, 0.5) 0%, transparent 40%),
             radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px)
           `,
+          backgroundAttachment: "fixed",
+          backgroundSize: `
+            1800px 1800px,
+            1800px 1800px,
+            24px 24px
+          `,
         }}
       >
         <InitColorSchemeScript />
         <AppRouterCacheProvider options={{ key: "css" }}>
           <ThemeProvider theme={theme}>
-            <ThemeToggle />
+            {/*<ThemeToggle />*/}
             {children}
           </ThemeProvider>
         </AppRouterCacheProvider>

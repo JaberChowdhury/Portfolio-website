@@ -18,6 +18,7 @@ import TerminalIcon from "@mui/icons-material/Terminal";
 import CodeIcon from "@mui/icons-material/Code";
 import StorageIcon from "@mui/icons-material/Storage";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import ProjectsSection from "@/components/sections/Home/ProjectsSection";
 
 // Animations
 const blink = keyframes`
@@ -101,6 +102,7 @@ export default function Home() {
         flexDirection: "column",
         position: "relative",
         overflow: "hidden",
+        marginTop: "100px",
       }}
     >
       {/* Main Content Wrapper */}
@@ -175,6 +177,8 @@ export default function Home() {
             >
               <ParticleText
                 text="JABER"
+                canvasWidth={1134}
+                canvasHeight={94}
                 // colorStart="#7c3aed" // Deep Purple
                 // colorEnd="#db2777" // Pink
                 // particleSize={0.25}
@@ -291,10 +295,11 @@ export default function Home() {
         sx={{
           width: "100%",
           borderTop: "1px solid rgba(0,0,0,0.05)",
-          bgcolor: "rgba(255,255,255,0.4)",
+          // bgcolor: "rgba(255,255,255,0.4)",
           py: 3,
           mt: 8,
           overflow: "hidden",
+          border: "none",
         }}
       >
         <Box
@@ -323,6 +328,36 @@ export default function Home() {
               "Bun Runtime",
               "C++",
               "Linux/Arch",
+              "Next.js",
+              "React 19",
+              "TypeScript",
+              "Material UI",
+              "Three.js",
+              "WebGPU",
+              "Bun Runtime",
+              "Vite",
+              "C++",
+              "Bash / Shell",
+              "Arch Linux",
+              "Alpine Linux",
+              "Waydroid",
+              "Git",
+
+              // --- Duplicated Set (for the seamless infinite marquee loop) ---
+              "Next.js",
+              "React 19",
+              "TypeScript",
+              "Material UI",
+              "Three.js",
+              "WebGPU",
+              "Bun Runtime",
+              "Vite",
+              "C++",
+              "Bash / Shell",
+              "Arch Linux",
+              "Alpine Linux",
+              "Waydroid",
+              "Git",
             ].map((tech, i) => (
               <Typography
                 key={i}
@@ -340,6 +375,7 @@ export default function Home() {
           </Stack>
         </Box>
       </Box>
+      <ProjectsSection />
     </Box>
   );
 }
