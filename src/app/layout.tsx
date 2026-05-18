@@ -4,6 +4,8 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
+import ThemeToggle from "@/components/ThemeToggle";
+import { InitColorSchemeScript } from "@mui/material";
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
@@ -22,10 +24,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={roboto.variable}>
-      <body>
+    <html lang="en" className={roboto.variable} suppressHydrationWarning>
+      <body
+        style={{
+          position: "relative",
+          minHeight: "100vh",
+          backgroundColor: "#fdfcfb",
+          backgroundImage: `
+            radial-gradient(circle at 15% 75%, rgba(216, 180, 254, 0.4) 0%, transparent 40%),
+            radial-gradient(circle at 85% 25%, rgba(255, 218, 185, 0.5) 0%, transparent 40%),
+            radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px)
+          `,
+        }}
+      >
+        <InitColorSchemeScript />
         <AppRouterCacheProvider options={{ key: "css" }}>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <ThemeToggle />
+            {children}
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
