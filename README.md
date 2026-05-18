@@ -1,33 +1,4 @@
-```python
-import os
-
-markdown_content = """# 🚀 Next.js 16 + React 19 + MUI v9 Starter
-
-A modern, high-performance, and highly opinionated starter template for building modern web applications and portfolios. Engineered for maximum speed and the best Developer Experience (DX).
-
-This starter bypasses traditional tooling bottlenecks by utilizing **Turbopack** for instantaneous builds, **Biome** for millisecond linting/formatting, and the **React Compiler** to eliminate manual memoization.
-
-## ✨ Features
-
-- **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
-- **UI Library:** [Material UI v9](https://mui.com/) with `@mui/material-nextjs` for native App Router support and zero Flash of Unstyled Content (FOUC).
-- **Core:** [React 19](https://react.dev/) & React DOM 19
-- **Compiler:** React Compiler (`babel-plugin-react-compiler`) enabled out-of-the-box. Say goodbye to `useMemo` and `useCallback`.
-- **Tooling:** [Biome](https://biomejs.dev/) (replaces ESLint and Prettier for significantly faster execution).
-- **Bundler:** Next.js Turbopack (`--turbo` flag enabled for both dev and build).
-- **Language:** TypeScript 5.9 strict mode.
-
-## 📦 Getting Started
-
-### 1. Install Dependencies
-
-You can use `npm`, `yarn`, `pnpm`, or `bun`.
-
-
-```
-
-````text
-File generated successfully.
+### 1. Install dependency
 
 ```bash
 npm install
@@ -38,7 +9,7 @@ pnpm install
 # or
 bun install
 
-````
+```
 
 ### 2. Run the Development Server
 
