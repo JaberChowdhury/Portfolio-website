@@ -10,6 +10,12 @@
 !.yarn/releases
 !.yarn/versions
 
+# lock files
+bun.lock
+
+# cache
+.next
+
 # testing
 /coverage
 
