@@ -1,3 +1,5 @@
+inspiration : https://www.synapserstudio.com/
+
 ### 1. Install dependency
 
 ```bash

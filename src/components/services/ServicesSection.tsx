@@ -1,165 +1,219 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { Box, Typography, Stack, Button } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Typography, Grid, Chip } from "@mui/material";
 import { useTheme } from "@mui/system";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { projectsData } from "./servicesData";
-import ServiceCard from "./ServiceCard";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function WorksSection() {
+// --- Services Data ---
+// Adapted exactly from your personal portfolio specifications
+const servicesData = [
+  {
+    id: "01",
+    title: "Brand Identity",
+    desc: "Shaping personal and startup identities that connect and endure.",
+    skills: [
+      "Brand Audit",
+      "Art Direction",
+      "Design Systems",
+      "Naming Strategies",
+    ],
+  },
+  {
+    id: "02",
+    title: "Interface Design",
+    desc: "My design approach blends aesthetics with functionality, creating digital experiences that convert.",
+    skills: [
+      "UI / UX Design",
+      "Website Design",
+      "Mobile Applications",
+      "E-Commerce & Platforms",
+    ],
+  },
+  {
+    id: "03",
+    title: "Immersive & Motion",
+    desc: "I create captivating visual experiences that transport audiences.",
+    skills: [
+      "3D Experiences",
+      "Motion Graphics",
+      "Video Editing",
+      "Interactive Narratives",
+    ],
+  },
+  {
+    id: "04",
+    title: "Development",
+    desc: "My engineering skill sets deliver clean, scalable solutions built for the future.",
+    skills: [
+      "React & Next.js",
+      "Three.js & Matter.js",
+      "WordPress & CMS",
+      "Deployment Pipelines",
+    ],
+  },
+];
+
+// --- Custom Arrow Icon ---
+const ArrowIcon = () => (
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+  >
+    <path
+      d="M5 12h14M12 5l7 7-7 7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export default function ServicesSection() {
   const theme = useTheme();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  // Track scroll position to update active index dynamically
-  const { scrollXProgress } = useScroll({ container: scrollRef });
-
-  useMotionValueEvent(scrollXProgress, "change", (latest) => {
-    // Map scroll progress to project index
-    const index = Math.round(latest * (projectsData.length - 1));
-    if (index !== activeIndex) setActiveIndex(index);
-  });
-
-  const activeProject = projectsData[activeIndex];
+  // Default state: The first item ("01") is expanded automatically.
+  const [expandedId, setExpandedId] = useState<string>("01");
 
   return (
     <Box
       component="section"
       sx={{
-        py: 12,
-        borderTop: "1px solid",
-        borderColor: "divider",
-        bgcolor: theme.palette.background.default,
+        py: { xs: 8, md: 16 },
+        px: { xs: 2, md: 8 },
+        backgroundColor: theme.palette.background.default,
       }}
     >
-      {/* Blueprint Header */}
-      <Box
-        sx={{
-          px: { xs: 2, md: 8 },
-          mb: 8,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-end",
-        }}
-      >
+      {/* Section Header */}
+      <Box sx={{ mb: { xs: 6, md: 10 } }}>
         <Typography
           variant="h2"
-          sx={{ fontWeight: 800, textTransform: "uppercase" }}
-        >
-          WORKS
-        </Typography>
-        <Typography variant="caption" sx={{ letterSpacing: "0.2em" }}>
-          // INTERACTIVE_ARCHIVE_2026
-        </Typography>
-      </Box>
-
-      {/* Draggable/Scrollable Track */}
-      <Box
-        ref={scrollRef}
-        sx={{
-          display: "flex",
-          gap: 4,
-          px: "40vw",
-          py: 4,
-          overflowX: "auto",
-          scrollSnapType: "x mandatory",
-          "&::-webkit-scrollbar": { display: "none" },
-        }}
-      >
-        {projectsData.map((project, index) => (
-          <ServiceCard
-            key={project.id}
-            project={project}
-            index={index}
-            activeIndex={activeIndex}
-            onClick={() => {
-              // Smooth scroll to element if clicked
-              scrollRef.current?.scrollTo({
-                left: index * 480,
-                behavior: "smooth",
-              });
-            }}
-          />
-        ))}
-      </Box>
-
-      {/* Information Blueprint Grid */}
-      <Box sx={{ px: { xs: 2, md: 8 }, mt: 8 }}>
-        <Box
           sx={{
-            border: "1px solid",
-            borderColor: "divider",
-            p: 4,
-            bgcolor: "background.paper",
+            fontWeight: 800,
+            textTransform: "uppercase",
+            letterSpacing: "-0.02em",
           }}
         >
-          <motion.div
-            key={activeProject.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-              <Box sx={{ flex: "1 1 400px" }}>
-                <Typography
-                  variant="h3"
-                  sx={{ fontWeight: 800, mb: 3, textTransform: "uppercase" }}
-                >
-                  {activeProject.title}
-                </Typography>
-                <Typography variant="body1" sx={{ maxWidth: "600px", mb: 4 }}>
-                  {activeProject.desc}
-                </Typography>
-                <Stack direction="row" spacing={4}>
-                  <Box>
-                    <Typography
-                      variant="caption"
-                      sx={{ color: "text.secondary", display: "block" }}
-                    >
-                      // CLIENT
-                    </Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                      {activeProject.client}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography
-                      variant="caption"
-                      sx={{ color: "text.secondary", display: "block" }}
-                    >
-                      // SERVICES
-                    </Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                      {activeProject.services}
-                    </Typography>
-                  </Box>
-                </Stack>
-              </Box>
+          Services
+        </Typography>
+      </Box>
 
+      {/* Accordion List */}
+      <Box sx={{ borderTop: "1px solid", borderColor: "divider" }}>
+        {servicesData.map((service) => {
+          const isExpanded = expandedId === service.id;
+
+          return (
+            <Box
+              key={service.id}
+              // Hover interaction to expand the item
+              onMouseEnter={() => setExpandedId(service.id)}
+              sx={{
+                borderBottom: "1px solid",
+                borderColor: "divider",
+                cursor: "pointer",
+                transition: "background-color 0.3s ease",
+                "&:hover": {
+                  backgroundColor: "rgba(0,0,0,0.02)", // Subtle highlight on hover
+                },
+              }}
+            >
+              {/* Row Header (Always Visible) */}
               <Box
                 sx={{
-                  flex: "0 0 auto",
                   display: "flex",
-                  alignItems: "flex-end",
-                  justifyContent: { xs: "flex-start", md: "flex-end" },
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  py: { xs: 3, md: 5 },
+                  px: { xs: 1, md: 2 },
                 }}
               >
-                <Button
-                  variant="outlined"
+                <Typography
+                  variant="h3"
                   sx={{
-                    borderRadius: 0,
-                    px: 6,
-                    py: 2,
-                    borderColor: "text.primary",
+                    fontSize: "clamp(1.5rem, 4vw, 3.5rem)",
+                    fontWeight: isExpanded ? 800 : 400, // Becomes bold when active
+                    color: isExpanded ? "text.primary" : "text.secondary",
+                    transition: "all 0.3s ease",
+                    textTransform: "uppercase",
                   }}
                 >
-                  VIEW CASE STUDY
-                </Button>
+                  {service.title}
+                </Typography>
+
+                {/* Animated Arrow */}
+                <motion.div
+                  animate={{ rotate: isExpanded ? 90 : 0 }} // Rotates down when expanded
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ color: theme.palette.text.primary }}
+                >
+                  <ArrowIcon />
+                </motion.div>
               </Box>
+
+              {/* Expandable Content (Visible on Hover) */}
+              <AnimatePresence initial={false}>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} // Apple-like smooth easing
+                    style={{ overflow: "hidden" }}
+                  >
+                    <Box sx={{ px: { xs: 1, md: 2 }, pb: { xs: 4, md: 6 } }}>
+                      <Grid container spacing={4} alignItems="flex-start">
+                        {/* Left Side: Description */}
+                        <Grid item xs={12} md={5}>
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              fontWeight: 400,
+                              color: "text.secondary",
+                              lineHeight: 1.6,
+                              maxWidth: "90%",
+                            }}
+                          >
+                            {service.desc}
+                          </Typography>
+                        </Grid>
+
+                        {/* Right Side: Skill Tags */}
+                        <Grid item xs={12} md={7}>
+                          <Box
+                            sx={{ display: "flex", flexWrap: "wrap", gap: 1.5 }}
+                          >
+                            {service.skills.map((skill) => (
+                              <Chip
+                                key={skill}
+                                label={skill}
+                                variant="outlined"
+                                sx={{
+                                  borderRadius: "100px", // Pill-shaped
+                                  px: 1,
+                                  py: 2.5,
+                                  fontSize: "0.85rem",
+                                  fontWeight: 600,
+                                  textTransform: "uppercase",
+                                  letterSpacing: "0.05em",
+                                  borderColor: "divider",
+                                  color: "text.primary",
+                                  backgroundColor: "transparent",
+                                }}
+                              />
+                            ))}
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </Box>
-          </motion.div>
-        </Box>
+          );
+        })}
       </Box>
     </Box>
   );
