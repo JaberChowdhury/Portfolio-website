@@ -1,71 +1,103 @@
 "use client";
+
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
-  cssVariables: {
-    colorSchemeSelector: "data-mui-color-scheme",
+  // 1. Enable CSS variables for <InitColorSchemeScript />
+  cssVariables: true,
+  defaultColorScheme: "light",
+  // 2. Shared Core Settings
+  typography: {
+    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    h1: {
+      fontWeight: 800,
+      letterSpacing: "-0.02em",
+      textTransform: "uppercase",
+    },
+    h2: {
+      fontWeight: 700,
+      letterSpacing: "-0.01em",
+      textTransform: "uppercase",
+    },
+    body1: {
+      fontWeight: 400,
+      letterSpacing: "0.02em",
+    },
+    button: {
+      fontWeight: 700,
+      letterSpacing: "0.05em",
+      textTransform: "uppercase",
+    },
   },
+  shape: {
+    borderRadius: 0, // Brutalist, sharp edges
+  },
+
+  // 3. Define both Light and Dark color schemes here
   colorSchemes: {
     light: {
       palette: {
         primary: {
-          main: "#7c3aed", // Deep Purple for your light mode text
+          main: "#00FFFF", // Vibrant cyan
+          contrastText: "#151515",
         },
-        secondary: {
-          main: "#db2777", // Pink for your light mode text gradient
+        background: {
+          default: "#E6E4DC", // Muted beige
+          paper: "#DFDDD5",
         },
+        text: {
+          primary: "#2B2B2B", // Dark charcoal/greyscale
+          secondary: "#5A5A5A",
+        },
+        divider: "rgba(0, 0, 0, 0.06)", // Brutalist grid line (Light)
       },
     },
     dark: {
       palette: {
         primary: {
-          main: "#10b981", // Emerald Green for your dark mode text
+          main: "#00E5E5", // Adjusted cyan for dark mode
+          contrastText: "#151515",
         },
-        secondary: {
-          main: "#059669", // Darker Emerald for your dark mode text gradient
+        background: {
+          default: "#151515", // Deep charcoal/black
+          paper: "#1E1E1E",
         },
+        text: {
+          primary: "#E6E4DC", // Off-white
+          secondary: "#9E9E9E",
+        },
+        divider: "rgba(255, 255, 255, 0.06)", // Brutalist grid line (Dark)
       },
     },
   },
-  typography: {
-    fontFamily: "var(--font-roboto)",
-  },
-  // ... keep your MuiCssBaseline styleOverrides below this
 
-  // Global style overrides
+  // 4. Global Overrides (Including the Background Grid)
   components: {
     MuiCssBaseline: {
       styleOverrides: (themeParam) => ({
         body: {
-          position: "relative",
-          minHeight: "100vh",
-          margin: 0,
-          transition: "background-color 0.3s ease, background-image 0.3s ease",
-
-          // --- LIGHT MODE BACKGROUND (Default) ---
-          backgroundColor: "#fdfcfb",
+          // By using CSS variables here, the grid color changes instantly
+          // without React needing to re-render the page!
           backgroundImage: `
-            radial-gradient(circle at 15% 75%, rgba(216, 180, 254, 0.4) 0%, transparent 40%),
-            radial-gradient(circle at 85% 25%, rgba(255, 218, 185, 0.5) 0%, transparent 40%),
-            radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px)
+            linear-gradient(var(--mui-palette-divider) 1px, transparent 1px),
+            linear-gradient(90deg, var(--mui-palette-divider) 1px, transparent 1px)
           `,
-          backgroundSize: "100% 100%, 100% 100%, 20px 20px",
-          backgroundPosition: "0 0, 0 0, -10px -10px",
-
-          // --- DARK MODE BACKGROUND ---
-          ...themeParam.applyStyles("dark", {
-            backgroundColor: "#030711",
-            backgroundImage: `
-              radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 60%),
-              radial-gradient(circle at 80% 20%, rgba(5, 150, 105, 0.05) 0%, transparent 40%)
-            `,
-            backgroundSize: "auto",
-            backgroundPosition: "auto",
-          }),
+          backgroundSize: "40px 40px",
+          backgroundAttachment: "fixed",
+          backgroundColor: themeParam.palette.background.default,
         },
       }),
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          padding: "12px 24px",
+          border: "1px solid",
+        },
+      },
     },
   },
 });
 
+// 5. Provide the default export expected by your layout.tsx
 export default theme;
