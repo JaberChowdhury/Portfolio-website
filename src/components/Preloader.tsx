@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import Loading from "@/app/loading";
 
 export default function Preloader({ children }: { children: React.ReactNode }) {

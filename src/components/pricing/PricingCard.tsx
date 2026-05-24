@@ -1,7 +1,7 @@
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import SquareIcon from "@mui/icons-material/Square";
 import { Button } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import type { Tier } from "./pricingData";
 
 export interface PricingCardProps {
@@ -11,23 +11,16 @@ export interface PricingCardProps {
 
 const PricingCard = ({ tier, isLight }: PricingCardProps) => {
   const theme = useTheme();
-  const isDarkMode = theme.palette.mode === "dark";
-
-  // Light Mode Colors
-  let cardBg = isLight ? "#D9D6CB" : "#403F3B";
-  let cardText = isLight ? "#1a1a1a" : "#fff";
-  let btnBg = isLight ? "#C9C6BB" : "#302F2C";
-  let btnText = isLight ? "#1a1a1a" : "#fff";
-
-  // Dark Mode Colors
-  if (isDarkMode) {
-    cardBg = isLight
-      ? "rgba(255, 255, 255, 0.05)"
-      : "rgba(255, 255, 255, 0.12)";
-    cardText = theme.palette.text.primary;
-    btnBg = isLight ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.2)";
-    btnText = theme.palette.text.primary;
-  }
+  const cardBg = isLight
+    ? theme.palette.background.paper
+    : theme.palette.text.primary;
+  const cardText = isLight
+    ? theme.palette.text.primary
+    : theme.palette.background.default;
+  const btnBg = isLight
+    ? alpha(theme.palette.text.primary, 0.08)
+    : alpha(theme.palette.background.default, 0.12);
+  const btnText = cardText;
 
   return (
     <div
@@ -64,7 +57,7 @@ const PricingCard = ({ tier, isLight }: PricingCardProps) => {
             fontSize: "14px",
             margin: "0",
             lineHeight: "1.5",
-            opacity: isLight ? 0.8 : 0.7,
+            color: alpha(cardText, isLight ? 0.8 : 0.72),
           }}
         >
           {tier.description}

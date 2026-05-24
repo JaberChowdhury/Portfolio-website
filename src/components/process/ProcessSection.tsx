@@ -12,7 +12,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import { processData } from "@/data/process";
@@ -56,8 +56,10 @@ export default function ProcessSection() {
   const [expandedId, setExpandedId] = useState<string>("03");
 
   const mainTextColor = theme.palette.text.primary;
-  const paragraphTextColor = "rgba(255, 255, 255, 0.7)";
-  const skillsTextColor = "rgba(255, 255, 255, 0.5)";
+  const expandedBgColor = theme.palette.text.primary;
+  const expandedTextColor = theme.palette.background.default;
+  const paragraphTextColor = alpha(expandedTextColor, 0.72);
+  const skillsTextColor = alpha(expandedTextColor, 0.55);
 
   return (
     <Box
@@ -66,7 +68,6 @@ export default function ProcessSection() {
       sx={{
         py: { xs: 8, md: 16 },
         px: { xs: 2, md: 8 },
-        // backgroundColor: "#F7F5F0",
         // backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
       }}
     >
@@ -123,10 +124,7 @@ export default function ProcessSection() {
                     style={{
                       position: "absolute",
                       inset: 0,
-                      backgroundColor:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255, 255, 255, 0.08)"
-                          : "#4D4D4D",
+                      backgroundColor: expandedBgColor,
                       zIndex: 0,
                     }}
                   />
@@ -161,7 +159,7 @@ export default function ProcessSection() {
                                 display: "flex",
                                 gap: 1.5,
                                 alignItems: "center",
-                                color: "rgba(255,255,255,0.7)",
+                                color: paragraphTextColor,
                                 mb: { xs: 4, md: 0 },
                               }}
                             >
@@ -183,7 +181,7 @@ export default function ProcessSection() {
                                 variant="h1"
                                 sx={{
                                   fontWeight: 400,
-                                  color: "white",
+                                  color: expandedTextColor,
                                   fontSize: "clamp(3rem, 5vw, 4.5rem)",
                                   letterSpacing: "0.2em",
                                   lineHeight: 1,
@@ -194,7 +192,7 @@ export default function ProcessSection() {
                               <Typography
                                 variant="body2"
                                 sx={{
-                                  color: "rgba(255,255,255,0.5)",
+                                  color: skillsTextColor,
                                   letterSpacing: "0.2em",
                                   mt: 1,
                                 }}
@@ -211,7 +209,7 @@ export default function ProcessSection() {
                               sx={{
                                 fontWeight: 800,
                                 textTransform: "uppercase",
-                                color: "white",
+                                color: expandedTextColor,
                                 fontSize: "clamp(1.2rem, 2vw, 1.8rem)",
                                 lineHeight: 1.3,
                                 mb: 3,
@@ -280,7 +278,7 @@ export default function ProcessSection() {
                               href="/"
                               // underline="none"
                               sx={{
-                                color: "white",
+                                color: expandedTextColor,
                                 fontWeight: 600,
                                 fontSize: "0.85rem",
                                 letterSpacing: "0.05em",
@@ -294,7 +292,7 @@ export default function ProcessSection() {
                               sx={{
                                 width: 6,
                                 height: 6,
-                                backgroundColor: "rgba(255,255,255,0.3)",
+                                backgroundColor: alpha(expandedTextColor, 0.3),
                                 mt: { xs: 2, md: "auto" },
                                 mb: { md: 6 },
                               }}
@@ -351,7 +349,7 @@ export default function ProcessSection() {
                             letterSpacing: "0.05em",
                           }}
                         >
-                          00{numId} //
+                          00{numId} {"//"}
                         </Typography>
                       </Box>
                     </motion.div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
+import { alpha, useTheme } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -8,6 +9,13 @@ import { useEffect } from "react";
 const MotionLink = motion(Link);
 
 export default function NotFound() {
+  const theme = useTheme();
+  const inkColor = theme.palette.text.primary;
+  const surfaceColor = theme.palette.background.paper;
+  const accentColor = theme.palette.primary.main;
+  const accentHoverColor = theme.palette.primary.dark;
+  const accentTextColor = theme.palette.primary.contrastText;
+
   // Set the tab title on mount for clean browser UX and SEO
   useEffect(() => {
     document.title = "404 - Page Not Found";
@@ -21,7 +29,7 @@ export default function NotFound() {
         left: 0,
         width: "100vw",
         height: "100vh",
-        backgroundColor: "#FAF5ED", // Warm cream/eggshell background matching the design
+        backgroundColor: theme.palette.background.default,
         zIndex: 9999, // Ensure it covers everything, including any global layout headers/grids
         display: "flex",
         flexDirection: "column",
@@ -70,7 +78,7 @@ export default function NotFound() {
               y1="320"
               x2="780"
               y2="320"
-              stroke="#3C2F2F"
+              stroke={inkColor}
               strokeWidth="3"
               strokeLinecap="round"
             />
@@ -81,7 +89,7 @@ export default function NotFound() {
               y1="335"
               x2="195"
               y2="335"
-              stroke="#3C2F2F"
+              stroke={inkColor}
               strokeWidth="3"
               strokeLinecap="round"
             />
@@ -89,7 +97,7 @@ export default function NotFound() {
             {/* Digit 4 (Left) */}
             <path
               d="M 225,90 L 145,230 L 265,230 M 225,90 L 225,290"
-              stroke="#3C2F2F"
+              stroke={inkColor}
               strokeWidth="28"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -104,7 +112,7 @@ export default function NotFound() {
               height="200"
               rx="65"
               ry="65"
-              stroke="#3C2F2F"
+              stroke={inkColor}
               strokeWidth="28"
               fill="none"
             />
@@ -112,7 +120,7 @@ export default function NotFound() {
             {/* Digit 4 (Right) */}
             <path
               d="M 595,90 L 515,230 L 635,230 M 595,90 L 595,290"
-              stroke="#3C2F2F"
+              stroke={inkColor}
               strokeWidth="28"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -125,44 +133,44 @@ export default function NotFound() {
               <path
                 d="M 710,290 Q 690,260 690,220"
                 fill="none"
-                stroke="#3C2F2F"
+                stroke={inkColor}
                 strokeWidth="3"
               />
               <path
                 d="M 710,290 Q 730,260 730,220"
                 fill="none"
-                stroke="#3C2F2F"
+                stroke={inkColor}
                 strokeWidth="3"
               />
               <path
                 d="M 702,275 Q 685,275 670,265"
                 fill="none"
-                stroke="#3C2F2F"
+                stroke={inkColor}
                 strokeWidth="3"
               />
               <path
                 d="M 718,275 Q 735,275 755,260"
                 fill="none"
-                stroke="#3C2F2F"
+                stroke={inkColor}
                 strokeWidth="3"
               />
               <path
                 d="M 705,285 Q 680,285 650,288"
                 fill="none"
-                stroke="#3C2F2F"
+                stroke={inkColor}
                 strokeWidth="3"
               />
               <path
                 d="M 715,285 Q 740,285 770,288"
                 fill="none"
-                stroke="#3C2F2F"
+                stroke={inkColor}
                 strokeWidth="3"
               />
 
               {/* Pot */}
               <polygon
                 points="696,290 724,290 719,320 701,320"
-                fill="#3C2F2F"
+                fill={inkColor}
               />
 
               {/* Leaves with gentle rustle animations */}
@@ -180,8 +188,8 @@ export default function NotFound() {
                 >
                   <path
                     d="M 0,0 C 15,-10 35,-10 50,0 C 35,10 15,10 0,0 Z"
-                    fill="#FF9500"
-                    stroke="#3C2F2F"
+                    fill={accentColor}
+                    stroke={inkColor}
                     strokeWidth="2.5"
                     strokeLinejoin="round"
                   />
@@ -190,7 +198,7 @@ export default function NotFound() {
                     y1="0"
                     x2="40"
                     y2="0"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="2"
                   />
                 </motion.g>
@@ -210,8 +218,8 @@ export default function NotFound() {
                 >
                   <path
                     d="M 0,0 C 15,-10 35,-10 50,0 C 35,10 15,10 0,0 Z"
-                    fill="#FF9500"
-                    stroke="#3C2F2F"
+                    fill={accentColor}
+                    stroke={inkColor}
                     strokeWidth="2.5"
                     strokeLinejoin="round"
                   />
@@ -220,7 +228,7 @@ export default function NotFound() {
                     y1="0"
                     x2="40"
                     y2="0"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="2"
                   />
                 </motion.g>
@@ -240,8 +248,8 @@ export default function NotFound() {
                 >
                   <path
                     d="M 0,0 C 15,-10 35,-10 50,0 C 35,10 15,10 0,0 Z"
-                    fill="#FF9500"
-                    stroke="#3C2F2F"
+                    fill={accentColor}
+                    stroke={inkColor}
                     strokeWidth="2.5"
                     strokeLinejoin="round"
                   />
@@ -250,7 +258,7 @@ export default function NotFound() {
                     y1="0"
                     x2="40"
                     y2="0"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="2"
                   />
                 </motion.g>
@@ -270,8 +278,8 @@ export default function NotFound() {
                 >
                   <path
                     d="M 0,0 C 15,-10 35,-10 50,0 C 35,10 15,10 0,0 Z"
-                    fill="#FF9500"
-                    stroke="#3C2F2F"
+                    fill={accentColor}
+                    stroke={inkColor}
                     strokeWidth="2.5"
                     strokeLinejoin="round"
                   />
@@ -280,7 +288,7 @@ export default function NotFound() {
                     y1="0"
                     x2="40"
                     y2="0"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="2"
                   />
                 </motion.g>
@@ -300,8 +308,8 @@ export default function NotFound() {
                 >
                   <path
                     d="M 0,0 C 15,-10 35,-10 50,0 C 35,10 15,10 0,0 Z"
-                    fill="#FF9500"
-                    stroke="#3C2F2F"
+                    fill={accentColor}
+                    stroke={inkColor}
                     strokeWidth="2.5"
                     strokeLinejoin="round"
                   />
@@ -310,7 +318,7 @@ export default function NotFound() {
                     y1="0"
                     x2="40"
                     y2="0"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="2"
                   />
                 </motion.g>
@@ -330,8 +338,8 @@ export default function NotFound() {
                 >
                   <path
                     d="M 0,0 C 15,-10 35,-10 50,0 C 35,10 15,10 0,0 Z"
-                    fill="#FF9500"
-                    stroke="#3C2F2F"
+                    fill={accentColor}
+                    stroke={inkColor}
                     strokeWidth="2.5"
                     strokeLinejoin="round"
                   />
@@ -340,7 +348,7 @@ export default function NotFound() {
                     y1="0"
                     x2="40"
                     y2="0"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="2"
                   />
                 </motion.g>
@@ -353,7 +361,7 @@ export default function NotFound() {
               <path
                 d="M 486,310 C 475,320 440,326 390,326 C 350,326 345,318 360,318 C 390,318 450,318 495,318 C 525,318 535,322 525,325 C 510,328 495,320 490,317"
                 fill="none"
-                stroke="#3C2F2F"
+                stroke={inkColor}
                 strokeWidth="2.5"
               />
 
@@ -368,16 +376,16 @@ export default function NotFound() {
                   cx="490"
                   cy="296"
                   r="24"
-                  fill="#FFFFFF"
-                  stroke="#3C2F2F"
+                  fill={surfaceColor}
+                  stroke={inkColor}
                   strokeWidth="3"
                 />
 
                 {/* Orange shading on bottom-right half */}
                 <path
                   d="M 474,312 A 24,24 0 0,0 514,296 A 24,24 0 0,0 490,272 C 496,281 502,298 474,312 Z"
-                  fill="#FF9500"
-                  stroke="#3C2F2F"
+                  fill={accentColor}
+                  stroke={inkColor}
                   strokeWidth="2"
                   strokeLinejoin="round"
                 />
@@ -386,44 +394,44 @@ export default function NotFound() {
                 <path
                   d="M 472,284 Q 490,291 508,284"
                   fill="none"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
                 <path
                   d="M 468,296 Q 490,304 512,296"
                   fill="none"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
                 <path
                   d="M 472,308 Q 490,315 508,308"
                   fill="none"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
                 <path
                   d="M 478,276 Q 490,283 502,276"
                   fill="none"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
 
                 <path
                   d="M 478,276 Q 485,296 478,316"
                   fill="none"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
                 <path
                   d="M 490,272 Q 495,296 490,320"
                   fill="none"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
                 <path
                   d="M 502,276 Q 505,296 502,316"
                   fill="none"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
               </motion.g>
@@ -438,8 +446,8 @@ export default function NotFound() {
                   cy="88"
                   rx="14"
                   ry="10"
-                  fill="#FFFFFF"
-                  stroke="#3C2F2F"
+                  fill={surfaceColor}
+                  stroke={inkColor}
                   strokeWidth="3"
                 />
                 <line
@@ -447,7 +455,7 @@ export default function NotFound() {
                   y1="80"
                   x2="375"
                   y2="88"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
                 <line
@@ -455,7 +463,7 @@ export default function NotFound() {
                   y1="80"
                   x2="385"
                   y2="88"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
 
@@ -464,8 +472,8 @@ export default function NotFound() {
                   cy="88"
                   rx="14"
                   ry="10"
-                  fill="#FFFFFF"
-                  stroke="#3C2F2F"
+                  fill={surfaceColor}
+                  stroke={inkColor}
                   strokeWidth="3"
                 />
                 <line
@@ -473,7 +481,7 @@ export default function NotFound() {
                   y1="80"
                   x2="435"
                   y2="88"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
                 <line
@@ -481,7 +489,7 @@ export default function NotFound() {
                   y1="80"
                   x2="445"
                   y2="88"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="2"
                 />
               </g>
@@ -503,7 +511,7 @@ export default function NotFound() {
                   y1="145"
                   x2="380"
                   y2="92"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="14"
                   strokeLinecap="round"
                 />
@@ -512,7 +520,7 @@ export default function NotFound() {
                   y1="145"
                   x2="380"
                   y2="92"
-                  stroke="#FFFFFF"
+                  stroke={surfaceColor}
                   strokeWidth="8"
                   strokeLinecap="round"
                 />
@@ -522,7 +530,7 @@ export default function NotFound() {
                   y1="145"
                   x2="440"
                   y2="92"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="14"
                   strokeLinecap="round"
                 />
@@ -531,7 +539,7 @@ export default function NotFound() {
                   y1="145"
                   x2="440"
                   y2="92"
-                  stroke="#FFFFFF"
+                  stroke={surfaceColor}
                   strokeWidth="8"
                   strokeLinecap="round"
                 />
@@ -549,14 +557,14 @@ export default function NotFound() {
                   >
                     <path
                       d="M 392,208 Q 380,268 415,278 Q 430,283 434,268"
-                      stroke="#3C2F2F"
+                      stroke={inkColor}
                       strokeWidth="14"
                       strokeLinecap="round"
                       fill="none"
                     />
                     <path
                       d="M 392,208 Q 380,268 415,278 Q 430,283 434,268"
-                      stroke="#FFFFFF"
+                      stroke={surfaceColor}
                       strokeWidth="8"
                       strokeLinecap="round"
                       fill="none"
@@ -564,21 +572,21 @@ export default function NotFound() {
                     {/* Tail Stripes */}
                     <path
                       d="M 383,230 Q 381,234 385,238"
-                      stroke="#FF9500"
+                      stroke={accentColor}
                       strokeWidth="8"
                       fill="none"
                       strokeLinecap="round"
                     />
                     <path
                       d="M 389,252 Q 394,257 399,260"
-                      stroke="#FF9500"
+                      stroke={accentColor}
                       strokeWidth="8"
                       fill="none"
                       strokeLinecap="round"
                     />
                     <path
                       d="M 408,272 Q 415,273 420,270"
-                      stroke="#FF9500"
+                      stroke={accentColor}
                       strokeWidth="8"
                       fill="none"
                       strokeLinecap="round"
@@ -590,14 +598,14 @@ export default function NotFound() {
                 <g id="rear-left-leg">
                   <path
                     d="M 390,210 Q 380,225 390,240"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="16"
                     strokeLinecap="round"
                     fill="none"
                   />
                   <path
                     d="M 390,210 Q 380,225 390,240"
-                    stroke="#FFFFFF"
+                    stroke={surfaceColor}
                     strokeWidth="10"
                     strokeLinecap="round"
                     fill="none"
@@ -607,8 +615,8 @@ export default function NotFound() {
                     cy="242"
                     rx="10"
                     ry="8"
-                    fill="#FFFFFF"
-                    stroke="#3C2F2F"
+                    fill={surfaceColor}
+                    stroke={inkColor}
                     strokeWidth="3"
                   />
                   <line
@@ -616,7 +624,7 @@ export default function NotFound() {
                     y1="240"
                     x2="387"
                     y2="246"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="1.5"
                   />
                   <line
@@ -624,7 +632,7 @@ export default function NotFound() {
                     y1="240"
                     x2="392"
                     y2="246"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="1.5"
                   />
                   <line
@@ -632,7 +640,7 @@ export default function NotFound() {
                     y1="240"
                     x2="397"
                     y2="246"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="1.5"
                   />
                 </g>
@@ -641,14 +649,14 @@ export default function NotFound() {
                 <g id="rear-right-leg">
                   <path
                     d="M 430,205 Q 445,215 455,200"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="16"
                     strokeLinecap="round"
                     fill="none"
                   />
                   <path
                     d="M 430,205 Q 445,215 455,200"
-                    stroke="#FFFFFF"
+                    stroke={surfaceColor}
                     strokeWidth="10"
                     strokeLinecap="round"
                     fill="none"
@@ -657,49 +665,49 @@ export default function NotFound() {
                     cx="455"
                     cy="195"
                     r="14"
-                    fill="#FFFFFF"
-                    stroke="#3C2F2F"
+                    fill={surfaceColor}
+                    stroke={inkColor}
                     strokeWidth="3"
                   />
                   {/* Pink/Orange pads */}
-                  <circle cx="455" cy="197" r="6" fill="#FF9500" />
-                  <circle cx="447" cy="189" r="2.5" fill="#FF9500" />
-                  <circle cx="455" cy="185" r="2.5" fill="#FF9500" />
-                  <circle cx="463" cy="189" r="2.5" fill="#FF9500" />
+                  <circle cx="455" cy="197" r="6" fill={accentColor} />
+                  <circle cx="447" cy="189" r="2.5" fill={accentColor} />
+                  <circle cx="455" cy="185" r="2.5" fill={accentColor} />
+                  <circle cx="463" cy="189" r="2.5" fill={accentColor} />
                 </g>
 
                 {/* Body */}
                 <path
                   d="M 385,150 C 375,180 375,210 410,215 C 445,210 445,180 435,150 Z"
-                  fill="#FFFFFF"
-                  stroke="#3C2F2F"
+                  fill={surfaceColor}
+                  stroke={inkColor}
                   strokeWidth="3"
                 />
                 {/* Body stripes */}
                 <path
                   d="M 382,175 Q 392,178 395,178"
-                  stroke="#FF9500"
+                  stroke={accentColor}
                   strokeWidth="6"
                   fill="none"
                   strokeLinecap="round"
                 />
                 <path
                   d="M 432,175 Q 422,178 419,178"
-                  stroke="#FF9500"
+                  stroke={accentColor}
                   strokeWidth="6"
                   fill="none"
                   strokeLinecap="round"
                 />
                 <path
                   d="M 382,192 Q 394,194 397,194"
-                  stroke="#FF9500"
+                  stroke={accentColor}
                   strokeWidth="6"
                   fill="none"
                   strokeLinecap="round"
                 />
                 <path
                   d="M 430,192 Q 418,194 415,194"
-                  stroke="#FF9500"
+                  stroke={accentColor}
                   strokeWidth="6"
                   fill="none"
                   strokeLinecap="round"
@@ -708,7 +716,7 @@ export default function NotFound() {
                 {/* Black Collar */}
                 <path
                   d="M 387,150 Q 410,158 433,150"
-                  stroke="#3C2F2F"
+                  stroke={inkColor}
                   strokeWidth="6"
                   fill="none"
                   strokeLinecap="round"
@@ -719,20 +727,20 @@ export default function NotFound() {
                   {/* Ears */}
                   <path
                     d="M 380,105 L 365,75 L 395,98 Z"
-                    fill="#FF9500"
-                    stroke="#3C2F2F"
+                    fill={accentColor}
+                    stroke={inkColor}
                     strokeWidth="3"
                     strokeLinejoin="round"
                   />
-                  <path d="M 382,101 L 372,82 L 391,96 Z" fill="#FFFFFF" />
+                  <path d="M 382,101 L 372,82 L 391,96 Z" fill={surfaceColor} />
                   <path
                     d="M 440,105 L 455,75 L 425,98 Z"
-                    fill="#FF9500"
-                    stroke="#3C2F2F"
+                    fill={accentColor}
+                    stroke={inkColor}
                     strokeWidth="3"
                     strokeLinejoin="round"
                   />
-                  <path d="M 438,101 L 448,82 L 429,96 Z" fill="#FFFFFF" />
+                  <path d="M 438,101 L 448,82 L 429,96 Z" fill={surfaceColor} />
 
                   {/* Head shape */}
                   <ellipse
@@ -740,27 +748,27 @@ export default function NotFound() {
                     cy="125"
                     rx="36"
                     ry="32"
-                    fill="#FFFFFF"
-                    stroke="#3C2F2F"
+                    fill={surfaceColor}
+                    stroke={inkColor}
                     strokeWidth="3"
                   />
 
                   {/* forehead stripes */}
                   <path
                     d="M 410,95 L 410,107"
-                    stroke="#FF9500"
+                    stroke={accentColor}
                     strokeWidth="4"
                     strokeLinecap="round"
                   />
                   <path
                     d="M 402,97 L 404,107"
-                    stroke="#FF9500"
+                    stroke={accentColor}
                     strokeWidth="4"
                     strokeLinecap="round"
                   />
                   <path
                     d="M 418,97 L 416,107"
-                    stroke="#FF9500"
+                    stroke={accentColor}
                     strokeWidth="4"
                     strokeLinecap="round"
                   />
@@ -768,14 +776,14 @@ export default function NotFound() {
                   {/* Cheek stripes */}
                   <path
                     d="M 376,120 Q 384,121 386,123"
-                    stroke="#FF9500"
+                    stroke={accentColor}
                     strokeWidth="4"
                     fill="none"
                     strokeLinecap="round"
                   />
                   <path
                     d="M 444,120 Q 436,121 434,123"
-                    stroke="#FF9500"
+                    stroke={accentColor}
                     strokeWidth="4"
                     fill="none"
                     strokeLinecap="round"
@@ -784,14 +792,14 @@ export default function NotFound() {
                   {/* Happy eyes */}
                   <path
                     d="M 390,123 Q 396,118 402,123"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="3"
                     fill="none"
                     strokeLinecap="round"
                   />
                   <path
                     d="M 418,123 Q 424,118 430,123"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="3"
                     fill="none"
                     strokeLinecap="round"
@@ -800,13 +808,13 @@ export default function NotFound() {
                   {/* Eyebrows */}
                   <path
                     d="M 388,116 Q 394,113 398,116"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="1.5"
                     fill="none"
                   />
                   <path
                     d="M 422,116 Q 428,113 432,116"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="1.5"
                     fill="none"
                   />
@@ -814,15 +822,15 @@ export default function NotFound() {
                   {/* Nose */}
                   <polygon
                     points="407,130 413,130 410,134"
-                    fill="#FF9500"
-                    stroke="#3C2F2F"
+                    fill={accentColor}
+                    stroke={inkColor}
                     strokeWidth="1"
                   />
 
                   {/* Mouth */}
                   <path
                     d="M 404,137 Q 407,140 410,137 Q 413,140 416,137"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="2.5"
                     fill="none"
                     strokeLinecap="round"
@@ -833,14 +841,14 @@ export default function NotFound() {
                     cx="383"
                     cy="133"
                     r="5"
-                    fill="#FF9500"
+                    fill={accentColor}
                     opacity="0.35"
                   />
                   <circle
                     cx="437"
                     cy="133"
                     r="5"
-                    fill="#FF9500"
+                    fill={accentColor}
                     opacity="0.35"
                   />
 
@@ -850,7 +858,7 @@ export default function NotFound() {
                     y1="130"
                     x2="366"
                     y2="128"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
@@ -859,7 +867,7 @@ export default function NotFound() {
                     y1="134"
                     x2="364"
                     y2="135"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
@@ -868,7 +876,7 @@ export default function NotFound() {
                     y1="130"
                     x2="454"
                     y2="128"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
@@ -877,7 +885,7 @@ export default function NotFound() {
                     y1="134"
                     x2="456"
                     y2="135"
-                    stroke="#3C2F2F"
+                    stroke={inkColor}
                     strokeWidth="1.5"
                     strokeLinecap="round"
                   />
@@ -897,7 +905,7 @@ export default function NotFound() {
             fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
             fontWeight: "700",
             fontSize: { xs: "16px", sm: "19px" },
-            color: "#3C2F2F", // Dark brown matching design
+            color: theme.palette.text.primary,
             mb: { xs: 4, sm: 5 },
             lineHeight: 1.5,
             maxWidth: "500px",
@@ -917,22 +925,22 @@ export default function NotFound() {
             href="/"
             whileHover={{
               scale: 1.05,
-              backgroundColor: "#E08300",
-              boxShadow: "0 8px 24px rgba(255, 149, 0, 0.35)",
+              backgroundColor: accentHoverColor,
+              boxShadow: `0 8px 24px ${alpha(accentColor, 0.35)}`,
               y: -2,
             }}
             whileTap={{ scale: 0.98, y: 0 }}
             style={{
               display: "inline-block",
-              backgroundColor: "#FF9500", // Vibrant theme orange
-              color: "#FFFFFF",
+              backgroundColor: accentColor,
+              color: accentTextColor,
               padding: "14px 38px",
               borderRadius: "100px",
               fontWeight: "700",
               fontSize: "16px",
               fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
               textDecoration: "none",
-              boxShadow: "0 6px 20px rgba(255, 149, 0, 0.25)",
+              boxShadow: `0 6px 20px ${alpha(accentColor, 0.25)}`,
               transition: "background-color 0.2s ease, box-shadow 0.2s ease",
               textAlign: "center",
             }}

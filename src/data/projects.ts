@@ -21,8 +21,8 @@ export const projectsData: ProjectData[] = [
     id: 1,
     title: "ROTA DO NEVEIRO",
     bg: "#3d4a3e",
-    accent: "#ffffff",
-    textColor: "#ffffff",
+    accent: "contrast",
+    textColor: "contrast",
     en: {
       description:
         "Unified web platform connecting municipalities of Cadaval, Castanheira de Pera, and Funchal. The site showcases historical ice routes and hiking trails, acting as a complete digital guide to the nature and heritage of these regions.",

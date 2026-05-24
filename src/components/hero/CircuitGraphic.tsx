@@ -38,11 +38,13 @@ export default function CircuitGraphic() {
       {/* Fixed-Size Circuit Nodes & Arrow (Covers the space above CHOWDHURY) */}
       <Box sx={{ flexShrink: 0, width: "160px", height: "100%" }}>
         <motion.svg
+          aria-labelledby="circuit-graphic-title"
           width="100%"
           height="100%"
           viewBox="0 0 160 100"
           style={{ overflow: "visible" }}
         >
+          <title id="circuit-graphic-title">Circuit accent graphic</title>
           {/* Branching Lines */}
           <motion.path
             d="M 0 50 L 30 20 H 70 M 0 50 L 30 80 H 70"

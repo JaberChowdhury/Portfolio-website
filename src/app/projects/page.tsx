@@ -79,8 +79,7 @@ const translations = {
     stars: "স্টার",
     forks: "ফর্ক",
     noProjects: "আপনার অনুসন্ধানের সাথে মিলে এমন কোনো প্রজেক্ট পাওয়া যায়নি।",
-    fallbackWarning:
-      "স্ট্যাটিক প্রজেক্ট ক্যাটালগ দেখানো হচ্ছে (GitHub API লিমিট শেষ)।",
+    fallbackWarning: "স্ট্যাটিক প্রজেক্ট ক্যাটালগ দেখানো হচ্ছে (GitHub API লিমিট শেষ)।",
     sortBy: "ক্রমানুসারে",
     sortOptions: {
       updated: "সাম্প্রতিক আপডেট",
@@ -216,7 +215,6 @@ export default function ProjectsPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const language = useLanguageStore((s) => s.language);
   const t = translations[language];
-  const isDark = theme.palette.mode === "dark";
 
   // Component States
   const [repos, setRepos] = useState<Repository[]>([]);
@@ -653,9 +651,7 @@ export default function ProjectsPage() {
                     fontSize: 15,
                     color:
                       viewMode === "grid"
-                        ? isDark
-                          ? "#151515"
-                          : "#E6E4DC"
+                        ? theme.palette.background.default
                         : theme.palette.text.primary,
                     transition: "color 0.25s",
                   }}
@@ -667,9 +663,7 @@ export default function ProjectsPage() {
                     letterSpacing: "0.1em",
                     color:
                       viewMode === "grid"
-                        ? isDark
-                          ? "#151515"
-                          : "#E6E4DC"
+                        ? theme.palette.background.default
                         : theme.palette.text.primary,
                     transition: "color 0.25s",
                   }}
@@ -698,9 +692,7 @@ export default function ProjectsPage() {
                     fontSize: 15,
                     color:
                       viewMode === "list"
-                        ? isDark
-                          ? "#151515"
-                          : "#E6E4DC"
+                        ? theme.palette.background.default
                         : theme.palette.text.primary,
                     transition: "color 0.25s",
                   }}
@@ -712,9 +704,7 @@ export default function ProjectsPage() {
                     letterSpacing: "0.1em",
                     color:
                       viewMode === "list"
-                        ? isDark
-                          ? "#151515"
-                          : "#E6E4DC"
+                        ? theme.palette.background.default
                         : theme.palette.text.primary,
                     transition: "color 0.25s",
                   }}
@@ -771,9 +761,7 @@ export default function ProjectsPage() {
                       ? theme.palette.text.primary
                       : "transparent",
                     color: isSelected
-                      ? isDark
-                        ? "#151515"
-                        : "#E6E4DC"
+                      ? theme.palette.background.default
                       : theme.palette.text.primary,
                     fontWeight: 800,
                     fontSize: "11px",
@@ -895,7 +883,7 @@ export default function ProjectsPage() {
                           fontSize: repo.name.length > 12 ? "44px" : "60px",
                           fontWeight: 900,
                           color: theme.palette.text.primary,
-                          opacity: isDark ? 0.025 : 0.04,
+                          opacity: theme.palette.mode === "dark" ? 0.025 : 0.04,
                           whiteSpace: "nowrap",
                           zIndex: 0,
                           pointerEvents: "none",

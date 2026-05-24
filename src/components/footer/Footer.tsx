@@ -9,7 +9,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useColorScheme, useTheme } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import ParticleText from "@/app/extras/ParticleText";
 import { useLanguageStore } from "@/store/languageStore";
 
@@ -45,25 +45,16 @@ const translations = {
 };
 
 export default function Footer() {
-  const { mode } = useColorScheme();
   const theme = useTheme();
   const language = useLanguageStore((s) => s.language);
   const t = translations[language];
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  // Determine if we are in light mode (defaulting to light if not explicitly dark)
-  const isLightMode = mode === "light" || mode === "system" || !mode;
-
-  // Inverse Theme Logic
-  // When the site is light, the footer is dark. When the site is dark, the footer is light.
-  const bgColor = isLightMode ? "#3B3A36" : "#EBEAE5"; // Deep grey-brown for dark mode, beige for light mode
-  const textColor = isLightMode ? "#EBEAE5" : "#1a1a1a";
-  const dividerColor = isLightMode
-    ? "rgba(255, 255, 255, 0.08)"
-    : "rgba(0, 0, 0, 0.08)";
-  const secondaryTextColor = isLightMode
-    ? "rgba(235, 234, 229, 0.5)"
-    : "rgba(26, 26, 26, 0.5)";
+  // Inverse theme block: light mode gets a dark footer, dark mode gets a light footer.
+  const bgColor = theme.palette.text.primary;
+  const textColor = theme.palette.background.default;
+  const dividerColor = alpha(textColor, 0.12);
+  const secondaryTextColor = alpha(textColor, 0.56);
 
   return (
     <Box
@@ -107,6 +98,7 @@ export default function Footer() {
                 }}
               >
                 <svg
+                  aria-labelledby="footer-logo-title"
                   width="48"
                   height="48"
                   viewBox="0 0 24 24"
@@ -114,6 +106,7 @@ export default function Footer() {
                   xmlns="http://www.w3.org/2000/svg"
                   style={{ marginRight: "16px" }}
                 >
+                  <title id="footer-logo-title">Hyperloop Studio logo</title>
                   <path d="M4 10H14V13H4V10Z" />
                   <path d="M10 15H20V18H10V15Z" />
                 </svg>
@@ -194,7 +187,7 @@ export default function Footer() {
                   py: 1.5,
                   fontSize: "0.75rem",
                   letterSpacing: "0.15em",
-                  border: "1px solid white",
+                  border: `1px solid ${dividerColor}`,
                   fontWeight: 700,
                   width: "fit-content",
                   transition: "all 0.3s ease",

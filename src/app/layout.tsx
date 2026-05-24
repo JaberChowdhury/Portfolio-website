@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import CssBaseline from "@mui/material/CssBaseline"; // Crucial import for MUI themes
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
-import { ThemeProvider } from "@mui/material/styles";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Roboto } from "next/font/google";
+import Footer from "@/components/footer/Footer";
 import GridBackground from "@/components/GridBackground";
 import Preloader from "@/components/Preloader";
-import theme from "../theme";
-import Footer from "@/components/footer/Footer";
+import ThemeRegistry from "./ThemeRegistry";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -30,23 +27,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={roboto.variable} suppressHydrationWarning>
-      <head>
-        <InitColorSchemeScript attribute="class" />
-      </head>
       <body>
-        <AppRouterCacheProvider options={{ key: "css" }}>
-          <ThemeProvider theme={theme}>
-            {/* CssBaseline kicks in the theme.palette.background.default globally */}
-            <CssBaseline />
-
-            <Preloader>
-              <GridBackground>
-                {children}
-                <Footer />
-              </GridBackground>
-            </Preloader>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <InitColorSchemeScript attribute="class" defaultMode="light" />
+        <ThemeRegistry>
+          <Preloader>
+            <GridBackground>
+              {children}
+              <Footer />
+            </GridBackground>
+          </Preloader>
+        </ThemeRegistry>
       </body>
     </html>
   );

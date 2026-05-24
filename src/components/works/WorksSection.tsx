@@ -130,7 +130,6 @@ export default function WorksSection() {
     <Box
       id="works"
       sx={{
-        // background: "#e8e4db",
         minHeight: "100vh",
         // Apply your noise texture
         // backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
@@ -149,8 +148,8 @@ export default function WorksSection() {
       >
         <ParticleText
           text={t.sectionTitle}
-          colorStart="#1a1a1a"
-          colorEnd="#1a1a1a"
+          colorStart={theme.palette.text.primary}
+          colorEnd={theme.palette.text.primary}
           font={
             isMobile
               ? "900 100px Inter, sans-serif"
@@ -219,8 +218,8 @@ export default function WorksSection() {
           <ParticleText
             text={activeProject.title}
             canvasWidth={isMobile ? 1200 : 3800}
-            colorStart="#25343F"
-            colorEnd="#25343F"
+            colorStart={theme.palette.text.primary}
+            colorEnd={theme.palette.text.primary}
             font={
               isMobile
                 ? "900 120px Inter, sans-serif"
@@ -229,21 +228,6 @@ export default function WorksSection() {
             particleSize={0.4}
           />
         </Box>
-        {/*<Box sx={{ px: "40px", pb: "48px", overflow: "hidden" }}>
-          <Typography
-            sx={{
-              fontFamily: "'Barlow Condensed', Impact, sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(56px, 10vw, 120px)",
-              letterSpacing: "-0.01em",
-              color: "#1a1a1a",
-              lineHeight: 0.9,
-              textTransform: "uppercase",
-            }}
-          >
-            {activeProject.title}
-          </Typography>
-        </Box>*/}
       </Box>
     </Box>
   );

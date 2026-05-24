@@ -111,7 +111,21 @@ export default function ProjectDetailClient({
   const language = useLanguageStore((s) => s.language);
   const t = detailTranslations[language];
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const mainTextColor = "rgba(0, 0, 0, 0.85)";
+  const mainTextColor = theme.palette.text.primary;
+  const codeSurfaceColor = alpha(theme.palette.text.primary, 0.05);
+  const syntaxMutedColor = theme.palette.text.secondary;
+  const syntaxDangerColor = isDark
+    ? theme.palette.error.light
+    : theme.palette.error.dark;
+  const syntaxStringColor = isDark
+    ? theme.palette.info.light
+    : theme.palette.info.dark;
+  const syntaxTitleColor = isDark
+    ? theme.palette.secondary.light
+    : theme.palette.secondary.dark;
+  const syntaxNumberColor = isDark
+    ? theme.palette.warning.light
+    : theme.palette.warning.dark;
 
   // Local state to store readmes (pre-rendered or dynamically compiled client-side)
   const [readmesMap, setReadmesMap] = useState<Record<string, string>>(() => {
@@ -442,7 +456,7 @@ export default function ProjectDetailClient({
                       width: 10,
                       height: 10,
                       borderRadius: "50%",
-                      backgroundColor: "#ff5f56",
+                      backgroundColor: theme.palette.error.main,
                       opacity: 0.8,
                     }}
                   />
@@ -451,7 +465,7 @@ export default function ProjectDetailClient({
                       width: 10,
                       height: 10,
                       borderRadius: "50%",
-                      backgroundColor: "#ffbd2e",
+                      backgroundColor: theme.palette.warning.main,
                       opacity: 0.8,
                     }}
                   />
@@ -460,7 +474,7 @@ export default function ProjectDetailClient({
                       width: 10,
                       height: 10,
                       borderRadius: "50%",
-                      backgroundColor: "#27c93f",
+                      backgroundColor: theme.palette.success.main,
                       opacity: 0.8,
                     }}
                   />
@@ -538,7 +552,7 @@ export default function ProjectDetailClient({
                     width: "100%",
                     height: "100%",
                     border: "none",
-                    backgroundColor: "#ffffff",
+                    backgroundColor: theme.palette.background.paper,
                   }}
                   sandbox="allow-scripts allow-same-origin"
                 />
@@ -643,9 +657,7 @@ export default function ProjectDetailClient({
                   mb: 1,
                 },
                 "& pre": {
-                  backgroundColor: isDark
-                    ? "rgba(255,255,255,0.05)"
-                    : "rgba(0,0,0,0.04)",
+                  backgroundColor: codeSurfaceColor,
                   padding: 2.5,
                   borderRadius: "4px",
                   border: `1px solid ${theme.palette.divider}`,
@@ -654,9 +666,7 @@ export default function ProjectDetailClient({
                   my: 3,
                 },
                 "& code": {
-                  backgroundColor: isDark
-                    ? "rgba(255,255,255,0.05)"
-                    : "rgba(0,0,0,0.04)",
+                  backgroundColor: codeSurfaceColor,
                   px: 0.8,
                   py: 0.4,
                   borderRadius: "3px",
@@ -696,29 +706,29 @@ export default function ProjectDetailClient({
                   color: theme.palette.text.primary,
                 },
                 "& .hljs-comment, & .hljs-quote": {
-                  color: isDark ? "#8b949e" : "#6a737d",
+                  color: syntaxMutedColor,
                   fontStyle: "italic",
                 },
                 "& .hljs-keyword, & .hljs-selector-tag, & .hljs-subst": {
-                  color: isDark ? "#ff7b72" : "#d73a49",
+                  color: syntaxDangerColor,
                   fontWeight: "bold",
                 },
                 "& .hljs-string, & .hljs-regexp, & .hljs-addition, & .hljs-attribute, & .hljs-meta-string":
                   {
-                    color: isDark ? "#a5d6ff" : "#032f62",
+                    color: syntaxStringColor,
                   },
                 "& .hljs-title, & .hljs-section, & .hljs-doctag, & .hljs-name, & .hljs-selector-id, & .hljs-selector-class":
                   {
-                    color: isDark ? "#d2a8ff" : "#6f42c1",
+                    color: syntaxTitleColor,
                     fontWeight: "bold",
                   },
                 "& .hljs-variable, & .hljs-template-variable, & .hljs-type, & .hljs-selector-attr, & .hljs-selector-pseudo, & .hljs-number":
                   {
-                    color: isDark ? "#f0883e" : "#e36209",
+                    color: syntaxNumberColor,
                   },
                 "& .hljs-symbol, & .hljs-bullet, & .hljs-meta, & .hljs-built_in, & .hljs-class, & .hljs-title.class_":
                   {
-                    color: isDark ? "#79c0ff" : "#005cc5",
+                    color: syntaxStringColor,
                   },
                 "& .hljs-emphasis": {
                   fontStyle: "italic",

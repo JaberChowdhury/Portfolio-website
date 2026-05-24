@@ -1,6 +1,6 @@
 "use client";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import { Box, Button, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Link, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useLanguageStore } from "@/store/languageStore";
 import ParticleText from "../../app/extras/ParticleText";
@@ -187,17 +187,21 @@ const PricingSection = () => {
 
         {/* EMAIL US link at bottom right */}
         <Box sx={{ textAlign: "right" }}>
-          <a
+          <Link
             href="mailto:your_email@example.com"
-            style={{
+            underline="none"
+            sx={{
               textDecoration: "none",
-              color: "var(--mui-palette-text-secondary)",
+              color: "text.secondary",
               fontSize: "14px",
               textTransform: "uppercase",
+              "&:hover": {
+                color: "text.primary",
+              },
             }}
           >
             {pricingData.emailLink}
-          </a>
+          </Link>
         </Box>
       </Box>
     </Box>

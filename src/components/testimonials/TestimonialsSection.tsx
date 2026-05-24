@@ -2,7 +2,6 @@
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { Box, Grid, Link, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import React from "react";
 import { testimonialsData } from "@/data/testimonials";
 import { useLanguageStore } from "@/store/languageStore";
 import ParticleText from "../../app/extras/ParticleText";
@@ -62,7 +61,7 @@ export default function TestimonialsSection() {
 
       {/* Testimonials Grid */}
       <Grid container spacing={4}>
-        {testimonialsData.map((item: any, index: number) => (
+        {testimonialsData.map((item) => (
           <Grid size={{ xs: 12, md: 4 }} key={item.id}>
             <Box
               sx={{
@@ -136,7 +135,8 @@ export default function TestimonialsSection() {
                       letterSpacing: "0.05em",
                     }}
                   >
-                    // {t.projectLabel}: {item.project}
+                    {"// "}
+                    {t.projectLabel}: {item.project}
                   </Link>
 
                   {item.verified && (
@@ -145,7 +145,7 @@ export default function TestimonialsSection() {
                         display: "flex",
                         alignItems: "center",
                         gap: 0.5,
-                        color: "#0077b5", // LinkedIn blue
+                        color: "primary.main",
                         fontSize: "0.85rem",
                         fontWeight: 600,
                         textTransform: "uppercase",

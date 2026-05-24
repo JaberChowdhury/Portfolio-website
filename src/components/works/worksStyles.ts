@@ -7,7 +7,7 @@ export const labelStyle: CSSProperties = {
   fontSize: 10,
   fontWeight: 700,
   letterSpacing: "0.1em",
-  color: "#888",
+  color: "var(--mui-palette-text-secondary)",
   marginBottom: 6,
 };
 
@@ -16,6 +16,6 @@ export const bodyStyle: CSSProperties = {
   fontWeight: 400,
   fontSize: 13,
   lineHeight: 1.55,
-  color: "#444",
+  color: "var(--mui-palette-text-primary)",
   margin: 0,
 };

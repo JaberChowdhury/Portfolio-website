@@ -33,6 +33,9 @@ export default function HeroMarquee() {
   const language = useLanguageStore((s) => s.language);
   const t = translations[language];
   const gridLineColor = theme.palette.divider;
+  const marqueeItems = ["first", "second"].flatMap((group) =>
+    t.marquee.map((text) => ({ key: `${group}-${text}`, text })),
+  );
 
   return (
     <Box
@@ -59,9 +62,9 @@ export default function HeroMarquee() {
           ensures the marquee has enough content to scroll seamlessly
           without a visible break or pop when the animation restarts.
         */}
-        {[...t.marquee, ...t.marquee].map((text, index) => (
+        {marqueeItems.map((item) => (
           <Typography
-            key={index}
+            key={item.key}
             variant="h5"
             sx={{
               mx: { xs: 2, md: 4 },
@@ -70,7 +73,7 @@ export default function HeroMarquee() {
               textTransform: "uppercase",
             }}
           >
-            {text}
+            {item.text}
           </Typography>
         ))}
       </Box>

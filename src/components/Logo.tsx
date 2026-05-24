@@ -42,6 +42,7 @@ export default function Logo() {
     >
       {/* The Geometric Stack Monogram (MJHC) */}
       <motion.svg
+        aria-labelledby="site-logo-title"
         width="56"
         height="56"
         viewBox="0 0 100 100"
@@ -49,6 +50,7 @@ export default function Logo() {
         xmlns="http://www.w3.org/2000/svg"
         style={{ overflow: "visible" }}
       >
+        <title id="site-logo-title">MD Jaber Hossain Chowdhury logo</title>
         {/* Path 1: The Left Wall and the 'J' hook base */}
         <motion.path
           d="M 16 16 V 84 H 42 V 65"

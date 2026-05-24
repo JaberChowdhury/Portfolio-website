@@ -1,9 +1,8 @@
 "use client";
 
+import { alpha, useTheme } from "@mui/material/styles";
 import { motion } from "framer-motion";
-import React from "react";
 import type { Project } from "./worksData";
-import { CARD_WIDTH } from "./worksData";
 
 interface ProjectCardProps {
   project: Project;
@@ -24,9 +23,18 @@ export default function ProjectCard({
   dragHint,
   featuredText,
 }: ProjectCardProps) {
+  const theme = useTheme();
   const distance = Math.abs(index - activeIndex);
   const scale = isCenter ? 1 : Math.max(0.82, 1 - distance * 0.09);
   const brightness = isCenter ? 1 : Math.max(0.55, 1 - distance * 0.2);
+  const overlayText =
+    project.textColor === "contrast"
+      ? theme.palette.getContrastText(project.bg)
+      : project.textColor;
+  const accentColor =
+    project.accent === "contrast"
+      ? theme.palette.getContrastText(project.bg)
+      : project.accent;
 
   return (
     <motion.div
@@ -103,19 +111,20 @@ export default function ProjectCard({
               style={{
                 // fontFamily: "'Share Tech Mono', monospace",
                 fontSize: 10,
-                color: "rgba(255,255,255,0.5)",
+                color: alpha(overlayText, 0.55),
                 letterSpacing: "0.14em",
                 marginBottom: 6,
               }}
             >
-              // {String(project.id).padStart(2, "0")} {featuredText}
+              {"// "}
+              {String(project.id).padStart(2, "0")} {featuredText}
             </div>
             <div
               style={{
                 // fontFamily: "'Barlow Condensed', Impact, sans-serif",
                 fontWeight: 700,
                 fontSize: 22,
-                color: "#fff",
+                color: overlayText,
                 letterSpacing: "0.06em",
               }}
             >
@@ -128,15 +137,15 @@ export default function ProjectCard({
             animate={{ x: [0, -4, 0, 4, 0] }}
             transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
             style={{
-              border: "1px solid rgba(255,255,255,0.4)",
+              border: `1px solid ${alpha(overlayText, 0.4)}`,
               borderRadius: 2,
               padding: "6px 14px",
               // fontFamily: "'Share Tech Mono', monospace",
               fontSize: 10,
-              color: "rgba(255,255,255,0.7)",
+              color: alpha(overlayText, 0.75),
               letterSpacing: "0.1em",
               backdropFilter: "blur(6px)",
-              background: "rgba(0,0,0,0.2)",
+              background: alpha(project.bg, 0.35),
             }}
           >
             {dragHint}
@@ -152,8 +161,8 @@ export default function ProjectCard({
           left: 16,
           width: 20,
           height: 20,
-          borderTop: `1.5px solid ${project.accent}`,
-          borderLeft: `1.5px solid ${project.accent}`,
+          borderTop: `1.5px solid ${accentColor}`,
+          borderLeft: `1.5px solid ${accentColor}`,
           opacity: isCenter ? 0.8 : 0.3,
           zIndex: 10,
           transition: "opacity 0.3s ease",
@@ -167,8 +176,8 @@ export default function ProjectCard({
           right: 16,
           width: 20,
           height: 20,
-          borderBottom: `1.5px solid ${project.accent}`,
-          borderRight: `1.5px solid ${project.accent}`,
+          borderBottom: `1.5px solid ${accentColor}`,
+          borderRight: `1.5px solid ${accentColor}`,
           opacity: isCenter ? 0.8 : 0.3,
           zIndex: 10,
           transition: "opacity 0.3s ease",

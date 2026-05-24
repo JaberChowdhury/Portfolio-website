@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import { motion } from "framer-motion";
 
 export default function Loading() {
@@ -35,10 +35,7 @@ export default function Loading() {
         alignItems: "center",
         justifyContent: "center",
         // Frosted glassmorphism background that lets the grid background show through
-        backgroundColor:
-          theme.palette.mode === "dark"
-            ? "rgba(21, 21, 21, 0.75)"
-            : "rgba(230, 228, 220, 0.75)",
+        backgroundColor: alpha(theme.palette.background.default, 0.75),
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         gap: "24px",
@@ -47,6 +44,7 @@ export default function Loading() {
     >
       {/* Dynamic Drawing Monogram Logo */}
       <motion.svg
+        aria-labelledby="loading-logo-title"
         width="80"
         height="80"
         viewBox="0 0 100 100"
@@ -54,10 +52,10 @@ export default function Loading() {
         xmlns="http://www.w3.org/2000/svg"
         style={{
           overflow: "visible",
-          filter:
-            theme.palette.mode === "dark"
-              ? "drop-shadow(0px 0px 12px rgba(0, 229, 229, 0.35))"
-              : "drop-shadow(0px 0px 8px rgba(0, 255, 255, 0.3))",
+          filter: `drop-shadow(0px 0px 10px ${alpha(
+            theme.palette.primary.main,
+            0.34,
+          )})`,
         }}
         animate={{
           scale: [1, 1.02, 1],
@@ -68,6 +66,7 @@ export default function Loading() {
           repeat: Infinity,
         }}
       >
+        <title id="loading-logo-title">Loading</title>
         {/* Path 1: The Left Wall and the 'J' hook base */}
         <motion.path
           d="M 16 16 V 84 H 42 V 65"
