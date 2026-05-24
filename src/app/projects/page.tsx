@@ -10,6 +10,7 @@ import StarIcon from "@mui/icons-material/Star";
 import {
   alpha,
   Box,
+  Button,
   Container,
   Link as MuiLink,
   Typography,
@@ -78,7 +79,8 @@ const translations = {
     stars: "স্টার",
     forks: "ফর্ক",
     noProjects: "আপনার অনুসন্ধানের সাথে মিলে এমন কোনো প্রজেক্ট পাওয়া যায়নি।",
-    fallbackWarning: "স্ট্যাটিক প্রজেক্ট ক্যাটালগ দেখানো হচ্ছে (GitHub API লিমিট শেষ)।",
+    fallbackWarning:
+      "স্ট্যাটিক প্রজেক্ট ক্যাটালগ দেখানো হচ্ছে (GitHub API লিমিট শেষ)।",
     sortBy: "ক্রমানুসারে",
     sortOptions: {
       updated: "সাম্প্রতিক আপডেট",
@@ -759,6 +761,7 @@ export default function ProjectsPage() {
               return (
                 <Box
                   key={lang}
+                  component={Button}
                   onClick={() => setSelectedLanguage(lang)}
                   sx={{
                     px: 2.2,

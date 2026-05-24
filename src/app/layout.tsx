@@ -8,6 +8,7 @@ import { Roboto } from "next/font/google";
 import GridBackground from "@/components/GridBackground";
 import Preloader from "@/components/Preloader";
 import theme from "../theme";
+import Footer from "@/components/footer/Footer";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -39,7 +40,10 @@ export default function RootLayout({
             <CssBaseline />
 
             <Preloader>
-              <GridBackground>{children}</GridBackground>
+              <GridBackground>
+                {children}
+                <Footer />
+              </GridBackground>
             </Preloader>
           </ThemeProvider>
         </AppRouterCacheProvider>
