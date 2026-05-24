@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import { faqData } from "./faqData";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function FaqAccordion() {
+  const { t } = useLanguage();
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const toggleAccordion = (id: string) => {
@@ -14,7 +15,7 @@ export default function FaqAccordion() {
 
   return (
     <Box sx={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}>
-      {faqData.map((item) => {
+      {t.faq.items.map((item) => {
         const isExpanded = expandedId === item.id;
 
         return (

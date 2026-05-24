@@ -42,7 +42,7 @@ export default function ParticleText({
   particleOpacity = 0.9,
   colorStart, // Removed default values here
   colorEnd, // Removed default values here
-  hoverRadius = 3.5,
+  hoverRadius = 53.5,
   hoverForceXY = 0.2,
   hoverForceZ = 2.0,
   explodeRadius = 15.0,

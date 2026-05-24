@@ -95,7 +95,7 @@ const serviceIcons: { [key: string]: React.ReactNode } = {
   "04": <EngineeringIcon />,
 };
 
-export default function ServicesSection() {
+export default function ProcessSection() {
   const theme = useTheme();
   const { t } = useLanguage();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -107,7 +107,7 @@ export default function ServicesSection() {
 
   return (
     <Box
-      id="services"
+      id="process"
       component="section"
       sx={{
         py: { xs: 8, md: 16 },
@@ -125,7 +125,8 @@ export default function ServicesSection() {
         }}
       >
         <ParticleText
-          text={t.services.sectionTitle}
+          canvasWidth={3400}
+          text={t.process.sectionTitle}
           colorStart={mainTextColor}
           colorEnd={mainTextColor}
           font={
@@ -139,7 +140,7 @@ export default function ServicesSection() {
 
       {/* Main Service List Container */}
       <Box sx={{ borderTop: "1px solid", borderColor: "rgba(0,0,0,0.15)" }}>
-        {t.services.items.map((service) => {
+        {t.process.items.map((service) => {
           const isExpanded = expandedId === service.id;
           const numId = service.id.replace("0", ""); // "1", "2", "3", "4"
 
@@ -241,7 +242,7 @@ export default function ServicesSection() {
                                   mt: 1,
                                 }}
                               >
-                                {t.services.projectsLabel}
+                                {t.process.projectsLabel}
                               </Typography>
                             </Box>
                           </Grid>
@@ -330,7 +331,7 @@ export default function ServicesSection() {
                                 "&:hover": { opacity: 0.7 },
                               }}
                             >
-                              {t.services.exploreMore}
+                              {t.process.exploreMore}
                             </Button>
                             <Box
                               sx={{

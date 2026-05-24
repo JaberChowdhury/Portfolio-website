@@ -4,11 +4,14 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ProjectCard from "./ProjectCard";
 import InfoRow from "./InfoRow";
-import { PROJECTS, CARD_GAP } from "./worksData";
-import ParticleText from "../extras/ParticleText";
+import { CARD_GAP } from "./worksData";
+import ParticleText from "../../app/extras/ParticleText";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function WorksSection() {
   const theme = useTheme();
+  const { t } = useLanguage();
+  const PROJECTS = t.works.projects;
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [activeIndex, setActiveIndex] = useState(2);
   const [isDragging, setIsDragging] = useState(false);
@@ -120,10 +123,14 @@ export default function WorksSection() {
         }}
       >
         <ParticleText
-          text="WORKS"
+          text={t.works.sectionTitle}
           colorStart="#1a1a1a"
           colorEnd="#1a1a1a"
-          font={isMobile ? "900 100px Inter, sans-serif" : "900 200px Inter, sans-serif"}
+          font={
+            isMobile
+              ? "900 100px Inter, sans-serif"
+              : "900 200px Inter, sans-serif"
+          }
           particleSize={0.4}
         />
       </Box>
@@ -142,6 +149,7 @@ export default function WorksSection() {
           flexGrow: 1,
           display: "flex",
           alignItems: "center",
+          touchAction: "pan-y",
         }}
       >
         <Box
@@ -164,6 +172,8 @@ export default function WorksSection() {
               activeIndex={activeIndex}
               isCenter={i === activeIndex}
               cardWidth={cardWidth}
+              dragHint={t.works.dragHint}
+              featuredText={t.works.featured}
             />
           ))}
         </Box>
@@ -186,7 +196,11 @@ export default function WorksSection() {
             canvasWidth={isMobile ? 1200 : 3800}
             colorStart="#25343F"
             colorEnd="#25343F"
-            font={isMobile ? "900 120px Inter, sans-serif" : "900 300px Inter, sans-serif"}
+            font={
+              isMobile
+                ? "900 120px Inter, sans-serif"
+                : "900 300px Inter, sans-serif"
+            }
             particleSize={0.4}
           />
         </Box>

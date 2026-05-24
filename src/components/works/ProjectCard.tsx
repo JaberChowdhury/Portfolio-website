@@ -11,6 +11,8 @@ interface ProjectCardProps {
   index: number;
   activeIndex: number;
   cardWidth: number;
+  dragHint: string;
+  featuredText: string;
 }
 
 export default function ProjectCard({
@@ -19,6 +21,8 @@ export default function ProjectCard({
   index,
   activeIndex,
   cardWidth,
+  dragHint,
+  featuredText,
 }: ProjectCardProps) {
   const distance = Math.abs(index - activeIndex);
   const scale = isCenter ? 1 : Math.max(0.82, 1 - distance * 0.09);
@@ -104,7 +108,7 @@ export default function ProjectCard({
                 marginBottom: 6,
               }}
             >
-              // {String(project.id).padStart(2, "0")} FEATURED
+              // {String(project.id).padStart(2, "0")} {featuredText}
             </div>
             <div
               style={{
@@ -135,7 +139,7 @@ export default function ProjectCard({
               background: "rgba(0,0,0,0.2)",
             }}
           >
-            ← DRAG →
+            {dragHint}
           </motion.div>
         </motion.div>
       )}

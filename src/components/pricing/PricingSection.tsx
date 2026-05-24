@@ -1,14 +1,16 @@
 "use client";
 import React from "react";
 import PricingCard from "./PricingCard";
-import { pricingData } from "./pricingData";
-import ParticleText from "../extras/ParticleText";
+import ParticleText from "../../app/extras/ParticleText";
 import { Box, Typography, Button, useMediaQuery } from "@mui/material";
+import { useLanguage } from "../../context/LanguageContext";
 import { useTheme } from "@mui/material/styles";
 
 // Main Pricing Page Component
 const PricingSection = () => {
   const theme = useTheme();
+  const { t } = useLanguage();
+  const pricingData = t.pricing;
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const mainTextColor = "rgba(0, 0, 0, 0.85)";
@@ -20,7 +22,10 @@ const PricingSection = () => {
         color: "#1a1a1a",
       }}
     >
-      <Box component="section" sx={{ py: { xs: 8, md: 16 }, px: { xs: 3, md: 8 } }}>
+      <Box
+        component="section"
+        sx={{ py: { xs: 8, md: 16 }, px: { xs: 3, md: 8 } }}
+      >
         <Box
           sx={{
             mb: { xs: 6, md: 10 },
@@ -29,10 +34,14 @@ const PricingSection = () => {
           }}
         >
           <ParticleText
-            text="Pricing"
+            text={pricingData.header}
             colorStart={mainTextColor}
             colorEnd={mainTextColor}
-            font={isMobile ? "900 100px Inter, sans-serif" : "900 200px Inter, sans-serif"}
+            font={
+              isMobile
+                ? "900 100px Inter, sans-serif"
+                : "900 200px Inter, sans-serif"
+            }
             particleSize={0.4}
           />
         </Box>

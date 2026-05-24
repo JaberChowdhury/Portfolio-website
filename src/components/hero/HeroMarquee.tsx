@@ -4,19 +4,11 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { marqueeScroll } from "./heroAnimations";
-
-// Extracted content into an array for easy updating and cleaner JSX.
-const MARQUEE_ITEMS = [
-  "High-Performance Web Graphics —",
-  "Three.js & WebGPU Animations —",
-  "Modern Toolchains: Bun & Vite —",
-  "C++ Execution Engines —",
-  "Competitive Programming Logic —",
-  "Advanced System Architecture —",
-];
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function HeroMarquee() {
   const theme = useTheme();
+  const { t } = useLanguage();
   const gridLineColor = theme.palette.divider;
 
   return (
@@ -40,11 +32,11 @@ export default function HeroMarquee() {
         }}
       >
         {/*
-          Spreading the array twice ([...MARQUEE_ITEMS, ...MARQUEE_ITEMS])
+          Spreading the array twice ([...t.hero.marquee, ...t.hero.marquee])
           ensures the marquee has enough content to scroll seamlessly
           without a visible break or pop when the animation restarts.
         */}
-        {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((text, index) => (
+        {[...t.hero.marquee, ...t.hero.marquee].map((text, index) => (
           <Typography
             key={index}
             variant="h5"

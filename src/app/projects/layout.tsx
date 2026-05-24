@@ -4,7 +4,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline"; // Crucial import for MUI themes
-import theme from "../theme";
+import theme from "../../theme";
 import { InitColorSchemeScript } from "@mui/material";
 import Navbar from "@/components/navbar/Navbar";
 import GridBackground from "@/components/GridBackground";

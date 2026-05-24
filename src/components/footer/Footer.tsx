@@ -1,13 +1,22 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, Button, Link, Grid, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Link,
+  Grid,
+  useMediaQuery,
+} from "@mui/material";
 import { useColorScheme, useTheme } from "@mui/material/styles";
-import ParticleText from "./extras/ParticleText";
+import ParticleText from "@/app/extras/ParticleText";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
   const { mode } = useColorScheme();
   const theme = useTheme();
+  const { t, language } = useLanguage();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   // Determine if we are in light mode (defaulting to light if not explicitly dark)
@@ -84,22 +93,56 @@ export default function Footer() {
                     letterSpacing: "0.02em",
                   }}
                 >
-                  Hyperloop
+                  {t.footer.logoText1}
                   <br />
-                  STUDIO
+                  {t.footer.logoText2}
                 </Typography>
               </Box>
 
-              <Box sx={{ mb: 1, height: { xs: "80px", md: "120px" }, position: "relative", left: { xs: "-20px", md: "-170px" } }}>
-                <ParticleText
-                  text="Let's Collaborate"
-                  canvasWidth={isMobile ? 1200 : 3800}
-                  canvasHeight={isMobile ? 400 : 1000}
-                  colorStart={textColor}
-                  colorEnd={textColor}
-                  font={isMobile ? "400 120px Georgia, serif" : "400 500px Georgia, serif"}
-                  particleSize={isMobile ? 0.4 : 0.84}
-                />
+              <Box
+                sx={{
+                  mb: 1,
+                  height: { xs: "80px", md: "120px" },
+                  position: "relative",
+                  left: {
+                    xs: "-60px",
+                    md: language == "en" ? "-170px" : "-120px",
+                  },
+                }}
+              >
+                {language == "en" ? (
+                  <ParticleText
+                    text={
+                      t.footer.collaborate[0] + " " + t.footer.collaborate[1]
+                    }
+                    canvasWidth={isMobile ? 1200 : 3800}
+                    canvasHeight={isMobile ? 400 : 1000}
+                    colorStart={textColor}
+                    colorEnd={textColor}
+                    font={
+                      isMobile
+                        ? "400 120px Georgia, serif"
+                        : "400 500px Georgia, serif"
+                    }
+                    particleSize={isMobile ? 0.4 : 0.84}
+                  />
+                ) : (
+                  <ParticleText
+                    text={
+                      t.footer.collaborate[0] + " " + t.footer.collaborate[1]
+                    }
+                    canvasWidth={isMobile ? 2200 : 4800}
+                    canvasHeight={isMobile ? 400 : 1000}
+                    colorStart={textColor}
+                    colorEnd={textColor}
+                    font={
+                      isMobile
+                        ? "400 220px Georgia, serif"
+                        : "400 400px Georgia, serif"
+                    }
+                    particleSize={isMobile ? 0.4 : 0.84}
+                  />
+                )}
               </Box>
 
               <Typography
@@ -134,7 +177,7 @@ export default function Footer() {
                   },
                 }}
               >
-                VIEW PROPOSAL
+                {t.footer.viewProposal}
               </Button>
             </Box>
           </Box>
@@ -166,7 +209,7 @@ export default function Footer() {
                   fontFamily: "monospace",
                 }}
               >
-                // LOCATION
+                {t.footer.locationLabel}
               </Typography>
               <Typography
                 sx={{
@@ -176,9 +219,9 @@ export default function Footer() {
                   lineHeight: 1.6,
                 }}
               >
-                Dhaka,
+                {t.footer.locationText1}
                 <br />
-                Bangladesh
+                {t.footer.locationText2}
               </Typography>
             </Grid>
             <Grid size={{ xs: 12, sm: 4 }}>
@@ -192,7 +235,7 @@ export default function Footer() {
                   fontFamily: "monospace",
                 }}
               >
-                // SOCIAL
+                {t.footer.socialLabel}
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                 <Link
@@ -242,7 +285,7 @@ export default function Footer() {
                   fontFamily: "monospace",
                 }}
               >
-                // STUDIO HOURS
+                {t.footer.hoursLabel}
               </Typography>
               <Typography
                 sx={{
@@ -252,9 +295,9 @@ export default function Footer() {
                   lineHeight: 1.6,
                 }}
               >
-                MON-FRI
+                {t.footer.hoursText1}
                 <br />
-                09:30 - 17:30 GMT
+                {t.footer.hoursText2}
               </Typography>
             </Grid>
           </Grid>
@@ -272,7 +315,7 @@ export default function Footer() {
             fontFamily: "monospace",
           }}
         >
-          © 2024 HYPERLOOP STUDIO. ALL RIGHTS RESERVED.
+          {t.footer.copyright}
         </Typography>
       </Box>
     </Box>

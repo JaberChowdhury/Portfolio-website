@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { floatAnimation } from "./heroAnimations";
-import Navbar from "../Navbar";
+import Navbar from "../navbar/Navbar";
 import HeroTitle from "./HeroTitle";
 import HeroMarquee from "./HeroMarquee";
 

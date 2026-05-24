@@ -1,8 +1,12 @@
+"use client";
+
 import React from "react";
 import { Box, Typography, Link, Grid } from "@mui/material";
 import FaqAccordion from "./FaqAccordion";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function FaqSection() {
+  const { t } = useLanguage();
   return (
     <Box
       id="faq"
@@ -33,7 +37,7 @@ export default function FaqSection() {
                 mb: 6,
               }}
             >
-              ANSWER TO YOUR QUESTIONS
+              {t.faq.header}
             </Typography>
 
             <Typography
@@ -45,8 +49,7 @@ export default function FaqSection() {
                 mb: 2,
               }}
             >
-              HOWEVER, WE RECOMMEND REACHING OUT TO US IF YOU HAVE ANY
-              QUESTIONS.
+              {t.faq.subHeader}
             </Typography>
 
             <Box
@@ -64,7 +67,7 @@ export default function FaqSection() {
                   color: "rgba(0,0,0,0.6)",
                 }}
               >
-                Any question about the pricing?
+                {t.faq.questionPrompt}
               </Typography>
               <Link
                 href="#"
@@ -76,7 +79,7 @@ export default function FaqSection() {
                   "&:hover": { opacity: 0.7 },
                 }}
               >
-                Book a call
+                {t.faq.bookCall}
               </Link>
               <Link
                 href="#"
@@ -88,7 +91,7 @@ export default function FaqSection() {
                   "&:hover": { opacity: 0.7 },
                 }}
               >
-                Email Us
+                {t.faq.emailUs}
               </Link>
             </Box>
           </Box>

@@ -3,7 +3,7 @@
 import React from "react";
 import { motion, type Variants } from "framer-motion";
 import { useTheme } from "@mui/material/styles";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export default function Logo() {
   const theme = useTheme();
@@ -115,10 +115,12 @@ export default function Logo() {
             lineHeight: 1.1, // Keeps the text block incredibly tight and structural
           }}
         >
-          <span>MD</span>
-          <span>JABER</span>
-          <span>HOSSAIN</span>
-          <span>CHOWDHURY</span>
+          <Typography variant="caption" sx={{ fontWeight: "bold" }}>
+            Hyperloop
+          </Typography>
+          <Typography variant="caption" sx={{ fontWeight: "bold" }}>
+            Studio
+          </Typography>
         </Box>
       </motion.div>
     </motion.div>
