@@ -10,6 +10,7 @@ interface ProjectCardProps {
   isCenter: boolean;
   index: number;
   activeIndex: number;
+  cardWidth: number;
 }
 
 export default function ProjectCard({
@@ -17,6 +18,7 @@ export default function ProjectCard({
   isCenter,
   index,
   activeIndex,
+  cardWidth,
 }: ProjectCardProps) {
   const distance = Math.abs(index - activeIndex);
   const scale = isCenter ? 1 : Math.max(0.82, 1 - distance * 0.09);
@@ -27,7 +29,7 @@ export default function ProjectCard({
       animate={{ scale, filter: `brightness(${brightness})` }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       style={{
-        width: CARD_WIDTH,
+        width: cardWidth,
         height: 360,
         flexShrink: 0,
         borderRadius: 2,

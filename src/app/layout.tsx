@@ -7,6 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline"; // Crucial import for MUI t
 import theme from "../theme";
 import { InitColorSchemeScript } from "@mui/material";
 import Navbar from "@/components/Navbar";
+import GridBackground from "@/components/GridBackground";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -36,7 +37,7 @@ export default function RootLayout({
             <CssBaseline />
             {/* <ThemeToggle /> */}
             {/*<Navbar />*/}
-            {children}
+            <GridBackground>{children}</GridBackground>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

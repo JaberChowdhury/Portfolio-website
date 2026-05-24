@@ -1,8 +1,10 @@
-import ParticleText from "@/components/extras/ParticleText";
+// import ParticleText from "@/components/extras/ParticleText";
 import HeroSection from "@/components/HeroSection";
+import PricingSection from "@/components/pricing/PricingSection";
 import ServicesSection from "@/components/ServicesSection";
 import WorksSection from "@/components/WorksSection";
-import { Box } from "@mui/material";
+import FaqSection from "@/components/faq/FaqSection";
+import Footer from "@/components/Footer";
 
 const App = () => {
   return (
@@ -10,20 +12,9 @@ const App = () => {
       <HeroSection />
       <WorksSection />
       <ServicesSection />
-      {/*<Box
-        sx={{
-          width: "100vw",
-          minHeight: "100vh",
-          backgroundSize: "40px 40px",
-          position: "relative",
-          // CRITICAL: Prevents horizontal scrollbars
-          overflowX: "hidden",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <ParticleText text="JABER" />
-      </Box>*/}
+      <FaqSection />
+      <PricingSection />
+      <Footer />
     </>
   );
 };

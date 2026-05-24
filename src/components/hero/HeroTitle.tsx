@@ -11,14 +11,15 @@ export default function HeroTitle() {
 
   // Shared typography styles to keep the massive text responsive
   const fluidTextStyle = {
-    fontSize: "clamp(2.5rem, 8vw, 9rem)", // Fluid scaling: MIN 2.5rem, IDEAL 8vw, MAX 9rem
+    fontSize: { xs: "clamp(1.5rem, 6vw, 9rem)", md: "clamp(2.5rem, 8vw, 9rem)" }, // Scaled down for mobile to fit long words
     fontWeight: 800,
     letterSpacing: "-0.02em",
     textTransform: "uppercase",
     lineHeight: 0.9,
     color: theme.palette.text.primary,
-    whiteSpace: "nowrap",
+    whiteSpace: { xs: "normal", md: "nowrap" }, // Allow wrap on very small screens if necessary
     display: "flex",
+    flexWrap: { xs: "wrap", md: "nowrap" },
     alignItems: "center",
   };
 

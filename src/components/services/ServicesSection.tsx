@@ -1,81 +1,154 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Typography, Grid, Chip } from "@mui/material";
+import { Box, Typography, Grid, Link, Button, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { motion, AnimatePresence } from "framer-motion";
+import ParticleText from "../extras/ParticleText";
 
 // --- Services Data ---
-// Adapted exactly from your personal portfolio specifications
 const servicesData = [
   {
     id: "01",
-    title: "Brand Identity",
-    desc: "Shaping personal and startup identities that connect and endure.",
+    title: "Brand Strategy",
+    headline: "SHAPING IDENTITIES THAT RESONATE AND ENDURE",
+    desc: "From brand identity to visual systems, our strategic approach crafts cohesive narratives that define who you are and how you connect with your audience.",
     skills: [
-      "Brand Audit",
-      "Art Direction",
-      "Design Systems",
-      "Naming Strategies",
+      "BRAND IDENTITY",
+      "VISUAL SYSTEMS",
+      "ART DIRECTION",
+      "BRAND GUIDELINES",
+      "VERBAL IDENTITY",
     ],
   },
   {
     id: "02",
     title: "Interface Design",
+    headline: "BLENDING AESTHETICS WITH FUNCTIONALITY FOR CONVERSION",
     desc: "My design approach blends aesthetics with functionality, creating digital experiences that convert.",
     skills: [
-      "UI / UX Design",
-      "Website Design",
-      "Mobile Applications",
-      "E-Commerce & Platforms",
+      "UI / UX DESIGN",
+      "WEBSITE DESIGN",
+      "MOBILE APPLICATIONS",
+      "E-COMMERCE & PLATFORMS",
     ],
   },
   {
     id: "03",
     title: "Immersive & Motion",
+    headline: "CAPTIVATING VISUAL EXPERIENCES THAT TRANSPORT AUDIENCES",
     desc: "I create captivating visual experiences that transport audiences.",
     skills: [
-      "3D Experiences",
-      "Motion Graphics",
-      "Video Editing",
-      "Interactive Narratives",
+      "3D EXPERIENCES",
+      "MOTION GRAPHICS",
+      "VIDEO EDITING",
+      "INTERACTIVE NARRATIVES",
     ],
   },
   {
     id: "04",
-    title: "Development",
+    title: "Engineering",
+    headline: "DELIVERING CLEAN, SCALABLE SOLUTIONS BUILT FOR THE FUTURE",
     desc: "My engineering skill sets deliver clean, scalable solutions built for the future.",
     skills: [
-      "React & Next.js",
-      "Three.js & Matter.js",
-      "WordPress & CMS",
-      "Deployment Pipelines",
+      "REACT & NEXT.JS",
+      "THREE.JS & MATTER.JS",
+      "WORDPRESS & CMS",
+      "DEPLOYMENT PIPELINES",
     ],
   },
 ];
 
-// --- Custom Arrow Icon ---
-const ArrowIcon = () => (
+// --- Custom Icons for each service ---
+const BrandIcon = () => (
   <svg
-    width="32"
-    height="32"
+    width="24"
+    height="24"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
     strokeWidth="1.5"
   >
     <path
-      d="M5 12h14M12 5l7 7-7 7"
+      d="M12 2v20M2 12h20M7 7l10 10M7 17L17 7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+const InterfaceIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+  >
+    <rect
+      x="2"
+      y="2"
+      width="20"
+      height="20"
+      rx="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M7 7h10M7 12h10M7 17h10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+const ImmersiveIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+  >
+    <path
+      d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6L12 2z"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+const EngineeringIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+  >
+    <path
+      d="M10 2l4 4-4 4M20 2l4 4-4 4M2 10l4 4-4 4M2 20h20M2 10h10"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
   </svg>
 );
 
+const serviceIcons: { [key: string]: React.ReactNode } = {
+  "01": <BrandIcon />,
+  "02": <InterfaceIcon />,
+  "03": <ImmersiveIcon />,
+  "04": <EngineeringIcon />,
+};
+
 export default function ServicesSection() {
   const theme = useTheme();
-  // Default state: The first item ("01") is expanded automatically.
-  const [expandedId, setExpandedId] = useState<string>("01");
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [expandedId, setExpandedId] = useState<string>("03");
+
+  const mainTextColor = "rgba(0, 0, 0, 0.85)";
+  const paragraphTextColor = "rgba(255, 255, 255, 0.7)";
+  const skillsTextColor = "rgba(255, 255, 255, 0.5)";
 
   return (
     <Box
@@ -83,135 +156,291 @@ export default function ServicesSection() {
       sx={{
         py: { xs: 8, md: 16 },
         px: { xs: 2, md: 8 },
-        backgroundColor: theme.palette.background.default,
+        // backgroundColor: "#F7F5F0",
+        // backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
       }}
     >
       {/* Section Header */}
-      <Box sx={{ mb: { xs: 6, md: 10 } }}>
-        <Typography
-          variant="h2"
-          sx={{
-            fontWeight: 800,
-            textTransform: "uppercase",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          Services
-        </Typography>
+      <Box
+        sx={{
+          mb: { xs: 6, md: 10 },
+          height: { xs: "120px", md: "250px" },
+          position: "relative",
+        }}
+      >
+        <ParticleText
+          text="SERVICES"
+          colorStart={mainTextColor}
+          colorEnd={mainTextColor}
+          font={isMobile ? "900 100px Inter, sans-serif" : "900 200px Inter, sans-serif"}
+          particleSize={0.4}
+        />
       </Box>
 
-      {/* Accordion List */}
-      <Box sx={{ borderTop: "1px solid", borderColor: "divider" }}>
+      {/* Main Service List Container */}
+      <Box sx={{ borderTop: "1px solid", borderColor: "rgba(0,0,0,0.15)" }}>
         {servicesData.map((service) => {
           const isExpanded = expandedId === service.id;
+          const numId = service.id.replace("0", ""); // "1", "2", "3", "4"
 
           return (
-            <Box
+            <motion.div
               key={service.id}
-              // Hover interaction to expand the item
+              layout
               onMouseEnter={() => setExpandedId(service.id)}
-              sx={{
+              style={{
                 borderBottom: "1px solid",
-                borderColor: "divider",
+                borderColor: isExpanded ? "transparent" : "rgba(0,0,0,0.15)",
+                position: "relative",
                 cursor: "pointer",
-                transition: "background-color 0.3s ease",
-                "&:hover": {
-                  backgroundColor: "rgba(0,0,0,0.02)", // Subtle highlight on hover
-                },
+                overflow: "hidden", // Ensures background doesn't leak during animation
               }}
+              transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             >
-              {/* Row Header (Always Visible) */}
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  py: { xs: 3, md: 5 },
-                  px: { xs: 1, md: 2 },
-                }}
-              >
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontSize: "clamp(1.5rem, 4vw, 3.5rem)",
-                    fontWeight: isExpanded ? 800 : 400, // Becomes bold when active
-                    color: isExpanded ? "text.primary" : "text.secondary",
-                    transition: "all 0.3s ease",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {service.title}
-                </Typography>
-
-                {/* Animated Arrow */}
-                <motion.div
-                  animate={{ rotate: isExpanded ? 90 : 0 }} // Rotates down when expanded
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ color: theme.palette.text.primary }}
-                >
-                  <ArrowIcon />
-                </motion.div>
-              </Box>
-
-              {/* Expandable Content (Visible on Hover) */}
+              {/* Dark Background Animation */}
               <AnimatePresence initial={false}>
                 {isExpanded && (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} // Apple-like smooth easing
-                    style={{ overflow: "hidden" }}
-                  >
-                    <Box sx={{ px: { xs: 1, md: 2 }, pb: { xs: 4, md: 6 } }}>
-                      <Grid container spacing={4} alignItems="flex-start">
-                        {/* Left Side: Description */}
-                        <Grid item xs={12} md={5}>
-                          <Typography
-                            variant="h6"
-                            sx={{
-                              fontWeight: 400,
-                              color: "text.secondary",
-                              lineHeight: 1.6,
-                              maxWidth: "90%",
-                            }}
-                          >
-                            {service.desc}
-                          </Typography>
-                        </Grid>
-
-                        {/* Right Side: Skill Tags */}
-                        <Grid item xs={12} md={7}>
-                          <Box
-                            sx={{ display: "flex", flexWrap: "wrap", gap: 1.5 }}
-                          >
-                            {service.skills.map((skill) => (
-                              <Chip
-                                key={skill}
-                                label={skill}
-                                variant="outlined"
-                                sx={{
-                                  borderRadius: "100px", // Pill-shaped
-                                  px: 1,
-                                  py: 2.5,
-                                  fontSize: "0.85rem",
-                                  fontWeight: 600,
-                                  textTransform: "uppercase",
-                                  letterSpacing: "0.05em",
-                                  borderColor: "divider",
-                                  color: "text.primary",
-                                  backgroundColor: "transparent",
-                                }}
-                              />
-                            ))}
-                          </Box>
-                        </Grid>
-                      </Grid>
-                    </Box>
-                  </motion.div>
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      backgroundColor: "#4D4D4D",
+                      zIndex: 0,
+                    }}
+                  />
                 )}
               </AnimatePresence>
-            </Box>
+
+              <Box
+                sx={{ position: "relative", zIndex: 1, px: { xs: 2, md: 4 } }}
+              >
+                <AnimatePresence mode="popLayout" initial={false}>
+                  {isExpanded ? (
+                    <motion.div
+                      key="expanded"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.4, delay: 0.1 }}
+                    >
+                      <Box sx={{ py: { xs: 5, md: 8 } }}>
+                        <Grid container spacing={4}>
+                          {/* Left Column */}
+                          <Grid
+                            size={{ xs: 12, md: 3 }}
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: 1.5,
+                                alignItems: "center",
+                                color: "rgba(255,255,255,0.7)",
+                                mb: { xs: 4, md: 0 },
+                              }}
+                            >
+                              {serviceIcons[service.id]}
+                              <Typography
+                                variant="h6"
+                                sx={{
+                                  fontWeight: 400,
+                                  textTransform: "uppercase",
+                                  fontSize: "0.95rem",
+                                  letterSpacing: "0.05em",
+                                }}
+                              >
+                                {service.title}
+                              </Typography>
+                            </Box>
+                            <Box sx={{ mt: { xs: 2, md: "auto" } }}>
+                              <Typography
+                                variant="h1"
+                                sx={{
+                                  fontWeight: 400,
+                                  color: "white",
+                                  fontSize: "clamp(3rem, 5vw, 4.5rem)",
+                                  letterSpacing: "0.2em",
+                                  lineHeight: 1,
+                                }}
+                              >
+                                0 0 {numId}
+                              </Typography>
+                              <Typography
+                                variant="body2"
+                                sx={{
+                                  color: "rgba(255,255,255,0.5)",
+                                  letterSpacing: "0.2em",
+                                  mt: 1,
+                                }}
+                              >
+                                // PROJECTS
+                              </Typography>
+                            </Box>
+                          </Grid>
+
+                          {/* Middle Column */}
+                          <Grid size={{ xs: 12, md: 7 }}>
+                            <Typography
+                              variant="h4"
+                              sx={{
+                                fontWeight: 800,
+                                textTransform: "uppercase",
+                                color: "white",
+                                fontSize: "clamp(1.2rem, 2vw, 1.8rem)",
+                                lineHeight: 1.3,
+                                mb: 3,
+                                maxWidth: "90%",
+                              }}
+                            >
+                              {service.headline}
+                            </Typography>
+                            <Typography
+                              variant="body1"
+                              sx={{
+                                color: paragraphTextColor,
+                                fontSize: "clamp(0.9rem, 1.1vw, 1.1rem)",
+                                lineHeight: 1.6,
+                                mb: 4,
+                                maxWidth: "85%",
+                              }}
+                            >
+                              {service.desc}
+                            </Typography>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 1.5,
+                                color: skillsTextColor,
+                              }}
+                            >
+                              {service.skills.map((skill, index) => (
+                                <React.Fragment key={skill}>
+                                  <Typography
+                                    variant="body2"
+                                    sx={{
+                                      fontSize: "0.8rem",
+                                      letterSpacing: "0.05em",
+                                    }}
+                                  >
+                                    {skill}
+                                  </Typography>
+                                  {index < service.skills.length - 1 && (
+                                    <Typography
+                                      variant="body2"
+                                      sx={{ fontSize: "0.8rem" }}
+                                    >
+                                      /
+                                    </Typography>
+                                  )}
+                                </React.Fragment>
+                              ))}
+                            </Box>
+                          </Grid>
+
+                          {/* Right Column */}
+                          <Grid
+                            size={{ xs: 12, md: 2 }}
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: { xs: "flex-start", md: "flex-end" },
+                              justifyContent: "space-between",
+                              mt: { xs: 4, md: 0 },
+                            }}
+                          >
+                            <Button
+                              LinkComponent={Link}
+                              href="/"
+                              // underline="none"
+                              sx={{
+                                color: "white",
+                                fontWeight: 600,
+                                fontSize: "0.85rem",
+                                letterSpacing: "0.05em",
+                                transition: "opacity 0.2s",
+                                "&:hover": { opacity: 0.7 },
+                              }}
+                            >
+                              EXPLORE MORE
+                            </Button>
+                            <Box
+                              sx={{
+                                width: 6,
+                                height: 6,
+                                backgroundColor: "rgba(255,255,255,0.3)",
+                                mt: { xs: 2, md: "auto" },
+                                mb: { md: 6 },
+                              }}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="collapsed"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Box
+                        sx={{
+                          py: 3.5,
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            gap: 3,
+                            alignItems: "center",
+                            color: mainTextColor,
+                          }}
+                        >
+                          <Box sx={{ opacity: 0.6, display: "flex" }}>
+                            {serviceIcons[service.id]}
+                          </Box>
+                          <Typography
+                            variant="h3"
+                            sx={{
+                              fontWeight: 800,
+                              textTransform: "uppercase",
+                              fontSize: "clamp(1.2rem, 2.5vw, 1.5rem)",
+                              letterSpacing: "0.02em",
+                            }}
+                          >
+                            {service.title}
+                          </Typography>
+                        </Box>
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            fontWeight: 700,
+                            color: mainTextColor,
+                            fontSize: "1.1rem",
+                            letterSpacing: "0.05em",
+                          }}
+                        >
+                          00{numId} //
+                        </Typography>
+                      </Box>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </Box>
+            </motion.div>
           );
         })}
       </Box>
