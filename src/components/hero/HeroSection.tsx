@@ -14,6 +14,7 @@ export default function HeroSection() {
 
   return (
     <Box
+      id="home"
       sx={{
         width: "100vw",
         minHeight: "100vh",

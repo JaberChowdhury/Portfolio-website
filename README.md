@@ -1,6 +1,26 @@
-inspiration : https://www.synapserstudio.com/
+# Personal Portfolio - MD Jaber Hossain Chowdhury
 
-### 1. Install dependency
+A high-performance, interactive personal portfolio website built with modern web technologies. This project showcases a brutalist, typography-heavy design language paired with smooth animations and interactive 3D elements.
+
+## ✨ Features
+
+- **Interactive 3D Particle Text:** Uses `Three.js` to render performant, interactive text that reacts to cursor movements with physics-based hover and click explosions.
+- **Fluid Typography & Responsive Design:** Fully responsive layout that elegantly scales from desktop down to mobile viewports using CSS `clamp()` functions and MUI's Grid system.
+- **Draggable Project Carousel:** A smooth, spring-physics-driven carousel built with `framer-motion` for navigating through featured projects.
+- **Inverse Theming:** Supports dynamic light/dark color schemes via Material UI's `useColorScheme`, with intelligent inverse-color component mapping (e.g., the footer swaps modes dynamically).
+- **Parallax & Marquee Animations:** Continuous infinite-scroll marquees and floating parallax background text elements for a dynamic visual experience.
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org/) (App Router)
+- **UI Library:** [React](https://react.dev/)
+- **Styling & Components:** [Material UI (MUI v6)](https://mui.com/)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **3D Graphics:** [Three.js](https://threejs.org/)
+
+## 🚀 Getting Started
+
+First, ensure you have Node.js installed, then install the dependencies:
 
 ```bash
 npm install
@@ -8,83 +28,32 @@ npm install
 yarn install
 # or
 pnpm install
-# or
-bun install
-
 ```
 
-### 2. Run the Development Server
-
-Start the development server with Turbopack enabled:
+Then, run the development server:
 
 ```bash
 npm run dev
-
+# or
+yarn dev
+# or
+pnpm dev
 ```
 
-Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 📜 Available Scripts
+## 📂 Project Structure
 
-| Command          | Description                                                                 |
-| ---------------- | --------------------------------------------------------------------------- |
-| `npm run dev`    | Starts the Next.js development server with Turbopack for instant HMR.       |
-| `npm run build`  | Compiles the application for production using Turbopack.                    |
-| `npm run start`  | Starts the production server.                                               |
-| `npm run lint`   | Runs **Biome** to quickly check your codebase for errors and anti-patterns. |
-| `npm run format` | Runs **Biome** to format all files in a fraction of a second.               |
+- `src/app/` - Next.js App Router pages and global layouts.
+- `src/components/` - Reusable UI components organized by section:
+  - `hero/` - Hero banner, marquee, and floating title elements.
+  - `works/` - Project showcase with the draggable carousel.
+  - `services/` - Animated accordion-style services list.
+  - `pricing/` - Responsive pricing tier cards.
+  - `faq/` - Interactive FAQ accordions.
+  - `extras/` - Contains the complex `ParticleText` Three.js component.
+- `src/theme.ts` - Centralized MUI theme configuration supporting CSS variables for rapid mode switching.
 
-## 🏗️ Architecture & Tooling Choices
+## 📄 License
 
-### Material UI + Next.js App Router
-
-Integrating MUI with the Next.js App Router normally requires boilerplate to handle Emotion's CSS cache and prevent server-side rendering mismatch. This template uses the official `@mui/material-nextjs` package to seamlessly handle the SSR registry, ensuring lightning-fast loads and perfect hydration.
-
-### The React Compiler
-
-This template includes `babel-plugin-react-compiler`. It automatically analyzes your React 19 code and memoizes values and functions, meaning you can write cleaner code without manually managing performance optimizations.
-
-### Biome (The Prettier & ESLint Killer)
-
-Instead of juggling heavy configurations for ESLint and Prettier, this project uses **Biome** (`@biomejs/biome`). It formats and lints your code in milliseconds, directly replacing standard setups and vastly improving CI/CD and local save times.
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!
-Feel free to check [issues page](https://www.google.com/search?q=%23).
-"""
-
-```json
-{
-  "name": "portfolio",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbo",
-    "build": "next build --turbo",
-    "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write"
-  },
-  "dependencies": {
-    "@emotion/cache": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/icons-material": "^9.0.1",
-    "@mui/material": "^9.0.1",
-    "@mui/material-nextjs": "^9.0.1",
-    "next": "16.2.6",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.2.0",
-    "@types/node": "^20.19.41",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "babel-plugin-react-compiler": "1.0.0",
-    "typescript": "^5.9.3"
-  },
-  "ignoreScripts": ["sharp", "unrs-resolver"],
-  "trustedDependencies": ["sharp", "unrs-resolver"]
-}
-```
+This project is open-source and available under the MIT License.

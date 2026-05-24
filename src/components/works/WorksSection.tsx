@@ -100,6 +100,7 @@ export default function WorksSection() {
 
   return (
     <Box
+      id="works"
       sx={{
         // background: "#e8e4db",
         minHeight: "100vh",

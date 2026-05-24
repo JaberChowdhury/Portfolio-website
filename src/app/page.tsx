@@ -12,8 +12,8 @@ const App = () => {
       <HeroSection />
       <WorksSection />
       <ServicesSection />
-      <FaqSection />
       <PricingSection />
+      <FaqSection />
       <Footer />
     </>
   );

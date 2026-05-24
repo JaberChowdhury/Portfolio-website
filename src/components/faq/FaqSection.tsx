@@ -5,6 +5,7 @@ import FaqAccordion from "./FaqAccordion";
 export default function FaqSection() {
   return (
     <Box
+      id="faq"
       component="section"
       sx={{
         // backgroundColor: "#EBEAE5", // Match the image beige background

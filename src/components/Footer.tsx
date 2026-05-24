@@ -26,6 +26,7 @@ export default function Footer() {
 
   return (
     <Box
+      id="contact"
       component="footer"
       sx={{
         backgroundColor: bgColor,
@@ -122,6 +123,7 @@ export default function Footer() {
                   py: 1.5,
                   fontSize: "0.75rem",
                   letterSpacing: "0.15em",
+                  border: "1px solid white",
                   fontWeight: 700,
                   width: "fit-content",
                   transition: "all 0.3s ease",

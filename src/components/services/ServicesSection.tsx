@@ -152,6 +152,7 @@ export default function ServicesSection() {
 
   return (
     <Box
+      id="services"
       component="section"
       sx={{
         py: { xs: 8, md: 16 },

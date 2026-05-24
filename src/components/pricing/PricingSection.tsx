@@ -14,6 +14,7 @@ const PricingSection = () => {
   const mainTextColor = "rgba(0, 0, 0, 0.85)";
   return (
     <Box
+      id="pricing"
       sx={{
         minHeight: "100vh",
         color: "#1a1a1a",
