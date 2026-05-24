@@ -4,7 +4,9 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   // 1. Enable CSS variables for <InitColorSchemeScript />
-  cssVariables: true,
+  cssVariables: {
+    colorSchemeSelector: "class",
+  },
   defaultColorScheme: "light",
   // 2. Shared Core Settings
   typography: {

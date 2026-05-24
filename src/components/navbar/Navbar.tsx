@@ -1,5 +1,7 @@
 "use client";
 
+import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
   Button,
@@ -15,40 +17,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useLanguageStore } from "@/store/languageStore";
 import Logo from "../Logo";
-
-const HamburgerIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-  >
-    <path
-      d="M3 12h18M3 6h18M3 18h18"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const CloseIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-  >
-    <path
-      d="M18 6L6 18M6 6l12 12"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+import ThemeToggle from "../ThemeToggle";
 
 const translations = {
   en: {
@@ -176,7 +145,7 @@ export default function Navbar() {
                     left: 0,
                     right: 0,
                     height: 2,
-                    backgroundColor: "black",
+                    backgroundColor: theme.palette.text.primary,
                     borderRadius: 2,
                   }}
                 />
@@ -188,6 +157,8 @@ export default function Navbar() {
 
       {/* Right: Extras & Mobile Menu Toggle */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <ThemeToggle />
+
         <Button
           onClick={toggleLanguage}
           color="inherit"
@@ -211,7 +182,7 @@ export default function Navbar() {
           onClick={handleDrawerToggle}
           sx={{ display: { lg: "none" }, zIndex: 120 }}
         >
-          {mobileOpen ? <CloseIcon /> : <HamburgerIcon />}
+          {mobileOpen ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
       </Box>
 
@@ -242,7 +213,7 @@ export default function Navbar() {
               component={NextLink}
               href={link.href}
               underline="none"
-              color="black"
+              color="text.primary"
               onClick={() => {
                 setActiveLink(link.href);
                 handleDrawerToggle();

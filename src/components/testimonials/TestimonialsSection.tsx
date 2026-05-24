@@ -1,4 +1,5 @@
 "use client";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import { Box, Grid, Link, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import React from "react";
@@ -24,8 +25,8 @@ export default function TestimonialsSection() {
   const language = useLanguageStore((s) => s.language);
   const t = translations[language];
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const mainTextColor = "rgba(0, 0, 0, 0.85)";
-  const gridLineColor = "rgba(0, 0, 0, 0.15)";
+  const mainTextColor = theme.palette.text.primary;
+  const gridLineColor = theme.palette.divider;
 
   return (
     <Box
@@ -73,7 +74,7 @@ export default function TestimonialsSection() {
                 justifyContent: "space-between",
                 transition: "background-color 0.3s",
                 "&:hover": {
-                  backgroundColor: "rgba(0,0,0,0.02)",
+                  backgroundColor: "action.hover",
                 },
               }}
             >
@@ -106,7 +107,7 @@ export default function TestimonialsSection() {
                 <Typography
                   variant="body2"
                   sx={{
-                    color: "rgba(0,0,0,0.6)",
+                    color: "text.secondary",
                     mb: 2,
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
@@ -151,14 +152,7 @@ export default function TestimonialsSection() {
                         letterSpacing: "0.05em",
                       }}
                     >
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                      >
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                      </svg>
+                      <VerifiedIcon sx={{ fontSize: 14 }} />
                       {t.verifiedLabel}
                     </Box>
                   )}

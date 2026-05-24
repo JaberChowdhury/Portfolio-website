@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import CssBaseline from "@mui/material/CssBaseline"; // Crucial import for MUI themes
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { ThemeProvider } from "@mui/material/styles";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Roboto } from "next/font/google";
 import GridBackground from "@/components/GridBackground";
+import Preloader from "@/components/Preloader";
 import theme from "../theme";
 
 const roboto = Roboto({
@@ -27,13 +29,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={roboto.variable} suppressHydrationWarning>
+      <head>
+        <InitColorSchemeScript attribute="class" />
+      </head>
       <body>
         <AppRouterCacheProvider options={{ key: "css" }}>
           <ThemeProvider theme={theme}>
             {/* CssBaseline kicks in the theme.palette.background.default globally */}
             <CssBaseline />
 
-            <GridBackground>{children}</GridBackground>
+            <Preloader>
+              <GridBackground>{children}</GridBackground>
+            </Preloader>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

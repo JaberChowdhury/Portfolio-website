@@ -1,4 +1,5 @@
 "use client";
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useLanguageStore } from "@/store/languageStore";
@@ -87,13 +88,13 @@ const PricingSection = () => {
   const pricingData = translations[language];
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const mainTextColor = "rgba(0, 0, 0, 0.85)";
+  const mainTextColor = theme.palette.text.primary;
   return (
     <Box
       id="pricing"
       sx={{
         minHeight: "100vh",
-        color: "#1a1a1a",
+        color: "text.primary",
       }}
     >
       <Box
@@ -146,8 +147,8 @@ const PricingSection = () => {
           <Button
             variant="contained"
             sx={{
-              backgroundColor: "#1a1a1a", // Black background for a strong CTA
-              color: "#fff",
+              backgroundColor: "text.primary",
+              color: "background.default",
               borderRadius: 1,
               px: 3,
               py: 1.5,
@@ -156,22 +157,13 @@ const PricingSection = () => {
               display: "inline-flex",
               alignItems: "center",
               gap: 1,
-              "&:hover": { backgroundColor: "#333" },
+              "&:hover": { opacity: 0.85 },
             }}
           >
             {/* User-specified case and singular context */}
             {pricingData.submitProject.buttonText}
-            {/* Placeholder icon for external link */}
-            <Box
-              component="span"
-              sx={{
-                fontSize: "1.2rem",
-                display: "flex",
-                transform: "rotate(-45deg)",
-              }}
-            >
-              ↗
-            </Box>
+            {/* MUI icon for external link */}
+            <ArrowOutwardIcon sx={{ fontSize: "1.1rem" }} />
           </Button>
         </Box>
 
@@ -199,7 +191,7 @@ const PricingSection = () => {
             href="mailto:your_email@example.com"
             style={{
               textDecoration: "none",
-              color: "#666",
+              color: "var(--mui-palette-text-secondary)",
               fontSize: "14px",
               textTransform: "uppercase",
             }}

@@ -1,5 +1,6 @@
 "use client";
 
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import {
   Box,
   Button,
@@ -279,8 +280,7 @@ export default function Footer() {
                     "&:hover": { opacity: 0.7 },
                   }}
                 >
-                  BEHANCE{" "}
-                  <span style={{ fontSize: "1rem", fontWeight: 400 }}>↗</span>
+                  BEHANCE <ArrowOutwardIcon sx={{ fontSize: "0.85rem" }} />
                 </Link>
                 <Link
                   href="#"
@@ -296,8 +296,7 @@ export default function Footer() {
                     "&:hover": { opacity: 0.7 },
                   }}
                 >
-                  INSTAGRAM{" "}
-                  <span style={{ fontSize: "1rem", fontWeight: 400 }}>↗</span>
+                  INSTAGRAM <ArrowOutwardIcon sx={{ fontSize: "0.85rem" }} />
                 </Link>
               </Box>
             </Grid>

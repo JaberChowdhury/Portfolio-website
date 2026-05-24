@@ -1,5 +1,9 @@
 "use client";
 
+import BrushIcon from "@mui/icons-material/Brush";
+import CodeIcon from "@mui/icons-material/Code";
+import ExploreIcon from "@mui/icons-material/Explore";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import {
   Box,
   Button,
@@ -8,7 +12,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useTheme } from "@mui/system";
+import { useTheme } from "@mui/material/styles";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import { processData } from "@/data/process";
@@ -28,85 +32,11 @@ const translations = {
   },
 };
 
-const BrandIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-  >
-    <path
-      d="M12 2v20M2 12h20M7 7l10 10M7 17L17 7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-const InterfaceIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-  >
-    <rect
-      x="2"
-      y="2"
-      width="20"
-      height="20"
-      rx="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M7 7h10M7 12h10M7 17h10"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-const ImmersiveIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-  >
-    <path
-      d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6L12 2z"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-const EngineeringIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-  >
-    <path
-      d="M10 2l4 4-4 4M20 2l4 4-4 4M2 10l4 4-4 4M2 20h20M2 10h10"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 const serviceIcons: { [key: string]: React.ReactNode } = {
-  "01": <BrandIcon />,
-  "02": <InterfaceIcon />,
-  "03": <ImmersiveIcon />,
-  "04": <EngineeringIcon />,
+  "01": <ExploreIcon />,
+  "02": <BrushIcon />,
+  "03": <CodeIcon />,
+  "04": <RocketLaunchIcon />,
 };
 
 export default function ProcessSection() {
@@ -125,7 +55,7 @@ export default function ProcessSection() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [expandedId, setExpandedId] = useState<string>("03");
 
-  const mainTextColor = "rgba(0, 0, 0, 0.85)";
+  const mainTextColor = theme.palette.text.primary;
   const paragraphTextColor = "rgba(255, 255, 255, 0.7)";
   const skillsTextColor = "rgba(255, 255, 255, 0.5)";
 
@@ -163,7 +93,7 @@ export default function ProcessSection() {
       </Box>
 
       {/* Main Service List Container */}
-      <Box sx={{ borderTop: "1px solid", borderColor: "rgba(0,0,0,0.15)" }}>
+      <Box sx={{ borderTop: "1px solid", borderColor: theme.palette.divider }}>
         {PROCESS.map((service) => {
           const isExpanded = expandedId === service.id;
           const numId = service.id.replace("0", ""); // "1", "2", "3", "4"
@@ -175,7 +105,7 @@ export default function ProcessSection() {
               onMouseEnter={() => setExpandedId(service.id)}
               style={{
                 borderBottom: "1px solid",
-                borderColor: isExpanded ? "transparent" : "rgba(0,0,0,0.15)",
+                borderColor: isExpanded ? "transparent" : theme.palette.divider,
                 position: "relative",
                 cursor: "pointer",
                 overflow: "hidden", // Ensures background doesn't leak during animation
@@ -193,7 +123,10 @@ export default function ProcessSection() {
                     style={{
                       position: "absolute",
                       inset: 0,
-                      backgroundColor: "#4D4D4D",
+                      backgroundColor:
+                        theme.palette.mode === "dark"
+                          ? "rgba(255, 255, 255, 0.08)"
+                          : "#4D4D4D",
                       zIndex: 0,
                     }}
                   />

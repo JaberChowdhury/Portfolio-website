@@ -25,17 +25,12 @@ export default function ThemeToggle() {
   return (
     <IconButton
       onClick={() => setMode(currentMode === "light" ? "dark" : "light")}
-      sx={(theme) => ({
-        position: "fixed",
-        top: 16,
-        right: 16,
-        zIndex: 9999,
-        backgroundColor: "background.paper",
-        boxShadow: 2,
-        ...theme.applyStyles("dark", {
-          backgroundColor: "rgba(255, 255, 255, 0.05)",
-        }),
-      })}
+      color="inherit"
+      sx={{
+        p: 0.75,
+        borderRadius: 0,
+        "&:hover": { opacity: 0.7 },
+      }}
     >
       {currentMode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
     </IconButton>

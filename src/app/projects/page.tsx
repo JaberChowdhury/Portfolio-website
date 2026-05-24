@@ -1,5 +1,6 @@
 "use client";
 
+import ForkRightIcon from "@mui/icons-material/ForkRight";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GridViewIcon from "@mui/icons-material/GridView";
@@ -1098,29 +1099,12 @@ export default function ProjectsPage() {
                               gap: 0.6,
                             }}
                           >
-                            <svg
-                              width="13"
-                              height="13"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2.5"
-                              style={{ color: theme.palette.text.secondary }}
-                            >
-                              <title>{t.forks}</title>
-                              <path
-                                d="M18 18v-6a4 4 0 0 0-4-4H8"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                              <path
-                                d="m11 5-3 3 3 3"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                              <circle cx="18" cy="18" r="3" />
-                              <circle cx="6" cy="6" r="3" />
-                            </svg>
+                            <ForkRightIcon
+                              sx={{
+                                fontSize: 15,
+                                color: theme.palette.text.secondary,
+                              }}
+                            />
                             <Typography
                               sx={{
                                 fontSize: "11px",
@@ -1393,29 +1377,12 @@ export default function ProjectsPage() {
                               gap: 0.6,
                             }}
                           >
-                            <svg
-                              width="13"
-                              height="13"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2.5"
-                              style={{ color: theme.palette.text.secondary }}
-                            >
-                              <title>{t.forks}</title>
-                              <path
-                                d="M18 18v-6a4 4 0 0 0-4-4H8"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                              <path
-                                d="m11 5-3 3 3 3"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                              <circle cx="18" cy="18" r="3" />
-                              <circle cx="6" cy="6" r="3" />
-                            </svg>
+                            <ForkRightIcon
+                              sx={{
+                                fontSize: 15,
+                                color: theme.palette.text.secondary,
+                              }}
+                            />
                             <Typography
                               sx={{
                                 fontSize: "11px",

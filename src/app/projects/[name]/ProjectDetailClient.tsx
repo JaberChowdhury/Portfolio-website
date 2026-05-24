@@ -1,6 +1,7 @@
 "use client";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ForkRightIcon from "@mui/icons-material/ForkRight";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LaunchIcon from "@mui/icons-material/Launch";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -136,7 +137,7 @@ export default function ProjectDetailClient({
   };
 
   const getParticleFont = (name: string, mobile: boolean) => {
-    const baseDesktopSize = 460;
+    const baseDesktopSize = 410;
     const baseMobileSize = 360;
     const factor = name.length > 10 ? Math.min(1, 10 / name.length) : 1;
     const desktopSize = Math.max(70, Math.floor(baseDesktopSize * factor));
@@ -311,29 +312,12 @@ export default function ProjectDetailClient({
 
             {/* Forks */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.75 }}>
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                style={{ color: theme.palette.text.secondary }}
-              >
-                <title>{t.forks}</title>
-                <path
-                  d="M18 18v-6a4 4 0 0 0-4-4H8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="m11 5-3 3 3 3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <circle cx="18" cy="18" r="3" />
-                <circle cx="6" cy="6" r="3" />
-              </svg>
+              <ForkRightIcon
+                sx={{
+                  fontSize: 16,
+                  color: theme.palette.text.secondary,
+                }}
+              />
               <Typography
                 sx={{
                   fontSize: "12px",
