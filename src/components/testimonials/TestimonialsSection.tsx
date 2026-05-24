@@ -1,13 +1,28 @@
 "use client";
-import React from "react";
-import { Box, Typography, Grid, Link, useMediaQuery } from "@mui/material";
+import { Box, Grid, Link, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import React from "react";
+import { testimonialsData } from "@/data/testimonials";
+import { useLanguageStore } from "@/store/languageStore";
 import ParticleText from "../../app/extras/ParticleText";
-import { useLanguage } from "../../context/LanguageContext";
+
+const translations = {
+  en: {
+    sectionTitle: "TESTIMONIALS",
+    projectLabel: "PROJECT",
+    verifiedLabel: "VERIFIED",
+  },
+  bn: {
+    sectionTitle: "প্রশংসাপত্র",
+    projectLabel: "প্রকল্প",
+    verifiedLabel: "যাচাইকৃত",
+  },
+};
 
 export default function TestimonialsSection() {
   const theme = useTheme();
-  const { t } = useLanguage();
+  const language = useLanguageStore((s) => s.language);
+  const t = translations[language];
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const mainTextColor = "rgba(0, 0, 0, 0.85)";
   const gridLineColor = "rgba(0, 0, 0, 0.15)";
@@ -31,7 +46,7 @@ export default function TestimonialsSection() {
         }}
       >
         <ParticleText
-          text={t.testimonials.sectionTitle}
+          text={t.sectionTitle}
           canvasWidth={2500}
           colorStart={mainTextColor}
           colorEnd={mainTextColor}
@@ -46,7 +61,7 @@ export default function TestimonialsSection() {
 
       {/* Testimonials Grid */}
       <Grid container spacing={4}>
-        {t.testimonials.items.map((item: any, index: number) => (
+        {testimonialsData.map((item: any, index: number) => (
           <Grid size={{ xs: 12, md: 4 }} key={item.id}>
             <Box
               sx={{
@@ -120,7 +135,7 @@ export default function TestimonialsSection() {
                       letterSpacing: "0.05em",
                     }}
                   >
-                    // PROJECT: {item.project}
+                    // {t.projectLabel}: {item.project}
                   </Link>
 
                   {item.verified && (
@@ -144,7 +159,7 @@ export default function TestimonialsSection() {
                       >
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                       </svg>
-                      VERIFIED
+                      {t.verifiedLabel}
                     </Box>
                   )}
                 </Box>

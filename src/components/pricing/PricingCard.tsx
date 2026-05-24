@@ -1,6 +1,5 @@
-import React from "react";
 import { Button } from "@mui/material";
-import { Tier } from "./pricingData";
+import type { Tier } from "./pricingData";
 
 export interface PricingCardProps {
   tier: Tier;

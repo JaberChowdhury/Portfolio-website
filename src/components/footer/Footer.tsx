@@ -1,22 +1,53 @@
 "use client";
 
-import React from "react";
 import {
   Box,
-  Typography,
   Button,
-  Link,
   Grid,
+  Link,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
 import { useColorScheme, useTheme } from "@mui/material/styles";
 import ParticleText from "@/app/extras/ParticleText";
-import { useLanguage } from "@/context/LanguageContext";
+import { useLanguageStore } from "@/store/languageStore";
+
+const translations = {
+  en: {
+    logoText1: "Hyperloop",
+    logoText2: "STUDIO",
+    collaborate: "Let's Collaborate",
+    viewProposal: "VIEW PROPOSAL",
+    locationLabel: "// LOCATION",
+    locationText1: "Dhaka,",
+    locationText2: "Bangladesh",
+    socialLabel: "// SOCIAL",
+    hoursLabel: "// STUDIO HOURS",
+    hoursText1: "MON-FRI",
+    hoursText2: "09:30 - 17:30 GMT",
+    copyright: "© 2024 HYPERLOOP STUDIO. ALL RIGHTS RESERVED.",
+  },
+  bn: {
+    logoText1: "হাইপারলুপ",
+    logoText2: "স্টুডিও",
+    collaborate: "চলুন একসাথে কাজ করি",
+    viewProposal: "প্রস্তাবনা দেখুন",
+    locationLabel: "// অবস্থান",
+    locationText1: "ঢাকা,",
+    locationText2: "বাংলাদেশ",
+    socialLabel: "// সোশ্যাল",
+    hoursLabel: "// স্টুডিও সময়",
+    hoursText1: "সোম-শুক্র",
+    hoursText2: "০৯:৩০ - ১৭:৩০ জিএমটি",
+    copyright: "© ২০২৪ হাইপারলুপ স্টুডিও. সর্বস্বত্ব সংরক্ষিত।",
+  },
+};
 
 export default function Footer() {
   const { mode } = useColorScheme();
   const theme = useTheme();
-  const { t, language } = useLanguage();
+  const language = useLanguageStore((s) => s.language);
+  const t = translations[language];
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   // Determine if we are in light mode (defaulting to light if not explicitly dark)
@@ -93,9 +124,9 @@ export default function Footer() {
                     letterSpacing: "0.02em",
                   }}
                 >
-                  {t.footer.logoText1}
+                  {t.logoText1}
                   <br />
-                  {t.footer.logoText2}
+                  {t.logoText2}
                 </Typography>
               </Box>
 
@@ -106,15 +137,13 @@ export default function Footer() {
                   position: "relative",
                   left: {
                     xs: "-60px",
-                    md: language == "en" ? "-170px" : "-120px",
+                    md: language === "en" ? "-170px" : "-120px",
                   },
                 }}
               >
-                {language == "en" ? (
+                {language === "en" ? (
                   <ParticleText
-                    text={
-                      t.footer.collaborate[0] + " " + t.footer.collaborate[1]
-                    }
+                    text={t.collaborate}
                     canvasWidth={isMobile ? 1200 : 3800}
                     canvasHeight={isMobile ? 400 : 1000}
                     colorStart={textColor}
@@ -128,9 +157,7 @@ export default function Footer() {
                   />
                 ) : (
                   <ParticleText
-                    text={
-                      t.footer.collaborate[0] + " " + t.footer.collaborate[1]
-                    }
+                    text={t.collaborate}
                     canvasWidth={isMobile ? 2200 : 4800}
                     canvasHeight={isMobile ? 400 : 1000}
                     colorStart={textColor}
@@ -177,7 +204,7 @@ export default function Footer() {
                   },
                 }}
               >
-                {t.footer.viewProposal}
+                {t.viewProposal}
               </Button>
             </Box>
           </Box>
@@ -209,7 +236,7 @@ export default function Footer() {
                   fontFamily: "monospace",
                 }}
               >
-                {t.footer.locationLabel}
+                {t.locationLabel}
               </Typography>
               <Typography
                 sx={{
@@ -219,9 +246,9 @@ export default function Footer() {
                   lineHeight: 1.6,
                 }}
               >
-                {t.footer.locationText1}
+                {t.locationText1}
                 <br />
-                {t.footer.locationText2}
+                {t.locationText2}
               </Typography>
             </Grid>
             <Grid size={{ xs: 12, sm: 4 }}>
@@ -235,7 +262,7 @@ export default function Footer() {
                   fontFamily: "monospace",
                 }}
               >
-                {t.footer.socialLabel}
+                {t.socialLabel}
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                 <Link
@@ -285,7 +312,7 @@ export default function Footer() {
                   fontFamily: "monospace",
                 }}
               >
-                {t.footer.hoursLabel}
+                {t.hoursLabel}
               </Typography>
               <Typography
                 sx={{
@@ -295,9 +322,9 @@ export default function Footer() {
                   lineHeight: 1.6,
                 }}
               >
-                {t.footer.hoursText1}
+                {t.hoursText1}
                 <br />
-                {t.footer.hoursText2}
+                {t.hoursText2}
               </Typography>
             </Grid>
           </Grid>
@@ -315,7 +342,7 @@ export default function Footer() {
             fontFamily: "monospace",
           }}
         >
-          {t.footer.copyright}
+          {t.copyright}
         </Typography>
       </Box>
     </Box>

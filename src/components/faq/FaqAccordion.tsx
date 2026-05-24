@@ -1,12 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
-import { motion, AnimatePresence } from "framer-motion";
-import { useLanguage } from "../../context/LanguageContext";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import { faqData } from "@/data/faq";
+import { useLanguageStore } from "@/store/languageStore";
 
 export default function FaqAccordion() {
-  const { t } = useLanguage();
+  const language = useLanguageStore((s) => s.language);
+  const FAQS = faqData.map((f) => ({
+    id: f.id,
+    question: f.question[language],
+    answer: f.answer[language],
+  }));
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const toggleAccordion = (id: string) => {
@@ -15,7 +21,7 @@ export default function FaqAccordion() {
 
   return (
     <Box sx={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}>
-      {t.faq.items.map((item) => {
+      {FAQS.map((item) => {
         const isExpanded = expandedId === item.id;
 
         return (

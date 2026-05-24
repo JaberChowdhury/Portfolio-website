@@ -19,4 +19,3 @@ export interface PricingData {
   tiers: Tier[];
   emailLink: string;
 }
-

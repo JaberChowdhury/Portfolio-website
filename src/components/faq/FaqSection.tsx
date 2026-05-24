@@ -1,12 +1,31 @@
 "use client";
 
-import React from "react";
-import { Box, Typography, Link, Grid } from "@mui/material";
+import { Box, Grid, Link, Typography } from "@mui/material";
+import { useLanguageStore } from "@/store/languageStore";
 import FaqAccordion from "./FaqAccordion";
-import { useLanguage } from "../../context/LanguageContext";
+
+const translations = {
+  en: {
+    header: "ANSWER TO YOUR QUESTIONS",
+    subHeader:
+      "HOWEVER, WE RECOMMEND REACHING OUT TO US IF YOU HAVE ANY QUESTIONS.",
+    questionPrompt: "Any question about the pricing?",
+    bookCall: "Book a call",
+    emailUs: "Email Us",
+  },
+  bn: {
+    header: "আপনার প্রশ্নগুলোর উত্তর",
+    subHeader:
+      "যাইহোক, আপনার যদি কোন প্রশ্ন থাকে তবে আমরা আমাদের সাথে যোগাযোগ করার পরামর্শ দিচ্ছি।",
+    questionPrompt: "মূল্য তালিকা সম্পর্কে কোন প্রশ্ন আছে?",
+    bookCall: "কল বুক করুন",
+    emailUs: "আমাদের ইমেইল করুন",
+  },
+};
 
 export default function FaqSection() {
-  const { t } = useLanguage();
+  const language = useLanguageStore((s) => s.language);
+  const t = translations[language];
   return (
     <Box
       id="faq"
@@ -37,7 +56,7 @@ export default function FaqSection() {
                 mb: 6,
               }}
             >
-              {t.faq.header}
+              {t.header}
             </Typography>
 
             <Typography
@@ -49,7 +68,7 @@ export default function FaqSection() {
                 mb: 2,
               }}
             >
-              {t.faq.subHeader}
+              {t.subHeader}
             </Typography>
 
             <Box
@@ -67,7 +86,7 @@ export default function FaqSection() {
                   color: "rgba(0,0,0,0.6)",
                 }}
               >
-                {t.faq.questionPrompt}
+                {t.questionPrompt}
               </Typography>
               <Link
                 href="#"
@@ -79,7 +98,7 @@ export default function FaqSection() {
                   "&:hover": { opacity: 0.7 },
                 }}
               >
-                {t.faq.bookCall}
+                {t.bookCall}
               </Link>
               <Link
                 href="#"
@@ -91,7 +110,7 @@ export default function FaqSection() {
                   "&:hover": { opacity: 0.7 },
                 }}
               >
-                {t.faq.emailUs}
+                {t.emailUs}
               </Link>
             </Box>
           </Box>

@@ -11,6 +11,7 @@ export interface ProjectData {
   bg: string;
   accent: string;
   textColor: string;
+  repoName?: string;
   en: ProjectTranslations;
   bn: ProjectTranslations;
 }
@@ -18,48 +19,6 @@ export interface ProjectData {
 export const projectsData: ProjectData[] = [
   {
     id: 1,
-    title: "MONKEYS",
-    bg: "#1a1a1a",
-    accent: "#e63329",
-    textColor: "#e63329",
-    en: {
-      description:
-        "Brand identity and visual language system for a creative collective pushing boundaries in contemporary street culture and urban art.",
-      services: "Brand Identity, Art Direction, Typography",
-      industry: "Creative & Culture",
-      location: "Dhaka, Bangladesh",
-    },
-    bn: {
-      description:
-        "সমসাময়িক স্ট্রিট কালচার এবং আর্বান আর্টের সীমানা ছাড়িয়ে যাওয়া একটি ক্রিয়েটিভ কালেক্টিভের জন্য ব্র্যান্ড আইডেন্টিটি এবং ভিজ্যুয়াল ল্যাঙ্গুয়েজ সিস্টেম।",
-      services: "ব্র্যান্ড আইডেন্টিটি, আর্ট ডিরেকশন, টাইপোগ্রাফি",
-      industry: "ক্রিয়েটিভ এবং কালচার",
-      location: "ঢাকা, বাংলাদেশ",
-    },
-  },
-  {
-    id: 2,
-    title: "MORGADO SA",
-    bg: "#2c2c2c",
-    accent: "#d4b896",
-    textColor: "#d4b896",
-    en: {
-      description:
-        "Heritage wine label redesign and packaging system for a century-old Portuguese estate, blending tradition with contemporary craft.",
-      services: "Packaging Design, Brand Identity, Print",
-      industry: "Food & Beverage",
-      location: "Portugal",
-    },
-    bn: {
-      description:
-        "ঐতিহ্যের সাথে সমসাময়িক ক্র্যাফটের মিশ্রণ ঘটিয়ে এক শতাব্দী প্রাচীন পর্তুগিজ এস্টেটের জন্য হেরিটেজ ওয়াইন লেবেল রিডিজাইন এবং প্যাকেজিং সিস্টেম।",
-      services: "প্যাকেজিং ডিজাইন, ব্র্যান্ড আইডেন্টিটি, প্রিন্ট",
-      industry: "খাদ্য ও পানীয়",
-      location: "পর্তুগাল",
-    },
-  },
-  {
-    id: 3,
     title: "ROTA DO NEVEIRO",
     bg: "#3d4a3e",
     accent: "#ffffff",
@@ -81,7 +40,7 @@ export const projectsData: ProjectData[] = [
     },
   },
   {
-    id: 4,
+    id: 2,
     title: "REPULSOR",
     bg: "#111111",
     accent: "#c8c8c8",
@@ -102,7 +61,7 @@ export const projectsData: ProjectData[] = [
     },
   },
   {
-    id: 5,
+    id: 3,
     title: "MJHC STUDIO",
     bg: "#1c1c2e",
     accent: "#00E5FF",
@@ -120,6 +79,116 @@ export const projectsData: ProjectData[] = [
       services: "ব্র্যান্ড আইডেন্টিটি, ওয়েব ডিজাইন, ডেভেলপমেন্ট",
       industry: "ডিজাইন ও প্রযুক্তি",
       location: "জিনুদপুর, বাংলাদেশ",
+    },
+  },
+  {
+    id: 4,
+    title: "THREEJS CREATIVE",
+    bg: "#101626",
+    accent: "#00FFCC",
+    textColor: "#00FFCC",
+    repoName: "threejs-creative-landing",
+    en: {
+      description:
+        "An interactive 3D landing page experience utilizing Three.js, React Three Fiber (R3F), and custom GLSL shader materials for ambient micro-interactions.",
+      services: "3D Graphics, WebGL, React Three Fiber, GLSL Shaders",
+      industry: "Creative Web Design",
+      location: "Jinudpur, Bangladesh",
+    },
+    bn: {
+      description:
+        "থ্রি.জেএস, রিঅ্যাক্ট থ্রি ফাইবার (R3F) এবং কাস্টম জিএলএসএল শেডার ব্যবহার করে তৈরি করা একটি ইন্টারেক্টিভ থ্রিডি ল্যান্ডিং পেজ অভিজ্ঞতা।",
+      services: "থ্রিডি গ্রাফিক্স, ওয়েবজিএল, রিঅ্যাক্ট থ্রি ফাইবার, কাস্টম শেডার্স",
+      industry: "ক্রিয়েটিভ ওযেব ডিজাইন",
+      location: "জিনুদপুর, বাংলাদেশ",
+    },
+  },
+  {
+    id: 5,
+    title: "RAYLIB ENGINE",
+    bg: "#2b1c0e",
+    accent: "#ff9800",
+    textColor: "#ff9800",
+    repoName: "raylib-projects",
+    en: {
+      description:
+        "A suite of interactive games and visual simulations built with Raylib and C++, including a custom physics bouncing ball engine, click-buttons, and multiple game logic states.",
+      services: "C++ Development, Game Engine Logic, Physics Simulations",
+      industry: "Software Engineering & Gaming",
+      location: "Bangladesh",
+    },
+    bn: {
+      description:
+        "রেলিব এবং সি++ দিয়ে তৈরি ইন্টারেক্টিভ গেম এবং ফিজিক্স সিমুলেশন, যার মধ্যে রয়েছে বাউন্সিং বল ফিজিক্স এবং টিক-ট্যাক-টো গেম লজিক।",
+      services: "সি++ ডেভেলপমেন্ট, গেম ইঞ্জিন লজিক, ফিজিক্স সিমুলেশন",
+      industry: "সফটওয়্যার ইঞ্জিনিয়ারিং ও গেমিং",
+      location: "বাংলাদেশ",
+    },
+  },
+  {
+    id: 6,
+    title: "ASTRO FULLSTACK",
+    bg: "#1d0f2b",
+    accent: "#d800ff",
+    textColor: "#d800ff",
+    repoName: "Astro-express-project",
+    en: {
+      description:
+        "A full-stack CRUD application and developer environment built with Astro, Express.js, TypeScript, and MongoDB, integrating seamless RESTful APIs.",
+      services: "Full Stack, REST APIs, Astro, TypeScript, Backend Systems",
+      industry: "Software Architecture",
+      location: "Bangladesh",
+    },
+    bn: {
+      description:
+        "অ্যাস্ট্রো, এক্সপ্রেস.জেএস, টাইপস্ক্রিপ্ট এবং মঙ্গোডিবি ব্যবহার করে তৈরি একটি ফুল-স্ট্যাক ক্রাড (CRUD) অ্যাপ্লিকেশন এবং রেস্টফুল এপিআই।",
+      services: "ফুল স্ট্যাক, অ্যাস্ট্রো, এক্সপ্রেস.জেএস, টাইপস্ক্রিপ্ট",
+      industry: "সফটওয়্যার আর্কিটেকচার",
+      location: "বাংলাদেশ",
+    },
+  },
+  {
+    id: 7,
+    title: "MINI RUST COMPILER",
+    bg: "#2b1c1c",
+    accent: "#ff5533",
+    textColor: "#ff5533",
+    repoName: "mini-rust-compiler",
+    en: {
+      description:
+        "An educational toy compiler and parser written in Rust to translate a simplified subset of programming language syntax to WebAssembly (Wasm).",
+      services: "Rust Development, Compiler Design, WebAssembly",
+      industry: "Developer Tools",
+      location: "Remote, Global",
+    },
+    bn: {
+      description:
+        "রাস্ট দিয়ে তৈরি একটি শিক্ষামূলক কম্পাইলার এবং পার্সার যা একটি সরলীকৃত প্রোগ্রামিং ল্যাঙ্গুয়েজ সিনট্যাক্সকে ওয়েবঅ্যাসেম্বলিতে (Wasm) অনুবাদ করে।",
+      services: "রাস্ট ডেভেলপমেন্ট, কম্পাইলার ডিজাইন, ওয়েবঅ্যাসেম্বলি",
+      industry: "ডেভেলপার টুলস",
+      location: "রিমোট, গ্লোবাল",
+    },
+  },
+  {
+    id: 8,
+    title: "REACT NATIVE CHAT UI",
+    bg: "#0d1b2a",
+    accent: "#415a77",
+    textColor: "#e0e1dd",
+    repoName: "react-native-chat-ui",
+    en: {
+      description:
+        "A beautifully styled, high-performance chat interface components built for React Native and Expo projects, incorporating reanimated and gesture handlers.",
+      services: "Mobile UI/UX, React Native, Expo, Reanimated",
+      industry: "Mobile App Development",
+      location: "Bangladesh",
+    },
+    bn: {
+      description:
+        "রিঅ্যাক্ট নেটিভ এবং এক্সপো প্রজেক্টের জন্য তৈরি করা একটি চমৎকার ডিজাইনের এবং হাই-পারফরম্যান্স চ্যাট ইন্টারফেস কম্পোনেন্ট যা রিঅ্যানিমেটেড ব্যবহার করে।",
+      services: "মোবাইল ইউআই/ইউএক্স, রিঅ্যাক্ট নেটিভ, এক্সপো",
+      industry: "মোবাইল অ্যাপ ডেভেলপমেন্ট",
+      location: "বাংলাদেশ",
     },
   },
 ];

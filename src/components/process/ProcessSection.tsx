@@ -1,18 +1,32 @@
 "use client";
 
-import React, { useState } from "react";
 import {
   Box,
-  Typography,
+  Button,
   Grid,
   Link,
-  Button,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/system";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useState } from "react";
+import { processData } from "@/data/process";
+import { useLanguageStore } from "@/store/languageStore";
 import ParticleText from "../../app/extras/ParticleText";
-import { useLanguage } from "../../context/LanguageContext";
+
+const translations = {
+  en: {
+    sectionTitle: "MY PROCESS",
+    projectsLabel: "// PHASES",
+    exploreMore: "VIEW DETAILS",
+  },
+  bn: {
+    sectionTitle: "আমার প্রক্রিয়া",
+    projectsLabel: "// ধাপসমূহ",
+    exploreMore: "বিস্তারিত দেখুন",
+  },
+};
 
 const BrandIcon = () => (
   <svg
@@ -97,7 +111,17 @@ const serviceIcons: { [key: string]: React.ReactNode } = {
 
 export default function ProcessSection() {
   const theme = useTheme();
-  const { t } = useLanguage();
+  const language = useLanguageStore((s) => s.language);
+  const t = translations[language];
+
+  const PROCESS = processData.map((p) => ({
+    id: p.id,
+    title: p.title[language],
+    headline: p.headline[language],
+    desc: p.desc[language],
+    skills: p.skills[language],
+  }));
+
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [expandedId, setExpandedId] = useState<string>("03");
 
@@ -126,7 +150,7 @@ export default function ProcessSection() {
       >
         <ParticleText
           canvasWidth={3400}
-          text={t.process.sectionTitle}
+          text={t.sectionTitle}
           colorStart={mainTextColor}
           colorEnd={mainTextColor}
           font={
@@ -140,7 +164,7 @@ export default function ProcessSection() {
 
       {/* Main Service List Container */}
       <Box sx={{ borderTop: "1px solid", borderColor: "rgba(0,0,0,0.15)" }}>
-        {t.process.items.map((service) => {
+        {PROCESS.map((service) => {
           const isExpanded = expandedId === service.id;
           const numId = service.id.replace("0", ""); // "1", "2", "3", "4"
 
@@ -242,7 +266,7 @@ export default function ProcessSection() {
                                   mt: 1,
                                 }}
                               >
-                                {t.process.projectsLabel}
+                                {t.projectsLabel}
                               </Typography>
                             </Box>
                           </Grid>
@@ -331,7 +355,7 @@ export default function ProcessSection() {
                                 "&:hover": { opacity: 0.7 },
                               }}
                             >
-                              {t.process.exploreMore}
+                              {t.exploreMore}
                             </Button>
                             <Box
                               sx={{

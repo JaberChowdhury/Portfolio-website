@@ -1,17 +1,42 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import ProjectCard from "./ProjectCard";
-import InfoRow from "./InfoRow";
-import { CARD_GAP } from "./worksData";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
+import type React from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { projectsData } from "@/data/projects";
+import { useLanguageStore } from "@/store/languageStore";
 import ParticleText from "../../app/extras/ParticleText";
-import { useLanguage } from "../../context/LanguageContext";
+import InfoRow from "./InfoRow";
+import ProjectCard from "./ProjectCard";
+import { CARD_GAP } from "./worksData";
+
+const translations = {
+  en: {
+    sectionTitle: "WORKS",
+    dragHint: "← DRAG →",
+    featured: "FEATURED",
+  },
+  bn: {
+    sectionTitle: "কাজ",
+    dragHint: "← টানুন →",
+    featured: "ফিচার্ড",
+  },
+};
 
 export default function WorksSection() {
   const theme = useTheme();
-  const { t } = useLanguage();
-  const PROJECTS = t.works.projects;
+  const language = useLanguageStore((s) => s.language);
+  const t = translations[language];
+
+  const PROJECTS = projectsData.map((p) => ({
+    id: p.id,
+    title: p.title,
+    bg: p.bg,
+    accent: p.accent,
+    textColor: p.textColor,
+    repoName: p.repoName,
+    ...p[language],
+  }));
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [activeIndex, setActiveIndex] = useState(2);
   const [isDragging, setIsDragging] = useState(false);
@@ -61,7 +86,7 @@ export default function WorksSection() {
       if (!start) start = t;
       const elapsed = t - start;
       const progress = Math.min(elapsed / duration, 1);
-      const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const eased = progress === 1 ? 1 : 1 - 2 ** (-10 * progress);
       const current = from + (target - from) * eased;
 
       offsetRef.current = current;
@@ -123,7 +148,7 @@ export default function WorksSection() {
         }}
       >
         <ParticleText
-          text={t.works.sectionTitle}
+          text={t.sectionTitle}
           colorStart="#1a1a1a"
           colorEnd="#1a1a1a"
           font={
@@ -172,8 +197,8 @@ export default function WorksSection() {
               activeIndex={activeIndex}
               isCenter={i === activeIndex}
               cardWidth={cardWidth}
-              dragHint={t.works.dragHint}
-              featuredText={t.works.featured}
+              dragHint={t.dragHint}
+              featuredText={t.featured}
             />
           ))}
         </Box>

@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
-import { motion, type Variants } from "framer-motion";
-import { useTheme } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { motion, type Variants } from "framer-motion";
 
 export default function Logo() {
   const theme = useTheme();

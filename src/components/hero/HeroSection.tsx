@@ -2,10 +2,10 @@
 
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
-import { floatAnimation } from "./heroAnimations";
 import Navbar from "../navbar/Navbar";
-import HeroTitle from "./HeroTitle";
 import HeroMarquee from "./HeroMarquee";
+import HeroTitle from "./HeroTitle";
+import { floatAnimation } from "./heroAnimations";
 
 export default function HeroSection() {
   const theme = useTheme();

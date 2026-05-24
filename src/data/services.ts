@@ -19,8 +19,20 @@ export const servicesData: ServiceItem[] = [
       bn: "ব্র্যান্ড আইডেন্টিটি থেকে শুরু করে ভিজ্যুয়াল সিস্টেম পর্যন্ত, আমাদের কৌশলগত পদ্ধতি একটি সুসংহত আখ্যান তৈরি করে।",
     },
     skills: {
-      en: ["BRAND IDENTITY", "VISUAL SYSTEMS", "ART DIRECTION", "BRAND GUIDELINES", "VERBAL IDENTITY"],
-      bn: ["ব্র্যান্ড আইডেন্টিটি", "ভিজ্যুয়াল সিস্টেমস", "আর্ট ডিরেকশন", "ব্র্যান্ড গাইডলাইন্স", "ভার্বাল আইডেন্টিটি"],
+      en: [
+        "BRAND IDENTITY",
+        "VISUAL SYSTEMS",
+        "ART DIRECTION",
+        "BRAND GUIDELINES",
+        "VERBAL IDENTITY",
+      ],
+      bn: [
+        "ব্র্যান্ড আইডেন্টিটি",
+        "ভিজ্যুয়াল সিস্টেমস",
+        "আর্ট ডিরেকশন",
+        "ব্র্যান্ড গাইডলাইন্স",
+        "ভার্বাল আইডেন্টিটি",
+      ],
     },
   },
   {
@@ -35,8 +47,18 @@ export const servicesData: ServiceItem[] = [
       bn: "আমার ডিজাইন অ্যাপ্রোচ নান্দনিকতার সাথে কার্যকারিতার সংমিশ্রণ ঘটায়, যা ডিজিটাল অভিজ্ঞতায় রূপান্তর আনে।",
     },
     skills: {
-      en: ["UI / UX DESIGN", "WEBSITE DESIGN", "MOBILE APPLICATIONS", "E-COMMERCE & PLATFORMS"],
-      bn: ["ইউআই / ইউএক্স ডিজাইন", "ওয়েবসাইট ডিজাইন", "মোবাইল অ্যাপ্লিকেশন", "ই-কমার্স ও প্ল্যাটফর্ম"],
+      en: [
+        "UI / UX DESIGN",
+        "WEBSITE DESIGN",
+        "MOBILE APPLICATIONS",
+        "E-COMMERCE & PLATFORMS",
+      ],
+      bn: [
+        "ইউআই / ইউএক্স ডিজাইন",
+        "ওয়েবসাইট ডিজাইন",
+        "মোবাইল অ্যাপ্লিকেশন",
+        "ই-কমার্স ও প্ল্যাটফর্ম",
+      ],
     },
   },
   {
@@ -51,8 +73,18 @@ export const servicesData: ServiceItem[] = [
       bn: "আমি আকর্ষণীয় ভিজ্যুয়াল অভিজ্ঞতা তৈরি করি যা দর্শকদের মন্ত্রমুগ্ধ করে।",
     },
     skills: {
-      en: ["3D EXPERIENCES", "MOTION GRAPHICS", "VIDEO EDITING", "INTERACTIVE NARRATIVES"],
-      bn: ["থ্রিডি এক্সপেরিয়েন্স", "মোশন গ্রাফিক্স", "ভিডিও এডিটিং", "ইন্টারঅ্যাকটিভ ন্যারেটিভস"],
+      en: [
+        "3D EXPERIENCES",
+        "MOTION GRAPHICS",
+        "VIDEO EDITING",
+        "INTERACTIVE NARRATIVES",
+      ],
+      bn: [
+        "থ্রিডি এক্সপেরিয়েন্স",
+        "মোশন গ্রাফিক্স",
+        "ভিডিও এডিটিং",
+        "ইন্টারঅ্যাকটিভ ন্যারেটিভস",
+      ],
     },
   },
   {
@@ -67,8 +99,18 @@ export const servicesData: ServiceItem[] = [
       bn: "আমার ইঞ্জিনিয়ারিং দক্ষতা ভবিষ্যতের জন্য পরিচ্ছন্ন, স্কেলেবল সমাধান প্রদান করে।",
     },
     skills: {
-      en: ["REACT & NEXT.JS", "THREE.JS & MATTER.JS", "WORDPRESS & CMS", "DEPLOYMENT PIPELINES"],
-      bn: ["রিঅ্যাক্ট ও নেক্সট.জেএস", "থ্রি.জেএস ও ম্যাটার.জেএস", "ওয়ার্ডপ্রেস ও সিএমএস", "ডেভেলপমেন্ট পাইপলাইন"],
+      en: [
+        "REACT & NEXT.JS",
+        "THREE.JS & MATTER.JS",
+        "WORDPRESS & CMS",
+        "DEPLOYMENT PIPELINES",
+      ],
+      bn: [
+        "রিঅ্যাক্ট ও নেক্সট.জেএস",
+        "থ্রি.জেএস ও ম্যাটার.জেএস",
+        "ওয়ার্ডপ্রেস ও সিএমএস",
+        "ডেভেলপমেন্ট পাইপলাইন",
+      ],
     },
   },
 ];

@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
 import { Box } from "@mui/material";
-import { motion } from "framer-motion";
 import { useTheme } from "@mui/system";
+import { motion } from "framer-motion";
 
 export default function GlowingCrosshair() {
   const theme = useTheme();

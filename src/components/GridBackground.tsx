@@ -1,9 +1,9 @@
 // components/GridBackground.tsx
 "use client";
 
-import React from "react";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/system";
+import type React from "react";
 
 export default function GridBackground({
   children,

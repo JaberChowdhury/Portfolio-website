@@ -10,6 +10,7 @@ export interface Project {
   industry: string;
   location: string;
   textColor: string;
+  repoName?: string;
 }
 
 // ─── Card Layout Constants ────────────────────────────────────────────────────
@@ -17,4 +18,3 @@ export interface Project {
 export const CARD_WIDTH = 520;
 export const CARD_GAP = 16;
 export const CARD_STRIDE = CARD_WIDTH + CARD_GAP;
-

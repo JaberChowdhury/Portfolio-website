@@ -1,16 +1,90 @@
 "use client";
-import React from "react";
-import PricingCard from "./PricingCard";
-import ParticleText from "../../app/extras/ParticleText";
-import { Box, Typography, Button, useMediaQuery } from "@mui/material";
-import { useLanguage } from "../../context/LanguageContext";
+import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useLanguageStore } from "@/store/languageStore";
+import ParticleText from "../../app/extras/ParticleText";
+import PricingCard from "./PricingCard";
+
+const translations = {
+  en: {
+    header: "PRICING",
+    submitProject: {
+      label: "SUBMIT YOUR PROJECT",
+      prompt:
+        "Flexible engagement model designed to accommodate a varying scale of ambition and complexity.",
+      buttonText: "Book a call",
+    },
+    tiers: [
+      {
+        id: "hourly",
+        title: "HOURLY SESSION",
+        description:
+          "Flexible engagement for specific tasks, consulting, audits, or rapid sprints.",
+        buttonText: "Hire Me",
+        variant: "light",
+      },
+      {
+        id: "monthly",
+        title: "MONTHLY RETAINER",
+        description:
+          "Dedicated design & engineering resources for continuous product evolution.",
+        buttonText: "Hire Me",
+        variant: "light",
+      },
+      {
+        id: "project",
+        title: "PROJECT BASED",
+        hasBullet: true,
+        description:
+          "End-to-end execution. Full scope with defined deliverables and fixed timeline.",
+        buttonText: "Hire Me",
+        variant: "dark",
+      },
+    ],
+    emailLink: "EMAIL ME",
+  },
+  bn: {
+    header: "মূল্য তালিকা",
+    submitProject: {
+      label: "আপনার প্রজেক্ট জমা দিন",
+      prompt: "বিভিন্ন মাত্রার উচ্চাকাঙ্ক্ষা এবং জটিলতার সাথে মানানসই একটি নমনীয় কাজের মডেল।",
+      buttonText: "কল বুক করুন",
+    },
+    tiers: [
+      {
+        id: "hourly",
+        title: "ঘণ্টাভিত্তিক সেশন",
+        description: "নির্দিষ্ট কাজ, পরামর্শ, অডিট বা দ্রুত স্প্রিন্টের জন্য নমনীয় চুক্তি।",
+        buttonText: "নিয়োগ দিন",
+        variant: "light",
+      },
+      {
+        id: "monthly",
+        title: "মাসিক রিটেইনার",
+        description:
+          "ক্রমাগত পণ্য বিকাশের জন্য ডেডিকেটেড ডিজাইন এবং ইঞ্জিনিয়ারিং রিসোর্স।",
+        buttonText: "নিয়োগ দিন",
+        variant: "light",
+      },
+      {
+        id: "project",
+        title: "প্রকল্প ভিত্তিক",
+        hasBullet: true,
+        description:
+          "শুরু থেকে শেষ পর্যন্ত বাস্তবায়ন। নির্দিষ্ট টাইমলাইন ও ডেলিভারেবলের সাথে সম্পূর্ণ স্কোপ।",
+        buttonText: "নিয়োগ দিন",
+        variant: "dark",
+      },
+    ],
+    emailLink: "ইমেইল করুন",
+  },
+};
 
 // Main Pricing Page Component
 const PricingSection = () => {
   const theme = useTheme();
-  const { t } = useLanguage();
-  const pricingData = t.pricing;
+  const language = useLanguageStore((s) => s.language);
+  const pricingData = translations[language];
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const mainTextColor = "rgba(0, 0, 0, 0.85)";

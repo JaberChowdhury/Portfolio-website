@@ -1,19 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
 import {
   Box,
-  Typography,
-  Stack,
+  Button,
   Drawer,
   IconButton,
-  Button,
   Link as MuiLink,
+  Stack,
 } from "@mui/material";
 import { alpha, useTheme } from "@mui/material/styles";
 import { motion } from "framer-motion";
+import NextLink from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { useLanguageStore } from "@/store/languageStore";
 import Logo from "../Logo";
-import { useLanguage } from "@/context/LanguageContext";
 
 const HamburgerIcon = () => (
   <svg
@@ -49,22 +50,54 @@ const CloseIcon = () => (
   </svg>
 );
 
+const translations = {
+  en: {
+    home: "HOME",
+    works: "WORKS",
+    projects: "PROJECTS",
+    services: "SERVICES",
+    process: "PROCESS",
+    pricing: "PRICING",
+    testimonials: "TESTIMONIALS",
+    faq: "FAQ",
+    contact: "CONTACT",
+    lang: "LANGUAGE: EN | BN",
+  },
+  bn: {
+    home: "০০১/ হোম",
+    works: "০০২/ কাজ",
+    projects: "০০৩/ প্রকল্পসমূহ",
+    services: "০০৪/ সেবাসমূহ",
+    process: "০০৫/ প্রক্রিয়া",
+    pricing: "০০৬/ মূল্য",
+    testimonials: "০০৭/ প্রশংসাপত্র",
+    faq: "০০৮/ প্রশ্নাবলী",
+    contact: "০০৯/ যোগাযোগ",
+    lang: "ভাষা: EN | BN",
+  },
+};
+
 export default function Navbar() {
   const theme = useTheme();
   const gridLineColor = theme.palette.divider;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("#home");
-  const { t, toggleLanguage, language } = useLanguage();
+  const [activeLink, setActiveLink] = useState("/#home");
+  const pathname = usePathname();
+
+  const language = useLanguageStore((s) => s.language);
+  const toggleLanguage = useLanguageStore((s) => s.toggleLanguage);
+  const t = translations[language];
 
   const navLinks = [
-    { label: t.nav.home, href: "#home" },
-    { label: t.nav.works, href: "#works" },
-    { label: t.nav.services, href: "#services" },
-    { label: t.nav.process, href: "#process" },
-    { label: t.nav.pricing, href: "#pricing" },
-    { label: t.nav.testimonials, href: "#testimonials" },
-    { label: t.nav.faq, href: "#faq" },
-    { label: t.nav.contact, href: "#contact" },
+    { label: t.home, href: "/#home" },
+    { label: t.works, href: "/#works" },
+    { label: t.projects, href: "/projects" },
+    { label: t.services, href: "/#services" },
+    { label: t.process, href: "/#process" },
+    { label: t.pricing, href: "/#pricing" },
+    { label: t.testimonials, href: "/#testimonials" },
+    { label: t.faq, href: "/#faq" },
+    { label: t.contact, href: "/#contact" },
   ];
 
   const handleDrawerToggle = () => {
@@ -95,7 +128,7 @@ export default function Navbar() {
     >
       {/* Left: The Interactive Framer Motion Logo */}
       <Box sx={{ zIndex: 120 }}>
-        <MuiLink href="#home" underline="none">
+        <MuiLink component={NextLink} href="/#home" underline="none">
           <Logo />
         </MuiLink>
       </Box>
@@ -106,44 +139,51 @@ export default function Navbar() {
         spacing={4}
         sx={{ display: { xs: "none", lg: "flex" } }}
       >
-        {navLinks.map((link) => (
-          <Box
-            key={link.label}
-            sx={{ position: "relative", display: "inline-block" }}
-          >
-            <MuiLink
-              href={link.href}
-              underline="none"
-              color="inherit"
-              onClick={() => setActiveLink(link.href)}
-              sx={{
-                letterSpacing: "0.05em",
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                transition: "opacity 0.2s",
-                "&:hover": { opacity: 0.6 },
-                position: "relative",
-                zIndex: 1,
-              }}
+        {navLinks.map((link) => {
+          const currentActive =
+            pathname === "/projects" ? "/projects" : activeLink;
+          const isLinkActive = currentActive === link.href;
+
+          return (
+            <Box
+              key={link.label}
+              sx={{ position: "relative", display: "inline-block" }}
             >
-              {link.label}
-            </MuiLink>
-            {activeLink === link.href && (
-              <motion.div
-                layoutId="navbar-underline"
-                style={{
-                  position: "absolute",
-                  bottom: -6,
-                  left: 0,
-                  right: 0,
-                  height: 2,
-                  backgroundColor: "black",
-                  borderRadius: 2,
+              <MuiLink
+                component={NextLink}
+                href={link.href}
+                underline="none"
+                color="inherit"
+                onClick={() => setActiveLink(link.href)}
+                sx={{
+                  letterSpacing: "0.05em",
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  transition: "opacity 0.2s",
+                  "&:hover": { opacity: 0.6 },
+                  position: "relative",
+                  zIndex: 1,
                 }}
-              />
-            )}
-          </Box>
-        ))}
+              >
+                {link.label}
+              </MuiLink>
+              {isLinkActive && (
+                <motion.div
+                  layoutId="navbar-underline"
+                  style={{
+                    position: "absolute",
+                    bottom: -6,
+                    left: 0,
+                    right: 0,
+                    height: 2,
+                    backgroundColor: "black",
+                    borderRadius: 2,
+                  }}
+                />
+              )}
+            </Box>
+          );
+        })}
       </Stack>
 
       {/* Right: Extras & Mobile Menu Toggle */}
@@ -199,6 +239,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <MuiLink
               key={link.label}
+              component={NextLink}
               href={link.href}
               underline="none"
               color="black"

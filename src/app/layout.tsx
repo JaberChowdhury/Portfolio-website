@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CssBaseline from "@mui/material/CssBaseline"; // Crucial import for MUI themes
+import { ThemeProvider } from "@mui/material/styles";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Roboto } from "next/font/google";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline"; // Crucial import for MUI themes
-import theme from "../theme";
-import { InitColorSchemeScript } from "@mui/material";
-import Navbar from "@/components/navbar/Navbar";
 import GridBackground from "@/components/GridBackground";
-
-import { LanguageProvider } from "@/context/LanguageContext";
+import theme from "../theme";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -34,12 +30,10 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider options={{ key: "css" }}>
           <ThemeProvider theme={theme}>
-            <LanguageProvider>
-              {/* CssBaseline kicks in the theme.palette.background.default globally */}
-              <CssBaseline />
+            {/* CssBaseline kicks in the theme.palette.background.default globally */}
+            <CssBaseline />
 
-              <GridBackground>{children}</GridBackground>
-            </LanguageProvider>
+            <GridBackground>{children}</GridBackground>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

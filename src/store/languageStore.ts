@@ -17,6 +17,6 @@ export const useLanguageStore = create<LanguageStore>()(
       toggleLanguage: () =>
         set({ language: get().language === "en" ? "bn" : "en" }),
     }),
-    { name: "app_lang" }
-  )
+    { name: "app_lang" },
+  ),
 );

@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
+import React from "react";
 import type { Project } from "./worksData";
 import { CARD_WIDTH } from "./worksData";
 

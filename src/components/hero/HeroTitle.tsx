@@ -1,19 +1,27 @@
 "use client";
 
-import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
-import GlowingCrosshair from "./GlowingCrosshair";
-import CircuitGraphic from "./CircuitGraphic";
-import { useLanguage } from "../../context/LanguageContext";
-import { Item } from "three/examples/jsm/inspector/ui/Item.js";
+import { useLanguageStore } from "@/store/languageStore";
+
+const translations = {
+  en: {
+    title1: ["MD", "JABER"],
+    title2: ["HOSSAIN", "CHOWDHURY"],
+  },
+  bn: {
+    title1: ["মোঃ", "জাবের"],
+    title2: ["হোসেন", "চৌধুরী"],
+  },
+};
 
 export default function HeroTitle() {
   const theme = useTheme();
-  const { t, language } = useLanguage();
+  const language = useLanguageStore((s) => s.language);
+  const t = translations[language];
 
   // Shared typography styles to keep the massive text responsive
-  const fluidTextStyle = {
+  const _fluidTextStyle = {
     fontSize: {
       xs: "clamp(1.5rem, 6vw, 9rem)",
       md: "clamp(2.5rem, 8vw, 9rem)",
@@ -28,7 +36,7 @@ export default function HeroTitle() {
     flexWrap: { xs: "wrap", md: "nowrap" },
     alignItems: "center",
   };
-  if (language == "en") {
+  if (language === "en") {
     return (
       <Box
         sx={{
@@ -56,7 +64,7 @@ export default function HeroTitle() {
             fontWeight: 700,
           }}
         >
-          {t.hero.title1[0]}
+          {t.title1[0]}
         </Typography>
 
         <Typography
@@ -73,7 +81,7 @@ export default function HeroTitle() {
             fontWeight: 700,
           }}
         >
-          {t.hero.title1[1]}
+          {t.title1[1]}
         </Typography>
 
         <Typography
@@ -90,7 +98,7 @@ export default function HeroTitle() {
             fontWeight: 700,
           }}
         >
-          {t.hero.title2[0]}
+          {t.title2[0]}
         </Typography>
 
         <Typography
@@ -107,7 +115,7 @@ export default function HeroTitle() {
             fontWeight: 700,
           }}
         >
-          {t.hero.title2[1]}
+          {t.title2[1]}
         </Typography>
       </Box>
     );
@@ -139,12 +147,12 @@ export default function HeroTitle() {
             fontWeight: 700,
           }}
         >
-          {t.hero.title1[0]}
-          {"  "} {t.hero.title1[1]}
+          {t.title1[0]}
+          {"  "} {t.title1[1]}
           {"  "}
-          {t.hero.title2[0]}
+          {t.title2[0]}
           {"  "}
-          {t.hero.title2[1]}
+          {t.title2[1]}
         </Typography>
       </Box>
     );

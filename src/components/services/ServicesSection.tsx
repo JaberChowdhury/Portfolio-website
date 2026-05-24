@@ -1,18 +1,32 @@
 "use client";
 
-import React, { useState } from "react";
 import {
   Box,
-  Typography,
+  Button,
   Grid,
   Link,
-  Button,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/system";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useState } from "react";
+import { servicesData } from "@/data/services";
+import { useLanguageStore } from "@/store/languageStore";
 import ParticleText from "../../app/extras/ParticleText";
-import { useLanguage } from "../../context/LanguageContext";
+
+const translations = {
+  en: {
+    sectionTitle: "SERVICES",
+    projectsLabel: "// PROJECTS",
+    exploreMore: "EXPLORE MORE",
+  },
+  bn: {
+    sectionTitle: "সেবাসমূহ",
+    projectsLabel: "// প্রকল্পসমূহ",
+    exploreMore: "আরও এক্সপ্লোর করুন",
+  },
+};
 
 const BrandIcon = () => (
   <svg
@@ -97,7 +111,17 @@ const serviceIcons: { [key: string]: React.ReactNode } = {
 
 export default function ServicesSection() {
   const theme = useTheme();
-  const { t } = useLanguage();
+  const language = useLanguageStore((s) => s.language);
+  const t = translations[language];
+
+  const SERVICES = servicesData.map((s) => ({
+    id: s.id,
+    title: s.title[language],
+    headline: s.headline[language],
+    desc: s.desc[language],
+    skills: s.skills[language],
+  }));
+
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [expandedId, setExpandedId] = useState<string>("03");
 
@@ -125,7 +149,7 @@ export default function ServicesSection() {
         }}
       >
         <ParticleText
-          text={t.services.sectionTitle}
+          text={t.sectionTitle}
           colorStart={mainTextColor}
           colorEnd={mainTextColor}
           font={
@@ -139,7 +163,7 @@ export default function ServicesSection() {
 
       {/* Main Service List Container */}
       <Box sx={{ borderTop: "1px solid", borderColor: "rgba(0,0,0,0.15)" }}>
-        {t.services.items.map((service) => {
+        {SERVICES.map((service) => {
           const isExpanded = expandedId === service.id;
           const numId = service.id.replace("0", ""); // "1", "2", "3", "4"
 
@@ -241,7 +265,7 @@ export default function ServicesSection() {
                                   mt: 1,
                                 }}
                               >
-                                {t.services.projectsLabel}
+                                {t.projectsLabel}
                               </Typography>
                             </Box>
                           </Grid>
@@ -330,7 +354,7 @@ export default function ServicesSection() {
                                 "&:hover": { opacity: 0.7 },
                               }}
                             >
-                              {t.services.exploreMore}
+                              {t.exploreMore}
                             </Button>
                             <Box
                               sx={{

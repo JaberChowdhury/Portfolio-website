@@ -1,10 +1,13 @@
 "use client";
 
-import React from "react";
 import { Box } from "@mui/material";
-import { motion } from "framer-motion";
 import { useTheme } from "@mui/system";
-import { lineStretchVariants, circuitVariants, nodeVariants } from "./heroAnimations";
+import { motion } from "framer-motion";
+import {
+  circuitVariants,
+  lineStretchVariants,
+  nodeVariants,
+} from "./heroAnimations";
 
 export default function CircuitGraphic() {
   const theme = useTheme();

@@ -1,26 +1,26 @@
 "use client";
 
-import React from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Stack,
-  Paper,
-  keyframes,
-} from "@mui/material";
+import AppsIcon from "@mui/icons-material/Apps"; // Placeholder for the Diamond Clarity icon
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 // Icons
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import CallMadeIcon from "@mui/icons-material/CallMade";
+import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import CallMadeIcon from "@mui/icons-material/CallMade";
-import AppsIcon from "@mui/icons-material/Apps"; // Placeholder for the Diamond Clarity icon
+import {
+  Box,
+  Button,
+  Container,
+  keyframes,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import type React from "react";
 
 // 1. Define Animations
 const float = keyframes`

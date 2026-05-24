@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import * as THREE from "three";
 import { useTheme } from "@mui/material/styles"; // Import useTheme
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
 
 export interface ParticleTextProps {
   text: string;
@@ -61,26 +61,26 @@ export default function ParticleText({
   const resolvedColorEnd = colorEnd || theme.palette.secondary.main;
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    const container = mountRef.current;
+    if (!container) return;
+
+    let isDestroyed = false;
 
     const scene = new THREE.Scene();
 
     const camera = new THREE.PerspectiveCamera(
       45,
-      mountRef.current.clientWidth / mountRef.current.clientHeight,
+      container.clientWidth / container.clientHeight,
       1,
       1000,
     );
     camera.position.z = 40;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(
-      mountRef.current.clientWidth,
-      mountRef.current.clientHeight,
-    );
+    renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
-    mountRef.current.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
@@ -174,10 +174,23 @@ export default function ParticleText({
     let clickIntensity = 0;
 
     const onMouseMove = (event: MouseEvent) => {
-      const bounds = mountRef.current?.getBoundingClientRect();
-      if (!bounds) return;
-      mouse.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-      mouse.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+      if (!container) return;
+      const bounds = container.getBoundingClientRect();
+      if (!bounds || bounds.width === 0 || bounds.height === 0) return;
+
+      const x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
+      const y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+
+      if (
+        Number.isNaN(x) ||
+        Number.isNaN(y) ||
+        !Number.isFinite(x) ||
+        !Number.isFinite(y)
+      )
+        return;
+
+      mouse.x = x;
+      mouse.y = y;
       raycaster.setFromCamera(mouse, camera);
       raycaster.ray.intersectPlane(plane, mouse3D);
     };
@@ -191,23 +204,21 @@ export default function ParticleText({
 
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mousedown", onMouseDown);
-    mountRef.current.addEventListener("mouseleave", onMouseLeave);
+    container.addEventListener("mouseleave", onMouseLeave);
 
     const onResize = () => {
-      if (!mountRef.current) return;
-      camera.aspect =
-        mountRef.current.clientWidth / mountRef.current.clientHeight;
+      if (!container) return;
+      camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(
-        mountRef.current.clientWidth,
-        mountRef.current.clientHeight,
-      );
+      renderer.setSize(container.clientWidth, container.clientHeight);
     };
     window.addEventListener("resize", onResize);
 
     let animationFrameId: number;
 
     const animate = () => {
+      if (isDestroyed) return;
+
       const posArray = geometry.attributes.position.array as Float32Array;
       const baseArray = geometry.attributes.basePosition.array as Float32Array;
 
@@ -224,7 +235,7 @@ export default function ParticleText({
         const dy = mouse3D.y - py;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < hoverRadius) {
+        if (dist < hoverRadius && dist > 0.0001) {
           const force = (hoverRadius - dist) / hoverRadius;
           posArray[i3] -= (dx / dist) * force * hoverForceXY;
           posArray[i3 + 1] -= (dy / dist) * force * hoverForceXY;
@@ -232,7 +243,7 @@ export default function ParticleText({
         }
 
         if (clickIntensity > 0) {
-          if (dist < explodeRadius) {
+          if (dist < explodeRadius && dist > 0.0001) {
             const explodeForce =
               ((explodeRadius - dist) / explodeRadius) * clickIntensity;
             posArray[i3] -= (dx / dist) * explodeForce * explodeForceXY;
@@ -257,17 +268,20 @@ export default function ParticleText({
     animate();
 
     return () => {
+      isDestroyed = true;
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("resize", onResize);
-      if (mountRef.current)
-        mountRef.current.removeEventListener("mouseleave", onMouseLeave);
+      if (container) {
+        container.removeEventListener("mouseleave", onMouseLeave);
+        if (renderer.domElement && container.contains(renderer.domElement)) {
+          container.removeChild(renderer.domElement);
+        }
+      }
       cancelAnimationFrame(animationFrameId);
       renderer.dispose();
       geometry.dispose();
       material.dispose();
-      if (mountRef.current && renderer.domElement)
-        mountRef.current.removeChild(renderer.domElement);
     };
     // Include resolved colors in dependency array to trigger re-render on theme change
   }, [
