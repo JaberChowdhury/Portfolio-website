@@ -1,20 +1,21 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Whitelist your local network IP for HMR and dev resources
+  allowedDevOrigins: ["192.168.1.9"],
+
+  // The React Compiler is now a root-level option
   reactCompiler: true,
+
+  /* config options here */
   experimental: {
-    // optimizePackageImports: ["@mui/material", "@mui/icons-material", "three"],
+    // Kept only the valid, heavily utilized packages to optimize
     optimizePackageImports: [
       "@emotion/cache",
       "@emotion/styled",
       "@mui/icons-material",
       "@mui/material",
       "@mui/material-nextjs",
-      "@types/three",
-      "next",
-      "react",
-      "react-dom",
       "three",
     ],
   },

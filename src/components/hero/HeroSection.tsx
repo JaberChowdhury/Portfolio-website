@@ -1,31 +1,19 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
-import { useTheme } from "@mui/system";
 import Navbar from "../navbar/Navbar";
 import HeroMarquee from "./HeroMarquee";
 import HeroTitle from "./HeroTitle";
 import { floatAnimation } from "./heroAnimations";
 
 export default function HeroSection() {
-  const theme = useTheme();
-  const gridLineColor = theme.palette.divider;
-
   return (
     <Box
       id="home"
       sx={{
         width: "100vw",
         minHeight: "100vh",
-        backgroundColor: theme.palette.background.default,
-        backgroundImage: `
-          linear-gradient(${gridLineColor} 1px, transparent 1px),
-          linear-gradient(90deg, ${gridLineColor} 1px, transparent 1px)
-        `,
-        backgroundSize: "40px 40px",
-        color: theme.palette.text.primary,
         position: "relative",
-        // CRITICAL: Prevents horizontal scrollbars
         overflowX: "hidden",
         display: "flex",
         flexDirection: "column",

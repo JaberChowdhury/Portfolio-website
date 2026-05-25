@@ -12,7 +12,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { alpha, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import { processData } from "@/data/process";
@@ -55,11 +55,13 @@ export default function ProcessSection() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [expandedId, setExpandedId] = useState<string>("03");
 
-  const mainTextColor = theme.palette.text.primary;
-  const expandedBgColor = theme.palette.text.primary;
-  const expandedTextColor = theme.palette.background.default;
-  const paragraphTextColor = alpha(expandedTextColor, 0.72);
-  const skillsTextColor = alpha(expandedTextColor, 0.55);
+  const mainTextColor = "var(--mui-palette-text-primary)";
+  const expandedBgColor = "var(--mui-palette-text-primary)";
+  const expandedTextColor = "var(--mui-palette-background-default)";
+  const paragraphTextColor =
+    "rgba(var(--mui-palette-background-defaultChannel) / 0.72)";
+  const skillsTextColor =
+    "rgba(var(--mui-palette-background-defaultChannel) / 0.55)";
 
   return (
     <Box
@@ -80,21 +82,21 @@ export default function ProcessSection() {
         }}
       >
         <ParticleText
-          canvasWidth={3400}
           text={t.sectionTitle}
           colorStart={mainTextColor}
           colorEnd={mainTextColor}
+          canvasWidth={isMobile ? 2200 : 3200}
           font={
             isMobile
-              ? "900 100px Inter, sans-serif"
-              : "900 200px Inter, sans-serif"
+              ? "900 280px Inter, sans-serif"
+              : "900 300px Inter, sans-serif"
           }
           particleSize={0.4}
         />
       </Box>
 
       {/* Main Service List Container */}
-      <Box sx={{ borderTop: "1px solid", borderColor: theme.palette.divider }}>
+      <Box sx={{ borderTop: "1px solid", borderColor: "divider" }}>
         {PROCESS.map((service) => {
           const isExpanded = expandedId === service.id;
           const numId = service.id.replace("0", ""); // "1", "2", "3", "4"
@@ -106,7 +108,9 @@ export default function ProcessSection() {
               onMouseEnter={() => setExpandedId(service.id)}
               style={{
                 borderBottom: "1px solid",
-                borderColor: isExpanded ? "transparent" : theme.palette.divider,
+                borderColor: isExpanded
+                  ? "transparent"
+                  : "var(--mui-palette-divider)",
                 position: "relative",
                 cursor: "pointer",
                 overflow: "hidden", // Ensures background doesn't leak during animation
@@ -292,7 +296,8 @@ export default function ProcessSection() {
                               sx={{
                                 width: 6,
                                 height: 6,
-                                backgroundColor: alpha(expandedTextColor, 0.3),
+                                backgroundColor:
+                                  "rgba(var(--mui-palette-background-defaultChannel) / 0.3)",
                                 mt: { xs: 2, md: "auto" },
                                 mb: { md: 6 },
                               }}

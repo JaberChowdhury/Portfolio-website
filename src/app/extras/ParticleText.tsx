@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "@mui/material/styles"; // Import useTheme
+import { useColorScheme, useTheme } from "@mui/material/styles"; // Import useColorScheme and useTheme
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
@@ -30,6 +30,20 @@ export interface ParticleTextProps {
   springForce?: number;
 }
 
+function resolveCssColor(colorStr: string): string {
+  if (!colorStr) return "#000000";
+  if (colorStr.startsWith("var(")) {
+    const varName = colorStr.substring(4, colorStr.length - 1).trim();
+    if (typeof window !== "undefined") {
+      const value = getComputedStyle(document.body)
+        .getPropertyValue(varName)
+        .trim();
+      return value || "#000000";
+    }
+  }
+  return colorStr;
+}
+
 export default function ParticleText({
   text,
   canvasWidth = 1000,
@@ -53,16 +67,21 @@ export default function ParticleText({
 }: ParticleTextProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const theme = useTheme(); // Grab the current active theme
+  const { mode, systemMode } = useColorScheme(); // Grab the current scheme
+  const _currentMode = mode === "system" ? systemMode : mode;
 
   // Resolve the actual colors to use.
   // If you pass a color prop, it uses that.
   // If not, it uses your theme's Primary and Secondary main colors.
-  const resolvedColorStart = colorStart || theme.palette.primary.main;
-  const resolvedColorEnd = colorEnd || theme.palette.secondary.main;
+  const colorStartToUse = colorStart || theme.palette.primary.main;
+  const colorEndToUse = colorEnd || theme.palette.secondary.main;
 
   useEffect(() => {
     const container = mountRef.current;
     if (!container) return;
+
+    const resolvedColorStart = resolveCssColor(colorStartToUse);
+    const resolvedColorEnd = resolveCssColor(colorEndToUse);
 
     let isDestroyed = false;
 
@@ -294,8 +313,8 @@ export default function ParticleText({
     zVariance,
     particleSize,
     particleOpacity,
-    resolvedColorStart,
-    resolvedColorEnd,
+    colorStartToUse,
+    colorEndToUse,
     hoverRadius,
     hoverForceXY,
     hoverForceZ,

@@ -1,7 +1,6 @@
 "use client";
 
 import { Box } from "@mui/material";
-import { useTheme } from "@mui/system";
 import { motion } from "framer-motion";
 import {
   circuitVariants,
@@ -10,8 +9,7 @@ import {
 } from "./heroAnimations";
 
 export default function CircuitGraphic() {
-  const theme = useTheme();
-  const cyanAccent = theme.palette.primary.main;
+  const cyanAccent = "var(--mui-palette-primary-main)";
 
   return (
     <Box
@@ -30,7 +28,7 @@ export default function CircuitGraphic() {
         animate="visible"
         style={{
           height: "6px",
-          backgroundColor: theme.palette.text.primary,
+          backgroundColor: "var(--mui-palette-text-primary)",
           flexGrow: 1,
         }}
       />
@@ -48,7 +46,7 @@ export default function CircuitGraphic() {
           {/* Branching Lines */}
           <motion.path
             d="M 0 50 L 30 20 H 70 M 0 50 L 30 80 H 70"
-            stroke={theme.palette.text.primary}
+            stroke="var(--mui-palette-text-primary)"
             strokeWidth="6"
             fill="none"
             variants={circuitVariants}
@@ -63,7 +61,7 @@ export default function CircuitGraphic() {
               y="10"
               width="20"
               height="20"
-              fill={theme.palette.text.primary}
+              fill="var(--mui-palette-text-primary)"
               variants={nodeVariants}
             />
             <motion.rect
@@ -87,7 +85,7 @@ export default function CircuitGraphic() {
               y="70"
               width="20"
               height="20"
-              fill={theme.palette.text.primary}
+              fill="var(--mui-palette-text-primary)"
               variants={nodeVariants}
             />
           </motion.g>
@@ -95,7 +93,7 @@ export default function CircuitGraphic() {
           {/* Final Arrow */}
           <motion.path
             d="M 140 50 H 200 L 180 30 M 200 50 L 180 70"
-            stroke={theme.palette.text.primary}
+            stroke="var(--mui-palette-text-primary)"
             strokeWidth="6"
             fill="none"
             strokeLinecap="square"

@@ -125,7 +125,7 @@ export default function WorksSection() {
   };
 
   const activeProject = PROJECTS[activeIndex];
-
+  const mainTextColor = "var(--mui-palette-text-primary)";
   return (
     <Box
       id="works"
@@ -148,12 +148,13 @@ export default function WorksSection() {
       >
         <ParticleText
           text={t.sectionTitle}
-          colorStart={theme.palette.text.primary}
-          colorEnd={theme.palette.text.primary}
+          colorStart={mainTextColor}
+          colorEnd={mainTextColor}
+          canvasWidth={isMobile ? 1200 : 3200}
           font={
             isMobile
-              ? "900 100px Inter, sans-serif"
-              : "900 200px Inter, sans-serif"
+              ? "900 300px Inter, sans-serif"
+              : "900 300px Inter, sans-serif"
           }
           particleSize={0.4}
         />

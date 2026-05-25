@@ -1,6 +1,8 @@
 "use client";
 
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import ArticleIcon from "@mui/icons-material/Article";
+import MailOutlineIcon from "@mui/icons-material/MailOutlined";
 import {
   Box,
   Button,
@@ -9,7 +11,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { alpha, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import ParticleText from "@/app/extras/ParticleText";
 import { useLanguageStore } from "@/store/languageStore";
 
@@ -19,6 +21,7 @@ const translations = {
     logoText2: "STUDIO",
     collaborate: "Let's Collaborate",
     viewProposal: "VIEW PROPOSAL",
+    gmail: "GMAIL",
     locationLabel: "// LOCATION",
     locationText1: "Dhaka,",
     locationText2: "Bangladesh",
@@ -33,6 +36,7 @@ const translations = {
     logoText2: "স্টুডিও",
     collaborate: "চলুন একসাথে কাজ করি",
     viewProposal: "প্রস্তাবনা দেখুন",
+    gmail: "জিমেইল",
     locationLabel: "// অবস্থান",
     locationText1: "ঢাকা,",
     locationText2: "বাংলাদেশ",
@@ -51,14 +55,15 @@ export default function Footer() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   // Inverse theme block: light mode gets a dark footer, dark mode gets a light footer.
-  const bgColor = theme.palette.text.primary;
-  const textColor = theme.palette.background.default;
-  const dividerColor = alpha(textColor, 0.12);
-  const secondaryTextColor = alpha(textColor, 0.56);
+  const bgColor = "var(--mui-palette-text-primary)";
+  const textColor = "var(--mui-palette-background-default)";
+  const dividerColor =
+    "rgba(var(--mui-palette-background-defaultChannel) / 0.12)";
+  const secondaryTextColor =
+    "rgba(var(--mui-palette-background-defaultChannel) / 0.56)";
 
   return (
     <Box
-      id="contact"
       component="footer"
       sx={{
         backgroundColor: bgColor,
@@ -130,7 +135,7 @@ export default function Footer() {
                   height: { xs: "80px", md: "120px" },
                   position: "relative",
                   left: {
-                    xs: "-60px",
+                    xs: "-80px",
                     md: language === "en" ? "-170px" : "-120px",
                   },
                 }}
@@ -138,13 +143,13 @@ export default function Footer() {
                 {language === "en" ? (
                   <ParticleText
                     text={t.collaborate}
-                    canvasWidth={isMobile ? 1200 : 3800}
+                    canvasWidth={isMobile ? 2200 : 3800}
                     canvasHeight={isMobile ? 400 : 1000}
                     colorStart={textColor}
                     colorEnd={textColor}
                     font={
                       isMobile
-                        ? "400 120px Georgia, serif"
+                        ? "400 220px Georgia, serif"
                         : "400 500px Georgia, serif"
                     }
                     particleSize={isMobile ? 0.4 : 0.84}
@@ -166,40 +171,68 @@ export default function Footer() {
                 )}
               </Box>
 
-              <Typography
+              <Box
                 sx={{
-                  fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
+                  display: "flex",
+                  gap: 2,
+                  flexWrap: "wrap",
                   mb: 6,
-                  opacity: 0.9,
-                  letterSpacing: "-0.01em",
+                  mt: 4,
                 }}
               >
-                jaberhc2002@gmail.com
-              </Typography>
-
-              <Button
-                variant="outlined"
-                sx={{
-                  borderColor: dividerColor,
-                  color: textColor,
-                  borderRadius: 0,
-                  px: 4,
-                  py: 1.5,
-                  fontSize: "0.75rem",
-                  letterSpacing: "0.15em",
-                  border: `1px solid ${dividerColor}`,
-                  fontWeight: 700,
-                  width: "fit-content",
-                  transition: "all 0.3s ease",
-                  "&:hover": {
-                    backgroundColor: textColor,
-                    color: bgColor,
-                    borderColor: textColor,
-                  },
-                }}
-              >
-                {t.viewProposal}
-              </Button>
+                <Button
+                  variant="outlined"
+                  component="a"
+                  href="/proposal.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  startIcon={<ArticleIcon sx={{ fontSize: 16 }} />}
+                  sx={{
+                    borderColor: dividerColor,
+                    color: textColor,
+                    borderRadius: 0,
+                    px: 3,
+                    py: 1.5,
+                    fontSize: "0.75rem",
+                    letterSpacing: "0.15em",
+                    border: `1px solid ${dividerColor}`,
+                    fontWeight: 700,
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      backgroundColor: textColor,
+                      color: bgColor,
+                      borderColor: textColor,
+                    },
+                  }}
+                >
+                  {t.viewProposal}
+                </Button>
+                <Button
+                  variant="outlined"
+                  component="a"
+                  href="mailto:jaberhc2002@gmail.com"
+                  startIcon={<MailOutlineIcon sx={{ fontSize: 16 }} />}
+                  sx={{
+                    borderColor: dividerColor,
+                    color: textColor,
+                    borderRadius: 0,
+                    px: 3,
+                    py: 1.5,
+                    fontSize: "0.75rem",
+                    letterSpacing: "0.15em",
+                    border: `1px solid ${dividerColor}`,
+                    fontWeight: 700,
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      backgroundColor: textColor,
+                      color: bgColor,
+                      borderColor: textColor,
+                    },
+                  }}
+                >
+                  {t.gmail}
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Grid>

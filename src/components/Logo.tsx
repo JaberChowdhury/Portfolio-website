@@ -1,12 +1,9 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { motion, type Variants } from "framer-motion";
 
 export default function Logo() {
-  const theme = useTheme();
-
   // Animation variants for the SVG "drawing" effect
   const pathVariants: Variants = {
     hidden: {
@@ -23,7 +20,7 @@ export default function Logo() {
     },
     hover: {
       strokeWidth: 12, // Subtly thickens on hover for tactile feedback
-      stroke: theme.palette.primary.main, // Shifts to vibrant cyan
+      stroke: "var(--mui-palette-primary-main)", // Shifts to vibrant cyan
       transition: { duration: 0.3, ease: "easeOut" },
     },
   };
@@ -54,7 +51,7 @@ export default function Logo() {
         {/* Path 1: The Left Wall and the 'J' hook base */}
         <motion.path
           d="M 16 16 V 84 H 42 V 65"
-          stroke={theme.palette.text.primary}
+          stroke="var(--mui-palette-text-primary)"
           strokeWidth="10"
           strokeLinecap="square"
           strokeLinejoin="miter"
@@ -63,7 +60,7 @@ export default function Logo() {
         {/* Path 2: The 'M' diagonals and the Right Wall */}
         <motion.path
           d="M 16 16 L 42 42 L 68 16 V 84"
-          stroke={theme.palette.text.primary}
+          stroke="var(--mui-palette-text-primary)"
           strokeWidth="10"
           strokeLinecap="square"
           strokeLinejoin="miter"
@@ -72,7 +69,7 @@ export default function Logo() {
         {/* Path 3: The Central Stem (Left leg of 'H') */}
         <motion.path
           d="M 42 42 V 84"
-          stroke={theme.palette.text.primary}
+          stroke="var(--mui-palette-text-primary)"
           strokeWidth="10"
           strokeLinecap="square"
           strokeLinejoin="miter"
@@ -81,7 +78,7 @@ export default function Logo() {
         {/* Path 4: The 'H' Crossbar */}
         <motion.path
           d="M 42 65 H 68"
-          stroke={theme.palette.text.primary}
+          stroke="var(--mui-palette-text-primary)"
           strokeWidth="10"
           strokeLinecap="square"
           strokeLinejoin="miter"
@@ -90,7 +87,7 @@ export default function Logo() {
         {/* Path 5: The 'C' shape grafted to the right wall */}
         <motion.path
           d="M 68 32 H 88 V 68 H 68"
-          stroke={theme.palette.text.primary}
+          stroke="var(--mui-palette-text-primary)"
           strokeWidth="10"
           strokeLinecap="square"
           strokeLinejoin="miter"
@@ -101,7 +98,7 @@ export default function Logo() {
       {/* The Typographic Block (Perfect vertical stack as seen in Idea 1) */}
       <motion.div
         variants={{
-          hover: { x: 5, color: theme.palette.primary.main },
+          hover: { x: 5, color: "var(--mui-palette-primary-main)" },
         }}
         transition={{ duration: 0.3 }}
       >
@@ -109,7 +106,7 @@ export default function Logo() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            color: theme.palette.text.primary,
+            color: "text.primary",
             fontWeight: 800,
             letterSpacing: "0.1em",
             fontSize: "0.85rem",

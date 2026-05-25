@@ -1,7 +1,6 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
-import { useTheme } from "@mui/system";
 import { useLanguageStore } from "@/store/languageStore";
 import { marqueeScroll } from "./heroAnimations";
 
@@ -29,10 +28,9 @@ const translations = {
 };
 
 export default function HeroMarquee() {
-  const theme = useTheme();
   const language = useLanguageStore((s) => s.language);
   const t = translations[language];
-  const gridLineColor = theme.palette.divider;
+  const gridLineColor = "var(--mui-palette-divider)";
   const marqueeItems = ["first", "second"].flatMap((group) =>
     t.marquee.map((text) => ({ key: `${group}-${text}`, text })),
   );
@@ -47,7 +45,7 @@ export default function HeroMarquee() {
         display: "flex",
         whiteSpace: "nowrap",
         overflow: "hidden",
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: "background.default",
         zIndex: 20,
       }}
     >

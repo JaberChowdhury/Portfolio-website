@@ -1,180 +1,275 @@
 "use client";
-
-import { Box, Typography } from "@mui/material";
-import { alpha, useTheme } from "@mui/material/styles";
 import { motion } from "framer-motion";
 
 export default function Loading() {
-  const theme = useTheme();
-
-  const pathVariants = {
-    hidden: { pathLength: 0, opacity: 0.3 },
-    visible: {
-      pathLength: 1,
-      opacity: 1,
-      transition: {
-        duration: 1.8,
-        ease: "easeInOut" as const,
-        repeat: Infinity,
-        repeatType: "reverse" as const,
-      },
-    },
-  };
-
   return (
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease: "easeInOut" }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
       style={{
         position: "fixed",
         inset: 0,
         zIndex: 9999,
         display: "flex",
-        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        // Frosted glassmorphism background that lets the grid background show through
-        backgroundColor: alpha(theme.palette.background.default, 0.75),
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        gap: "24px",
-        transition: "background-color 0.3s ease",
+        background: "#080808",
+        overflow: "hidden",
       }}
     >
-      {/* Dynamic Drawing Monogram Logo */}
-      <motion.svg
-        aria-labelledby="loading-logo-title"
-        width="80"
-        height="80"
-        viewBox="0 0 100 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap');
+
+        @keyframes gridDrift {
+          0%   { background-position: 0 0; }
+          100% { background-position: 0 40px; }
+        }
+        @keyframes podRun {
+          0%   { left: -70px; opacity: 0; }
+          5%   { opacity: 1; }
+          90%  { opacity: 1; }
+          95%  { opacity: 0; }
+          100% { left: 320px; opacity: 0; }
+        }
+        @keyframes wordmarkReveal {
+          from { opacity: 0; letter-spacing: 0.5em; transform: translateY(-6px); }
+          to   { opacity: 1; letter-spacing: 0.22em; transform: translateY(0); }
+        }
+        @keyframes fillReveal {
+          0%   { clip-path: inset(0 100% 0 0); }
+          45%  { clip-path: inset(0 0% 0 0); }
+          55%  { clip-path: inset(0 0% 0 0); }
+          100% { clip-path: inset(0 100% 0 0); }
+        }
+        @keyframes blink {
+          0%, 100% { opacity: 0.15; transform: scale(0.8); }
+          50%       { opacity: 0.7;  transform: scale(1); }
+        }
+
+        .hl-grid {
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+          background-size: 40px 40px;
+          animation: gridDrift 8s linear infinite;
+        }
+        .hl-scanline {
+          position: absolute;
+          inset: 0;
+          background: repeating-linear-gradient(
+            0deg,
+            transparent, transparent 3px,
+            rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+          );
+          pointer-events: none;
+        }
+        .hl-vignette {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse at center, transparent 40%, #080808 100%);
+          pointer-events: none;
+        }
+        .hl-corner {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          opacity: 0.2;
+        }
+        .hl-corner-tl { top: 28px; left: 28px; border-top: 1px solid #fff; border-left: 1px solid #fff; }
+        .hl-corner-tr { top: 28px; right: 28px; border-top: 1px solid #fff; border-right: 1px solid #fff; }
+        .hl-corner-bl { bottom: 28px; left: 28px; border-bottom: 1px solid #fff; border-left: 1px solid #fff; }
+        .hl-corner-br { bottom: 28px; right: 28px; border-bottom: 1px solid #fff; border-right: 1px solid #fff; }
+
+        .hl-wordmark-wrap {
+          position: relative;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: clamp(36px, 8vw, 64px);
+          letter-spacing: 0.22em;
+          user-select: none;
+        }
+        .hl-wordmark-outline {
+          color: transparent;
+          -webkit-text-stroke: 1px rgba(255,255,255,0.85);
+          animation: wordmarkReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .hl-wordmark-fill {
+          position: absolute;
+          inset: 0;
+          color: #fff;
+          -webkit-text-stroke: 0;
+          clip-path: inset(0 100% 0 0);
+          animation: fillReveal 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          animation-delay: 0.4s;
+        }
+
+        .hl-track {
+          position: relative;
+          width: min(320px, 60vw);
+          height: 2px;
+          background: rgba(255,255,255,0.08);
+        }
+        .hl-track::before {
+          content: '';
+          position: absolute;
+          left: -8px; top: -3px;
+          width: 8px; height: 8px;
+          border-top: 1px solid rgba(255,255,255,0.2);
+          border-left: 1px solid rgba(255,255,255,0.2);
+        }
+        .hl-track::after {
+          content: '';
+          position: absolute;
+          right: -8px; bottom: -3px;
+          width: 8px; height: 8px;
+          border-bottom: 1px solid rgba(255,255,255,0.2);
+          border-right: 1px solid rgba(255,255,255,0.2);
+        }
+        .hl-pod {
+          position: absolute;
+          top: 50%; left: 0;
+          transform: translateY(-50%);
+          width: 60px;
+          height: 2px;
+          animation: podRun 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        .hl-pod-trail {
+          position: absolute;
+          right: 100%; top: 0;
+          width: 80px; height: 100%;
+          background: linear-gradient(to left, rgba(255,255,255,0.25), transparent);
+        }
+        .hl-pod-body {
+          width: 100%; height: 100%;
+          background: #e8e8e8;
+          box-shadow: 0 0 12px 2px rgba(255,255,255,0.6), 0 0 40px 6px rgba(255,255,255,0.15);
+        }
+        .hl-pod-nose {
+          position: absolute;
+          left: 100%; top: -1px;
+          width: 0; height: 0;
+          border-top: 2px solid transparent;
+          border-bottom: 2px solid transparent;
+          border-left: 8px solid #e8e8e8;
+        }
+
+        .hl-dot {
+          width: 5px; height: 5px;
+          border-radius: 50%;
+          background: #fff;
+          animation: blink 1.2s ease-in-out infinite;
+        }
+        .hl-dot:nth-child(2) { animation-delay: 0.2s; }
+        .hl-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        .hl-accent-bar { height: 1px; background: #fff; }
+      `,
+        }}
+      />
+
+      {/* Background grid */}
+      <div className="hl-grid" />
+      <div className="hl-scanline" />
+      <div className="hl-vignette" />
+
+      {/* Corner brackets */}
+      <div className="hl-corner hl-corner-tl" />
+      <div className="hl-corner hl-corner-tr" />
+      <div className="hl-corner hl-corner-bl" />
+      <div className="hl-corner hl-corner-br" />
+
+      {/* Side accent bars */}
+      <div
         style={{
-          overflow: "visible",
-          filter: `drop-shadow(0px 0px 10px ${alpha(
-            theme.palette.primary.main,
-            0.34,
-          )})`,
-        }}
-        animate={{
-          scale: [1, 1.02, 1],
-        }}
-        transition={{
-          duration: 1.8,
-          ease: "easeInOut",
-          repeat: Infinity,
+          position: "absolute",
+          left: 28,
+          top: "50%",
+          transform: "translateY(-50%)",
+          display: "flex",
+          flexDirection: "column",
+          gap: 6,
+          opacity: 0.1,
         }}
       >
-        <title id="loading-logo-title">Loading</title>
-        {/* Path 1: The Left Wall and the 'J' hook base */}
-        <motion.path
-          d="M 16 16 V 84 H 42 V 65"
-          stroke={theme.palette.text.primary}
-          strokeWidth="8"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
-          initial="hidden"
-          animate="visible"
-          variants={pathVariants}
-        />
-        {/* Path 2: The 'M' diagonals and the Right Wall */}
-        <motion.path
-          d="M 16 16 L 42 42 L 68 16 V 84"
-          stroke={theme.palette.text.primary}
-          strokeWidth="8"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
-          initial="hidden"
-          animate="visible"
-          variants={pathVariants}
-        />
-        {/* Path 3: The Central Stem (Left leg of 'H') */}
-        <motion.path
-          d="M 42 42 V 84"
-          stroke={theme.palette.text.primary}
-          strokeWidth="8"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
-          initial="hidden"
-          animate="visible"
-          variants={pathVariants}
-        />
-        {/* Path 4: The 'H' Crossbar */}
-        <motion.path
-          d="M 42 65 H 68"
-          stroke={theme.palette.text.primary}
-          strokeWidth="8"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
-          initial="hidden"
-          animate="visible"
-          variants={pathVariants}
-        />
-        {/* Path 5: The 'C' shape grafted to the right wall */}
-        <motion.path
-          d="M 68 32 H 88 V 68 H 68"
-          stroke={theme.palette.text.primary}
-          strokeWidth="8"
-          strokeLinecap="square"
-          strokeLinejoin="miter"
-          initial="hidden"
-          animate="visible"
-          variants={pathVariants}
-        />
-      </motion.svg>
+        <div className="hl-accent-bar" style={{ width: 48 }} />
+        <div className="hl-accent-bar" style={{ width: 28 }} />
+        <div className="hl-accent-bar" style={{ width: 38 }} />
+        <div className="hl-accent-bar" style={{ width: 18 }} />
+      </div>
 
-      {/* Indeterminate Brutalist Progress Line */}
-      <Box
-        sx={{
-          width: "120px",
-          height: "2px",
-          backgroundColor: theme.palette.divider,
+      {/* Center content */}
+      <div
+        style={{
           position: "relative",
-          overflow: "hidden",
-          borderRadius: 0,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 32,
+          zIndex: 2,
         }}
       >
-        <motion.div
-          animate={{
-            x: ["-100%", "100%"],
-          }}
-          transition={{
-            duration: 1.5,
-            ease: "easeInOut",
-            repeat: Infinity,
-          }}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "60%",
-            height: "100%",
-            backgroundColor: "var(--mui-palette-primary-main)",
-            boxShadow: "0 0 8px var(--mui-palette-primary-main)",
-          }}
-        />
-      </Box>
+        {/* Wordmark */}
+        <div className="hl-wordmark-wrap">
+          <span className="hl-wordmark-outline">HYPERLOOP_STUDIO</span>
+          <span className="hl-wordmark-fill">HYPERLOOP_STUDIO</span>
+        </div>
 
-      {/* Pulsing Status Text */}
-      <Typography
-        variant="caption"
-        sx={{
-          fontFamily: "monospace",
-          letterSpacing: "0.25em",
-          color: "text.secondary",
-          fontSize: "0.68rem",
-          textTransform: "uppercase",
-          fontWeight: 700,
-          animation: "pulse 1.8s ease-in-out infinite",
-          "@keyframes pulse": {
-            "0%, 100%": { opacity: 0.4 },
-            "50%": { opacity: 1 },
-          },
-        }}
-      >
-        Loading Experience
-      </Typography>
+        {/* Tagline */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            marginTop: -20,
+          }}
+        >
+          <div
+            style={{
+              width: 32,
+              height: 1,
+              background: "rgba(255,255,255,0.18)",
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: 9,
+              letterSpacing: "0.35em",
+              color: "rgba(255,255,255,0.28)",
+              textTransform: "uppercase",
+            }}
+          >
+            Design in Motion
+          </span>
+          <div
+            style={{
+              width: 32,
+              height: 1,
+              background: "rgba(255,255,255,0.18)",
+            }}
+          />
+        </div>
+
+        {/* Magnetic rail */}
+        <div className="hl-track">
+          <div className="hl-pod">
+            <div className="hl-pod-trail" />
+            <div className="hl-pod-body" />
+            <div className="hl-pod-nose" />
+          </div>
+        </div>
+
+        {/* Status dots */}
+        <div style={{ display: "flex", gap: 8 }}>
+          <div className="hl-dot" />
+          <div className="hl-dot" />
+          <div className="hl-dot" />
+        </div>
+      </div>
     </motion.div>
   );
 }

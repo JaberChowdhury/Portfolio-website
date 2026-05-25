@@ -2,7 +2,6 @@
 "use client";
 
 import { Box } from "@mui/material";
-import { useTheme } from "@mui/system";
 import type React from "react";
 
 export default function GridBackground({
@@ -10,21 +9,18 @@ export default function GridBackground({
 }: {
   children: React.ReactNode;
 }) {
-  const theme = useTheme();
-  const gridLineColor = theme.palette.divider;
-
   return (
     <Box
       sx={{
         width: "100vw",
         minHeight: "100vh",
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: "background.default",
         backgroundImage: `
-          linear-gradient(${gridLineColor} 1px, transparent 1px),
-          linear-gradient(90deg, ${gridLineColor} 1px, transparent 1px)
+          linear-gradient(var(--mui-palette-divider) 1px, transparent 1px),
+          linear-gradient(90deg, var(--mui-palette-divider) 1px, transparent 1px)
         `,
         backgroundSize: "40px 40px",
-        color: theme.palette.text.primary,
+        color: "text.primary",
         position: "relative",
       }}
     >

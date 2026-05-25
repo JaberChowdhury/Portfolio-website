@@ -24,8 +24,8 @@ export default function TestimonialsSection() {
   const language = useLanguageStore((s) => s.language);
   const t = translations[language];
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const mainTextColor = theme.palette.text.primary;
-  const gridLineColor = theme.palette.divider;
+  const mainTextColor = "var(--mui-palette-text-primary)";
+  const gridLineColor = "var(--mui-palette-divider)";
 
   return (
     <Box
@@ -34,7 +34,7 @@ export default function TestimonialsSection() {
       sx={{
         py: { xs: 8, md: 16 },
         px: { xs: 2, md: 8 },
-        color: mainTextColor,
+        color: "text.primary",
       }}
     >
       {/* Section Header */}
@@ -47,13 +47,13 @@ export default function TestimonialsSection() {
       >
         <ParticleText
           text={t.sectionTitle}
-          canvasWidth={2500}
           colorStart={mainTextColor}
           colorEnd={mainTextColor}
+          canvasWidth={isMobile ? 2200 : 3200}
           font={
             isMobile
-              ? "900 60px Inter, sans-serif"
-              : "900 160px Inter, sans-serif"
+              ? "900 280px Inter, sans-serif"
+              : "900 300px Inter, sans-serif"
           }
           particleSize={0.4}
         />
@@ -128,7 +128,7 @@ export default function TestimonialsSection() {
                     href="#works"
                     underline="hover"
                     sx={{
-                      color: mainTextColor,
+                      color: "text.primary",
                       fontWeight: 600,
                       fontSize: "0.85rem",
                       textTransform: "uppercase",

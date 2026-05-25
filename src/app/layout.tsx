@@ -4,7 +4,6 @@ import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { Roboto } from "next/font/google";
 import Footer from "@/components/footer/Footer";
 import GridBackground from "@/components/GridBackground";
-import Preloader from "@/components/Preloader";
 import ThemeRegistry from "./ThemeRegistry";
 
 const roboto = Roboto({
@@ -30,12 +29,12 @@ export default function RootLayout({
       <body>
         <InitColorSchemeScript attribute="class" defaultMode="light" />
         <ThemeRegistry>
-          <Preloader>
-            <GridBackground>
-              {children}
-              <Footer />
-            </GridBackground>
-          </Preloader>
+          {/*<Preloader>*/}
+          <GridBackground>
+            {children}
+            <Footer />
+          </GridBackground>
+          {/*</Preloader>*/}
         </ThemeRegistry>
       </body>
     </html>

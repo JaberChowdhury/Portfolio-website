@@ -48,14 +48,16 @@ const translations = {
     header: "মূল্য তালিকা",
     submitProject: {
       label: "আপনার প্রজেক্ট জমা দিন",
-      prompt: "বিভিন্ন মাত্রার উচ্চাকাঙ্ক্ষা এবং জটিলতার সাথে মানানসই একটি নমনীয় কাজের মডেল।",
+      prompt:
+        "বিভিন্ন মাত্রার উচ্চাকাঙ্ক্ষা এবং জটিলতার সাথে মানানসই একটি নমনীয় কাজের মডেল।",
       buttonText: "কল বুক করুন",
     },
     tiers: [
       {
         id: "hourly",
         title: "ঘণ্টাভিত্তিক সেশন",
-        description: "নির্দিষ্ট কাজ, পরামর্শ, অডিট বা দ্রুত স্প্রিন্টের জন্য নমনীয় চুক্তি।",
+        description:
+          "নির্দিষ্ট কাজ, পরামর্শ, অডিট বা দ্রুত স্প্রিন্টের জন্য নমনীয় চুক্তি।",
         buttonText: "নিয়োগ দিন",
         variant: "light",
       },
@@ -88,7 +90,8 @@ const PricingSection = () => {
   const pricingData = translations[language];
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const mainTextColor = theme.palette.text.primary;
+  const mainTextColor = "var(--mui-palette-text-primary)";
+  // const gridLineColor = "var(--mui-palette-divider)";
   return (
     <Box
       id="pricing"
@@ -112,10 +115,11 @@ const PricingSection = () => {
             text={pricingData.header}
             colorStart={mainTextColor}
             colorEnd={mainTextColor}
+            canvasWidth={isMobile ? 1200 : 3200}
             font={
               isMobile
-                ? "900 100px Inter, sans-serif"
-                : "900 200px Inter, sans-serif"
+                ? "900 300px Inter, sans-serif"
+                : "900 300px Inter, sans-serif"
             }
             particleSize={0.4}
           />

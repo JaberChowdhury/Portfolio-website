@@ -1,5 +1,6 @@
 // import ParticleText from "@/components/extras/ParticleText";
 
+import ContactSection from "@/components/contact/ContactSection";
 import FaqSection from "@/components/faq/FaqSection";
 import HeroSection from "@/components/HeroSection";
 import ProcessSection from "@/components/ProcessSection";
@@ -18,7 +19,7 @@ const App = () => {
       <PricingSection />
       <TestimonialsSection />
       <FaqSection />
-      {/*<Footer />*/}
+      <ContactSection />
     </>
   );
 };

@@ -1,7 +1,6 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
-import { alpha, useTheme } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -9,12 +8,11 @@ import { useEffect } from "react";
 const MotionLink = motion(Link);
 
 export default function NotFound() {
-  const theme = useTheme();
-  const inkColor = theme.palette.text.primary;
-  const surfaceColor = theme.palette.background.paper;
-  const accentColor = theme.palette.primary.main;
-  const accentHoverColor = theme.palette.primary.dark;
-  const accentTextColor = theme.palette.primary.contrastText;
+  const inkColor = "var(--mui-palette-text-primary)";
+  const surfaceColor = "var(--mui-palette-background-paper)";
+  const accentColor = "var(--mui-palette-primary-main)";
+  const accentHoverColor = "var(--mui-palette-primary-dark)";
+  const accentTextColor = "var(--mui-palette-primary-contrastText)";
 
   // Set the tab title on mount for clean browser UX and SEO
   useEffect(() => {
@@ -29,7 +27,7 @@ export default function NotFound() {
         left: 0,
         width: "100vw",
         height: "100vh",
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: "var(--mui-palette-background-default)",
         zIndex: 9999, // Ensure it covers everything, including any global layout headers/grids
         display: "flex",
         flexDirection: "column",
@@ -905,7 +903,7 @@ export default function NotFound() {
             fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
             fontWeight: "700",
             fontSize: { xs: "16px", sm: "19px" },
-            color: theme.palette.text.primary,
+            color: "var(--mui-palette-text-primary)",
             mb: { xs: 4, sm: 5 },
             lineHeight: 1.5,
             maxWidth: "500px",
@@ -926,7 +924,8 @@ export default function NotFound() {
             whileHover={{
               scale: 1.05,
               backgroundColor: accentHoverColor,
-              boxShadow: `0 8px 24px ${alpha(accentColor, 0.35)}`,
+              boxShadow:
+                "0 8px 24px rgba(var(--mui-palette-primary-mainChannel) / 0.35)",
               y: -2,
             }}
             whileTap={{ scale: 0.98, y: 0 }}
@@ -940,7 +939,8 @@ export default function NotFound() {
               fontSize: "16px",
               fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
               textDecoration: "none",
-              boxShadow: `0 6px 20px ${alpha(accentColor, 0.25)}`,
+              boxShadow:
+                "0 6px 20px rgba(var(--mui-palette-primary-mainChannel) / 0.25)",
               transition: "background-color 0.2s ease, box-shadow 0.2s ease",
               textAlign: "center",
             }}

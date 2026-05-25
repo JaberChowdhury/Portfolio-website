@@ -8,7 +8,6 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import StarIcon from "@mui/icons-material/Star";
 import {
-  alpha,
   Box,
   Container,
   Link as MuiLink,
@@ -20,12 +19,11 @@ import {
   useTheme,
 } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
-import hljs from "highlight.js";
-import { marked } from "marked";
 import Link from "next/link";
-import { useState } from "react";
-
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import ParticleText from "@/app/extras/ParticleText";
+import Loading from "@/app/loading";
 import Navbar from "@/components/navbar/Navbar";
 import { useLanguageStore } from "@/store/languageStore";
 
@@ -55,6 +53,7 @@ interface ProjectDetailClientProps {
   repoInfo: Repository;
   branchesData: BranchData[];
   allBranches: { name: string }[];
+  activeBranchName: string;
 }
 
 const detailTranslations = {
@@ -86,46 +85,27 @@ const detailTranslations = {
   },
 };
 
-// Configure client-side marked with highlight.js syntax highlighting
-const clientRenderer = new marked.Renderer();
-clientRenderer.code = ({
-  text,
-  lang,
-}: {
-  text: string;
-  lang?: string;
-}): string => {
-  const language = lang && hljs.getLanguage(lang) ? lang : "plaintext";
-  const highlighted = hljs.highlight(text, { language }).value;
-  return `<pre class="hljs"><code class="language-${language}">${highlighted}</code></pre>`;
-};
-marked.use({ renderer: clientRenderer });
+// Client-side markdown compilation is processed on the server-side API route.
 
 export default function ProjectDetailClient({
   repoInfo,
   branchesData,
   allBranches,
+  activeBranchName,
 }: ProjectDetailClientProps) {
   const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
+  const router = useRouter();
   const language = useLanguageStore((s) => s.language);
   const t = detailTranslations[language];
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const mainTextColor = theme.palette.text.primary;
-  const codeSurfaceColor = alpha(theme.palette.text.primary, 0.05);
-  const syntaxMutedColor = theme.palette.text.secondary;
-  const syntaxDangerColor = isDark
-    ? theme.palette.error.light
-    : theme.palette.error.dark;
-  const syntaxStringColor = isDark
-    ? theme.palette.info.light
-    : theme.palette.info.dark;
-  const syntaxTitleColor = isDark
-    ? theme.palette.secondary.light
-    : theme.palette.secondary.dark;
-  const syntaxNumberColor = isDark
-    ? theme.palette.warning.light
-    : theme.palette.warning.dark;
+  const mainTextColor = "var(--mui-palette-text-primary)";
+  const codeSurfaceColor =
+    "rgba(var(--mui-palette-text-primaryChannel) / 0.05)";
+  const syntaxMutedColor = "var(--mui-palette-text-secondary)";
+  const syntaxDangerColor = "var(--mui-palette-error-main)";
+  const syntaxStringColor = "var(--mui-palette-info-main)";
+  const syntaxTitleColor = "var(--mui-palette-secondary-main)";
+  const syntaxNumberColor = "var(--mui-palette-warning-main)";
 
   // Local state to store readmes (pre-rendered or dynamically compiled client-side)
   const [readmesMap, setReadmesMap] = useState<Record<string, string>>(() => {
@@ -136,9 +116,74 @@ export default function ProjectDetailClient({
     return initialMap;
   });
 
-  const [activeBranchIndex, setActiveBranchIndex] = useState<number>(0);
-  const activeBranchName = allBranches[activeBranchIndex]?.name || "main";
+  const activeBranchIndex = allBranches.findIndex(
+    (b) => b.name.toLowerCase() === activeBranchName.toLowerCase(),
+  );
+  const activeBranchIndexNormalized =
+    activeBranchIndex === -1 ? 0 : activeBranchIndex;
   const [loadingReadme, setLoadingReadme] = useState(false);
+
+  const hasReadme = !!readmesMap[activeBranchName];
+
+  useEffect(() => {
+    if (hasReadme) return;
+
+    let isMounted = true;
+    const fetchReadme = async () => {
+      setLoadingReadme(true);
+      try {
+        const res = await fetch(
+          `/api/projects/readme?repo=${repoInfo.name}&branch=${activeBranchName}`,
+        );
+        if (!res.ok) {
+          throw new Error("Failed to fetch branch readme from API route");
+        }
+
+        const data = await res.json();
+        const compiledHtml = data.readmeHtml;
+
+        if (isMounted) {
+          setReadmesMap((prev) => ({
+            ...prev,
+            [activeBranchName]: compiledHtml,
+          }));
+        }
+      } catch (err) {
+        console.error("Failed to fetch branch readme from API:", err);
+        if (isMounted) {
+          setReadmesMap((prev) => ({
+            ...prev,
+            [activeBranchName]: `<h3>Error</h3><p>Could not retrieve or render the README.md for branch <strong>${activeBranchName}</strong>.</p>`,
+          }));
+        }
+      } finally {
+        if (isMounted) {
+          setLoadingReadme(false);
+        }
+      }
+    };
+
+    fetchReadme();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [activeBranchName, repoInfo.name, hasReadme]);
+
+  // Sync branchesData pre-fetched content to local readmesMap state when navigated on server-side
+  useEffect(() => {
+    setReadmesMap((prev) => {
+      const nextMap = { ...prev };
+      let changed = false;
+      for (const item of branchesData) {
+        if (item.readmeHtml && nextMap[item.name] !== item.readmeHtml) {
+          nextMap[item.name] = item.readmeHtml;
+          changed = true;
+        }
+      }
+      return changed ? nextMap : prev;
+    });
+  }, [branchesData]);
 
   const formatDate = (dateStr: string) => {
     if (!dateStr) return "";
@@ -159,46 +204,6 @@ export default function ProjectDetailClient({
     return mobile
       ? `900 ${mobileSize}px Inter, sans-serif`
       : `900 ${desktopSize}px Inter, sans-serif`;
-  };
-
-  const handleBranchSelect = async (index: number) => {
-    setActiveBranchIndex(index);
-    const branchName = allBranches[index]?.name;
-    if (!branchName) return;
-
-    // If we don't have the README compiled for this branch yet, fetch and compile it
-    if (!readmesMap[branchName]) {
-      setLoadingReadme(true);
-      try {
-        const rawUrl = `https://raw.githubusercontent.com/JaberChowdhury/${repoInfo.name}/${branchName}/README.md`;
-        let res = await fetch(rawUrl);
-        if (!res.ok) {
-          // Try lowercase readme.md just in case
-          const rawUrlLower = `https://raw.githubusercontent.com/JaberChowdhury/${repoInfo.name}/${branchName}/readme.md`;
-          res = await fetch(rawUrlLower);
-        }
-
-        if (!res.ok) {
-          throw new Error("README not found on this branch");
-        }
-
-        const markdownText = await res.text();
-        const compiledHtml = marked.parse(markdownText) as string;
-
-        setReadmesMap((prev) => ({
-          ...prev,
-          [branchName]: compiledHtml,
-        }));
-      } catch (err) {
-        console.error("Failed to fetch/compile branch readme:", err);
-        setReadmesMap((prev) => ({
-          ...prev,
-          [branchName]: `<h3>Error</h3><p>Could not retrieve or render the README.md for branch <strong>${branchName}</strong>.</p>`,
-        }));
-      } finally {
-        setLoadingReadme(false);
-      }
-    }
   };
 
   const reloadIframe = () => {
@@ -240,13 +245,13 @@ export default function ProjectDetailClient({
             fontSize: "12px",
             letterSpacing: "0.08em",
             fontFamily: "monospace",
-            color: theme.palette.text.secondary,
+            color: "var(--mui-palette-text-secondary)",
             mb: 5,
             textTransform: "uppercase",
             textDecoration: "none",
             transition: "color 0.2s",
             "&:hover": {
-              color: theme.palette.text.primary,
+              color: "var(--mui-palette-text-primary)",
             },
           }}
         >
@@ -258,7 +263,7 @@ export default function ProjectDetailClient({
         <Box
           sx={{
             mb: 6,
-            borderBottom: `1px solid ${theme.palette.divider}`,
+            borderBottom: "1px solid var(--mui-palette-divider)",
             pb: 4,
           }}
         >
@@ -287,7 +292,7 @@ export default function ProjectDetailClient({
             <Typography
               variant="body1"
               sx={{
-                color: theme.palette.text.secondary,
+                color: "var(--mui-palette-text-secondary)",
                 fontSize: { xs: "15px", sm: "17px" },
                 lineHeight: 1.6,
                 maxWidth: "800px",
@@ -310,14 +315,17 @@ export default function ProjectDetailClient({
             {/* Stars */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.75 }}>
               <StarIcon
-                sx={{ fontSize: 18, color: theme.palette.text.secondary }}
+                sx={{
+                  fontSize: 18,
+                  color: "var(--mui-palette-text-secondary)",
+                }}
               />
               <Typography
                 sx={{
                   fontSize: "12px",
                   fontWeight: 700,
                   fontFamily: "monospace",
-                  color: theme.palette.text.secondary,
+                  color: "var(--mui-palette-text-secondary)",
                 }}
               >
                 {t.stars}: {repoInfo.stargazers_count}
@@ -329,7 +337,7 @@ export default function ProjectDetailClient({
               <ForkRightIcon
                 sx={{
                   fontSize: 16,
-                  color: theme.palette.text.secondary,
+                  color: "var(--mui-palette-text-secondary)",
                 }}
               />
               <Typography
@@ -337,7 +345,7 @@ export default function ProjectDetailClient({
                   fontSize: "12px",
                   fontWeight: 700,
                   fontFamily: "monospace",
-                  color: theme.palette.text.secondary,
+                  color: "var(--mui-palette-text-secondary)",
                 }}
               >
                 {t.forks}: {repoInfo.forks_count}
@@ -350,7 +358,7 @@ export default function ProjectDetailClient({
                 fontSize: "12px",
                 fontWeight: 700,
                 fontFamily: "monospace",
-                color: theme.palette.text.secondary,
+                color: "var(--mui-palette-text-secondary)",
               }}
             >
               {t.lastUpdated}:{" "}
@@ -369,10 +377,10 @@ export default function ProjectDetailClient({
                 fontWeight: 700,
                 fontSize: "12px",
                 fontFamily: "monospace",
-                color: theme.palette.text.primary,
+                color: "var(--mui-palette-text-primary)",
                 textDecoration: "underline",
                 "&:hover": {
-                  color: theme.palette.primary.main,
+                  color: "var(--mui-palette-primary-main)",
                 },
               }}
             >
@@ -393,10 +401,10 @@ export default function ProjectDetailClient({
                   fontWeight: 700,
                   fontSize: "12px",
                   fontFamily: "monospace",
-                  color: theme.palette.text.primary,
+                  color: "var(--mui-palette-text-primary)",
                   textDecoration: "underline",
                   "&:hover": {
-                    color: theme.palette.primary.main,
+                    color: "var(--mui-palette-primary-main)",
                   },
                 }}
               >
@@ -416,7 +424,7 @@ export default function ProjectDetailClient({
                 fontSize: "12px",
                 letterSpacing: "0.15em",
                 fontFamily: "monospace",
-                color: theme.palette.text.secondary,
+                color: "var(--mui-palette-text-secondary)",
                 mb: 2,
                 textTransform: "uppercase",
               }}
@@ -428,7 +436,7 @@ export default function ProjectDetailClient({
             <Paper
               elevation={2}
               sx={{
-                backgroundColor: theme.palette.background.paper,
+                backgroundColor: "var(--mui-palette-background-paper)",
                 display: "flex",
                 flexDirection: "column",
                 overflow: "hidden",
@@ -439,8 +447,8 @@ export default function ProjectDetailClient({
               {/* Browser Header Bar */}
               <Box
                 sx={{
-                  borderBottom: `1px solid ${theme.palette.divider}`,
-                  backgroundColor: theme.palette.action.hover,
+                  borderBottom: "1px solid var(--mui-palette-divider)",
+                  backgroundColor: "var(--mui-palette-action-hover)",
                   px: 2,
                   py: 1.5,
                   display: "flex",
@@ -456,7 +464,7 @@ export default function ProjectDetailClient({
                       width: 10,
                       height: 10,
                       borderRadius: "50%",
-                      backgroundColor: theme.palette.error.main,
+                      backgroundColor: "var(--mui-palette-error-main)",
                       opacity: 0.8,
                     }}
                   />
@@ -465,7 +473,7 @@ export default function ProjectDetailClient({
                       width: 10,
                       height: 10,
                       borderRadius: "50%",
-                      backgroundColor: theme.palette.warning.main,
+                      backgroundColor: "var(--mui-palette-warning-main)",
                       opacity: 0.8,
                     }}
                   />
@@ -474,7 +482,7 @@ export default function ProjectDetailClient({
                       width: 10,
                       height: 10,
                       borderRadius: "50%",
-                      backgroundColor: theme.palette.success.main,
+                      backgroundColor: "var(--mui-palette-success-main)",
                       opacity: 0.8,
                     }}
                   />
@@ -487,10 +495,10 @@ export default function ProjectDetailClient({
                     display: "flex",
                     alignItems: "center",
                     cursor: "pointer",
-                    color: theme.palette.text.secondary,
+                    color: "var(--mui-palette-text-secondary)",
                     transition: "color 0.15s ease",
                     "&:hover": {
-                      color: theme.palette.text.primary,
+                      color: "var(--mui-palette-text-primary)",
                     },
                   }}
                 >
@@ -501,14 +509,14 @@ export default function ProjectDetailClient({
                 <Box
                   sx={{
                     flexGrow: 1,
-                    backgroundColor: theme.palette.background.default,
-                    border: `1px solid ${theme.palette.divider}`,
+                    backgroundColor: "var(--mui-palette-background-default)",
+                    border: "1px solid var(--mui-palette-divider)",
                     borderRadius: "4px",
                     px: 2,
                     py: 0.5,
                     fontSize: "11px",
                     fontFamily: "monospace",
-                    color: theme.palette.text.secondary,
+                    color: "var(--mui-palette-text-secondary)",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
@@ -527,8 +535,8 @@ export default function ProjectDetailClient({
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    color: theme.palette.text.secondary,
-                    "&:hover": { color: theme.palette.text.primary },
+                    color: "var(--mui-palette-text-secondary)",
+                    "&:hover": { color: "var(--mui-palette-text-primary)" },
                   }}
                 >
                   <OpenInNewIcon sx={{ fontSize: 16 }} />
@@ -552,7 +560,7 @@ export default function ProjectDetailClient({
                     width: "100%",
                     height: "100%",
                     border: "none",
-                    backgroundColor: theme.palette.background.paper,
+                    backgroundColor: "var(--mui-palette-background-paper)",
                   }}
                   sandbox="allow-scripts allow-same-origin"
                 />
@@ -570,7 +578,7 @@ export default function ProjectDetailClient({
               fontSize: "12px",
               letterSpacing: "0.15em",
               fontFamily: "monospace",
-              color: theme.palette.text.secondary,
+              color: "var(--mui-palette-text-secondary)",
               mb: 1,
               textTransform: "uppercase",
             }}
@@ -580,11 +588,18 @@ export default function ProjectDetailClient({
 
           {/* Horizontal Branch Tab Pills (MUI Tabs with flex-wrap) */}
           <Tabs
-            value={activeBranchIndex}
-            onChange={(_, newValue) => handleBranchSelect(newValue)}
+            value={activeBranchIndexNormalized}
+            onChange={(_, newValue) => {
+              const targetBranch = allBranches[newValue]?.name;
+              if (targetBranch) {
+                router.push(
+                  `/projects/${repoInfo.name}/${encodeURIComponent(targetBranch)}`,
+                );
+              }
+            }}
             sx={{
               mb: 4,
-              borderBottom: `1px solid ${theme.palette.divider}`,
+              borderBottom: "1px solid var(--mui-palette-divider)",
               "& .MuiTabs-flexContainer": {
                 flexWrap: "wrap",
                 gap: 0.5,
@@ -593,15 +608,15 @@ export default function ProjectDetailClient({
                 fontWeight: 700,
                 fontFamily: "monospace",
                 fontSize: "11px",
-                color: theme.palette.text.secondary,
+                color: "var(--mui-palette-text-secondary)",
                 minWidth: "auto",
                 px: 2.5,
                 "&.Mui-selected": {
-                  color: theme.palette.text.primary,
+                  color: "var(--mui-palette-text-primary)",
                 },
               },
               "& .MuiTabs-indicator": {
-                backgroundColor: theme.palette.text.primary,
+                backgroundColor: "var(--mui-palette-text-primary)",
               },
             }}
           >
@@ -610,157 +625,146 @@ export default function ProjectDetailClient({
             ))}
           </Tabs>
 
-          {/* README Content Paper-Box */}
           <AnimatePresence mode="wait">
-            <Paper
-              elevation={0}
-              component={motion.div}
-              key={activeBranchName}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              sx={{
-                backgroundColor: "transparent",
-                padding: 0,
-                boxSizing: "border-box",
-                position: "relative",
-                width: "100%",
-                minHeight: "300px",
-
-                // Custom styling for parsed README HTML
-                "& h1, & h2, & h3, & h4": {
-                  fontFamily: "inherit",
-                  fontWeight: 700,
-                  color: theme.palette.text.primary,
-                  borderBottom: `1px solid ${theme.palette.divider}`,
-                  pb: 1,
-                  mt: 4.5,
-                  mb: 2,
-                },
-                "& h1": { fontSize: "24px" },
-                "& h2": { fontSize: "20px" },
-                "& h3": { fontSize: "17px" },
-                "& p": {
-                  fontSize: "14px",
-                  lineHeight: 1.65,
-                  color: theme.palette.text.primary,
-                  mb: 2.5,
-                },
-                "& ul, & ol": {
-                  pl: 3,
-                  mb: 2.5,
-                  fontSize: "14px",
-                  color: theme.palette.text.primary,
-                },
-                "& li": {
-                  mb: 1,
-                },
-                "& pre": {
-                  backgroundColor: codeSurfaceColor,
-                  padding: 2.5,
-                  borderRadius: "4px",
-                  border: `1px solid ${theme.palette.divider}`,
-                  overflowX: "auto",
-                  fontFamily: "monospace",
-                  my: 3,
-                },
-                "& code": {
-                  backgroundColor: codeSurfaceColor,
-                  px: 0.8,
-                  py: 0.4,
-                  borderRadius: "3px",
-                  fontFamily: "monospace",
-                  fontSize: "13px",
-                  color: theme.palette.text.primary,
-                },
-                "& a": {
-                  color: theme.palette.primary.main,
-                  textDecoration: "underline",
-                  fontWeight: 700,
-                  "&:hover": {
-                    color: theme.palette.text.primary,
-                  },
-                },
-                "& table": {
+            {loadingReadme ? (
+              <motion.div
+                key="loading-readme"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+              >
+                <Loading />
+              </motion.div>
+            ) : (
+              <Paper
+                elevation={0}
+                component={motion.div}
+                key={activeBranchName}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                sx={{
+                  backgroundColor: "transparent",
+                  color: "var(--mui-palette-text-primary)",
+                  padding: 0,
+                  boxSizing: "border-box",
+                  position: "relative",
                   width: "100%",
-                  borderCollapse: "collapse",
-                  my: 3,
-                },
-                "& th, & td": {
-                  border: `1px solid ${theme.palette.divider}`,
-                  padding: 1.5,
-                  textAlign: "left",
-                  fontSize: "13px",
-                },
-                "& th": {
-                  backgroundColor: alpha(theme.palette.text.primary, 0.05),
-                  fontWeight: 700,
-                },
+                  minHeight: "300px",
 
-                // highlight.js Syntax Highlighting styling (Brutalist Code Colors integrated with theme)
-                "& .hljs": {
-                  display: "block",
-                  overflowX: "auto",
-                  padding: "0.5em",
-                  color: theme.palette.text.primary,
-                },
-                "& .hljs-comment, & .hljs-quote": {
-                  color: syntaxMutedColor,
-                  fontStyle: "italic",
-                },
-                "& .hljs-keyword, & .hljs-selector-tag, & .hljs-subst": {
-                  color: syntaxDangerColor,
-                  fontWeight: "bold",
-                },
-                "& .hljs-string, & .hljs-regexp, & .hljs-addition, & .hljs-attribute, & .hljs-meta-string":
-                  {
-                    color: syntaxStringColor,
+                  // Custom styling for parsed README HTML
+                  "& h1, & h2, & h3, & h4": {
+                    fontFamily: "inherit",
+                    fontWeight: 700,
+                    color: "var(--mui-palette-text-primary)",
+                    borderBottom: "1px solid var(--mui-palette-divider)",
+                    pb: 1,
+                    mt: 4.5,
+                    mb: 2,
                   },
-                "& .hljs-title, & .hljs-section, & .hljs-doctag, & .hljs-name, & .hljs-selector-id, & .hljs-selector-class":
-                  {
-                    color: syntaxTitleColor,
+                  "& h1": { fontSize: "24px" },
+                  "& h2": { fontSize: "20px" },
+                  "& h3": { fontSize: "17px" },
+                  "& p": {
+                    fontSize: "14px",
+                    lineHeight: 1.65,
+                    color: "var(--mui-palette-text-primary)",
+                    mb: 2.5,
+                  },
+                  "& ul, & ol": {
+                    pl: 3,
+                    mb: 2.5,
+                    fontSize: "14px",
+                    color: "var(--mui-palette-text-primary)",
+                  },
+                  "& li": {
+                    mb: 1,
+                    color: "var(--mui-palette-text-primary)",
+                  },
+                  "& pre": {
+                    backgroundColor: codeSurfaceColor,
+                    padding: 2.5,
+                    borderRadius: "4px",
+                    border: "1px solid var(--mui-palette-divider)",
+                    overflowX: "auto",
+                    fontFamily: "monospace",
+                    my: 3,
+                  },
+                  "& code": {
+                    backgroundColor: codeSurfaceColor,
+                    px: 0.8,
+                    py: 0.4,
+                    borderRadius: "3px",
+                    fontFamily: "monospace",
+                    fontSize: "13px",
+                    color: "var(--mui-palette-text-primary)",
+                  },
+                  "& a": {
+                    color: "var(--mui-palette-primary-main)",
+                    textDecoration: "underline",
+                    fontWeight: 700,
+                    "&:hover": {
+                      color: "var(--mui-palette-text-primary)",
+                    },
+                  },
+                  "& table": {
+                    width: "100%",
+                    borderCollapse: "collapse",
+                    my: 3,
+                  },
+                  "& th, & td": {
+                    border: "1px solid var(--mui-palette-divider)",
+                    padding: 1.5,
+                    textAlign: "left",
+                    fontSize: "13px",
+                  },
+                  "& th": {
+                    backgroundColor: codeSurfaceColor,
+                    fontWeight: 700,
+                  },
+
+                  // highlight.js Syntax Highlighting styling (Brutalist Code Colors integrated with theme)
+                  "& .hljs": {
+                    display: "block",
+                    overflowX: "auto",
+                    padding: "0.5em",
+                    color: "var(--mui-palette-text-primary)",
+                  },
+                  "& .hljs-comment, & .hljs-quote": {
+                    color: syntaxMutedColor,
+                    fontStyle: "italic",
+                  },
+                  "& .hljs-keyword, & .hljs-selector-tag, & .hljs-subst": {
+                    color: syntaxDangerColor,
                     fontWeight: "bold",
                   },
-                "& .hljs-variable, & .hljs-template-variable, & .hljs-type, & .hljs-selector-attr, & .hljs-selector-pseudo, & .hljs-number":
-                  {
-                    color: syntaxNumberColor,
+                  "& .hljs-string, & .hljs-regexp, & .hljs-addition, & .hljs-attribute, & .hljs-meta-string":
+                    {
+                      color: syntaxStringColor,
+                    },
+                  "& .hljs-title, & .hljs-section, & .hljs-doctag, & .hljs-name, & .hljs-selector-id, & .hljs-selector-class":
+                    {
+                      color: syntaxTitleColor,
+                      fontWeight: "bold",
+                    },
+                  "& .hljs-variable, & .hljs-template-variable, & .hljs-type, & .hljs-selector-attr, & .hljs-selector-pseudo, & .hljs-number":
+                    {
+                      color: syntaxNumberColor,
+                    },
+                  "& .hljs-symbol, & .hljs-bullet, & .hljs-meta, & .hljs-built_in, & .hljs-class, & .hljs-title.class_":
+                    {
+                      color: syntaxStringColor,
+                    },
+                  "& .hljs-emphasis": {
+                    fontStyle: "italic",
                   },
-                "& .hljs-symbol, & .hljs-bullet, & .hljs-meta, & .hljs-built_in, & .hljs-class, & .hljs-title.class_":
-                  {
-                    color: syntaxStringColor,
+                  "& .hljs-strong": {
+                    fontWeight: "bold",
                   },
-                "& .hljs-emphasis": {
-                  fontStyle: "italic",
-                },
-                "& .hljs-strong": {
-                  fontWeight: "bold",
-                },
-              }}
-            >
-              {loadingReadme ? (
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    minHeight: "200px",
-                    width: "100%",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontFamily: "monospace",
-                      fontWeight: 800,
-                      fontSize: "14px",
-                      color: theme.palette.text.secondary,
-                    }}
-                  >
-                    {t.loading}
-                  </Typography>
-                </Box>
-              ) : (
-                /* HTML Render */
+                }}
+              >
                 <div
                   style={{ position: "relative", zIndex: 1 }}
                   // biome-ignore lint/security/noDangerouslySetInnerHtml: static readme rendering
@@ -768,8 +772,8 @@ export default function ProjectDetailClient({
                     __html: readmesMap[activeBranchName] || "",
                   }}
                 />
-              )}
-            </Paper>
+              </Paper>
+            )}
           </AnimatePresence>
         </Box>
       </Container>

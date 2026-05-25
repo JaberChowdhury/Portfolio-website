@@ -1,8 +1,10 @@
 "use client";
 
-import { Box, Grid, Link, Typography } from "@mui/material";
+import { Box, Grid, Link, Typography, useMediaQuery } from "@mui/material";
 import { useLanguageStore } from "@/store/languageStore";
 import FaqAccordion from "./FaqAccordion";
+import ParticleText from "@/app/extras/ParticleText";
+import { useTheme } from "@mui/material/styles";
 
 const translations = {
   en: {
@@ -26,6 +28,10 @@ const translations = {
 export default function FaqSection() {
   const language = useLanguageStore((s) => s.language);
   const t = translations[language];
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const mainTextColor = "var(--mui-palette-text-primary)";
+  // const gridLineColor = "var(--mui-palette-divider)";
   return (
     <Box
       id="faq"
@@ -39,6 +45,26 @@ export default function FaqSection() {
         borderColor: "divider",
       }}
     >
+      <Box
+        sx={{
+          mb: { xs: 6, md: 10 },
+          height: { xs: "120px", md: "250px" },
+          position: "relative",
+        }}
+      >
+        <ParticleText
+          text="FAQ"
+          colorStart={mainTextColor}
+          colorEnd={mainTextColor}
+          canvasWidth={isMobile ? 2200 : 3200}
+          font={
+            isMobile
+              ? "900 280px Inter, sans-serif"
+              : "900 300px Inter, sans-serif"
+          }
+          particleSize={0.4}
+        />
+      </Box>
       <Grid container spacing={{ xs: 8, md: 4 }}>
         {/* Left Column: Title and Links */}
         <Grid size={{ xs: 12, md: 5 }}>

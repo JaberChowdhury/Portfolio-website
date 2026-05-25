@@ -1,7 +1,6 @@
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import SquareIcon from "@mui/icons-material/Square";
 import { Button } from "@mui/material";
-import { alpha, useTheme } from "@mui/material/styles";
 import type { Tier } from "./pricingData";
 
 export interface PricingCardProps {
@@ -10,16 +9,15 @@ export interface PricingCardProps {
 }
 
 const PricingCard = ({ tier, isLight }: PricingCardProps) => {
-  const theme = useTheme();
   const cardBg = isLight
-    ? theme.palette.background.paper
-    : theme.palette.text.primary;
+    ? "var(--mui-palette-background-paper)"
+    : "var(--mui-palette-text-primary)";
   const cardText = isLight
-    ? theme.palette.text.primary
-    : theme.palette.background.default;
+    ? "var(--mui-palette-text-primary)"
+    : "var(--mui-palette-background-default)";
   const btnBg = isLight
-    ? alpha(theme.palette.text.primary, 0.08)
-    : alpha(theme.palette.background.default, 0.12);
+    ? "rgba(var(--mui-palette-text-primaryChannel) / 0.08)"
+    : "rgba(var(--mui-palette-background-defaultChannel) / 0.12)";
   const btnText = cardText;
 
   return (
@@ -57,7 +55,9 @@ const PricingCard = ({ tier, isLight }: PricingCardProps) => {
             fontSize: "14px",
             margin: "0",
             lineHeight: "1.5",
-            color: alpha(cardText, isLight ? 0.8 : 0.72),
+            color: isLight
+              ? "rgba(var(--mui-palette-text-primaryChannel) / 0.8)"
+              : "rgba(var(--mui-palette-background-defaultChannel) / 0.72)",
           }}
         >
           {tier.description}

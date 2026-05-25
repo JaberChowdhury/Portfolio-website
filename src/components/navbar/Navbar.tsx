@@ -10,7 +10,6 @@ import {
   Link as MuiLink,
   Stack,
 } from "@mui/material";
-import { alpha, useTheme } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
@@ -47,8 +46,7 @@ const translations = {
 };
 
 export default function Navbar() {
-  const theme = useTheme();
-  const gridLineColor = theme.palette.divider;
+  const gridLineColor = "var(--mui-palette-divider)";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("/#home");
   const pathname = usePathname();
@@ -90,7 +88,8 @@ export default function Navbar() {
         borderBottom: `1px solid ${gridLineColor}`,
 
         // --- Glassmorphism Effect ---
-        backgroundColor: alpha(theme.palette.background.default, 0.7),
+        backgroundColor:
+          "rgba(var(--mui-palette-background-defaultChannel) / 0.7)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
       }}
@@ -145,7 +144,7 @@ export default function Navbar() {
                     left: 0,
                     right: 0,
                     height: 2,
-                    backgroundColor: theme.palette.text.primary,
+                    backgroundColor: "var(--mui-palette-text-primary)",
                     borderRadius: 2,
                   }}
                 />
@@ -199,7 +198,7 @@ export default function Navbar() {
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             width: "100%",
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: "background.default",
             pt: 12, // Push content below the navbar
             pb: 4,
             px: 4,

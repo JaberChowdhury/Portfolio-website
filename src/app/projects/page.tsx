@@ -8,7 +8,6 @@ import LaunchIcon from "@mui/icons-material/Launch";
 import SearchIcon from "@mui/icons-material/Search";
 import StarIcon from "@mui/icons-material/Star";
 import {
-  alpha,
   Box,
   Button,
   Container,
@@ -79,7 +78,8 @@ const translations = {
     stars: "স্টার",
     forks: "ফর্ক",
     noProjects: "আপনার অনুসন্ধানের সাথে মিলে এমন কোনো প্রজেক্ট পাওয়া যায়নি।",
-    fallbackWarning: "স্ট্যাটিক প্রজেক্ট ক্যাটালগ দেখানো হচ্ছে (GitHub API লিমিট শেষ)।",
+    fallbackWarning:
+      "স্ট্যাটিক প্রজেক্ট ক্যাটালগ দেখানো হচ্ছে (GitHub API লিমিট শেষ)।",
     sortBy: "ক্রমানুসারে",
     sortOptions: {
       updated: "সাম্প্রতিক আপডেট",
@@ -453,12 +453,14 @@ export default function ProjectsPage() {
         >
           <ParticleText
             text={t.title}
-            colorStart={theme.palette.text.primary}
-            colorEnd={theme.palette.text.primary}
+            colorStart="var(--mui-palette-text-primary)"
+            colorEnd="var(--mui-palette-text-primary)"
+            canvasWidth={isMobile ? 2200 : 3400}
+            canvasHeight={isMobile ? 2200 : 3400}
             font={
               isMobile
-                ? "900 80px Inter, sans-serif"
-                : "900 170px Inter, sans-serif"
+                ? "900 280px Inter, sans-serif"
+                : "900 470px Inter, sans-serif"
             }
             particleSize={0.4}
           />
@@ -488,8 +490,9 @@ export default function ProjectsPage() {
             sx={{
               mb: 4,
               p: 2,
-              borderLeft: `4px solid ${theme.palette.text.primary}`,
-              backgroundColor: alpha(theme.palette.background.paper, 0.6),
+              borderLeft: "4px solid var(--mui-palette-text-primary)",
+              backgroundColor:
+                "rgba(var(--mui-palette-background-paperChannel) / 0.6)",
               color: theme.palette.text.secondary,
               fontSize: "13px",
               fontWeight: 600,
@@ -542,7 +545,7 @@ export default function ProjectsPage() {
                 border: "none",
                 outline: "none",
                 background: "transparent",
-                color: theme.palette.text.primary,
+                color: "var(--mui-palette-text-primary)",
                 width: "100%",
                 fontSize: "14px",
                 fontFamily: "inherit",
@@ -590,7 +593,7 @@ export default function ProjectsPage() {
                   border: "none",
                   outline: "none",
                   background: "transparent",
-                  color: theme.palette.text.primary,
+                  color: "var(--mui-palette-text-primary)",
                   fontWeight: 700,
                   fontSize: "11px",
                   cursor: "pointer",
@@ -600,19 +603,19 @@ export default function ProjectsPage() {
               >
                 <option
                   value="updated"
-                  style={{ background: theme.palette.background.paper }}
+                  style={{ background: "var(--mui-palette-background-paper)" }}
                 >
                   {t.sortOptions.updated}
                 </option>
                 <option
                   value="stars"
-                  style={{ background: theme.palette.background.paper }}
+                  style={{ background: "var(--mui-palette-background-paper)" }}
                 >
                   {t.sortOptions.stars}
                 </option>
                 <option
                   value="name"
-                  style={{ background: theme.palette.background.paper }}
+                  style={{ background: "var(--mui-palette-background-paper)" }}
                 >
                   {t.sortOptions.name}
                 </option>
@@ -723,7 +726,7 @@ export default function ProjectsPage() {
                   bottom: 0,
                   left: 0,
                   width: "50%",
-                  backgroundColor: theme.palette.text.primary,
+                  backgroundColor: "var(--mui-palette-text-primary)",
                   zIndex: 1,
                 }}
               />
@@ -882,8 +885,11 @@ export default function ProjectsPage() {
                           transform: "translate(-50%, -50%)",
                           fontSize: repo.name.length > 12 ? "44px" : "60px",
                           fontWeight: 900,
-                          color: theme.palette.text.primary,
-                          opacity: theme.palette.mode === "dark" ? 0.025 : 0.04,
+                          color: "var(--mui-palette-text-primary)",
+                          opacity: 0.04,
+                          ".dark &": {
+                            opacity: 0.025,
+                          },
                           whiteSpace: "nowrap",
                           zIndex: 0,
                           pointerEvents: "none",
@@ -907,12 +913,12 @@ export default function ProjectsPage() {
                             borderColor: accentColor,
                           },
                         }}
-                        style={{
+                        sx={{
                           position: "absolute",
                           top: 14,
                           left: 14,
-                          borderTop: `2.5px solid ${theme.palette.divider}`,
-                          borderLeft: `2.5px solid ${theme.palette.divider}`,
+                          borderTop: "2.5px solid var(--mui-palette-divider)",
+                          borderLeft: "2.5px solid var(--mui-palette-divider)",
                           transition: "border-color 0.25s ease",
                         }}
                       />
@@ -929,12 +935,13 @@ export default function ProjectsPage() {
                             borderColor: accentColor,
                           },
                         }}
-                        style={{
+                        sx={{
                           position: "absolute",
                           bottom: 14,
                           right: 14,
-                          borderBottom: `2.5px solid ${theme.palette.divider}`,
-                          borderRight: `2.5px solid ${theme.palette.divider}`,
+                          borderBottom:
+                            "2.5px solid var(--mui-palette-divider)",
+                          borderRight: "2.5px solid var(--mui-palette-divider)",
                           transition: "border-color 0.25s ease",
                         }}
                       />
