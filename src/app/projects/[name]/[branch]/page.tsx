@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import {
   generateProjectBranchStaticParams,
-  getProjectDetails,
 } from "@/lib/projects";
 import ProjectDetailClient from "../ProjectDetailClient";
 
@@ -32,13 +31,10 @@ export default async function ProjectDetailPage({
 }) {
   const { name, branch } = await params;
   const decodedBranch = decodeURIComponent(branch);
-  const { repoInfo, branchesData, allBranches } = await getProjectDetails(name);
 
   return (
     <ProjectDetailClient
-      repoInfo={repoInfo}
-      branchesData={branchesData}
-      allBranches={allBranches}
+      repoName={name}
       activeBranchName={decodedBranch}
     />
   );

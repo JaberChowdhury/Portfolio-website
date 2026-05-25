@@ -15,42 +15,77 @@ import type { BranchData, CombinedRepo } from "@/lib/github";
 import { useLanguageStore } from "@/store/languageStore";
 
 interface ProjectDetailClientProps {
-  repoInfo: CombinedRepo;
-  branchesData: BranchData[];
-  allBranches: { name: string }[];
+  repoName: string;
   activeBranchName: string;
 }
 
 export default function ProjectDetailClient({
-  repoInfo,
-  branchesData,
-  allBranches,
+  repoName,
   activeBranchName,
 }: ProjectDetailClientProps) {
   const language = useLanguageStore((s) => s.language);
   const t = detailTranslations[language];
 
-  // Local state to store readmes (pre-rendered or dynamically compiled client-side)
-  const [readmesMap, setReadmesMap] = useState<Record<string, string>>(() => {
-    const initialMap: Record<string, string> = {};
-    for (const item of branchesData) {
-      initialMap[item.name] = item.readmeHtml;
-    }
-    return initialMap;
-  });
+  const [repoInfo, setRepoInfo] = useState<CombinedRepo | null>(null);
+  const [loadingRepo, setLoadingRepo] = useState<boolean>(true);
+  const [errorRepo, setErrorRepo] = useState<string | null>(null);
 
+  // Local state to store readmes (pre-rendered or dynamically compiled client-side)
+  const [readmesMap, setReadmesMap] = useState<Record<string, string>>({});
   const [loadingReadme, setLoadingReadme] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchRepoDetails = async () => {
+      setLoadingRepo(true);
+      setErrorRepo(null);
+      try {
+        const res = await fetch(`/api/projects/${repoName}`);
+        if (!res.ok) {
+          throw new Error(`Failed to fetch project details: ${res.status}`);
+        }
+        const data: CombinedRepo = await res.json();
+        if (isMounted) {
+          setRepoInfo(data);
+          
+          const initialMap: Record<string, string> = {};
+          if (data.readmes) {
+            for (const item of data.readmes) {
+              initialMap[item.name] = item.readmeHtml;
+            }
+          }
+          setReadmesMap(initialMap);
+        }
+      } catch (err: any) {
+        console.error("Error fetching repository details on client:", err);
+        if (isMounted) {
+          setErrorRepo(err.message || "Failed to load project details");
+        }
+      } finally {
+        if (isMounted) {
+          setLoadingRepo(false);
+        }
+      }
+    };
+
+    fetchRepoDetails();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [repoName]);
+
   const hasReadme = !!readmesMap[activeBranchName];
 
   useEffect(() => {
-    if (hasReadme) return;
+    if (!repoInfo || hasReadme) return;
 
     let isMounted = true;
     const fetchReadme = async () => {
       setLoadingReadme(true);
       try {
         const res = await fetch(
-          `/api/projects/readme?repo=${repoInfo.name}&branch=${activeBranchName}`,
+          `/api/projects/readme?repo=${repoName}&branch=${activeBranchName}`,
         );
         if (!res.ok) {
           throw new Error("Failed to fetch branch readme from API route");
@@ -85,22 +120,60 @@ export default function ProjectDetailClient({
     return () => {
       isMounted = false;
     };
-  }, [activeBranchName, repoInfo.name, hasReadme]);
+  }, [activeBranchName, repoName, hasReadme, repoInfo]);
 
-  // Sync branchesData pre-fetched content to local readmesMap state when navigated on server-side
-  useEffect(() => {
-    setReadmesMap((prev) => {
-      const nextMap = { ...prev };
-      let changed = false;
-      for (const item of branchesData) {
-        if (item.readmeHtml && nextMap[item.name] !== item.readmeHtml) {
-          nextMap[item.name] = item.readmeHtml;
-          changed = true;
-        }
-      }
-      return changed ? nextMap : prev;
-    });
-  }, [branchesData]);
+  if (loadingRepo || !repoInfo) {
+    return (
+      <>
+        <Navbar />
+        <Container
+          maxWidth="lg"
+          sx={{
+            pt: { xs: "120px", md: "160px" },
+            pb: "100px",
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
+            zIndex: 10,
+            boxSizing: "border-box",
+          }}
+        >
+          <Loading />
+        </Container>
+      </>
+    );
+  }
+
+  if (errorRepo) {
+    return (
+      <>
+        <Navbar />
+        <Container
+          maxWidth="lg"
+          sx={{
+            pt: { xs: "120px", md: "160px" },
+            pb: "100px",
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
+            zIndex: 10,
+            boxSizing: "border-box",
+          }}
+        >
+          <h2 style={{ color: "var(--mui-palette-error-main)" }}>Error</h2>
+          <p>{errorRepo}</p>
+        </Container>
+      </>
+    );
+  }
+
+  const allBranches = repoInfo.branches || [{ name: repoInfo.default_branch || "main" }];
 
   return (
     <>
