@@ -239,7 +239,6 @@ export default function Navbar() {
               {link.label}
             </MuiLink>
           ))}
-
         </Stack>
       </Drawer>
     </Box>

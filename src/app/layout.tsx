@@ -4,8 +4,8 @@ import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { Roboto } from "next/font/google";
 import Footer from "@/components/footer/Footer";
 import GridBackground from "@/components/GridBackground";
-import ThemeRegistry from "./ThemeRegistry";
 import Preloader from "@/components/Preloader";
+import ThemeRegistry from "./ThemeRegistry";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],

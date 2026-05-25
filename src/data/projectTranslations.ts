@@ -1,6 +1,6 @@
 export const detailTranslations = {
   en: {
-    back: "← Back to Projects",
+    back: "Back to Projects",
     defaultBranch: "Default Branch",
     branches: "Branches",
     stars: "Stars",

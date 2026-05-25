@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { fetchDetailedRepo, fetchAllSummaries } from "@/lib/github";
+import { fetchAllSummaries, fetchDetailedRepo } from "@/lib/github";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ name: string }> }
+  _request: Request,
+  { params }: { params: Promise<{ name: string }> },
 ) {
   const { name } = await params;
 
@@ -24,7 +24,7 @@ export async function GET(
     console.error(`Error in dynamic project API route for "${name}":`, error);
     return NextResponse.json(
       { error: `Failed to fetch project details for "${name}"` },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
