@@ -20,10 +20,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ readmeHtml });
   } catch (error) {
     console.error("Error fetching/compiling readme in API route:", error);
-    const message = error instanceof Error ? error.message : "Failed to retrieve or compile the README";
-    return NextResponse.json(
-      { error: message },
-      { status: 500 },
-    );
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Failed to retrieve or compile the README";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

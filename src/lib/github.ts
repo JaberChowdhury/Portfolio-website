@@ -13,23 +13,48 @@ export interface Repository {
   watchers_count: number;
   forks_count: number;
   language: string | null;
-  updated_at: string;
-  pushed_at: string;
+  updated_at: string; // ISO 8601 Date string
+  pushed_at: string; // ISO 8601 Date string
   default_branch?: string;
   fork?: boolean;
-  branches?: GitHubBranch[];
-  readmes?: BranchData[];
-}
-
-export interface BranchData {
-  name: string;
-  readmeHtml: string;
+  topics?: string[]; // Array of repository tags (e.g., ["react", "vite"])
+  size?: number; // Size in KB
+  open_issues_count?: number;
 }
 
 export interface GitHubBranch {
   name: string;
-  commit?: { sha: string; url: string };
+  commit?: {
+    sha: string;
+    url: string;
+  };
   protected?: boolean;
+  languages?: Record<string, number>; // Count of files per language specifically in this branch
+  recentCommits?: CommitData[]; // The 5 most recent commits strictly for this branch
+}
+
+export interface BranchData {
+  name: string; // Usually "main" or "master"
+  readmeHtml: string; // Raw HTML string of the repository's README
+}
+
+export interface LanguageStats {
+  [language: string]: number; // e.g., { "TypeScript": 45000, "HTML": 1200 } (Values are in bytes)
+}
+
+export interface CommitData {
+  sha: string;
+  message: string;
+  author: string;
+  date: string; // ISO 8601 Date string
+  url: string; // Direct link to the commit on GitHub
+}
+
+export interface CombinedRepo extends Repository {
+  branches: GitHubBranch[];
+  readmes: BranchData[];
+  languages: LanguageStats;
+  weeklyActivity: number[]; // Array of 52 integers representing commits per week
 }
 
 // Configure marked with highlight.js syntax highlighting
@@ -55,11 +80,11 @@ export function renderLocalMarkdown(markdown: string): string {
 }
 
 // Fetch all portfolios from the user's static API repository
-export async function fetchAllPortfolios(): Promise<Repository[]> {
+export async function fetchAllPortfolios(): Promise<CombinedRepo[]> {
   const res = await fetch(
     "https://raw.githubusercontent.com/JaberChowdhury/my_github_data/refs/heads/main/api/portfolio.json",
     {
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     },
   );
   if (!res.ok) {

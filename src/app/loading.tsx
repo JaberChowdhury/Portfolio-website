@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/security/noDangerouslySetInnerHtml: style tag injection */
 "use client";
 import { motion } from "framer-motion";
 

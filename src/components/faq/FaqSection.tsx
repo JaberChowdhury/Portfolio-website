@@ -1,10 +1,10 @@
 "use client";
 
 import { Box, Grid, Link, Typography, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import ParticleText from "@/app/extras/ParticleText";
 import { useLanguageStore } from "@/store/languageStore";
 import FaqAccordion from "./FaqAccordion";
-import ParticleText from "@/app/extras/ParticleText";
-import { useTheme } from "@mui/material/styles";
 
 const translations = {
   en: {
