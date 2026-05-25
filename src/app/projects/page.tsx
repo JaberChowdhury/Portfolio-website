@@ -3,7 +3,6 @@
 import BrushIcon from "@mui/icons-material/Brush";
 import CodeIcon from "@mui/icons-material/Code";
 import FeedIcon from "@mui/icons-material/Feed";
-import ForkRightIcon from "@mui/icons-material/ForkRight";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GridViewIcon from "@mui/icons-material/GridView";
@@ -28,7 +27,7 @@ import { useEffect, useState } from "react";
 import ParticleText from "@/app/extras/ParticleText";
 import Navbar from "@/components/navbar/Navbar";
 import { FALLBACK_REPOS } from "@/data/fallbackRepos";
-import type { Repository } from "@/lib/github";
+import type { RepoSummary } from "@/lib/github";
 import { useLanguageStore } from "@/store/languageStore";
 
 // Client-side cache configuration constants to avoid redundant API refetches
@@ -68,7 +67,8 @@ const translations = {
     stars: "স্টার",
     forks: "ফর্ক",
     noProjects: "আপনার অনুসন্ধানের সাথে মিলে এমন কোনো প্রজেক্ট পাওয়া যায়নি।",
-    fallbackWarning: "স্ট্যাটিক প্রজেক্ট ক্যাটালগ দেখানো হচ্ছে (GitHub API লিমিট শেষ)।",
+    fallbackWarning:
+      "স্ট্যাটিক প্রজেক্ট ক্যাটালগ দেখানো হচ্ছে (GitHub API লিমিট শেষ)।",
     sortBy: "ক্রমানুসারে",
     sortOptions: {
       updated: "সাম্প্রতিক আপডেট",
@@ -138,7 +138,7 @@ export default function ProjectsPage() {
   const t = translations[language];
 
   // Component States
-  const [repos, setRepos] = useState<Repository[]>([]);
+  const [repos, setRepos] = useState<RepoSummary[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedLanguage, setSelectedLanguage] = useState<string>("All");
@@ -180,9 +180,9 @@ export default function ProjectsPage() {
           throw new Error(`Failed to fetch repos: ${response.status}`);
         }
 
-        const data: Repository[] = await response.json();
+        const data: RepoSummary[] = await response.json();
         // Exclude forks to focus on owner work
-        const originalRepos = data.filter((r) => !r.fork);
+        const originalRepos = data;
 
         // Write to cache
         sessionStorage.setItem(CACHE_KEY, JSON.stringify(originalRepos));
@@ -249,8 +249,8 @@ export default function ProjectsPage() {
       if (sortBy === "name") {
         return a.name.localeCompare(b.name);
       }
-      const dateA = new Date(a.pushed_at || a.updated_at).getTime();
-      const dateB = new Date(b.pushed_at || b.updated_at).getTime();
+      const dateA = new Date(a.updated_at).getTime();
+      const dateB = new Date(b.updated_at).getTime();
       return dateB - dateA;
     });
 
@@ -660,6 +660,7 @@ export default function ProjectsPage() {
           <Box
             sx={{
               display: "flex",
+              flexWrap: "wrap",
               gap: 1.5,
               overflowX: "auto",
               pb: 2,
@@ -914,7 +915,7 @@ export default function ProjectsPage() {
                               color: theme.palette.text.secondary,
                             }}
                           >
-                            {formatDate(repo.pushed_at || repo.updated_at)}
+                            {formatDate(repo.updated_at)}
                           </Typography>
                         </Box>
 
@@ -977,7 +978,7 @@ export default function ProjectsPage() {
                           position: "relative",
                         }}
                       >
-                        {/* Left: Stars & Forks stats */}
+                        {/* Left: Stars stats */}
                         <Box
                           sx={{
                             display: "flex",
@@ -1007,30 +1008,6 @@ export default function ProjectsPage() {
                               }}
                             >
                               {repo.stargazers_count}
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 0.6,
-                            }}
-                          >
-                            <ForkRightIcon
-                              sx={{
-                                fontSize: 15,
-                                color: theme.palette.text.secondary,
-                              }}
-                            />
-                            <Typography
-                              sx={{
-                                fontSize: "11px",
-                                fontWeight: 700,
-                                fontFamily: "monospace",
-                                color: theme.palette.text.secondary,
-                              }}
-                            >
-                              {repo.forks_count}
                             </Typography>
                           </Box>
                         </Box>
@@ -1260,11 +1237,11 @@ export default function ProjectsPage() {
                                 color: theme.palette.text.secondary,
                               }}
                             >
-                              {formatDate(repo.pushed_at || repo.updated_at)}
+                              {formatDate(repo.updated_at)}
                             </Typography>
                           </Box>
 
-                          {/* Stars & Forks Row */}
+                          {/* Stars Row */}
                           <Box
                             sx={{
                               display: "flex",
@@ -1294,30 +1271,6 @@ export default function ProjectsPage() {
                                 }}
                               >
                                 {repo.stargazers_count}
-                              </Typography>
-                            </Box>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 0.6,
-                              }}
-                            >
-                              <ForkRightIcon
-                                sx={{
-                                  fontSize: 15,
-                                  color: theme.palette.text.secondary,
-                                }}
-                              />
-                              <Typography
-                                sx={{
-                                  fontSize: "11px",
-                                  fontWeight: 700,
-                                  fontFamily: "monospace",
-                                  color: theme.palette.text.secondary,
-                                }}
-                              >
-                                {repo.forks_count}
                               </Typography>
                             </Box>
                           </Box>

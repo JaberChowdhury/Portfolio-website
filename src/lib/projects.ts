@@ -2,7 +2,9 @@ import { FALLBACK_REPOS } from "@/data/fallbackRepos";
 import {
   type BranchData,
   type CombinedRepo,
+  type DetailedRepo,
   fetchAllPortfolios,
+  fetchDetailedRepo,
   renderLocalMarkdown,
 } from "@/lib/github";
 
@@ -13,11 +15,8 @@ export async function getProjectDefaultBranch(
   repoName: string,
 ): Promise<string> {
   try {
-    const portfolios = await fetchAllPortfolios();
-    const project = portfolios.find(
-      (p) => p.name.toLowerCase() === repoName.toLowerCase(),
-    );
-    return project?.default_branch || "main";
+    const project = await fetchDetailedRepo(repoName);
+    return project.default_branch || "main";
   } catch (err) {
     console.error("Failed to load repo default branch, using fallback:", err);
     return "main";
@@ -33,16 +32,7 @@ export async function getProjectDetails(repoName: string): Promise<{
   allBranches: { name: string }[];
 }> {
   try {
-    const portfolios = await fetchAllPortfolios();
-    const project = portfolios.find(
-      (p) => p.name.toLowerCase() === repoName.toLowerCase(),
-    );
-
-    if (!project) {
-      throw new Error(
-        `Repository ${repoName} not found in static portfolio file`,
-      );
-    }
+    const project = await fetchDetailedRepo(repoName);
 
     const branchesData: BranchData[] =
       project.readmes && project.readmes.length > 0
@@ -56,10 +46,7 @@ export async function getProjectDetails(repoName: string): Promise<{
           ];
 
     return {
-      repoInfo: {
-        ...project,
-        default_branch: project.default_branch || "main",
-      } as CombinedRepo,
+      repoInfo: project,
       branchesData,
       allBranches: project.branches || [
         { name: project.default_branch || "main" },
@@ -93,10 +80,14 @@ export async function getProjectDetails(repoName: string): Promise<{
         ],
         languages: {},
         weeklyActivity: Array(52).fill(0),
-        topics: [],
+        topics: fallbackRepo.topics || [],
         size: fallbackRepo.size || 0,
         open_issues_count: fallbackRepo.open_issues_count || 0,
-      } as CombinedRepo,
+        full_name: fallbackRepo.full_name || "",
+        watchers_count: fallbackRepo.watchers_count || 0,
+        forks_count: fallbackRepo.forks_count || 0,
+        pushed_at: fallbackRepo.pushed_at || fallbackRepo.updated_at,
+      } as DetailedRepo,
       branchesData: [
         {
           name: fallbackRepo.default_branch || "main",
@@ -116,11 +107,9 @@ export async function generateProjectStaticParams(): Promise<
 > {
   try {
     const repos = await fetchAllPortfolios();
-    return repos
-      .filter((r) => !r.fork)
-      .map((repo) => ({
-        name: repo.name,
-      }));
+    return repos.map((repo) => ({
+      name: repo.name,
+    }));
   } catch (err) {
     console.error("Failed to generate static params:", err);
     return [];
@@ -137,17 +126,25 @@ export async function generateProjectBranchStaticParams(): Promise<
     const portfolios = await fetchAllPortfolios();
     const params: { name: string; branch: string }[] = [];
 
-    for (const repo of portfolios) {
-      if (repo.fork) continue;
+    for (const summary of portfolios) {
+      try {
+        const repo = await fetchDetailedRepo(summary.name);
+        if (repo.fork) continue;
 
-      const branches = repo.branches || [
-        { name: repo.default_branch || "main" },
-      ];
-      for (const branch of branches) {
-        params.push({
-          name: repo.name,
-          branch: branch.name,
-        });
+        const branches = repo.branches || [
+          { name: repo.default_branch || "main" },
+        ];
+        for (const branch of branches) {
+          params.push({
+            name: repo.name,
+            branch: branch.name,
+          });
+        }
+      } catch (err) {
+        console.error(
+          `Failed to generate static branch parameters for "${summary.name}":`,
+          err,
+        );
       }
     }
     return params;
