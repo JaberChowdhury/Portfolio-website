@@ -9,11 +9,13 @@ import {
   IconButton,
   Link as MuiLink,
   Stack,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLanguageStore } from "@/store/languageStore";
 import Logo from "../Logo";
 import ThemeToggle from "../ThemeToggle";
@@ -46,14 +48,24 @@ const translations = {
 };
 
 export default function Navbar() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const gridLineColor = "var(--mui-palette-divider)";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("/#home");
   const pathname = usePathname();
 
   const language = useLanguageStore((s) => s.language);
+  const setLanguage = useLanguageStore((s) => s.setLanguage);
   const toggleLanguage = useLanguageStore((s) => s.toggleLanguage);
   const t = translations[language];
+
+  // Enforce English language strictly on mobile viewports
+  useEffect(() => {
+    if (isMobile && language !== "en") {
+      setLanguage("en");
+    }
+  }, [isMobile, language, setLanguage]);
 
   const navLinks = [
     { label: t.home, href: "/#home" },
@@ -163,7 +175,7 @@ export default function Navbar() {
           color="inherit"
           sx={{
             fontWeight: "bold",
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", lg: "block" },
             minWidth: "auto",
             p: 0,
             border: "none",
@@ -227,23 +239,7 @@ export default function Navbar() {
               {link.label}
             </MuiLink>
           ))}
-          <Box sx={{ mt: 4, pt: 4, borderTop: `1px solid ${gridLineColor}` }}>
-            <Button
-              onClick={() => {
-                toggleLanguage();
-                handleDrawerToggle();
-              }}
-              color="inherit"
-              sx={{
-                fontWeight: "bold",
-                fontSize: "1.2rem",
-                justifyContent: "flex-start",
-                p: 0,
-              }}
-            >
-              {language === "en" ? "LANGUAGE: EN | BN" : "ভাষা: BN | EN"}
-            </Button>
-          </Box>
+
         </Stack>
       </Drawer>
     </Box>

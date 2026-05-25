@@ -1,5 +1,8 @@
 "use client";
 
+import BrushIcon from "@mui/icons-material/Brush";
+import CodeIcon from "@mui/icons-material/Code";
+import FeedIcon from "@mui/icons-material/Feed";
 import ForkRightIcon from "@mui/icons-material/ForkRight";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -7,10 +10,12 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import LaunchIcon from "@mui/icons-material/Launch";
 import SearchIcon from "@mui/icons-material/Search";
 import StarIcon from "@mui/icons-material/Star";
+import TerminalIcon from "@mui/icons-material/Terminal";
 import {
   Box,
   Button,
   Container,
+  InputBase,
   Link as MuiLink,
   Typography,
   useMediaQuery,
@@ -73,6 +78,48 @@ const translations = {
     demo: "লাইভ ডেমো",
     repo: "রিপোজিটরি",
   },
+};
+
+const getLanguageIcon = (lang: string) => {
+  const name = lang.toLowerCase();
+  if (
+    name === "typescript" ||
+    name === "javascript" ||
+    name === "c++" ||
+    name === "c" ||
+    name === "python" ||
+    name === "rust"
+  ) {
+    return <CodeIcon sx={{ fontSize: 13 }} />;
+  }
+  if (name === "shell" || name === "bash") {
+    return <TerminalIcon sx={{ fontSize: 13 }} />;
+  }
+  if (name === "markdown" || name === "text") {
+    return <FeedIcon sx={{ fontSize: 13 }} />;
+  }
+  if (name === "css" || name === "html" || name === "astro") {
+    return <BrushIcon sx={{ fontSize: 13 }} />;
+  }
+  return <CodeIcon sx={{ fontSize: 13 }} />;
+};
+
+const getLanguageColor = (lang: string) => {
+  const colors: Record<string, string> = {
+    typescript: "#3178C6", // Standard blue
+    javascript: "#F59E0B", // Bright amber/yellow
+    css: "#A855F7", // Bright purple
+    html: "#EF4444", // Bright red
+    astro: "#F97316", // Bright orange
+    "c++": "#EC4899", // Pink
+    c: "#708090", // Slate grey
+    python: "#3B82F6", // Python blue
+    rust: "#E77E23", // Rust orange
+    glsl: "#06B6D4", // Cyan
+    shell: "#10B981", // Green
+    markdown: "#0EA5E9", // Sky blue
+  };
+  return colors[lang.toLowerCase()] || "#00FFFF";
 };
 
 // Keyframe layout-skeleton pulse animation
@@ -397,7 +444,7 @@ export default function ProjectsPage() {
               alignItems: "center",
               border: `1px solid ${theme.palette.divider}`,
               px: 2,
-              py: 1,
+              py: 0.5,
               flexGrow: 1,
               maxWidth: { xs: "100%", md: "400px" },
               backgroundColor: theme.palette.background.paper,
@@ -410,19 +457,19 @@ export default function ProjectsPage() {
                 fontSize: 20,
               }}
             />
-            <input
-              type="text"
+            <InputBase
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t.searchPlaceholder}
-              style={{
-                border: "none",
-                outline: "none",
-                background: "transparent",
-                color: "var(--mui-palette-text-primary)",
-                width: "100%",
+              sx={{
+                flexGrow: 1,
+                color: "text.primary",
                 fontSize: "14px",
                 fontFamily: "inherit",
+                "& input::placeholder": {
+                  color: "text.secondary",
+                  opacity: 0.7,
+                },
               }}
             />
           </Box>
@@ -701,7 +748,6 @@ export default function ProjectsPage() {
               >
                 {processedRepos.map((repo, index) => {
                   const accentColor = theme.palette.text.primary;
-                  const themeAccentColor = theme.palette.primary.main;
 
                   return (
                     <Box
@@ -840,12 +886,13 @@ export default function ProjectsPage() {
                           >
                             <Box
                               sx={{
-                                width: 7,
-                                height: 7,
-                                borderRadius: "50%",
-                                backgroundColor: themeAccentColor,
+                                display: "flex",
+                                alignItems: "center",
+                                color: getLanguageColor(repo.language || ""),
                               }}
-                            />
+                            >
+                              {getLanguageIcon(repo.language || "")}
+                            </Box>
                             <Typography
                               sx={{
                                 fontSize: "10px",
@@ -887,12 +934,10 @@ export default function ProjectsPage() {
                           <MuiLink
                             component={Link}
                             href={`/projects/${repo.name}`}
+                            className="brutalist-hover-link"
                             sx={{
                               color: theme.palette.text.primary,
                               textDecoration: "none",
-                              "&:hover": {
-                                color: theme.palette.primary.main,
-                              },
                             }}
                           >
                             {repo.name}
@@ -999,12 +1044,11 @@ export default function ProjectsPage() {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={t.repo}
+                            className="brutalist-hover-link"
                             sx={{
                               color: theme.palette.text.primary,
                               display: "flex",
                               alignItems: "center",
-                              transition: "color 0.2s",
-                              "&:hover": { color: themeAccentColor },
                             }}
                           >
                             <GitHubIcon sx={{ fontSize: 17 }} />
@@ -1015,12 +1059,11 @@ export default function ProjectsPage() {
                               target="_blank"
                               rel="noopener noreferrer"
                               aria-label={t.demo}
+                              className="brutalist-hover-link"
                               sx={{
                                 color: theme.palette.text.primary,
                                 display: "flex",
                                 alignItems: "center",
-                                transition: "color 0.2s",
-                                "&:hover": { color: themeAccentColor },
                               }}
                             >
                               <LaunchIcon sx={{ fontSize: 17 }} />
@@ -1050,7 +1093,6 @@ export default function ProjectsPage() {
               >
                 {processedRepos.map((repo, index) => {
                   const accentColor = theme.palette.text.primary;
-                  const themeAccentColor = theme.palette.primary.main;
 
                   return (
                     <Box
@@ -1119,12 +1161,10 @@ export default function ProjectsPage() {
                           <MuiLink
                             component={Link}
                             href={`/projects/${repo.name}`}
+                            className="brutalist-hover-link"
                             sx={{
                               color: theme.palette.text.primary,
                               textDecoration: "none",
-                              "&:hover": {
-                                color: theme.palette.primary.main,
-                              },
                             }}
                           >
                             {repo.name}
@@ -1154,121 +1194,136 @@ export default function ProjectsPage() {
                           flexWrap: "wrap",
                           alignItems: "center",
                           justifyContent: "space-between",
-                          gap: { xs: 2.5, sm: 4 },
+                          gap: 2,
                           minWidth: { xs: "100%", md: "38%" },
-                          pt: { xs: 1.5, md: 0 },
+                          pt: { xs: 2, md: 0 },
                           borderTop: {
                             xs: `1px solid ${theme.palette.divider}`,
                             md: "none",
                           },
                         }}
                       >
-                        {/* Meta metadata row: Language & Pushed Date */}
+                        {/* Stats group (Language, Date, Stars, Forks) */}
                         <Box
                           sx={{
                             display: "flex",
-                            gap: 2.5,
-                            alignItems: "center",
+                            flexDirection: { xs: "column", sm: "row" },
+                            gap: { xs: 1.5, sm: 3 },
+                            alignItems: { xs: "flex-start", sm: "center" },
                           }}
                         >
-                          {/* Language indicator */}
+                          {/* Language & Date Row */}
                           <Box
                             sx={{
                               display: "flex",
+                              gap: 2.5,
                               alignItems: "center",
-                              gap: 1,
+                            }}
+                          >
+                            {/* Language indicator */}
+                            <Box
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 1,
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  color: getLanguageColor(repo.language || ""),
+                                }}
+                              >
+                                {getLanguageIcon(repo.language || "")}
+                              </Box>
+                              <Typography
+                                sx={{
+                                  fontSize: "10px",
+                                  fontWeight: 700,
+                                  fontFamily: "monospace",
+                                  letterSpacing: "0.08em",
+                                  color: theme.palette.text.secondary,
+                                }}
+                              >
+                                {repo.language
+                                  ? repo.language.toUpperCase()
+                                  : "UNKNOWN"}
+                              </Typography>
+                            </Box>
+
+                            {/* Date details */}
+                            <Typography
+                              sx={{
+                                fontSize: "10px",
+                                fontWeight: 600,
+                                color: theme.palette.text.secondary,
+                              }}
+                            >
+                              {formatDate(repo.pushed_at || repo.updated_at)}
+                            </Typography>
+                          </Box>
+
+                          {/* Stars & Forks Row */}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              gap: 2,
+                              alignItems: "center",
                             }}
                           >
                             <Box
                               sx={{
-                                width: 7,
-                                height: 7,
-                                borderRadius: "50%",
-                                backgroundColor: themeAccentColor,
-                              }}
-                            />
-                            <Typography
-                              sx={{
-                                fontSize: "10px",
-                                fontWeight: 700,
-                                fontFamily: "monospace",
-                                letterSpacing: "0.08em",
-                                color: theme.palette.text.secondary,
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 0.6,
                               }}
                             >
-                              {repo.language
-                                ? repo.language.toUpperCase()
-                                : "UNKNOWN"}
-                            </Typography>
-                          </Box>
-
-                          {/* Date details */}
-                          <Typography
-                            sx={{
-                              fontSize: "10px",
-                              fontWeight: 600,
-                              color: theme.palette.text.secondary,
-                            }}
-                          >
-                            {formatDate(repo.pushed_at || repo.updated_at)}
-                          </Typography>
-                        </Box>
-
-                        {/* Stars & Forks Stats */}
-                        <Box
-                          sx={{ display: "flex", gap: 2, alignItems: "center" }}
-                        >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 0.6,
-                            }}
-                          >
-                            <StarIcon
+                              <StarIcon
+                                sx={{
+                                  fontSize: 15,
+                                  color: theme.palette.text.secondary,
+                                }}
+                              />
+                              <Typography
+                                sx={{
+                                  fontSize: "11px",
+                                  fontWeight: 700,
+                                  fontFamily: "monospace",
+                                  color: theme.palette.text.secondary,
+                                }}
+                              >
+                                {repo.stargazers_count}
+                              </Typography>
+                            </Box>
+                            <Box
                               sx={{
-                                fontSize: 15,
-                                color: theme.palette.text.secondary,
-                              }}
-                            />
-                            <Typography
-                              sx={{
-                                fontSize: "11px",
-                                fontWeight: 700,
-                                fontFamily: "monospace",
-                                color: theme.palette.text.secondary,
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 0.6,
                               }}
                             >
-                              {repo.stargazers_count}
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 0.6,
-                            }}
-                          >
-                            <ForkRightIcon
-                              sx={{
-                                fontSize: 15,
-                                color: theme.palette.text.secondary,
-                              }}
-                            />
-                            <Typography
-                              sx={{
-                                fontSize: "11px",
-                                fontWeight: 700,
-                                fontFamily: "monospace",
-                                color: theme.palette.text.secondary,
-                              }}
-                            >
-                              {repo.forks_count}
-                            </Typography>
+                              <ForkRightIcon
+                                sx={{
+                                  fontSize: 15,
+                                  color: theme.palette.text.secondary,
+                                }}
+                              />
+                              <Typography
+                                sx={{
+                                  fontSize: "11px",
+                                  fontWeight: 700,
+                                  fontFamily: "monospace",
+                                  color: theme.palette.text.secondary,
+                                }}
+                              >
+                                {repo.forks_count}
+                              </Typography>
+                            </Box>
                           </Box>
                         </Box>
 
-                        {/* External Anchor Buttons */}
+                        {/* External Action Buttons */}
                         <Box
                           sx={{ display: "flex", gap: 2, alignItems: "center" }}
                         >
@@ -1277,12 +1332,11 @@ export default function ProjectsPage() {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={t.repo}
+                            className="brutalist-hover-link"
                             sx={{
                               color: theme.palette.text.primary,
                               display: "flex",
                               alignItems: "center",
-                              transition: "color 0.2s",
-                              "&:hover": { color: themeAccentColor },
                             }}
                           >
                             <GitHubIcon sx={{ fontSize: 17 }} />
@@ -1293,12 +1347,11 @@ export default function ProjectsPage() {
                               target="_blank"
                               rel="noopener noreferrer"
                               aria-label={t.demo}
+                              className="brutalist-hover-link"
                               sx={{
                                 color: theme.palette.text.primary,
                                 display: "flex",
                                 alignItems: "center",
-                                transition: "color 0.2s",
-                                "&:hover": { color: themeAccentColor },
                               }}
                             >
                               <LaunchIcon sx={{ fontSize: 17 }} />
