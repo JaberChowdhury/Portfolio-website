@@ -1,59 +1,124 @@
-# Personal Portfolio - MD Jaber Hossain Chowdhury
+# MD Jaber Hossain Chowdhury - Portfolio Website
 
-A high-performance, interactive personal portfolio website built with modern web technologies. This project showcases a brutalist, typography-heavy design language paired with smooth animations and interactive 3D elements.
+Live site: https://jaberhc.vercel.app/
 
-## ✨ Features
+This repository contains the personal portfolio of MD Jaber Hossain Chowdhury, a multidisciplinary designer and developer based in Bangladesh. The website is built to give hiring managers, recruiters, and technical reviewers a fast, polished view of my work, design taste, engineering range, and communication style.
 
-- **Interactive 3D Particle Text:** Uses `Three.js` to render performant, interactive text that reacts to cursor movements with physics-based hover and click explosions.
-- **Fluid Typography & Responsive Design:** Fully responsive layout that elegantly scales from desktop down to mobile viewports using CSS `clamp()` functions and MUI's Grid system.
-- **Draggable Project Carousel:** A smooth, spring-physics-driven carousel built with `framer-motion` for navigating through featured projects.
-- **Inverse Theming:** Supports dynamic light/dark color schemes via Material UI's `useColorScheme`, with intelligent inverse-color component mapping (e.g., the footer swaps modes dynamically).
-- **Parallax & Marquee Animations:** Continuous infinite-scroll marquees and floating parallax background text elements for a dynamic visual experience.
+The portfolio presents selected projects, service areas, process, testimonials, FAQ, and contact flow in one responsive experience. It is intentionally more than a static resume: it demonstrates how I think about product presentation, frontend performance, motion, visual systems, and interactive project storytelling.
 
-## 🛠️ Tech Stack
+## For Hiring Managers
 
-- **Framework:** [Next.js](https://nextjs.org/) (App Router)
-- **UI Library:** [React](https://react.dev/)
-- **Styling & Components:** [Material UI (MUI v6)](https://mui.com/)
-- **Animations:** [Framer Motion](https://www.framer.com/motion/)
-- **3D Graphics:** [Three.js](https://threejs.org/)
+If you are reviewing my profile for a role, the fastest path is:
 
-## 🚀 Getting Started
+1. Open the live site: https://jaberhc.vercel.app/
+2. Review the featured work in the `Works` and `Projects` sections.
+3. Open individual project pages to see repo-connected details, README rendering, language distribution, commit timeline, and weekly activity visualizations where available.
+4. Use the `Services`, `Process`, and `FAQ` sections to understand how I approach design, development, collaboration, and delivery.
+5. Reach out through the contact section or email me directly at `jaberhc2002@gmail.com`.
 
-First, ensure you have Node.js installed, then install the dependencies:
+## What This Portfolio Shows
+
+- Frontend engineering with React, Next.js, TypeScript, Material UI, and modern App Router patterns.
+- UI/UX design judgment, including responsive layouts, typography systems, theme switching, and bilingual content support.
+- Creative web work using motion, interactive visuals, and Three.js-based particle text.
+- Full-stack awareness through API routes that fetch and present project/repository data.
+- Breadth across web applications, 3D interfaces, mobile UI, C++/Raylib experiments, Rust compiler learning projects, and full-stack CRUD systems.
+
+## Featured Project Areas
+
+The portfolio highlights work across multiple domains:
+
+- Tourism and public-sector web platforms.
+- Brand systems and digital experiences.
+- Personal portfolio and studio identity work.
+- Three.js and WebGL creative landing pages.
+- C++ game and simulation experiments with Raylib.
+- Astro, Express.js, TypeScript, and MongoDB full-stack applications.
+- Rust compiler and WebAssembly learning projects.
+- React Native and Expo mobile interface work.
+
+## Key Website Features
+
+- Responsive portfolio experience optimized for desktop and mobile.
+- Light and dark theme support using Material UI color schemes.
+- English and Bangla language support.
+- Animated hero, marquee, project cards, accordions, and page transitions.
+- Project detail pages with repository metadata and visualizations.
+- Rendered project README content for deeper technical review.
+- Contact form that opens a prepared email message.
+- Deployed on Vercel for fast public access.
+
+## Tech Stack
+
+- Framework: Next.js 16
+- UI: React 19, Material UI 9
+- Language: TypeScript
+- Animation: Framer Motion
+- 3D and interactive visuals: Three.js
+- State management: Zustand
+- Markdown rendering: Marked, Highlight.js
+- Tooling: Biome, npm
+- Deployment: Vercel
+
+## Local Development
+
+Install dependencies:
 
 ```bash
 npm install
-# or
-yarn install
-# or
-pnpm install
 ```
 
-Then, run the development server:
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the local site:
 
-## 📂 Project Structure
+```text
+http://localhost:3000
+```
 
-- `src/app/` - Next.js App Router pages and global layouts.
-- `src/components/` - Reusable UI components organized by section:
-  - `hero/` - Hero banner, marquee, and floating title elements.
-  - `works/` - Project showcase with the draggable carousel.
-  - `services/` - Animated accordion-style services list.
-  - `pricing/` - Responsive pricing tier cards.
-  - `faq/` - Interactive FAQ accordions.
-  - `extras/` - Contains the complex `ParticleText` Three.js component.
-- `src/theme.ts` - Centralized MUI theme configuration supporting CSS variables for rapid mode switching.
+Build for production:
 
-## 📄 License
+```bash
+npm run build
+```
 
-This project is open-source and available under the MIT License.
+Run lint checks:
+
+```bash
+npm run lint
+```
+
+Format the codebase:
+
+```bash
+npm run format
+```
+
+## Project Structure
+
+```text
+src/app/                 Next.js App Router pages, layouts, and API routes
+src/components/          Reusable UI sections and interface components
+src/components/hero/     Hero title, marquee, animation, and visual elements
+src/components/works/    Featured project cards and work showcase
+src/components/projects/ Project detail visualizations and README renderer
+src/components/contact/  Contact section and email handoff
+src/data/                Portfolio content, services, process, FAQ, projects
+src/lib/                 GitHub and project data helpers
+src/store/               Shared client state, including language selection
+src/theme.ts             Material UI theme and design tokens
+```
+
+## Contact
+
+- Portfolio: https://jaberhc.vercel.app/
+- Email: `jaberhc2002@gmail.com`
+- GitHub: https://github.com/JaberChowdhury
+
+## Repository Note
+
+This project is the source code for my live portfolio website. It is primarily maintained as a professional presentation and hiring signal, while also serving as a practical example of my frontend and full-stack development style.
