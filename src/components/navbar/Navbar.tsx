@@ -23,26 +23,14 @@ import ThemeToggle from "../ThemeToggle";
 const translations = {
   en: {
     home: "HOME",
-    works: "WORKS",
     projects: "PROJECTS",
-    services: "SERVICES",
-    process: "PROCESS",
-    pricing: "PRICING",
-    testimonials: "TESTIMONIALS",
-    faq: "FAQ",
-    contact: "CONTACT",
+    blog: "BLOG",
     lang: "LANGUAGE: EN | BN",
   },
   bn: {
     home: "০০১/ হোম",
-    works: "০০২/ কাজ",
-    projects: "০০৩/ প্রকল্পসমূহ",
-    services: "০০৪/ সেবাসমূহ",
-    process: "০০৫/ প্রক্রিয়া",
-    pricing: "০০৬/ মূল্য",
-    testimonials: "০০৭/ প্রশংসাপত্র",
-    faq: "০০৮/ প্রশ্নাবলী",
-    contact: "০০৯/ যোগাযোগ",
+    projects: "০০২/ প্রকল্পসমূহ",
+    blog: "০০৩/ ব্লগ",
     lang: "ভাষা: EN | BN",
   },
 };
@@ -52,7 +40,6 @@ export default function Navbar() {
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const gridLineColor = "var(--mui-palette-divider)";
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("/#home");
   const pathname = usePathname();
 
   const language = useLanguageStore((s) => s.language);
@@ -68,15 +55,9 @@ export default function Navbar() {
   }, [isMobile, language, setLanguage]);
 
   const navLinks = [
-    { label: t.home, href: "/#home" },
-    { label: t.works, href: "/#works" },
+    { label: t.home, href: "/" },
     { label: t.projects, href: "/projects" },
-    { label: t.services, href: "/#services" },
-    { label: t.process, href: "/#process" },
-    { label: t.pricing, href: "/#pricing" },
-    { label: t.testimonials, href: "/#testimonials" },
-    { label: t.faq, href: "/#faq" },
-    { label: t.contact, href: "/#contact" },
+    { label: t.blog, href: "/blog" },
   ];
 
   const handleDrawerToggle = () => {
@@ -120,9 +101,10 @@ export default function Navbar() {
         sx={{ display: { xs: "none", lg: "flex" } }}
       >
         {navLinks.map((link) => {
-          const currentActive =
-            pathname === "/projects" ? "/projects" : activeLink;
-          const isLinkActive = currentActive === link.href;
+          const isLinkActive =
+            link.href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(link.href);
 
           return (
             <Box
@@ -134,7 +116,6 @@ export default function Navbar() {
                 href={link.href}
                 underline="none"
                 color="inherit"
-                onClick={() => setActiveLink(link.href)}
                 sx={{
                   letterSpacing: "0.05em",
                   fontSize: "0.75rem",
@@ -225,10 +206,7 @@ export default function Navbar() {
               href={link.href}
               underline="none"
               color="text.primary"
-              onClick={() => {
-                setActiveLink(link.href);
-                handleDrawerToggle();
-              }}
+              onClick={handleDrawerToggle}
               sx={{
                 fontSize: "2rem",
                 fontWeight: 900,

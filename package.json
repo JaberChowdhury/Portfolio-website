@@ -20,6 +20,8 @@
     "highlight.js": "^11.11.1",
     "marked": "^18.0.4",
     "next": "16.2.6",
+    "nextra": "^4.6.1",
+    "nextra-theme-blog": "^4.6.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-icons": "^5.6.0",

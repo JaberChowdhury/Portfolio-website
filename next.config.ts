@@ -1,4 +1,10 @@
 import type { NextConfig } from "next";
+import nextra from "nextra";
+
+const withNextra = nextra({
+  // Nextra configuration options
+  defaultShowCopyCode: true,
+});
 
 const nextConfig: NextConfig = {
   // Whitelist your local network IP for HMR and dev resources
@@ -6,6 +12,13 @@ const nextConfig: NextConfig = {
 
   // The React Compiler is now a root-level option
   reactCompiler: true,
+
+  // Map Turbopack alias for Nextra MDX import source
+  turbopack: {
+    resolveAlias: {
+      "next-mdx-import-source-file": "./src/mdx-components.tsx",
+    },
+  },
 
   /* config options here */
   experimental: {
@@ -21,4 +34,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextra(nextConfig);

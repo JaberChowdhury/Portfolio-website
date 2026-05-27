@@ -26,6 +26,7 @@ import { useEffect, useState } from "react";
 
 import ParticleText from "@/app/extras/ParticleText";
 import Navbar from "@/components/navbar/Navbar";
+import TagChip from "@/components/TagChip";
 import { FALLBACK_REPOS } from "@/data/fallbackRepos";
 import type { RepoSummary } from "@/lib/github";
 import { useLanguageStore } from "@/store/languageStore";
@@ -391,7 +392,7 @@ export default function ProjectsPage() {
           variant="h6"
           sx={{
             fontWeight: 500,
-            color: theme.palette.text.secondary,
+            color: "text.secondary",
             mb: 6,
             maxWidth: "600px",
             fontSize: { xs: "15px", sm: "17px" },
@@ -413,7 +414,7 @@ export default function ProjectsPage() {
               borderLeft: "4px solid var(--mui-palette-text-primary)",
               backgroundColor:
                 "rgba(var(--mui-palette-background-paperChannel) / 0.6)",
-              color: theme.palette.text.secondary,
+              color: "text.secondary",
               fontSize: "13px",
               fontWeight: 600,
               fontFamily: "monospace",
@@ -441,17 +442,17 @@ export default function ProjectsPage() {
             sx={{
               display: "flex",
               alignItems: "center",
-              border: `1px solid ${theme.palette.divider}`,
+              border: "1px solid var(--mui-palette-divider)",
               px: 2,
               py: 0.5,
               flexGrow: 1,
               maxWidth: { xs: "100%", md: "400px" },
-              backgroundColor: theme.palette.background.paper,
+              backgroundColor: "var(--mui-palette-background-paper)",
             }}
           >
             <SearchIcon
               sx={{
-                color: theme.palette.text.secondary,
+                color: "text.secondary",
                 mr: 1.5,
                 fontSize: 20,
               }}
@@ -488,10 +489,10 @@ export default function ProjectsPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: 1,
-                border: `1px solid ${theme.palette.divider}`,
+                border: "1px solid var(--mui-palette-divider)",
                 px: 2.5,
                 py: 1.25,
-                backgroundColor: theme.palette.background.paper,
+                backgroundColor: "var(--mui-palette-background-paper)",
               }}
             >
               <Typography
@@ -499,7 +500,7 @@ export default function ProjectsPage() {
                   fontSize: "11px",
                   fontWeight: 700,
                   letterSpacing: "0.05em",
-                  color: theme.palette.text.secondary,
+                  color: "text.secondary",
                 }}
               >
                 {t.sortBy}:
@@ -546,12 +547,12 @@ export default function ProjectsPage() {
             <Box
               sx={{
                 display: "flex",
-                border: `1px solid ${theme.palette.divider}`,
+                border: "1px solid var(--mui-palette-divider)",
                 position: "relative",
                 overflow: "hidden",
                 height: "40px",
                 alignItems: "center",
-                backgroundColor: theme.palette.background.paper,
+                backgroundColor: "var(--mui-palette-background-paper)",
               }}
             >
               {/* GRID Tab */}
@@ -574,8 +575,8 @@ export default function ProjectsPage() {
                     fontSize: 15,
                     color:
                       viewMode === "grid"
-                        ? theme.palette.background.default
-                        : theme.palette.text.primary,
+                        ? "var(--mui-palette-background-default)"
+                        : "var(--mui-palette-text-primary)",
                     transition: "color 0.25s",
                   }}
                 />
@@ -586,8 +587,8 @@ export default function ProjectsPage() {
                     letterSpacing: "0.1em",
                     color:
                       viewMode === "grid"
-                        ? theme.palette.background.default
-                        : theme.palette.text.primary,
+                        ? "var(--mui-palette-background-default)"
+                        : "var(--mui-palette-text-primary)",
                     transition: "color 0.25s",
                   }}
                 >
@@ -615,8 +616,8 @@ export default function ProjectsPage() {
                     fontSize: 15,
                     color:
                       viewMode === "list"
-                        ? theme.palette.background.default
-                        : theme.palette.text.primary,
+                        ? "var(--mui-palette-background-default)"
+                        : "var(--mui-palette-text-primary)",
                     transition: "color 0.25s",
                   }}
                 />
@@ -627,8 +628,8 @@ export default function ProjectsPage() {
                     letterSpacing: "0.1em",
                     color:
                       viewMode === "list"
-                        ? theme.palette.background.default
-                        : theme.palette.text.primary,
+                        ? "var(--mui-palette-background-default)"
+                        : "var(--mui-palette-text-primary)",
                     transition: "color 0.25s",
                   }}
                 >
@@ -680,13 +681,13 @@ export default function ProjectsPage() {
                   sx={{
                     px: 2.2,
                     py: 0.8,
-                    border: `1.5px solid ${isSelected ? theme.palette.text.primary : theme.palette.divider}`,
+                    border: `1.5px solid ${isSelected ? "var(--mui-palette-text-primary)" : "var(--mui-palette-divider)"}`,
                     backgroundColor: isSelected
-                      ? theme.palette.text.primary
+                      ? "var(--mui-palette-text-primary)"
                       : "transparent",
                     color: isSelected
-                      ? theme.palette.background.default
-                      : theme.palette.text.primary,
+                      ? "var(--mui-palette-background-default)"
+                      : "var(--mui-palette-text-primary)",
                     fontWeight: 800,
                     fontSize: "11px",
                     fontFamily: "monospace",
@@ -694,7 +695,7 @@ export default function ProjectsPage() {
                     whiteSpace: "nowrap",
                     transition: "all 0.2s ease-out",
                     "&:hover": {
-                      borderColor: theme.palette.text.primary,
+                      borderColor: "var(--mui-palette-text-primary)",
                       transform: isSelected ? "none" : "translateY(-1px)",
                     },
                   }}
@@ -747,7 +748,7 @@ export default function ProjectsPage() {
                 }}
               >
                 {processedRepos.map((repo, index) => {
-                  const accentColor = theme.palette.text.primary;
+                  const accentColor = "var(--mui-palette-text-primary)";
 
                   return (
                     <Box
@@ -766,8 +767,8 @@ export default function ProjectsPage() {
                       whileHover="hover"
                       sx={{
                         position: "relative",
-                        backgroundColor: theme.palette.background.paper,
-                        border: `1px solid ${theme.palette.divider}`,
+                        backgroundColor: "var(--mui-palette-background-paper)",
+                        border: "1px solid var(--mui-palette-divider)",
                         padding: "24px",
                         minHeight: "230px",
                         display: "flex",
@@ -899,7 +900,7 @@ export default function ProjectsPage() {
                                 fontWeight: 700,
                                 fontFamily: "monospace",
                                 letterSpacing: "0.08em",
-                                color: theme.palette.text.secondary,
+                                color: "text.secondary",
                               }}
                             >
                               {repo.language
@@ -911,7 +912,7 @@ export default function ProjectsPage() {
                             sx={{
                               fontSize: "10px",
                               fontWeight: 600,
-                              color: theme.palette.text.secondary,
+                              color: "text.secondary",
                             }}
                           >
                             {formatDate(repo.updated_at)}
@@ -936,7 +937,7 @@ export default function ProjectsPage() {
                             href={`/projects/${repo.name}`}
                             className="brutalist-hover-link"
                             sx={{
-                              color: theme.palette.text.primary,
+                              color: "text.primary",
                               textDecoration: "none",
                             }}
                           >
@@ -948,7 +949,7 @@ export default function ProjectsPage() {
                         <Typography
                           variant="body2"
                           sx={{
-                            color: theme.palette.text.secondary,
+                            color: "text.secondary",
                             fontSize: "13px",
                             lineHeight: 1.55,
                             display: "-webkit-box",
@@ -964,6 +965,34 @@ export default function ProjectsPage() {
                               ? "No repository description provided."
                               : "কোনো বিবরণ প্রদান করা হয়নি।")}
                         </Typography>
+                        {/* Topics / Tag Chips */}
+                        {repo.topics && repo.topics.length > 0 && (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              gap: 0.75,
+                              mt: 2,
+                            }}
+                          >
+                            {repo.topics.slice(0, 5).map((topic) => (
+                              <TagChip key={topic} tag={topic} />
+                            ))}
+                            {repo.topics.length > 5 && (
+                              <Typography
+                                sx={{
+                                  fontSize: "0.65rem",
+                                  fontFamily: "monospace",
+                                  fontWeight: 700,
+                                  color: "text.disabled",
+                                  alignSelf: "center",
+                                }}
+                              >
+                                +{repo.topics.length - 5}
+                              </Typography>
+                            )}
+                          </Box>
+                        )}
                       </Box>
 
                       {/* Card footer (Stats and links) */}
@@ -995,7 +1024,7 @@ export default function ProjectsPage() {
                             <StarIcon
                               sx={{
                                 fontSize: 15,
-                                color: theme.palette.text.secondary,
+                                color: "text.secondary",
                               }}
                             />
                             <Typography
@@ -1003,7 +1032,7 @@ export default function ProjectsPage() {
                                 fontSize: "11px",
                                 fontWeight: 700,
                                 fontFamily: "monospace",
-                                color: theme.palette.text.secondary,
+                                color: "text.secondary",
                               }}
                             >
                               {repo.stargazers_count}
@@ -1022,7 +1051,7 @@ export default function ProjectsPage() {
                             aria-label={t.repo}
                             className="brutalist-hover-link"
                             sx={{
-                              color: theme.palette.text.primary,
+                              color: "text.primary",
                               display: "flex",
                               alignItems: "center",
                             }}
@@ -1037,7 +1066,7 @@ export default function ProjectsPage() {
                               aria-label={t.demo}
                               className="brutalist-hover-link"
                               sx={{
-                                color: theme.palette.text.primary,
+                                color: "text.primary",
                                 display: "flex",
                                 alignItems: "center",
                               }}
@@ -1068,7 +1097,7 @@ export default function ProjectsPage() {
                 }}
               >
                 {processedRepos.map((repo, index) => {
-                  const accentColor = theme.palette.text.primary;
+                  const accentColor = "var(--mui-palette-text-primary)";
 
                   return (
                     <Box
@@ -1087,8 +1116,8 @@ export default function ProjectsPage() {
                       whileHover="hover"
                       sx={{
                         position: "relative",
-                        backgroundColor: theme.palette.background.paper,
-                        border: `1px solid ${theme.palette.divider}`,
+                        backgroundColor: "var(--mui-palette-background-paper)",
+                        border: "1px solid var(--mui-palette-divider)",
                         padding: { xs: "20px", sm: "24px" },
                         display: "flex",
                         flexDirection: { xs: "column", md: "row" },
@@ -1139,7 +1168,7 @@ export default function ProjectsPage() {
                             href={`/projects/${repo.name}`}
                             className="brutalist-hover-link"
                             sx={{
-                              color: theme.palette.text.primary,
+                              color: "text.primary",
                               textDecoration: "none",
                             }}
                           >
@@ -1149,7 +1178,7 @@ export default function ProjectsPage() {
                         <Typography
                           variant="body2"
                           sx={{
-                            color: theme.palette.text.secondary,
+                            color: "text.secondary",
                             fontSize: "13px",
                             lineHeight: 1.5,
                           }}
@@ -1159,6 +1188,34 @@ export default function ProjectsPage() {
                               ? "No repository description provided."
                               : "কোনো বিবরণ প্রদান করা হয়নি।")}
                         </Typography>
+                        {/* Topics / Tag Chips */}
+                        {repo.topics && repo.topics.length > 0 && (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              gap: 0.75,
+                              mt: 1.5,
+                            }}
+                          >
+                            {repo.topics.slice(0, 4).map((topic) => (
+                              <TagChip key={topic} tag={topic} />
+                            ))}
+                            {repo.topics.length > 4 && (
+                              <Typography
+                                sx={{
+                                  fontSize: "0.65rem",
+                                  fontFamily: "monospace",
+                                  fontWeight: 700,
+                                  color: "text.disabled",
+                                  alignSelf: "center",
+                                }}
+                              >
+                                +{repo.topics.length - 4}
+                              </Typography>
+                            )}
+                          </Box>
+                        )}
                       </Box>
 
                       {/* Right side: Language, Date, Stars, Forks, & Links */}
@@ -1174,7 +1231,7 @@ export default function ProjectsPage() {
                           minWidth: { xs: "100%", md: "38%" },
                           pt: { xs: 2, md: 0 },
                           borderTop: {
-                            xs: `1px solid ${theme.palette.divider}`,
+                            xs: "1px solid var(--mui-palette-divider)",
                             md: "none",
                           },
                         }}
@@ -1219,7 +1276,7 @@ export default function ProjectsPage() {
                                   fontWeight: 700,
                                   fontFamily: "monospace",
                                   letterSpacing: "0.08em",
-                                  color: theme.palette.text.secondary,
+                                  color: "text.secondary",
                                 }}
                               >
                                 {repo.language
@@ -1233,7 +1290,7 @@ export default function ProjectsPage() {
                               sx={{
                                 fontSize: "10px",
                                 fontWeight: 600,
-                                color: theme.palette.text.secondary,
+                                color: "text.secondary",
                               }}
                             >
                               {formatDate(repo.updated_at)}
@@ -1258,7 +1315,7 @@ export default function ProjectsPage() {
                               <StarIcon
                                 sx={{
                                   fontSize: 15,
-                                  color: theme.palette.text.secondary,
+                                  color: "text.secondary",
                                 }}
                               />
                               <Typography
@@ -1266,7 +1323,7 @@ export default function ProjectsPage() {
                                   fontSize: "11px",
                                   fontWeight: 700,
                                   fontFamily: "monospace",
-                                  color: theme.palette.text.secondary,
+                                  color: "text.secondary",
                                 }}
                               >
                                 {repo.stargazers_count}
@@ -1286,7 +1343,7 @@ export default function ProjectsPage() {
                             aria-label={t.repo}
                             className="brutalist-hover-link"
                             sx={{
-                              color: theme.palette.text.primary,
+                              color: "text.primary",
                               display: "flex",
                               alignItems: "center",
                             }}
@@ -1301,7 +1358,7 @@ export default function ProjectsPage() {
                               aria-label={t.demo}
                               className="brutalist-hover-link"
                               sx={{
-                                color: theme.palette.text.primary,
+                                color: "text.primary",
                                 display: "flex",
                                 alignItems: "center",
                               }}

@@ -11,7 +11,7 @@ import ProjectHeader from "@/components/projects/ProjectHeader";
 import ProjectVisualizations from "@/components/projects/ProjectVisualizations";
 import ReadmeRenderer from "@/components/projects/ReadmeRenderer";
 import { detailTranslations } from "@/data/projectTranslations";
-import type { BranchData, CombinedRepo } from "@/lib/github";
+import type { CombinedRepo } from "@/lib/github";
 import { useLanguageStore } from "@/store/languageStore";
 
 interface ProjectDetailClientProps {
@@ -47,7 +47,7 @@ export default function ProjectDetailClient({
         const data: CombinedRepo = await res.json();
         if (isMounted) {
           setRepoInfo(data);
-          
+
           const initialMap: Record<string, string> = {};
           if (data.readmes) {
             for (const item of data.readmes) {
@@ -56,10 +56,14 @@ export default function ProjectDetailClient({
           }
           setReadmesMap(initialMap);
         }
-      } catch (err: any) {
+      } catch (err) {
         console.error("Error fetching repository details on client:", err);
         if (isMounted) {
-          setErrorRepo(err.message || "Failed to load project details");
+          const errorMessage =
+            err instanceof Error
+              ? err.message
+              : "Failed to load project details";
+          setErrorRepo(errorMessage);
         }
       } finally {
         if (isMounted) {
@@ -173,7 +177,9 @@ export default function ProjectDetailClient({
     );
   }
 
-  const allBranches = repoInfo.branches || [{ name: repoInfo.default_branch || "main" }];
+  const allBranches = repoInfo.branches || [
+    { name: repoInfo.default_branch || "main" },
+  ];
 
   return (
     <>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { generateProjectBranchStaticParams } from "@/lib/projects";
 import ProjectDetailClient from "../ProjectDetailClient";
 
 // Generate static routes during build time for all repositories and their branches

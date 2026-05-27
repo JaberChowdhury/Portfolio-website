@@ -33,13 +33,13 @@ a {
 
 /* Universal brutalist link and icon hover styles */
 .brutalist-hover-link {
-  transition: color 0.15s ease-out !important;
+  transition: color 0.15s ease-out;
 }
 .brutalist-hover-link:hover {
-  color: var(--mui-palette-primary-main) !important;
+  color: var(--mui-palette-primary-main);
 }
 html.light .brutalist-hover-link:hover,
 :root.light .brutalist-hover-link:hover,
 .light .brutalist-hover-link:hover {
-  color: #008080 !important; /* Highly visible teal for light mode */
+  color: #008080; /* Highly visible teal for light mode */
 }

@@ -1,8 +1,5 @@
 import { redirect } from "next/navigation";
-import {
-  generateProjectStaticParams,
-  getProjectDefaultBranch,
-} from "@/lib/projects";
+import { getProjectDefaultBranch } from "@/lib/projects";
 
 // Generate static routes during build time for all repositories
 // export async function generateStaticParams() {

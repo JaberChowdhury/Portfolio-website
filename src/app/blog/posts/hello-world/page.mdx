@@ -1,0 +1,85 @@
+---
+title: "Hello World: Building Modern Web Experiences"
+date: "2026-05-27"
+description: "An introduction to this blog, discussing modern web architecture, Next.js App Router, and creating clean, fast reading layouts."
+tags: ["webdev", "nextjs", "nextra"]
+author: "MD Jaber Hossain Chowdhury"
+---
+
+import { BlogPostHeader } from "@/components/BlogPostHeader";
+import { InteractiveCounter } from "@/components/InteractiveCounter";
+
+<BlogPostHeader
+  title="Hello World: Building Modern Web Experiences"
+  date="2026-05-27"
+  author="MD Jaber Hossain Chowdhury"
+  tags={["webdev", "nextjs", "nextra"]}
+/>
+
+Welcome to my new blog! This space will be dedicated to sharing ideas, tips, and tutorials about modern web development, 3D graphics, user experience design, and software engineering.
+
+In this first post, I wanted to talk about why I rebuilt my portfolio and integrated a structured writing platform using **Nextra v4** and the **Next.js App Router**.
+
+---
+
+## Why Nextra?
+
+When choosing a blogging framework, my primary requirements were:
+1. **Markdown/MDX Native**: Writing posts should be as frictionless as writing standard Markdown, while allowing interactive React components where needed.
+2. **Speed & SEO**: It must leverage Server Components and static site generation (SSG) for instant page loads.
+3. **App Router Integration**: It should coexist with the rest of my portfolio website without bloating the main landing page.
+
+Nextra v4 fit these criteria perfectly. Because it uses Next.js's App Router:
+- We can route using the **Page File Convention** (`page.mdx`).
+- We can define layout wrappers specifically for `/blog` using a nested `layout.tsx` file.
+- The rest of the portfolio remains clean and isolated under its own route group.
+
+---
+
+## Code Example: Custom React Components in MDX
+
+One of MDX's biggest advantages is the ability to write React components directly inside markdown files. For example, here's how a custom interactive component might be imported and rendered:
+
+```tsx
+import { useState } from 'react'
+
+export function InteractiveCounter() {
+  const [count, setCount] = useState(0)
+  return (
+    <button 
+      onClick={() => setCount(count + 1)}
+      style={{
+        padding: '0.5rem 1rem',
+        backgroundColor: '#008080',
+        color: 'white',
+        border: 'none',
+        borderRadius: '6px',
+        cursor: 'pointer'
+      }}
+    >
+      Clicks: {count}
+    </button>
+  )
+}
+```
+
+This flexibility allows me to build custom interactive visualizers for explaining technical concepts in future posts!
+
+### Live Interactive Demo
+
+Here is the live React component rendered directly in this MDX page:
+
+<div style={{ margin: '1.5rem 0' }}>
+  <InteractiveCounter />
+</div>
+
+---
+
+## What's Next?
+
+I plan to write regularly about:
+- **WebGL & Three.js**: Creating immersive interactive 3D experiences in the browser.
+- **Frontend Architectures**: Optimization, Core Web Vitals, and writing performant CSS.
+- **Developer Workflows**: Automation tools, environment setups, and CLI packages.
+
+Thank you for stopping by, and stay tuned for more articles!
