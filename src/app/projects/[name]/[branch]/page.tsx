@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import {
-  generateProjectBranchStaticParams,
-} from "@/lib/projects";
+import { generateProjectBranchStaticParams } from "@/lib/projects";
 import ProjectDetailClient from "../ProjectDetailClient";
 
 // Generate static routes during build time for all repositories and their branches
-export async function generateStaticParams() {
-  return generateProjectBranchStaticParams();
-}
+// export async function generateStaticParams() {
+//   return generateProjectBranchStaticParams();
+// }
 
 // Metadata Generator
 export async function generateMetadata({
@@ -33,9 +31,6 @@ export default async function ProjectDetailPage({
   const decodedBranch = decodeURIComponent(branch);
 
   return (
-    <ProjectDetailClient
-      repoName={name}
-      activeBranchName={decodedBranch}
-    />
+    <ProjectDetailClient repoName={name} activeBranchName={decodedBranch} />
   );
 }

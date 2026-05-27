@@ -5,9 +5,9 @@ import {
 } from "@/lib/projects";
 
 // Generate static routes during build time for all repositories
-export async function generateStaticParams() {
-  return generateProjectStaticParams();
-}
+// export async function generateStaticParams() {
+//   return generateProjectStaticParams();
+// }
 
 // Dynamic route Server Component (Next.js 16)
 export default async function ProjectDetailPage({
