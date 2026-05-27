@@ -7,6 +7,7 @@ import {
   IconButton,
   Typography,
   InputAdornment,
+  TextFieldProps,
 } from "@mui/material";
 import Link from "next/link";
 import TagChip from "@/components/TagChip";
@@ -53,24 +54,26 @@ export default function BlogPostsView({ posts }: BlogPostsViewProps) {
         }}
       >
         <TextField
-          placeholder="Search posts by title, tags, or description..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          size="small"
-          sx={{
-            flex: 1,
-            minWidth: "250px",
-            "& .MuiOutlinedInput-root": {
-              fontFamily: "monospace",
+          {...({
+            placeholder: "Search posts by title, tags, or description...",
+            value: searchQuery,
+            onChange: (e) => setSearchQuery(e.target.value),
+            size: "small",
+            sx: {
+              flex: 1,
+              minWidth: "250px",
+              "& .MuiOutlinedInput-root": {
+                fontFamily: "monospace",
+              },
             },
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Typography sx={{ color: "text.secondary" }}>🔍</Typography>
-              </InputAdornment>
-            ),
-          }}
+            InputProps: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Typography sx={{ color: "text.secondary" }}>🔍</Typography>
+                </InputAdornment>
+              ),
+            },
+          } as TextFieldProps)}
         />
 
         {/* View Toggle Buttons */}

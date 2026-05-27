@@ -36,13 +36,15 @@ const extractTextFromChildren = (children: React.ReactNode): string => {
     return children.map(extractTextFromChildren).join("");
   }
   // Handle React elements by extracting their text content
-  if (
-    children &&
-    typeof children === "object" &&
-    "props" in children &&
-    children.props
-  ) {
-    return extractTextFromChildren(children.props.children);
+  if (children && typeof children === "object" && "props" in children) {
+    const childProps = (children as React.ReactElement).props; // Cast to React.ReactElement to access props
+    if (
+      childProps &&
+      typeof childProps === "object" &&
+      "children" in childProps
+    ) {
+      return extractTextFromChildren(childProps.children as React.ReactNode);
+    }
   }
   return "";
 };
