@@ -4,10 +4,90 @@ import NextLink from "next/link";
 import { useMDXComponents as getThemeComponents } from "nextra-theme-blog";
 import type { ReactNode } from "react";
 
+import hljs from "highlight.js";
+import "highlight.js/styles/nord.css";
+
+// Register specific languages for better highlighting support
+import cpp from "highlight.js/lib/languages/cpp";
+import c from "highlight.js/lib/languages/c";
+import javascript from "highlight.js/lib/languages/javascript";
+import typescript from "highlight.js/lib/languages/typescript";
+import bash from "highlight.js/lib/languages/bash";
+import lua from "highlight.js/lib/languages/lua";
+
+// Register all required languages
+hljs.registerLanguage("cpp", cpp);
+hljs.registerLanguage("c", c);
+hljs.registerLanguage("js", javascript);
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("ts", typescript);
+hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("bash", bash);
+hljs.registerLanguage("shell", bash);
+hljs.registerLanguage("sh", bash);
+hljs.registerLanguage("lua", lua);
+
+// Helper function to extract text from React children
+const extractTextFromChildren = (children: React.ReactNode): string => {
+  if (typeof children === "string") {
+    return children;
+  }
+  if (Array.isArray(children)) {
+    return children.map(extractTextFromChildren).join("");
+  }
+  // Handle React elements by extracting their text content
+  if (
+    children &&
+    typeof children === "object" &&
+    "props" in children &&
+    children.props
+  ) {
+    return extractTextFromChildren(children.props.children);
+  }
+  return "";
+};
+
+// Custom code block component with line numbers
+const CodeBlock = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  const language = className?.replace(/^language-/, "") || "plaintext";
+  const codeString = extractTextFromChildren(children).trim();
+
+  // Highlight code using highlight.js
+  const highlighted = hljs.highlight(codeString, {
+    language,
+    ignoreIllegals: true,
+  }).value;
+
+  // Add line numbers
+  const lines = highlighted.split("\n");
+  const withLineNumbers = lines
+    .map((line, idx) => `<span class="line-number">${idx + 1}</span>${line}`)
+    .join("\n");
+
+  return (
+    <pre className="custom-code-block">
+      <code
+        className={`hljs ${className}`}
+        dangerouslySetInnerHTML={{ __html: withLineNumbers }}
+      />
+    </pre>
+  );
+};
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   const themeComponents = getThemeComponents();
   return {
     ...themeComponents,
+    pre: (props: any) => {
+      const { className, children } = props;
+      return <CodeBlock className={className}>{children}</CodeBlock>;
+    },
     wrapper: ({ children }: { children: ReactNode }) => <>{children}</>,
     h1: ({ children }: { children: ReactNode }) => (
       <Typography
@@ -115,7 +195,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
           my: 4,
           fontStyle: "italic",
           color: "text.secondary",
-          "& p": { m: 0 }, // remove margins on child paragraphs inside blockquote
+          "& p": { m: 0 },
         }}
       >
         {children}

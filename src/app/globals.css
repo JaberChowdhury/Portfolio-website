@@ -31,15 +31,26 @@ a {
   text-decoration: none;
 }
 
-/* Universal brutalist link and icon hover styles */
-.brutalist-hover-link {
-  transition: color 0.15s ease-out;
+/* Custom code block styling */
+.custom-code-block {
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  border: 1px solid var(--mui-palette-divider);
 }
-.brutalist-hover-link:hover {
-  color: var(--mui-palette-primary-main);
+
+.custom-code-block code.hljs {
+  background-color: #2e3440 !important;
+  color: #eceff4 !important;
+  padding: 0 !important;
 }
-html.light .brutalist-hover-link:hover,
-:root.light .brutalist-hover-link:hover,
-.light .brutalist-hover-link:hover {
-  color: #008080; /* Highly visible teal for light mode */
+
+.custom-code-block .line-number {
+  display: inline-block;
+  width: 2.5rem;
+  user-select: none;
+  opacity: 0.6;
+  margin-right: 0.5rem;
+  text-align: right;
+  color: #4c566a !important;
 }

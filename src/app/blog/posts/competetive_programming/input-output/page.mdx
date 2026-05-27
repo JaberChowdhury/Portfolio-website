@@ -1,0 +1,390 @@
+---
+title: "Input &amp; Output IN C++"
+date: "2026-05-27"
+description: "Learn Input &amp; Output IN C++ in-depth. Topics covered include: `cin` and `cout`, `endl` vs `\n`, Escape Sequences, `fixed` and `setprecision`, Fast Input/Outp..."
+tags: ["cpp", "competitive-programming", "io", "fast-io"]
+author: "MD Jaber Hossain Chowdhury"
+order: 4.0
+---
+
+import { BlogPostHeader } from "@/components/BlogPostHeader";
+
+<BlogPostHeader
+  title="Input &amp; Output IN C++"
+  date="2026-05-27"
+  author="MD Jaber Hossain Chowdhury"
+  tags={["cpp", "competitive-programming", "io", "fast-io"]}
+/>
+
+## **1. `cin` and `cout`**
+
+### 📘 Theory
+
+In C++, we use:
+
+- `cin` → to take input
+    
+- `cout` → to print output
+    
+
+Both are defined in the standard library.
+
+---
+
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int x;
+    cin >> x;
+
+    cout << x;
+
+    return 0;
+}
+```
+
+---
+
+### 🖥 Input
+
+```
+5
+```
+
+### 🖥 Output
+
+```
+5
+```
+
+---
+
+### 📘 Explanation
+
+- `>>` is the extraction operator (used with `cin`)
+    
+- `<<` is the insertion operator (used with `cout`)
+    
+
+---
+
+## **2. `endl` vs `\n`**
+
+### 📘 Theory
+
+Both are used to print a new line.
+
+---
+
+### 🔹 Using `endl`
+
+```cpp
+cout << "Hello" << endl;
+```
+
+`endl`:
+
+- Moves to next line
+    
+- Flushes the output buffer (slower)
+    
+
+---
+
+### 🔹 Using `\n`
+
+```cpp
+cout << "Hello\n";
+```
+
+`\n`:
+
+- Moves to next line
+    
+- Faster than `endl`
+    
+- Recommended in Competitive Programming
+    
+
+---
+
+### ⚡ CP Recommendation
+
+Always prefer:
+
+```cpp
+"\n"
+```
+
+Instead of:
+
+```cpp
+endl
+```
+
+Because speed matters in contests.
+
+---
+
+## **3. Escape Sequences**
+
+### 📘 Theory
+
+Escape sequences are special characters used inside strings.
+
+They start with `\`.
+
+---
+
+### Common Escape Sequences
+
+|Escape Sequence|Meaning|
+|---|---|
+|`\n`|New line|
+|`\t`|Tab|
+|`\\`|Backslash|
+|`\"`|Double quote|
+|`\'`|Single quote|
+
+---
+
+### 💻 Example
+
+```cpp
+cout << "Hello\nWorld";
+```
+
+---
+
+### 🖥 Output
+
+```
+Hello
+World
+```
+
+---
+
+## **4. `fixed` and `setprecision`**
+
+### 📘 Theory
+
+By default, C++ prints floating numbers in general format.
+
+To control decimal places, we use:
+
+- `fixed`
+    
+- `setprecision()`
+    
+
+---
+
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    double x = 3.1415926535;
+
+    cout << fixed << setprecision(2) << x;
+
+    return 0;
+}
+```
+
+---
+
+### 🖥 Output
+
+```
+3.14
+```
+
+---
+
+### 📘 Explanation
+
+- `fixed` → prints in fixed decimal format
+    
+- `setprecision(n)` → prints exactly `n` digits after decimal
+    
+
+---
+
+### ⚠ Without `fixed`
+
+```cpp
+cout << setprecision(2) << x;
+```
+
+Output may not behave as expected.
+
+In CP problems involving floating points, always use:
+
+```cpp
+cout << fixed << setprecision(n);
+```
+
+---
+
+## **5. Fast Input/Output (Very Important in CP)**
+
+### 📘 Theory
+
+When input size is very large, normal `cin` and `cout` may be slow.
+
+To make them faster, we use:
+
+```cpp
+ios::sync_with_stdio(false);
+cin.tie(NULL);
+```
+
+---
+
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int n;
+    cin >> n;
+
+    cout << n << "\n";
+
+    return 0;
+}
+```
+
+---
+
+### 📘 Explanation
+
+|Line|Purpose|
+|---|---|
+|`ios::sync_with_stdio(false);`|Disables synchronization with C I/O|
+|`cin.tie(NULL);`|Unties `cin` from `cout`|
+
+Together, they significantly improve speed.
+
+---
+
+### ⚠ Important Rule
+
+If you use fast IO:
+
+- Do NOT mix `scanf/printf` with `cin/cout`
+    
+
+---
+
+## **6. Multiple Test Case Handling ---- X**
+
+### 📘 Theory
+
+Most CP problems have multiple test cases.
+
+Input format example:
+
+```
+3
+5
+10
+15
+```
+
+First line = number of test cases (`t`)
+
+---
+
+### 💻 Standard CP Pattern
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t;
+    cin >> t;
+
+    while(t--) {
+
+        int x;
+        cin >> x;
+
+        cout << x << "\n";
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 🖥 Input
+
+```
+3
+1
+2
+3
+```
+
+### 🖥 Output
+
+```
+1
+2
+3
+```
+
+---
+
+### 📘 Explanation
+
+- `t--` means loop runs `t` times
+    
+- Each iteration solves one test case
+    
+
+---
+
+# ✅ Summary of This Section
+
+
+- How to take input using `cin`
+    
+- How to print output using `cout`
+    
+- Difference between `endl` and `\n`
+    
+- Common escape sequences
+    
+- How to print floating numbers correctly
+    
+- How to use fast IO in CP
+    
+- How to handle multiple test cases
+    
+
+---
+

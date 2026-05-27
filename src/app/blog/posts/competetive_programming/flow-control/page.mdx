@@ -1,0 +1,457 @@
+---
+title: "FLOW CONTROL IN C++"
+date: "2026-05-27"
+description: "Learn FLOW CONTROL IN C++ in-depth. Topics covered include: If–Else Statement, Else-If Ladder, Nested If, Switch Statement, Ternary Operator, Leap Year."
+tags: ["cpp", "competitive-programming", "flow-control", "conditionals"]
+author: "MD Jaber Hossain Chowdhury"
+order: 6.0
+---
+
+import { BlogPostHeader } from "@/components/BlogPostHeader";
+
+<BlogPostHeader
+  title="FLOW CONTROL IN C++"
+  date="2026-05-27"
+  author="MD Jaber Hossain Chowdhury"
+  tags={["cpp", "competitive-programming", "flow-control", "conditionals"]}
+/>
+
+Flow control statements allow a program to make decisions and execute different blocks of code based on conditions.
+
+In Competitive Programming, flow control is essential because most problems depend on conditions.
+
+---
+
+## **1. If–Else Statement**
+
+### 📘 Theory
+
+The `if` statement executes a block of code only when a condition is true.
+
+If the condition is false, the `else` block runs.
+
+---
+
+### 🔹 Syntax
+
+```cpp
+if(condition) {
+    // runs if condition is true
+}
+else {
+    // runs if condition is false
+}
+```
+
+---
+
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int x;
+    cin >> x;
+
+    if(x > 0)
+        cout << "Positive";
+    else
+        cout << "Non-Positive";
+
+    return 0;
+}
+```
+
+---
+
+### 🖥 Input
+
+```
+5
+```
+
+### 🖥 Output
+
+```
+Positive
+```
+
+---
+
+### 📘 Important Note
+
+- Condition must be inside parentheses `()`
+    
+- Condition evaluates to `true` (1) or `false` (0)
+    
+
+---
+
+## **2. Else-If Ladder**
+
+### 📘 Theory
+
+Used when multiple conditions need to be checked one after another.
+
+Only one block executes.
+
+---
+
+### 🔹 Syntax
+
+```cpp
+if (condition1) {
+    // Code if condition1 is true
+} 
+else if (condition2) {
+    // Code if condition2 is true
+} 
+else {
+    // Code if all conditions are false
+}
+```
+
+---
+
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int x;
+    cin >> x;
+
+    if(x > 0)
+        cout << "Positive";
+    else if(x < 0)
+        cout << "Negative";
+    else
+        cout << "Zero";
+
+    return 0;
+}
+```
+
+---
+
+## **3. Nested If**
+
+### 📘 Theory
+
+A nested `if` means an `if` statement inside another `if`.
+
+Used when conditions depend on previous checks.
+
+---
+### 🔹Syntax:
+
+```cpp
+if (condition1) {
+    if (condition2) {
+        // Code if both are true
+    } 
+    else {
+        // condition1 true, condition2 false
+    }
+} 
+else {
+    // condition1 false
+}
+```
+
+---
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int x;
+    cin >> x;
+
+    if(x >= 0) {
+        if(x == 0)
+            cout << "Zero";
+        else
+            cout << "Positive";
+    }
+    else {
+        cout << "Negative";
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 📘 Explanation
+
+- First checks if number is non-negative.
+    
+- Then checks if it is zero or positive.
+    
+
+---
+
+## **4. Switch Statement**
+
+### 📘 Theory
+
+`switch` is used when a variable needs to be compared against multiple constant values.
+
+It is often cleaner than long `if-else` chains.
+
+---
+
+### 🔹 Syntax
+
+```cpp
+switch(variable) {
+
+    case value1:
+        // code
+        break;
+
+    case value2:
+        // code
+        break;
+
+    default:
+        // runs if no case matches
+}
+```
+
+---
+
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int day;
+    cin >> day;
+
+    switch(day) {
+
+        case 1:
+            cout << "Monday";
+            break;
+
+        case 2:
+            cout << "Tuesday";
+            break;
+
+        case 3:
+            cout << "Wednesday";
+            break;
+
+        default:
+            cout << "Invalid Day";
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 📘 Important Notes
+
+- `break` prevents execution from falling into the next case.
+    
+- `default` runs if no case matches.
+    
+
+---
+
+## **5. Ternary Operator**
+
+### 📘 Theory
+
+The ternary operator is a short form of `if-else`.
+
+It is useful when assigning a value based on a condition.
+
+---
+
+### 🔹 Syntax
+
+```cpp
+condition ? value_if_true : value_if_false;
+```
+
+---
+
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int x;
+    cin >> x;
+
+    string result = (x % 2 == 0) ? "Even" : "Odd";
+
+    cout << result;
+
+    return 0;
+}
+```
+
+---
+
+### 📘 Explanation
+
+- If condition is true → first value
+    
+- If condition is false → second value
+    
+
+---
+
+# 🧪 PRACTICE PROBLEMS
+
+---
+
+## **1. Leap Year**
+
+### 📘 Rule
+
+A year is a leap year if:
+
+- Divisible by 4 AND not divisible by 100  
+    OR
+    
+- Divisible by 400
+    
+
+---
+
+### 💻 Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int year;
+    cin >> year;
+
+    if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+        cout << "Leap Year";
+    else
+        cout << "Not Leap Year";
+
+    return 0;
+}
+```
+
+---
+
+## **2. Largest of Three Numbers**
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int a, b, c;
+    cin >> a >> b >> c;
+
+    if(a >= b && a >= c)
+        cout << a;
+    else if(b >= a && b >= c)
+        cout << b;
+    else
+        cout << c;
+
+    return 0;
+}
+```
+
+---
+
+## **3. Simple Calculator**
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    double a, b;
+    char op;
+
+    cin >> a >> op >> b;
+
+    if(op == '+')
+        cout << a + b;
+    else if(op == '-')
+        cout << a - b;
+    else if(op == '*')
+        cout << a * b;
+    else if(op == '/')
+        cout << a / b;
+    else
+        cout << "Invalid Operator";
+
+    return 0;
+}
+```
+
+---
+
+# ✅ Summary of This Section
+
+After completing this section, students should understand:
+
+- How `if-else` works
+    
+- How to use multiple conditions
+    
+- Nested decision making
+    
+- Using `switch` for cleaner comparisons
+    
+- Writing short conditions using ternary
+    
+- Solving condition-based CP problems
+
+---
+
+## **🧠 Practice Problems to Try**
+
+-  Check if a number is positive or negative.
+    
+-  Check divisibility by 3 or 5.
+    
+-  Vowel or consonant checker.
+    
+-  Menu-driven calculator.
+    
+-  Age-based category: child / teen / adult / senior.
+    
+-  Multiple `switch-case` based problems.
+    
+
+
+---
+
+

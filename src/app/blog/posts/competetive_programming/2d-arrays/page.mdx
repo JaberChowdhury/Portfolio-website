@@ -1,0 +1,369 @@
+---
+title: "2D ARRAYS IN C++"
+date: "2026-05-27"
+description: "Learn 2D ARRAYS IN C++ in-depth. Topics covered include: Declaration of 2D Array, Traversal of 2D Array, Input Format in CP Style, Transpose of a Matrix, Mat..."
+tags: ["cpp", "competitive-programming", "arrays", "matrix"]
+author: "MD Jaber Hossain Chowdhury"
+order: 9.0
+---
+
+import { BlogPostHeader } from "@/components/BlogPostHeader";
+
+<BlogPostHeader
+  title="2D ARRAYS IN C++"
+  date="2026-05-27"
+  author="MD Jaber Hossain Chowdhury"
+  tags={["cpp", "competitive-programming", "arrays", "matrix"]}
+/>
+
+A 2D array (Two-Dimensional Array) is used to store data in the form of rows and columns.
+
+It is commonly used in:
+
+- Matrix problems
+    
+- Grid problems
+    
+- Graph representation
+    
+- Dynamic programming
+    
+
+---
+
+## **1. Declaration of 2D Array**
+
+### 📘 Theory
+
+To declare a 2D array, we specify:
+
+- Data type
+    
+- Number of rows
+    
+- Number of columns
+    
+
+---
+
+### 🔹 Syntax
+
+```cpp
+data_type array_name[rows][columns];
+```
+
+---
+
+### 💻 Example
+
+```cpp
+int arr[3][4];
+```
+
+This creates a matrix with:
+
+- 3 rows
+    
+- 4 columns
+    
+
+---
+
+### 🔹 Initialization
+
+```cpp
+int arr[2][3] = {
+    {1, 2, 3},
+    {4, 5, 6}
+};
+```
+
+---
+
+### 📘 Memory Concept
+
+Elements are stored in contiguous memory row by row.
+
+Index format:
+
+```
+arr[row][column]
+```
+
+---
+
+## **2. Traversal of 2D Array**
+
+### 📘 Theory
+
+To access all elements, we use nested loops.
+
+Outer loop → rows  
+Inner loop → columns
+
+---
+
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int arr[2][3] = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };
+
+    for(int i = 0; i < 2; i++) {
+        for(int j = 0; j < 3; j++) {
+            cout << arr[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 🖥 Output
+
+```
+1 2 3
+4 5 6
+```
+
+---
+
+## **3. Input Format in CP Style**
+
+### 📘 Theory
+
+In competitive programming, matrix input is usually given as:
+
+- First line → rows and columns
+    
+- Next lines → matrix elements
+    
+
+---
+
+### 💻 Example
+
+Input format:
+
+```
+2 3
+1 2 3
+4 5 6
+```
+
+---
+
+### 💻 Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int n, m;
+    cin >> n >> m;
+
+    int arr[n][m];
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            cin >> arr[i][j];
+        }
+    }
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            cout << arr[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 📘 Important Note
+
+In CP, sometimes constraints are large, so using:
+
+```cpp
+vector<vector<int>> arr;
+```
+
+is preferred (covered in STL module).
+
+---
+
+## **4. Transpose of a Matrix**
+
+### 📘 Theory
+
+Transpose of a matrix means:
+
+Rows become columns and columns become rows.
+
+For a matrix:
+
+```
+1 2 3
+4 5 6
+```
+
+Transpose becomes:
+
+```
+1 4
+2 5
+3 6
+```
+
+---
+
+### 💻 Code
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int n = 2, m = 3;
+
+    int arr[2][3] = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };
+
+    for(int j = 0; j < m; j++) {
+        for(int i = 0; i < n; i++) {
+            cout << arr[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}
+```
+
+---
+
+## **5. Matrix Multiplication (Basic)**
+
+### 📘 Theory
+
+Matrix multiplication is possible if:
+
+```
+Columns of Matrix A = Rows of Matrix B
+```
+
+If:
+
+Matrix A → n × m  
+Matrix B → m × p
+
+Result → n × p
+
+---
+
+### 💻 Code (Basic Version)
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int n = 2, m = 2, p = 2;
+
+    int A[2][2] = {
+        {1, 2},
+        {3, 4}
+    };
+
+    int B[2][2] = {
+        {5, 6},
+        {7, 8}
+    };
+
+    int C[2][2] = {0};
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < p; j++) {
+            for(int k = 0; k < m; k++) {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < p; j++) {
+            cout << C[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}
+```
+
+---
+
+### 🖥 Output
+
+```
+19 22
+43 50
+```
+
+---
+
+### 📘 Time Complexity
+
+Matrix multiplication takes:
+
+```
+O(n × m × p)
+```
+
+For square matrix:
+
+```
+O(n³)
+```
+
+---
+
+# ✅ Summary of This Section
+
+After completing this section, students should understand:
+
+- How to declare a 2D array
+    
+- How to traverse using nested loops
+    
+- CP-style matrix input
+    
+- How transpose works
+    
+- Basic matrix multiplication
+    
+- Time complexity idea
+    
+
+---
+
+

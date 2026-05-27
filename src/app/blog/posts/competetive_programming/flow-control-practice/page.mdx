@@ -1,0 +1,172 @@
+---
+title: "Part 1: If / Else &amp; Else If Problems"
+date: "2026-05-27"
+description: "Learn Part 1: If / Else &amp; Else If Problems in-depth. Topics covered include: Part 2: Switch-Case Problems."
+tags: ["cpp", "competitive-programming", "flow-control", "practice"]
+author: "MD Jaber Hossain Chowdhury"
+order: 6.1
+---
+
+import { BlogPostHeader } from "@/components/BlogPostHeader";
+
+<BlogPostHeader
+  title="Part 1: If / Else &amp; Else If Problems"
+  date="2026-05-27"
+  author="MD Jaber Hossain Chowdhury"
+  tags={["cpp", "competitive-programming", "flow-control", "practice"]}
+/>
+
+### 1. Even or Odd
+
+**Problem:** Take an integer input and determine if it is even or odd.
+
+C++
+
+``` cpp
+int num;
+cin >> num;
+if (num % 2 == 0) 
+    cout << "Even";
+else 
+    cout << "Odd";
+```
+
+### 2. Maximum of Three Numbers
+
+**Problem:** Take three integers and find the largest using nested `if`.
+
+C++
+
+```cpp
+int a, b, c;
+cin >> a >> b >> c;
+if (a >= b && a >= c) cout << a;
+else if (b >= a && b >= c) cout << b;
+else cout << c;
+```
+
+### 3. Leap Year Checker
+
+**Problem:** Determine if a year is a leap year. (Divisible by 4, but not by 100 unless also divisible by 400).
+
+C++
+
+```cpp
+int year;
+cin >> year;
+if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+    cout << "Leap Year";
+else
+    cout << "Not a Leap Year";
+```
+
+### 4. Triangle Validity
+
+**Problem:** Input three angles of a triangle and check if it is valid (sum must be 180).
+
+C++
+
+```cpp
+int a, b, c;
+cin >> a >> b >> c;
+if (a + b + c == 180 && a > 0 && b > 0 && c > 0)
+    cout << "Valid Triangle";
+else
+    cout << "Invalid";
+```
+
+### 5. Income Tax Calculator
+
+**Problem:** Calculate tax based on income: Income &lt; 10k (0%), 10k-20k (10%), &gt; 20k (20%).
+
+C++
+
+``` cpp
+double income, tax = 0;
+cin >> income;
+if (income <= 10000) tax = 0;
+else if (income <= 20000) tax = (income - 10000) * 0.1;
+else tax = (10000 * 0.1) + (income - 20000) * 0.2;
+cout << "Tax: " << tax;
+```
+
+---
+
+## Part 2: Switch-Case Problems
+
+### 6. Day of the Week
+
+**Problem:** Input a number (1-7) and print the corresponding day.
+
+C++
+
+``` cpp
+int day;
+cin >> day;
+switch(day) {
+    case 1: cout << "Monday"; break;
+    case 2: cout << "Tuesday"; break;
+    case 3: cout << "Wednesday"; break;
+    case 4: cout << "Thursday"; break;
+    case 5: cout << "Friday"; break;
+    case 6: cout << "Saturday"; break;
+    case 7: cout << "Sunday"; break;
+    default: cout << "Invalid day";
+}
+```
+
+### 7. Simple Menu System
+
+**Problem:** Display a menu (1. Start, 2. Settings, 3. Exit) and respond to the user's choice.
+
+C++
+
+``` cpp
+int choice;
+cout << "1. Start\n2. Settings\n3. Exit\n";
+cin >> choice;
+switch(choice) {
+    case 1: cout << "Game Starting..."; break;
+    case 2: cout << "Opening Settings..."; break;
+    case 3: cout << "Exiting..."; break;
+    default: cout << "Invalid Choice";
+}
+```
+
+### 8. Vowel/Consonant Check (Grouping Cases)
+
+**Problem:** Check if a character is a vowel or consonant using `switch` fall-through.
+
+C++
+
+``` cpp
+char ch;
+cin >> ch;
+switch(tolower(ch)) {
+    case 'a': case 'e': case 'i': case 'o': case 'u':
+        cout << "Vowel";
+        break;
+    default:
+        cout << "Consonant (or non-alphabetic)";
+}
+```
+
+### 9. Grade Points (GPA) Converter
+
+**Problem:** Convert a letter grade (A, B, C, D, F) into its 4.0 scale equivalent.
+
+C++
+
+``` cpp
+char grade;
+cin >> grade;
+switch(toupper(grade)) {
+    case 'A': cout << "4.0"; break;
+    case 'B': cout << "3.0"; break;
+    case 'C': cout << "2.0"; break;
+    case 'D': cout << "1.0"; break;
+    case 'F': cout << "0.0"; break;
+    default: cout << "Invalid Grade";
+}
+```
+

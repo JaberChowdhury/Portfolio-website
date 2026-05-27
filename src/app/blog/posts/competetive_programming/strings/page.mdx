@@ -1,0 +1,389 @@
+---
+title: "STRINGS IN C++"
+date: "2026-05-27"
+description: "Learn STRINGS IN C++ in-depth. Topics covered include: `string` Class, `getline()`, String Traversal, Reverse a String, Palindrome String, Character Frequency."
+tags: ["cpp", "competitive-programming", "strings", "parsing"]
+author: "MD Jaber Hossain Chowdhury"
+order: 10.0
+---
+
+import { BlogPostHeader } from "@/components/BlogPostHeader";
+
+<BlogPostHeader
+  title="STRINGS IN C++"
+  date="2026-05-27"
+  author="MD Jaber Hossain Chowdhury"
+  tags={["cpp", "competitive-programming", "strings", "parsing"]}
+/>
+
+A string is a sequence of characters.
+
+In Competitive Programming, strings are frequently used in:
+
+- Pattern problems
+    
+- Palindrome problems
+    
+- Frequency counting
+    
+- Parsing input
+    
+- Simulation problems
+    
+
+C++ provides a built-in `string` class that makes string handling easy.
+
+---
+
+## **1. `string` Class**
+
+### 📘 Theory
+
+The `string` class is part of the Standard Library.
+
+To use it:
+
+```cpp
+#include <string>
+```
+
+(Already included in `<bits/stdc++.h>`)
+
+---
+
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    string s = "Hello";
+    cout << s;
+
+    return 0;
+}
+```
+
+---
+
+### 📘 Important Properties
+
+```cpp
+s.length()     // returns length
+s.size()       // same as length
+```
+
+---
+
+## **2. `getline()`**
+
+### 📘 Theory
+
+`getline()` is used to take input with spaces.
+
+`cin >>` stops at space.  
+`getline()` reads the whole line.
+
+---
+
+### 💻 Example
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    string s;
+    getline(cin, s);
+
+    cout << s;
+
+    return 0;
+}
+```
+
+---
+
+### 🖥 Input
+
+```
+Competitive Programming
+```
+
+### 🖥 Output
+
+```
+Competitive Programming
+```
+
+---
+
+### 📘 Important Note
+
+If used after `cin`, clear buffer:
+
+```cpp
+cin.ignore();
+```
+
+---
+
+## **3. String Traversal**
+
+### 📘 Theory
+
+Traversal means accessing each character.
+
+---
+
+### 💻 Example
+
+```cpp
+string s = "Hello";
+
+for(int i = 0; i < s.length(); i++) {
+    cout << s[i] << " ";
+}
+```
+
+---
+
+### 🖥 Output
+
+```
+H e l l o
+```
+
+---
+
+## **4. Reverse a String**
+
+---
+
+### 🔹 Method 1: Manual Reverse
+
+```cpp
+string s;
+cin >> s;
+
+int n = s.length();
+
+for(int i = n - 1; i >= 0; i--) {
+    cout << s[i];
+}
+```
+
+---
+
+### 🔹 Method 2: Using `reverse()` (STL)
+
+```cpp
+string s;
+cin >> s;
+
+reverse(s.begin(), s.end());
+
+cout << s;
+```
+
+---
+
+## **5. Palindrome String**
+
+### 📘 Theory
+
+A string is palindrome if it reads the same forward and backward.
+
+Example:
+
+```
+madam
+```
+
+---
+
+### 💻 Code
+
+```cpp
+string s;
+cin >> s;
+
+bool isPalindrome = true;
+
+int n = s.length();
+
+for(int i = 0; i < n / 2; i++) {
+    if(s[i] != s[n - i - 1]) {
+        isPalindrome = false;
+        break;
+    }
+}
+
+if(isPalindrome)
+    cout << "Palindrome";
+else
+    cout << "Not Palindrome";
+```
+
+---
+
+## **6. Character Frequency**
+
+### 📘 Theory
+
+Used to count how many times each character appears.
+
+---
+
+### 💻 Example (Lowercase Letters Only)
+
+```cpp
+string s;
+cin >> s;
+
+int freq[26] = {0};
+
+for(int i = 0; i < s.length(); i++) {
+    freq[s[i] - 'a']++;
+}
+
+for(int i = 0; i < 26; i++) {
+    if(freq[i] > 0) {
+        cout << char(i + 'a') << " : " << freq[i] << "\n";
+    }
+}
+```
+
+---
+
+### 📘 Explanation
+
+`s[i] - 'a'` converts character to index.
+
+Example:
+
+```
+'a' - 'a' = 0
+'b' - 'a' = 1
+```
+
+---
+
+## **7. ASCII Basics**
+
+### 📘 Theory
+
+Each character has an ASCII value.
+
+Examples:
+
+|Character|ASCII|
+|---|---|
+|'A'|65|
+|'a'|97|
+|'0'|48|
+
+---
+
+### 💻 Example
+
+```cpp
+char ch = 'A';
+
+cout << (int)ch << "\n";   // 65
+```
+
+---
+
+### 📘 Useful Conversions
+
+Uppercase to Lowercase:
+
+```cpp
+char ch = 'A';
+ch = ch + 32;
+```
+
+Lowercase to Uppercase:
+
+```cpp
+char ch = 'a';
+ch = ch - 32;
+```
+
+---
+
+## **8. String to Integer Conversion**
+
+### 🔹 Method 1: Using `stoi()`
+
+```cpp
+string s = "123";
+
+int x = stoi(s);
+
+cout << x + 5;
+```
+
+Output:
+
+```
+128
+```
+
+---
+
+### 🔹 Method 2: Manual Conversion
+
+```cpp
+string s = "123";
+int number = 0;
+
+for(int i = 0; i < s.length(); i++) {
+    number = number * 10 + (s[i] - '0');
+}
+
+cout << number;
+```
+
+---
+
+### 📘 Explanation
+
+`s[i] - '0'` converts character digit to integer.
+
+Example:
+
+```
+'5' - '0' = 5
+```
+
+---
+
+# ✅ Summary of This Section
+
+After completing this section, students should understand:
+
+- How to use the `string` class
+    
+- Difference between `cin` and `getline`
+    
+- Traversing a string
+    
+- Reversing a string
+    
+- Checking palindrome
+    
+- Counting character frequency
+    
+- ASCII value basics
+    
+- Converting string to integer
+    
+
+---
+
+

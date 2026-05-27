@@ -1,0 +1,501 @@
+---
+title: "ARRAYS IN C++"
+date: "2026-05-27"
+description: "Learn ARRAYS IN C++ in-depth. Topics covered include: Array Declaration, 0-Index vs 1-Index Concept, Array Traversal, Sum of Array, Maximum and Minimum in Ar..."
+tags: ["cpp", "competitive-programming", "arrays", "data-structures"]
+author: "MD Jaber Hossain Chowdhury"
+order: 8.0
+---
+
+import { BlogPostHeader } from "@/components/BlogPostHeader";
+
+<BlogPostHeader
+  title="ARRAYS IN C++"
+  date="2026-05-27"
+  author="MD Jaber Hossain Chowdhury"
+  tags={["cpp", "competitive-programming", "arrays", "data-structures"]}
+/>
+
+An array is a collection of elements of the same data type stored in contiguous memory locations.
+
+In Competitive Programming, arrays are one of the most important data structures.
+
+---
+
+## **1. Array Declaration**
+
+### 📘 Theory
+
+To declare an array, we specify:
+
+- Data type
+    
+- Name
+    
+- Size
+    
+
+---
+
+### 🔹 Syntax
+
+```cpp
+data_type array_name[size];
+```
+
+---
+
+### 💻 Example
+
+```cpp
+int arr[5];
+```
+
+This creates an array that can store 5 integers.
+
+---
+
+### 🔹 Initialization
+
+```cpp
+int arr[5] = {1, 2, 3, 4, 5};
+```
+
+If size is omitted:
+
+```cpp
+int arr[] = {1, 2, 3};
+```
+
+Compiler automatically determines size.
+
+---
+
+## **2. 0-Index vs 1-Index Concept**
+
+### 📘 Theory
+
+C++ arrays are **0-indexed**.
+
+This means indexing starts from 0.
+
+For an array of size `n`:
+
+- First index → `0`
+    
+- Last index → `n - 1`
+    
+
+---
+
+### 💻 Example
+
+```cpp
+int arr[5] = {10, 20, 30, 40, 50};
+
+cout << arr[0] << "\n";  // 10
+cout << arr[4] << "\n";  // 50
+```
+
+---
+
+### 📘 Important in CP
+
+If size is `n`, valid indices are:
+
+```
+0 to n-1
+```
+
+Accessing outside this range causes undefined behavior.
+
+---
+
+## **3. Array Traversal**
+
+### 📘 Theory
+
+Traversal means accessing each element of the array.
+
+---
+
+### 💻 Example
+
+```cpp
+int n = 5;
+int arr[5] = {1, 2, 3, 4, 5};
+
+for(int i = 0; i < n; i++) {
+    cout << arr[i] << " ";
+}
+```
+
+---
+
+### 🖥 Output
+
+```
+1 2 3 4 5
+```
+
+---
+
+## **4. Sum of Array**
+
+```cpp
+int n;
+cin >> n;
+
+int arr[n];
+for(int i = 0; i < n; i++)
+    cin >> arr[i];
+
+long long sum = 0;
+
+for(int i = 0; i < n; i++)
+    sum += arr[i];
+
+cout << sum;
+```
+
+---
+
+## **5. Maximum and Minimum in Array**
+
+```cpp
+int n;
+cin >> n;
+
+int arr[n];
+for(int i = 0; i < n; i++)
+    cin >> arr[i];
+
+int maximum = arr[0];
+int minimum = arr[0];
+
+for(int i = 1; i < n; i++) {
+    if(arr[i] > maximum)
+        maximum = arr[i];
+
+    if(arr[i] < minimum)
+        minimum = arr[i];
+}
+
+cout << "Max: " << maximum << "\n";
+cout << "Min: " << minimum;
+```
+
+---
+
+## **6. Frequency Array Concept**
+
+### 📘 Theory
+
+A frequency array is used to count how many times each value appears.
+
+Useful when values are within a limited range.
+
+---
+
+### 💻 Example
+
+Count frequency of numbers from 1 to 10.
+
+```cpp
+int n;
+cin >> n;
+
+int arr[n];
+for(int i = 0; i < n; i++)
+    cin >> arr[i];
+
+int freq[11] = {0};
+
+for(int i = 0; i < n; i++) {
+    freq[arr[i]]++;
+}
+
+for(int i = 1; i <= 10; i++) {
+    if(freq[i] > 0)
+        cout << i << " appears " << freq[i] << " times\n";
+}
+```
+
+---
+
+### 📘 Important in CP
+
+Used for:
+
+- Counting occurrences
+    
+- Checking duplicates
+    
+- Character frequency
+    
+- Basic hashing idea
+    
+
+---
+
+## **7. Check if Array is Sorted**
+
+```cpp
+int n;
+cin >> n;
+
+int arr[n];
+for(int i = 0; i < n; i++)
+    cin >> arr[i];
+
+bool sorted = true;
+
+for(int i = 1; i < n; i++) {
+    if(arr[i] < arr[i-1]) {
+        sorted = false;
+        break;
+    }
+}
+
+if(sorted)
+    cout << "Sorted";
+else
+    cout << "Not Sorted";
+```
+
+---
+
+## **8. Prefix Sum (Light Introduction)**
+
+### 📘 Theory
+
+Prefix sum helps compute range sums efficiently.
+
+Instead of calculating sum repeatedly, we precompute cumulative sums.
+
+---
+
+### 💻 Example
+
+```cpp
+int n;
+cin >> n;
+
+int arr[n];
+for(int i = 0; i < n; i++)
+    cin >> arr[i];
+
+int prefix[n];
+
+prefix[0] = arr[0];
+
+for(int i = 1; i < n; i++) {
+    prefix[i] = prefix[i-1] + arr[i];
+}
+
+for(int i = 0; i < n; i++)
+    cout << prefix[i] << " ";
+```
+
+---
+
+### 📘 Use Case
+
+To find sum from index `l` to `r`:
+
+```
+sum = prefix[r] - prefix[l-1]
+```
+
+(Time Complexity: O(1) per query)
+
+---
+
+## **9. Two Pointers (Basic Introduction)  ---- X**
+
+### 📘 Theory
+
+Two pointers technique uses two indices to traverse the array.
+
+Often used in:
+
+- Pair sum problems
+    
+- Sorted array problems
+    
+- Sliding window problems
+    
+
+---
+
+### 💻 Example: Check if Pair with Given Sum Exists (Sorted Array)
+
+```cpp
+int n, target;
+cin >> n >> target;
+
+int arr[n];
+for(int i = 0; i < n; i++)
+    cin >> arr[i];
+
+int left = 0;
+int right = n - 1;
+
+bool found = false;
+
+while(left < right) {
+
+    int sum = arr[left] + arr[right];
+
+    if(sum == target) {
+        found = true;
+        break;
+    }
+    else if(sum < target)
+        left++;
+    else
+        right--;
+}
+
+if(found)
+    cout << "Pair Found";
+else
+    cout << "Pair Not Found";
+```
+
+---
+
+### 📘 Why Important in CP
+
+Reduces complexity from:
+
+```
+O(n²) → O(n)
+```
+
+Very powerful technique.
+
+---
+
+# ✅ Summary of This Section
+
+After completing this section, students should understand:
+
+- Array declaration and initialization
+    
+- 0-index vs 1-index
+    
+- Traversing arrays
+    
+- Sum, maximum, minimum
+    
+- Frequency array idea
+    
+- Checking if sorted
+    
+- Basic prefix sum concept
+    
+- Basic two pointers technique
+    
+
+
+---
+
+# 🧪 ARRAY PRACTICE PROBLEMS
+
+## 🔹 Level 1 – Basic Traversal
+
+1. Find minimum and maximum
+    
+2. Count even and odd numbers
+    
+3. Reverse an array
+    
+4. Check if array is palindrome
+    
+
+## 🔹 Level 2 – Slightly Logical
+
+5. Find second largest element
+    
+6. Rotate array (left/right)
+    
+7. Remove duplicates from sorted array
+    
+
+## 🔹 Level 3 – CP Important
+
+8. Find Kth largest/smallest element
+    
+9. Implement prefix sum queries
+    
+10. Count frequency of numbers
+    
+
+---
+
+# 🎯  Current Problems — Analysis
+
+You listed:
+
+- Find minimum and maximum
+    
+- Count even and odd
+    
+- Reverse array
+    
+- Check palindrome
+    
+- Second largest
+    
+- Rotate array
+    
+- Remove duplicates
+    
+- Kth largest/smallest
+    
+- Prefix sum queries
+    
+- Count frequency
+    
+
+🔎 CP relevance check:
+
+|Problem|CP Useful?|Difficulty|
+|---|---|---|
+|Min/Max|✅ Very|Easy|
+|Even/Odd count|✅|Easy|
+|Reverse|✅|Easy|
+|Palindrome|✅|Easy|
+|Second Largest|✅|Easy-Medium|
+|Rotate|✅|Medium|
+|Remove Duplicates|✅|Medium|
+|Kth largest|✅|Medium|
+|Prefix sum query|✅🔥|Very Important|
+|Frequency|✅🔥|Very Important|
+
+---
+## 🚀 Tips for Contests
+
+- Use
+    
+    ```cpp
+    int n; cin >> n;
+    int arr[n];
+    ```
+    
+    for small input sizes.
+    
+- For large inputs, use **global arrays** (up to ~10^7).
+    
+- Handy tricks:
+    
+    - `sizeof(arr)/sizeof(arr[0])` → get the array size.
+        
+    - `sort(arr, arr + n)` → quick sorting.
+        
+    - `memset(arr, 0, sizeof(arr))` → set all array elements to zero.
+        
+
+---
+
