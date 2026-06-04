@@ -1,6 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-package-lock.json
-bun.lock
 # dependencies
 /node_modules
 /.pnp
@@ -11,18 +8,11 @@ bun.lock
 !.yarn/releases
 !.yarn/versions
 
-# lock files
-bun.lock
-
-# cache
-.next
-
 # testing
 /coverage
 
 # next.js
 /.next/
-/.next/*
 /out/
 
 # production
@@ -36,13 +26,10 @@ bun.lock
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-
-# vercel
-.vercel
 
 # typescript
 *.tsbuildinfo
