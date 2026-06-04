@@ -1,0 +1,349 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
+import { useTheme } from "next-themes";
+
+export interface ParticleTextProps {
+	text: string;
+	canvasWidth?: number;
+	canvasHeight?: number;
+	font?: string;
+	particleStep?: number;
+	scale?: number;
+	zVariance?: number;
+	particleSize?: number;
+	particleOpacity?: number;
+
+	// We make these optional so you can still override them if you want,
+	// but if you don't provide them, they will fallback to the theme colors!
+	colorStart?: string;
+	colorEnd?: string;
+
+	hoverRadius?: number;
+	hoverForceXY?: number;
+	hoverForceZ?: number;
+	explodeRadius?: number;
+	explodeForceXY?: number;
+	explodeForceZ?: number;
+	explosionDecay?: number;
+	springForce?: number;
+}
+
+function resolveCssColor(colorStr: string, isDark: boolean): string {
+	if (!colorStr) return isDark ? "#ffffff" : "#000000";
+	if (
+		colorStr.includes("--foreground") ||
+		colorStr.includes("text-primary") ||
+		colorStr.includes("divider")
+	) {
+		return isDark ? "#ffffff" : "#000000";
+	}
+	if (colorStr.startsWith("var(")) {
+		const varName = colorStr.substring(4, colorStr.length - 1).trim();
+		if (typeof window !== "undefined") {
+			const value = getComputedStyle(document.body)
+				.getPropertyValue(varName)
+				.trim();
+			if (value.startsWith("oklch") || value.startsWith("lab")) {
+				return isDark ? "#ffffff" : "#000000";
+			}
+			return value || (isDark ? "#ffffff" : "#000000");
+		}
+	}
+	return colorStr;
+}
+
+export default function ParticleText({
+	text,
+	canvasWidth = 1000,
+	canvasHeight = 400,
+	font = "bold 120px Inter, Arial, sans-serif",
+	particleStep = 3,
+	scale = 0.05,
+	zVariance = 0.5,
+	particleSize = 0.25,
+	particleOpacity = 0.9,
+	colorStart, // Removed default values here
+	colorEnd, // Removed default values here
+	hoverRadius = 53.5,
+	hoverForceXY = 0.2,
+	hoverForceZ = 2.0,
+	explodeRadius = 15.0,
+	explodeForceXY = 1.5,
+	explodeForceZ = 8.0,
+	explosionDecay = 0.03,
+	springForce = 0.08,
+}: ParticleTextProps) {
+	const mountRef = useRef<HTMLDivElement>(null);
+	const { resolvedTheme } = useTheme();
+
+	// Resolve the actual colors to use.
+	// If you pass a color prop, it uses that.
+	// If not, it uses your theme's Primary and Secondary main colors.
+	const colorStartToUse = colorStart || "var(--foreground)";
+	const colorEndToUse = colorEnd || "var(--foreground)";
+
+	useEffect(() => {
+		const container = mountRef.current;
+		if (!container) return;
+
+		const isDark = resolvedTheme === "dark";
+		const resolvedColorStart = resolveCssColor(colorStartToUse, isDark);
+		const resolvedColorEnd = resolveCssColor(colorEndToUse, isDark);
+
+		let isDestroyed = false;
+
+		const scene = new THREE.Scene();
+
+		const camera = new THREE.PerspectiveCamera(
+			45,
+			container.clientWidth / container.clientHeight,
+			1,
+			1000,
+		);
+		camera.position.z = 40;
+
+		const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+		renderer.setSize(container.clientWidth, container.clientHeight);
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		renderer.setClearColor(0x000000, 0);
+		container.appendChild(renderer.domElement);
+
+		const canvas = document.createElement("canvas");
+		const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+		canvas.width = canvasWidth;
+		canvas.height = canvasHeight;
+
+		if (ctx) {
+			ctx.fillStyle = "black";
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			ctx.font = font;
+			ctx.textAlign = "center";
+			ctx.textBaseline = "middle";
+			ctx.fillStyle = "white";
+			ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+		}
+
+		const imgData = ctx?.getImageData(0, 0, canvas.width, canvas.height).data;
+		const particles: { x: number; y: number; z: number }[] = [];
+
+		if (imgData) {
+			for (let y = 0; y < canvas.height; y += particleStep) {
+				for (let x = 0; x < canvas.width; x += particleStep) {
+					const index = (y * canvas.width + x) * 4;
+					const r = imgData[index];
+
+					if (r > 128) {
+						particles.push({
+							x: (x - canvas.width / 2) * scale,
+							y: -(y - canvas.height / 2) * scale,
+							z: (Math.random() - 0.5) * zVariance,
+						});
+					}
+				}
+			}
+		}
+
+		const geometry = new THREE.BufferGeometry();
+		const positions = new Float32Array(particles.length * 3);
+		const basePositions = new Float32Array(particles.length * 3);
+		const colors = new Float32Array(particles.length * 3);
+
+		// Setup Hex gradient colors using the resolved theme colors
+		const threeColorStart = new THREE.Color(resolvedColorStart);
+		const threeColorEnd = new THREE.Color(resolvedColorEnd);
+		const currentColor = new THREE.Color();
+
+		const maxX = (canvasWidth / 2) * scale;
+
+		particles.forEach((p, i) => {
+			positions[i * 3] = p.x;
+			positions[i * 3 + 1] = p.y;
+			positions[i * 3 + 2] = p.z;
+			basePositions[i * 3] = p.x;
+			basePositions[i * 3 + 1] = p.y;
+			basePositions[i * 3 + 2] = p.z;
+
+			const normalizedX = (p.x + maxX) / (maxX * 2);
+			const lerpFactor = Math.max(0, Math.min(1, normalizedX));
+
+			currentColor.copy(threeColorStart).lerp(threeColorEnd, lerpFactor);
+
+			colors[i * 3] = currentColor.r;
+			colors[i * 3 + 1] = currentColor.g;
+			colors[i * 3 + 2] = currentColor.b;
+		});
+
+		geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+		geometry.setAttribute(
+			"basePosition",
+			new THREE.BufferAttribute(basePositions, 3),
+		);
+		geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+		const material = new THREE.PointsMaterial({
+			size: particleSize,
+			vertexColors: true,
+			transparent: true,
+			opacity: particleOpacity,
+			blending: isDark ? THREE.AdditiveBlending : THREE.NormalBlending,
+		});
+
+		const pointsMesh = new THREE.Points(geometry, material);
+		scene.add(pointsMesh);
+
+		const raycaster = new THREE.Raycaster();
+		const mouse = new THREE.Vector2(-9999, -9999);
+		const mouse3D = new THREE.Vector3(-9999, -9999, -9999);
+		const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+
+		let clickIntensity = 0;
+
+		const onMouseMove = (event: MouseEvent) => {
+			if (!container) return;
+			const bounds = container.getBoundingClientRect();
+			if (!bounds || bounds.width === 0 || bounds.height === 0) return;
+
+			const x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
+			const y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+
+			if (
+				Number.isNaN(x) ||
+				Number.isNaN(y) ||
+				!Number.isFinite(x) ||
+				!Number.isFinite(y)
+			)
+				return;
+
+			mouse.x = x;
+			mouse.y = y;
+			raycaster.setFromCamera(mouse, camera);
+			raycaster.ray.intersectPlane(plane, mouse3D);
+		};
+
+		const onMouseDown = () => {
+			clickIntensity = 1.0;
+		};
+		const onMouseLeave = () => {
+			mouse3D.set(-9999, -9999, -9999);
+		};
+
+		window.addEventListener("mousemove", onMouseMove);
+		window.addEventListener("mousedown", onMouseDown);
+		container.addEventListener("mouseleave", onMouseLeave);
+
+		const onResize = () => {
+			if (!container) return;
+			camera.aspect = container.clientWidth / container.clientHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize(container.clientWidth, container.clientHeight);
+		};
+		window.addEventListener("resize", onResize);
+
+		let animationFrameId: number;
+
+		const animate = () => {
+			if (isDestroyed) return;
+
+			const posArray = geometry.attributes.position.array as Float32Array;
+			const baseArray = geometry.attributes.basePosition.array as Float32Array;
+
+			if (clickIntensity > 0) {
+				clickIntensity -= explosionDecay;
+			}
+
+			for (let i = 0; i < particles.length; i++) {
+				const i3 = i * 3;
+				const px = posArray[i3];
+				const py = posArray[i3 + 1];
+
+				const dx = mouse3D.x - px;
+				const dy = mouse3D.y - py;
+				const dist = Math.sqrt(dx * dx + dy * dy);
+
+				if (dist < hoverRadius && dist > 0.0001) {
+					const force = (hoverRadius - dist) / hoverRadius;
+					posArray[i3] -= (dx / dist) * force * hoverForceXY;
+					posArray[i3 + 1] -= (dy / dist) * force * hoverForceXY;
+					posArray[i3 + 2] += (Math.random() - 0.5) * force * hoverForceZ;
+				}
+
+				if (clickIntensity > 0) {
+					if (dist < explodeRadius && dist > 0.0001) {
+						const explodeForce =
+							((explodeRadius - dist) / explodeRadius) * clickIntensity;
+						posArray[i3] -= (dx / dist) * explodeForce * explodeForceXY;
+						posArray[i3 + 1] -= (dy / dist) * explodeForce * explodeForceXY;
+						posArray[i3 + 2] +=
+							(Math.random() - 0.5) * explodeForce * explodeForceZ;
+					}
+				}
+
+				posArray[i3] += (baseArray[i3] - posArray[i3]) * springForce;
+				posArray[i3 + 1] +=
+					(baseArray[i3 + 1] - posArray[i3 + 1]) * springForce;
+				posArray[i3 + 2] +=
+					(baseArray[i3 + 2] - posArray[i3 + 2]) * springForce;
+			}
+
+			geometry.attributes.position.needsUpdate = true;
+			renderer.render(scene, camera);
+			animationFrameId = requestAnimationFrame(animate);
+		};
+
+		animate();
+
+		return () => {
+			isDestroyed = true;
+			window.removeEventListener("mousemove", onMouseMove);
+			window.removeEventListener("mousedown", onMouseDown);
+			window.removeEventListener("resize", onResize);
+			if (container) {
+				container.removeEventListener("mouseleave", onMouseLeave);
+				if (renderer.domElement && container.contains(renderer.domElement)) {
+					container.removeChild(renderer.domElement);
+				}
+			}
+			cancelAnimationFrame(animationFrameId);
+			renderer.dispose();
+			geometry.dispose();
+			material.dispose();
+		};
+		// Include resolved colors and resolvedTheme in dependency array to trigger re-render on theme change
+	}, [
+		text,
+		canvasWidth,
+		canvasHeight,
+		font,
+		particleStep,
+		scale,
+		zVariance,
+		particleSize,
+		particleOpacity,
+		colorStartToUse,
+		colorEndToUse,
+		hoverRadius,
+		hoverForceXY,
+		hoverForceZ,
+		explodeRadius,
+		explodeForceXY,
+		explodeForceZ,
+		explosionDecay,
+		springForce,
+		resolvedTheme,
+	]);
+
+	return (
+		<div
+			ref={mountRef}
+			style={{
+				width: "100%",
+				height: "100%",
+				cursor: "crosshair",
+				overflow: "hidden",
+			}}
+		/>
+	);
+}
