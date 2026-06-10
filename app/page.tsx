@@ -7,21 +7,20 @@ import PricingSection from "@/components/pricing/PricingSection";
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import WorksSection from "@/components/WorksSection";
-import GridBackground from "@/components/GridBackground";
 
 const App = () => {
-	return (
-		<GridBackground>
-			<HomepageSidebar />
-			<HeroSection />
-			<WorksSection />
-			<ServicesSection />
-			<ProcessSection />
-			<PricingSection />
-			<TestimonialsSection />
-			<FaqSection />
-			<ContactSection />
-		</GridBackground>
-	);
+  return (
+    <>
+      <HomepageSidebar />
+      <HeroSection />
+      <WorksSection />
+      <ServicesSection />
+      <ProcessSection />
+      <PricingSection />
+      <TestimonialsSection />
+      <FaqSection />
+      <ContactSection />
+    </>
+  );
 };
 export default App;
