@@ -8,7 +8,7 @@ const theme = createTheme({
   defaultColorScheme: "light",
   // 2. Shared Core Settings
   typography: {
-    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    fontFamily: "var(--app-font-family)",
     h1: {
       fontWeight: 800,
       letterSpacing: "-0.02em",

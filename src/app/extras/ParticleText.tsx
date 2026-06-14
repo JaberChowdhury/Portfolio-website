@@ -3,6 +3,7 @@
 import { useColorScheme, useTheme } from "@mui/material/styles"; // Import useColorScheme and useTheme
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { useLanguageStore } from "@/store/languageStore";
 
 export interface ParticleTextProps {
   text: string;
@@ -69,6 +70,27 @@ export default function ParticleText({
   const theme = useTheme(); // Grab the current active theme
   const { mode, systemMode } = useColorScheme(); // Grab the current scheme
   const _currentMode = mode === "system" ? systemMode : mode;
+  const language = useLanguageStore((s) => s.language);
+
+  // Resolve the actual font string for canvas rendering.
+  // When language is Bangla, replace the font family with the Bangla font.
+  const resolvedFont = (() => {
+    if (language !== "bn") return font;
+    // Extract the Bangla font-family name from the CSS variable
+    if (typeof window !== "undefined") {
+      const banglaFontFamily = getComputedStyle(document.documentElement)
+        .getPropertyValue("--font-bangla")
+        .trim();
+      if (banglaFontFamily) {
+        // Replace the font-family part (everything after the size) with the Bangla font
+        const match = font.match(/^(.+?\d+px\s*)(.+)$/);
+        if (match) {
+          return `${match[1]}${banglaFontFamily}, ${match[2]}`;
+        }
+      }
+    }
+    return font;
+  })();
 
   // Resolve the actual colors to use.
   // If you pass a color prop, it uses that.
@@ -110,7 +132,7 @@ export default function ParticleText({
     if (ctx) {
       ctx.fillStyle = "black";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.font = font;
+      ctx.font = resolvedFont;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillStyle = "white";
@@ -307,7 +329,7 @@ export default function ParticleText({
     text,
     canvasWidth,
     canvasHeight,
-    font,
+    resolvedFont,
     particleStep,
     scale,
     zVariance,

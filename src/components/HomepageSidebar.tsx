@@ -105,7 +105,6 @@ export default function HomepageSidebar() {
         >
           <Typography
             sx={{
-              fontFamily: "monospace",
               fontSize,
               fontWeight: isActive ? 800 : 500,
               color: isActive ? "text.primary" : "text.secondary",
@@ -178,7 +177,6 @@ export default function HomepageSidebar() {
             <Typography
               variant="subtitle2"
               sx={{
-                fontFamily: "monospace",
                 fontWeight: 800,
                 letterSpacing: "0.05em",
               }}
@@ -264,7 +262,6 @@ export default function HomepageSidebar() {
                           sx: {
                             bgcolor: "text.primary",
                             color: "background.default",
-                            fontFamily: "monospace",
                             fontSize: "0.65rem",
                             fontWeight: 700,
                             borderRadius: 0,
@@ -335,7 +332,6 @@ export default function HomepageSidebar() {
               >
                 <Typography
                   sx={{
-                    fontFamily: "monospace",
                     fontSize: "0.7rem",
                     fontWeight: 800,
                     letterSpacing: "0.05em",
