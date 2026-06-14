@@ -1,18 +1,22 @@
-import { Roboto } from "next/font/google";
+import { Geist_Mono, Inter } from "next/font/google"
 
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { cn } from "@/lib/utils";
-import GridBackground from "@/components/GridBackground";
-import Navbar from "@/components/navbar/Navbar";
-import Footer from "@/components/footer/Footer";
+import "./globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
+import { cn } from "@/lib/utils"
+import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer"
 
-const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
+
+const fontMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+})
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html
@@ -20,20 +24,19 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn(
         "antialiased",
-        roboto.variable,
+        fontMono.variable,
         "font-sans",
-        roboto.variable,
+        inter.variable
       )}
+      // className="var(font-sans)"
     >
       <body>
         <ThemeProvider>
-          <GridBackground>
-            <Navbar />
-            {children}
-            <Footer />
-          </GridBackground>
+          <Navbar />
+          {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

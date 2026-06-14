@@ -1,26 +1,19 @@
-import ContactSection from "@/components/contact/ContactSection";
-import FaqSection from "@/components/faq/FaqSection";
-import HeroSection from "@/components/HeroSection";
-import HomepageSidebar from "@/components/HomepageSidebar";
-import ProcessSection from "@/components/ProcessSection";
-import PricingSection from "@/components/pricing/PricingSection";
-import ServicesSection from "@/components/ServicesSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import WorksSection from "@/components/WorksSection";
+import ProjectsSection from "../components/Home/ProjectsSection"
+import CompetitiveProgrammingSection from "@/components/Home/CompetitiveProgrammingSection"
+import ExperienceSection from "@/components/Home/ExperienceSection"
+import ContactSection from "@/components/Home/ContactSection"
+import HeroSection from "@/components/Home/HeroSection"
+import EducationSection from "@/components/Home/EducationSection"
 
-const App = () => {
+export default function Page() {
   return (
-    <>
-      <HomepageSidebar />
+    <div className="h-screen w-full snap-y snap-mandatory overflow-y-auto scroll-smooth bg-[var(--background)] antialiased">
       <HeroSection />
-      <WorksSection />
-      <ServicesSection />
-      <ProcessSection />
-      <PricingSection />
-      <TestimonialsSection />
-      <FaqSection />
+      <ProjectsSection />
+      <CompetitiveProgrammingSection />
+      <EducationSection />
+      <ExperienceSection />
       <ContactSection />
-    </>
-  );
-};
-export default App;
+    </div>
+  )
+}
