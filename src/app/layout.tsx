@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { Roboto } from "next/font/google";
-import localFont from "next/font/local";
 import ThemeRegistry from "./ThemeRegistry";
 import LanguageHtmlSync from "@/components/LanguageHtmlSync";
 
@@ -11,13 +10,6 @@ const creteRound = Roboto({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-english",
-});
-
-const banglaFont = localFont({
-  src: "./fonts/SohidOsmanHadi.ttf",
-  display: "swap",
-  variable: "--font-bangla",
-  weight: "100 900",
 });
 
 // Updated metadata to match your portfolio context
@@ -34,7 +26,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${creteRound.variable} ${banglaFont.variable}`}
+      className={`${creteRound.variable}`}
       suppressHydrationWarning
     >
       <body>
