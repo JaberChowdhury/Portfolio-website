@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { ArrowUpRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import AnimatedTextBorder from "@/components/AnimatedTextBorder"
+// import { ArrowUpRight } from "lucide-react"
+// import { Button } from "@/components/ui/button"
+// import AnimatedTextBorder from "@/components/AnimatedTextBorder"
 
 const FIRST_NAME = "JABER"
 
@@ -42,6 +42,7 @@ export default function HeroSection() {
 
   return (
     <section
+      id="home"
       onMouseMove={(e) => {
         setMouse({
           x: e.clientX,
@@ -139,7 +140,7 @@ export default function HeroSection() {
               <motion.span
                 key={index}
                 variants={letterVariants}
-                className="mx-2 inline-block drop-shadow-[0_0_60px_hsl(var(--primary)/0.15)]"
+                className="hero-title mx-2 inline-block drop-shadow-[0_0_60px_hsl(var(--primary)/0.15)]"
               >
                 {letter}
               </motion.span>

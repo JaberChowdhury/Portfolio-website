@@ -75,7 +75,7 @@ const item = {
 
 export default function ContactSection() {
   return (
-    <section className="relative w-full overflow-hidden py-28">
+    <section id="contact" className="relative w-full overflow-hidden py-28">
       {/* Background Aura */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
@@ -138,11 +138,14 @@ export default function ContactSection() {
                 </p>
               </div>
 
-              <Button size="lg" className="rounded-full px-8" asChild>
-                <Link href="mailto:your@email.com">
-                  Say Hello
-                  <ArrowUpRight className="ml-2 h-4 w-4" />
-                </Link>
+              <Button
+                size="lg"
+                className="rounded-full px-8"
+                nativeButton={false}
+                render={<Link href="mailto:your@email.com" />}
+              >
+                Say Hello
+                <ArrowUpRight className="ml-2 h-4 w-4" />
               </Button>
             </CardContent>
           </Card>

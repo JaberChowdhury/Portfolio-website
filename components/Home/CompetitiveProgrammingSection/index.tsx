@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Trophy, Code2, Brain, Target, ExternalLink } from "lucide-react"
@@ -23,7 +24,10 @@ import {
   CardDescription,
 } from "@/components/ui/card"
 
-const stats = [
+import { StatCard, type Stat } from "./StatCard"
+import { AchievementCard, type Achievement } from "./AchievementCard"
+
+const stats: Stat[] = [
   {
     label: "Codeforces Rating",
     value: "1700+",
@@ -69,7 +73,7 @@ const skills = [
   "DSU",
 ]
 
-const achievements = [
+const achievements: Achievement[] = [
   {
     title: "Contest Experience",
     description:
@@ -113,8 +117,14 @@ const item = {
 }
 
 export default function CompetitiveProgrammingSection() {
+  const [isMounted, setIsMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   return (
-    <section className="relative w-full overflow-hidden py-28">
+    <section id="programming" className="relative w-full overflow-hidden py-28">
       {/* Background Aura */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
@@ -192,26 +202,9 @@ export default function CompetitiveProgrammingSection() {
               <div className="grid gap-6 lg:grid-cols-[420px_1fr]">
                 {/* Left Side Stats */}
                 <div className="grid grid-cols-2 gap-4">
-                  {stats.map((stat) => {
-                    const Icon = stat.icon
-
-                    return (
-                      <div
-                        key={stat.label}
-                        className="group rounded-2xl border border-border/60 bg-card/40 p-5 transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_10px_40px_-15px_hsl(var(--primary)/0.3)]"
-                      >
-                        <Icon className="mb-4 h-5 w-5 text-primary" />
-
-                        <h3 className="text-3xl font-bold tracking-tight">
-                          {stat.value}
-                        </h3>
-
-                        <p className="mt-2 text-sm text-muted-foreground">
-                          {stat.label}
-                        </p>
-                      </div>
-                    )
-                  })}
+                  {stats.map((stat) => (
+                    <StatCard key={stat.label} stat={stat} />
+                  ))}
                 </div>
 
                 {/* Rating Graph */}
@@ -227,69 +220,71 @@ export default function CompetitiveProgrammingSection() {
                   </div>
 
                   <div className="h-[320px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart data={ratingHistory}>
-                        <defs>
-                          <linearGradient
-                            id="ratingGradient"
-                            x1="0"
-                            y1="0"
-                            x2="0"
-                            y2="1"
-                          >
-                            <stop
-                              offset="0%"
-                              stopColor="hsl(var(--primary))"
-                              stopOpacity={0.35}
-                            />
-                            <stop
-                              offset="100%"
-                              stopColor="hsl(var(--primary))"
-                              stopOpacity={0}
-                            />
-                          </linearGradient>
-                        </defs>
+                    {isMounted && (
+                      <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                        <AreaChart data={ratingHistory}>
+                          <defs>
+                            <linearGradient
+                              id="ratingGradient"
+                              x1="0"
+                              y1="0"
+                              x2="0"
+                              y2="1"
+                            >
+                              <stop
+                                offset="0%"
+                                stopColor="hsl(var(--primary))"
+                                stopOpacity={0.35}
+                              />
+                              <stop
+                                offset="100%"
+                                stopColor="hsl(var(--primary))"
+                                stopOpacity={0}
+                              />
+                            </linearGradient>
+                          </defs>
 
-                        <CartesianGrid
-                          strokeDasharray="3 3"
-                          stroke="hsl(var(--border))"
-                          opacity={0.25}
-                        />
+                          <CartesianGrid
+                            strokeDasharray="3 3"
+                            stroke="hsl(var(--border))"
+                            opacity={0.25}
+                          />
 
-                        <XAxis
-                          dataKey="contest"
-                          tickLine={false}
-                          axisLine={false}
-                          tick={{
-                            fill: "hsl(var(--muted-foreground))",
-                          }}
-                        />
+                          <XAxis
+                            dataKey="contest"
+                            tickLine={false}
+                            axisLine={false}
+                            tick={{
+                              fill: "hsl(var(--muted-foreground))",
+                            }}
+                          />
 
-                        <YAxis
-                          tickLine={false}
-                          axisLine={false}
-                          tick={{
-                            fill: "hsl(var(--muted-foreground))",
-                          }}
-                        />
+                          <YAxis
+                            tickLine={false}
+                            axisLine={false}
+                            tick={{
+                              fill: "hsl(var(--muted-foreground))",
+                            }}
+                          />
 
-                        <Tooltip
-                          contentStyle={{
-                            background: "hsl(var(--card))",
-                            border: "1px solid hsl(var(--border))",
-                            borderRadius: "12px",
-                          }}
-                        />
+                          <Tooltip
+                            contentStyle={{
+                              background: "hsl(var(--card))",
+                              border: "1px solid hsl(var(--border))",
+                              borderRadius: "12px",
+                            }}
+                          />
 
-                        <Area
-                          type="monotone"
-                          dataKey="rating"
-                          stroke="hsl(var(--primary))"
-                          strokeWidth={3}
-                          fill="url(#ratingGradient)"
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
+                          <Area
+                            type="monotone"
+                            dataKey="rating"
+                            stroke="hsl(var(--primary))"
+                            strokeWidth={3}
+                            fill="url(#ratingGradient)"
+                          />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    )}
                   </div>
                 </div>
               </div>
@@ -309,17 +304,7 @@ export default function CompetitiveProgrammingSection() {
           >
             {achievements.map((achievement) => (
               <motion.div key={achievement.title} variants={item}>
-                <Card className="group border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-                  <CardHeader>
-                    <CardTitle className="transition-colors group-hover:text-primary">
-                      {achievement.title}
-                    </CardTitle>
-
-                    <CardDescription className="leading-relaxed">
-                      {achievement.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
+                <AchievementCard achievement={achievement} />
               </motion.div>
             ))}
           </motion.div>

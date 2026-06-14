@@ -3,13 +3,63 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+
 @font-face {
-  font-family: "Marlin Soft";
-  src: url("/fonts/FontMesa_MarlinSoftBasic-Regular.otf") format("opentype");
+  font-family: "abcfont";
+  src: url("/font/ABCFavoritMono-Bold.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: "abcfont";
+  src: url("/font/ABCFavoritMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Marlin Soft";
+  src: url("/font/FontMesa_MarlinSoftBasic-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Marlin Soft";
+  src: url("/font/MarlinSoftSQ-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Marlin Soft";
+  src: url("/font/MarlinSoftSQ-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Marlin Soft";
+  src: url("/font/MarlinSoftSQ-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+.marlin-font {
+  font-family: "Marlin Soft";
+}
+
+.abc-font {
+  font-family: "abcfont";
+}
+
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);
@@ -51,8 +101,8 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  --font-heading: "Marlin Soft", var(--font-sans);
-  --font-sans: "Marlin Soft", var(--font-sans);
+  /* --font-heading: "Marlin Soft", var(--font-sans);
+  --font-sans: "Marlin Soft", var(--font-sans); */
 }
 
 :root {
@@ -104,26 +154,29 @@
 .dark {
   /* Inverted rich Nordic-charcoal theme to pair with the cream */
   --background: oklch(0.21 0.01 65);
-  --foreground: oklch(0.96 0.02 104 1);
+  --foreground: #f8fafc;
+  /* Much brighter white */
   --card: oklch(0.25 0.01 65);
-  --card-foreground: oklch(0.962 0.012 75.3);
+  --card-foreground: #f8fafc;
   --popover: oklch(0.25 0.01 65);
-  --popover-foreground: oklch(0.962 0.012 75.3);
+  --popover-foreground: #f8fafc;
 
-  --primary: oklch(0.962 0.012 75.3);
+  --primary: #f8fafc;
   --primary-foreground: oklch(0.21 0.01 65);
 
   --secondary: oklch(0.32 0.01 65);
-  --secondary-foreground: oklch(0.962 0.012 75.3);
+  --secondary-foreground: #f8fafc;
   --muted: oklch(0.32 0.01 65);
-  --muted-foreground: oklch(0.68 0.01 70);
+  --muted-foreground: #cbd5e1;
+  /* Much lighter muted text (Slate 300) */
   --accent: oklch(0.32 0.01 65);
-  --accent-foreground: oklch(0.962 0.012 75.3);
+  --accent-foreground: #f8fafc;
 
   --destructive: oklch(0.5 0.2 25);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.85 0.01 75);
+  --border: rgba(255, 255, 255, 0.35);
+  /* 35% opacity white for highly visible borders */
+  --input: rgba(255, 255, 255, 0.35);
+  --ring: #f8fafc;
 
   /* High contrast neon-earth charts for dark mode visibility */
   --chart-1: oklch(0.68 0.15 45);
@@ -142,19 +195,71 @@
   --sidebar-ring: oklch(0.85 0.01 75);
 }
 
+.light {
+  /* Warm cream tones from the screenshot */
+  --background: #f5f4e2;
+  --foreground: oklch(0.252 0.009 68.2);
+  --card: oklch(0.962 0.012 75.3);
+  --card-foreground: oklch(0.252 0.009 68.2);
+  --popover: oklch(0.962 0.012 75.3);
+  --popover-foreground: oklch(0.252 0.009 68.2);
+
+  /* Primary deep charcoal from the heading/buttons */
+  --primary: oklch(0.252 0.009 68.2);
+  --primary-foreground: oklch(0.962 0.012 75.3);
+
+  /* Softer warm grays for components and states */
+  --secondary: oklch(0.887 0.011 77.2);
+  --secondary-foreground: oklch(0.252 0.009 68.2);
+  --muted: oklch(0.915 0.01 77);
+  --muted-foreground: oklch(0.512 0.011 75);
+  --accent: oklch(0.887 0.011 77.2);
+  --accent-foreground: oklch(0.252 0.009 68.2);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.85 0.01 75);
+  --input: oklch(0.85 0.01 75);
+  --ring: oklch(0.252 0.009 68.2);
+
+  /* Cozy earth-toned charts */
+  --chart-1: oklch(0.48 0.12 45);
+  --chart-2: oklch(0.62 0.14 85);
+  --chart-3: oklch(0.35 0.08 30);
+  --chart-4: oklch(0.75 0.11 92);
+  --chart-5: oklch(0.55 0.06 70);
+
+  /* Sidebar matching the clean structural layout */
+  --sidebar: oklch(0.942 0.012 75.3);
+  --sidebar-foreground: oklch(0.252 0.009 68.2);
+  --sidebar-primary: oklch(0.252 0.009 68.2);
+  --sidebar-primary-foreground: oklch(0.962 0.012 75.3);
+  --sidebar-accent: oklch(0.887 0.011 77.2);
+  --sidebar-accent-foreground: oklch(0.252 0.009 68.2);
+  --sidebar-border: oklch(0.85 0.01 75);
+  --sidebar-ring: oklch(0.252 0.009 68.2);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: "Marlin Soft SQ", sans-serif;
+    font-weight: 700;
+    /*font-size: clamp(3rem, 6vw, 5.75rem);*/
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+    /* Rendering tweaks */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
   }
+
   body {
     @apply bg-background text-foreground;
   }
-  /*.text-stroke-glow {
-    color: transparent;
-    -webkit-text-stroke: 1px hsl(var(--foreground) / 0.12);
-    filter: drop-shadow(0 0 20px hsl(var(--primary) / 0.15));
-  }*/
+
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
 }

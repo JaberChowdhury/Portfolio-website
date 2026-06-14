@@ -1,20 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ExternalLink, GitPullRequestClosed } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import Link from "next/link"
+import { ProjectCard, type Project } from "./ProjectCard"
 
-const projects = [
+const projects: Project[] = [
   {
     title: "E-Commerce Platform",
     description:
@@ -84,7 +74,7 @@ const item = {
 
 export default function ProjectsSection() {
   return (
-    <section className="relative w-full overflow-hidden py-28">
+    <section id="projects" className="relative w-full overflow-hidden py-28">
       {/* Background aura */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
@@ -125,72 +115,7 @@ export default function ProjectsSection() {
         >
           {projects.map((project, i) => (
             <motion.div key={i} variants={item}>
-              <Card className="group relative overflow-hidden border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-                {/* Soft hover glow */}
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                  <div className="absolute -top-20 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
-                </div>
-
-                <CardHeader className="space-y-3">
-                  {/* Project Title Typography */}
-                  <CardTitle className="text-xl font-semibold tracking-tight transition-colors group-hover:text-primary">
-                    {project.title}
-                  </CardTitle>
-
-                  <CardDescription className="min-h-20 leading-relaxed text-muted-foreground">
-                    {project.description}
-                  </CardDescription>
-                </CardHeader>
-
-                <CardContent className="space-y-6">
-                  {/* Tech Pills */}
-                  <div className="flex min-h-20 flex-wrap gap-2">
-                    {project.tech.map((tech, idx) => (
-                      <Badge
-                        key={idx}
-                        variant="secondary"
-                        className="rounded-full border border-border/50 bg-muted/40 px-3 py-1 text-[11px] tracking-wide"
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex items-center gap-3 pt-2">
-                    <Button
-                      // size="sm"
-                      className="rounded-full px-14 text-xs tracking-wide"
-                      // asChild
-                    >
-                      <Link
-                        href={project.live}
-                        target="_blank"
-                        className="flex items-start justify-start"
-                      >
-                        Live
-                        <ExternalLink className="ml-2 h-3.5 w-3.5" />
-                      </Link>
-                    </Button>
-
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="rounded-full border-border/60 bg-card/30 px-5 text-xs tracking-wide backdrop-blur-md"
-                      // asChild
-                    >
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        className="flex items-start justify-start"
-                      >
-                        Code
-                        <GitPullRequestClosed className="ml-2 h-3.5 w-3.5" />
-                      </a>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              <ProjectCard project={project} />
             </motion.div>
           ))}
         </motion.div>

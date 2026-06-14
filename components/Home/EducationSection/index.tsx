@@ -1,36 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
-import {
-  GraduationCap,
-  Calendar,
-  BookA as BookOpen,
-  Brain,
-  Code2,
-  Target,
-} from "lucide-react"
+import { Calendar, BookA as BookOpen, Brain, Code2, Target, GraduationCap, School } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
+import { EducationCard, type EducationCardProps } from "./EducationCard"
+import { HighlightCard, type Highlight } from "./HighlightCard"
 
-const subjects = [
-  "Data Structures",
-  "Algorithms",
-  "Discrete Mathematics",
-  "Object Oriented Programming",
-  "Database Systems",
-  "Operating Systems",
-  "Computer Networks",
-  "Software Engineering",
-]
-
-const highlights = [
+const highlights: Highlight[] = [
   {
     title: "Competitive Programming",
     icon: Code2,
@@ -51,22 +28,56 @@ const highlights = [
   },
 ]
 
-const progress = [
+const academicHistory: EducationCardProps[] = [
   {
-    label: "Current Year",
-    value: "1st",
+    title: "Bachelor of Science",
+    subtitle: "Computer Science & Engineering",
+    description: "Currently pursuing a four-year undergraduate degree while building expertise in software engineering, algorithms, competitive programming, and modern web technologies.",
+    subjects: ["Data Structures", "Algorithms", "Discrete Mathematics", "Object Oriented Programming", "Database Systems", "Operating Systems", "Computer Networks", "Software Engineering"],
+    progress: [
+      { label: "Current Year", value: "2nd Year" },
+      { label: "Current Semester", value: "3rd (of 12)" },
+      { label: "Program Length", value: "4 Years" },
+      { label: "Status", value: "2024 - Present" },
+    ],
+    icon: GraduationCap,
   },
   {
-    label: "Current Semester",
-    value: "3rd",
+    title: "Higher Secondary Certificate (HSC)",
+    subtitle: "Science Group",
+    description: "Completed higher secondary education with a strong foundation in science and mathematics.",
+    subjects: ["Physics", "Chemistry", "Higher Mathematics", "Biology", "ICT"],
+    progress: [
+      { label: "Duration", value: "2020 - 2022" },
+      { label: "Result", value: "GPA 5.00" },
+      { label: "Status", value: "Completed" },
+    ],
+    icon: BookOpen,
   },
   {
-    label: "Program Length",
-    value: "4 Years",
+    title: "Secondary School Certificate (SSC)",
+    subtitle: "Science Group",
+    description: "Completed secondary education, developing core analytical skills and a passion for technology.",
+    subjects: ["Physics", "Chemistry", "Higher Mathematics", "Biology", "General Science"],
+    progress: [
+      { label: "Duration", value: "2018 - 2020" },
+      { label: "Classes", value: "9th & 10th Grade" },
+      { label: "Result", value: "GPA 5.00" },
+      { label: "Status", value: "Completed" },
+    ],
+    icon: School,
   },
   {
-    label: "Status",
-    value: "In Progress",
+    title: "Junior School Certificate (JSC)",
+    subtitle: "General",
+    description: "Successfully completed junior high school education with academic excellence.",
+    subjects: ["Mathematics", "Science", "English", "Bengali"],
+    progress: [
+      { label: "Completion Year", value: "2018" },
+      { label: "Result", value: "GPA 5.00" },
+      { label: "Status", value: "Completed" },
+    ],
+    icon: School,
   },
 ]
 
@@ -97,7 +108,7 @@ const item = {
 
 export default function EducationSection() {
   return (
-    <section className="relative w-full overflow-hidden py-28">
+    <section id="education" className="relative w-full overflow-hidden py-28">
       {/* Background Aura */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
@@ -127,75 +138,25 @@ export default function EducationSection() {
           </p>
         </div>
 
-        {/* Main Education Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-10"
-        >
-          <Card className="overflow-hidden border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-            <CardContent className="p-8 md:p-10">
-              <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
-                {/* Left Side */}
-                <div>
-                  <div className="mb-6 flex items-center gap-4">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-border/60 bg-muted/40">
-                      <GraduationCap className="h-7 w-7 text-primary" />
-                    </div>
+        {/* Academic History Timeline */}
+        <div className="mb-20 flex flex-col gap-10">
+          {academicHistory.map((edu, index) => (
+            <motion.div
+              key={edu.title}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+            >
+              <EducationCard {...edu} />
+            </motion.div>
+          ))}
+        </div>
 
-                    <div>
-                      <h3 className="text-2xl font-semibold">
-                        Bachelor of Science
-                      </h3>
-
-                      <p className="text-muted-foreground">
-                        Computer Science & Engineering
-                      </p>
-                    </div>
-                  </div>
-
-                  <p className="max-w-2xl leading-relaxed text-muted-foreground">
-                    Currently pursuing a four-year undergraduate degree while
-                    building expertise in software engineering, algorithms,
-                    competitive programming, and modern web technologies.
-                  </p>
-
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    {subjects.map((subject) => (
-                      <Badge
-                        key={subject}
-                        variant="secondary"
-                        className="rounded-full border border-border/50 bg-muted/40 px-3 py-1"
-                      >
-                        {subject}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Right Side Stats */}
-                <div className="grid grid-cols-2 gap-4">
-                  {progress.map((item) => (
-                    <div
-                      key={item.label}
-                      className="rounded-2xl border border-border/60 bg-card/40 p-5"
-                    >
-                      <div className="text-2xl font-bold tracking-tight">
-                        {item.value}
-                      </div>
-
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        {item.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+        {/* Highlights Header */}
+        <div className="mb-10">
+          <h3 className="text-2xl font-semibold tracking-tight">Academic Focus</h3>
+        </div>
 
         {/* Highlights */}
         <motion.div
@@ -205,29 +166,11 @@ export default function EducationSection() {
           viewport={{ once: true }}
           className="grid gap-7 md:grid-cols-3"
         >
-          {highlights.map((highlight) => {
-            const Icon = highlight.icon
-
-            return (
-              <motion.div key={highlight.title} variants={item}>
-                <Card className="group h-full border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-                  <CardHeader>
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-border/60 bg-muted/40">
-                      <Icon className="h-5 w-5 text-primary" />
-                    </div>
-
-                    <CardTitle className="transition-colors group-hover:text-primary">
-                      {highlight.title}
-                    </CardTitle>
-
-                    <CardDescription className="leading-relaxed">
-                      {highlight.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              </motion.div>
-            )
-          })}
+          {highlights.map((highlight) => (
+            <motion.div key={highlight.title} variants={item}>
+              <HighlightCard highlight={highlight} />
+            </motion.div>
+          ))}
         </motion.div>
 
         {/* Timeline Footer */}
@@ -247,13 +190,13 @@ export default function EducationSection() {
                   <h4 className="font-medium">Academic Progress</h4>
 
                   <p className="text-sm text-muted-foreground">
-                    Year 1 • Semester 3 of 8 • Bachelor's Degree In Progress
+                    Year 2 • Semester 3 of 12 • Bachelor's Degree In Progress
                   </p>
                 </div>
               </div>
 
               <div className="h-2 w-full overflow-hidden rounded-full bg-muted md:w-80">
-                <div className="h-full w-[37.5%] rounded-full bg-primary" />
+                <div className="h-full w-[25%] rounded-full bg-primary" />
               </div>
             </CardContent>
           </Card>
