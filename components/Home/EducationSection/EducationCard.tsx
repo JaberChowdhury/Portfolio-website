@@ -36,7 +36,9 @@ export function EducationCard({
               </div>
 
               <div>
-                <h3 className="text-2xl font-semibold">{title}</h3>
+                <h3 data-cursor="text" className="text-2xl font-semibold">
+                  {title}
+                </h3>
                 <p className="text-muted-foreground">{subtitle}</p>
               </div>
             </div>
@@ -65,7 +67,7 @@ export function EducationCard({
             {progress.map((item) => (
               <div
                 key={item.label}
-                className="rounded-2xl border border-border/60 bg-card/40 p-5 flex flex-col justify-center"
+                className="flex flex-col justify-center rounded-2xl border border-border/60 bg-card/40 p-5"
               >
                 <div className="text-2xl font-bold tracking-tight">
                   {item.value}

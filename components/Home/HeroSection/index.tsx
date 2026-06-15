@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
+import withWaveDivider from "@/components/Wavedivider"
 // import { ArrowUpRight } from "lucide-react"
 // import { Button } from "@/components/ui/button"
 // import AnimatedTextBorder from "@/components/AnimatedTextBorder"
@@ -34,7 +35,7 @@ const letterVariants = {
   },
 }
 
-export default function HeroSection() {
+export function Hero() {
   const [mouse, setMouse] = useState({
     x: 0,
     y: 0,
@@ -100,7 +101,10 @@ export default function HeroSection() {
         }}
         className="absolute inset-0 flex items-center justify-center"
       >
-        <h2 className="pointer-events-none bg-linear-to-r from-foreground/5 via-foreground/10 to-foreground/5 bg-clip-text text-[22vw] font-black tracking-[-0.08em] text-transparent select-none">
+        <h2
+          data-cursor="text"
+          className="pointer-events-none mt-50 bg-linear-to-r from-foreground/5 via-foreground/10 to-foreground/5 bg-clip-text text-[14vw] font-black tracking-[-0.08em] text-transparent select-none"
+        >
           CHOWDHURY
         </h2>
       </motion.div>
@@ -138,6 +142,7 @@ export default function HeroSection() {
           >
             {FIRST_NAME.split("").map((letter, index) => (
               <motion.span
+                data-cursor="cover"
                 key={index}
                 variants={letterVariants}
                 className="hero-title mx-2 inline-block drop-shadow-[0_0_60px_hsl(var(--primary)/0.15)]"
@@ -150,6 +155,7 @@ export default function HeroSection() {
 
         {/* Middle Name */}
         <motion.h2
+          data-cursor="text"
           initial={{
             opacity: 0,
             y: 30,
@@ -274,3 +280,7 @@ export default function HeroSection() {
     </section>
   )
 }
+
+const HeroSection = withWaveDivider(Hero)
+
+export default HeroSection

@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import DynamicWaveDivider from "@/components/Wavedivider"
+import { CustomCursor } from "@/components/customCursor/custom-cursor"
 
 export default function RootLayout({
   children,
@@ -18,8 +18,9 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
+          <CustomCursor />
           <Navbar />
-          {children}
+          <main className="mt-8">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

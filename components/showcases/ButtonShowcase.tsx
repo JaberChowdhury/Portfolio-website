@@ -40,7 +40,11 @@ export default function ButtonShowcase() {
           Button Showcase
         </h1>
         <p className="text-lg text-muted-foreground">
-          Explore all <span className="font-semibold text-foreground">{combinations.length}</span> generated combinations of button variants and sizes.
+          Explore all{" "}
+          <span className="font-semibold text-foreground">
+            {combinations.length}
+          </span>{" "}
+          generated combinations of button variants and sizes.
         </p>
       </div>
 
@@ -51,9 +55,9 @@ export default function ButtonShowcase() {
             className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm"
           >
             <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-            
+
             <div className="relative">
-              <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold capitalize tracking-tight">
+              <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight capitalize">
                 <Sparkles className="size-5 text-primary" />
                 {variant}
               </h2>
@@ -80,20 +84,21 @@ export default function ButtonShowcase() {
                         size={size}
                         className={size.includes("icon") ? "" : "min-w-[120px]"}
                       >
-                        {size.includes("icon") ? <Zap className="size-4" /> : "Button"}
+                        {size.includes("icon") ? (
+                          <Zap className="size-4" />
+                        ) : (
+                          "Button"
+                        )}
                       </Button>
 
                       {/* Optional: Show loading state or with icon for specific sizes to show off capabilities */}
-                      {!size.includes("icon") && (size === "default" || size === "lg") && (
-                        <Button
-                          variant={variant}
-                          size={size}
-                          disabled
-                        >
-                          <Loader2 className="mr-2 size-4 animate-spin" />
-                          Wait
-                        </Button>
-                      )}
+                      {!size.includes("icon") &&
+                        (size === "default" || size === "lg") && (
+                          <Button variant={variant} size={size} disabled>
+                            <Loader2 className="mr-2 size-4 animate-spin" />
+                            Wait
+                          </Button>
+                        )}
                     </div>
                   </div>
                 ))}
@@ -105,7 +110,7 @@ export default function ButtonShowcase() {
 
       {/* Code Snippets Section */}
       <div className="relative overflow-hidden rounded-2xl border bg-card p-8 shadow-sm">
-        <div className="absolute -right-20 -top-20 size-60 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute -top-20 -right-20 size-60 rounded-full bg-primary/5 blur-3xl" />
         <h2 className="mb-6 text-2xl font-bold tracking-tight">
           All Generated JSX ({combinations.length})
         </h2>

@@ -1,7 +1,15 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Calendar, BookA as BookOpen, Brain, Code2, Target, GraduationCap, School } from "lucide-react"
+import {
+  Calendar,
+  BookA as BookOpen,
+  Brain,
+  Code2,
+  Target,
+  GraduationCap,
+  School,
+} from "lucide-react"
 
 import { Card, CardContent } from "@/components/ui/card"
 import { EducationCard, type EducationCardProps } from "./EducationCard"
@@ -32,8 +40,18 @@ const academicHistory: EducationCardProps[] = [
   {
     title: "Bachelor of Science",
     subtitle: "Computer Science & Engineering",
-    description: "Currently pursuing a four-year undergraduate degree while building expertise in software engineering, algorithms, competitive programming, and modern web technologies.",
-    subjects: ["Data Structures", "Algorithms", "Discrete Mathematics", "Object Oriented Programming", "Database Systems", "Operating Systems", "Computer Networks", "Software Engineering"],
+    description:
+      "Currently pursuing a four-year undergraduate degree while building expertise in software engineering, algorithms, competitive programming, and modern web technologies.",
+    subjects: [
+      "Data Structures",
+      "Algorithms",
+      "Discrete Mathematics",
+      "Object Oriented Programming",
+      "Database Systems",
+      "Operating Systems",
+      "Computer Networks",
+      "Software Engineering",
+    ],
     progress: [
       { label: "Current Year", value: "2nd Year" },
       { label: "Current Semester", value: "3rd (of 12)" },
@@ -45,7 +63,8 @@ const academicHistory: EducationCardProps[] = [
   {
     title: "Higher Secondary Certificate (HSC)",
     subtitle: "Science Group",
-    description: "Completed higher secondary education with a strong foundation in science and mathematics.",
+    description:
+      "Completed higher secondary education with a strong foundation in science and mathematics.",
     subjects: ["Physics", "Chemistry", "Higher Mathematics", "Biology", "ICT"],
     progress: [
       { label: "Duration", value: "2020 - 2022" },
@@ -57,8 +76,15 @@ const academicHistory: EducationCardProps[] = [
   {
     title: "Secondary School Certificate (SSC)",
     subtitle: "Science Group",
-    description: "Completed secondary education, developing core analytical skills and a passion for technology.",
-    subjects: ["Physics", "Chemistry", "Higher Mathematics", "Biology", "General Science"],
+    description:
+      "Completed secondary education, developing core analytical skills and a passion for technology.",
+    subjects: [
+      "Physics",
+      "Chemistry",
+      "Higher Mathematics",
+      "Biology",
+      "General Science",
+    ],
     progress: [
       { label: "Duration", value: "2018 - 2020" },
       { label: "Classes", value: "9th & 10th Grade" },
@@ -70,7 +96,8 @@ const academicHistory: EducationCardProps[] = [
   {
     title: "Junior School Certificate (JSC)",
     subtitle: "General",
-    description: "Successfully completed junior high school education with academic excellence.",
+    description:
+      "Successfully completed junior high school education with academic excellence.",
     subjects: ["Mathematics", "Science", "English", "Bengali"],
     progress: [
       { label: "Completion Year", value: "2018" },
@@ -122,7 +149,10 @@ export default function EducationSection() {
             Education
           </p>
 
-          <h2 className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl">
+          <h2
+            data-cursor="text"
+            className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
+          >
             Learning the foundations
             <br />
             of{" "}
@@ -155,7 +185,12 @@ export default function EducationSection() {
 
         {/* Highlights Header */}
         <div className="mb-10">
-          <h3 className="text-2xl font-semibold tracking-tight">Academic Focus</h3>
+          <h3
+            data-cursor="text"
+            className="text-2xl font-semibold tracking-tight"
+          >
+            Academic Focus
+          </h3>
         </div>
 
         {/* Highlights */}

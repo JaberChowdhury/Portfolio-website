@@ -138,7 +138,10 @@ export default function CompetitiveProgrammingSection() {
             Competitive Programming
           </p>
 
-          <h2 className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl">
+          <h2
+            data-cursor="text"
+            className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
+          >
             Solving{" "}
             <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
               algorithmic challenges
@@ -169,7 +172,9 @@ export default function CompetitiveProgrammingSection() {
                   Primary Platform
                 </p>
 
-                <h3 className="mt-2 text-3xl font-semibold">Codeforces</h3>
+                <h3 data-cursor="text" className="mt-2 text-3xl font-semibold">
+                  Codeforces
+                </h3>
 
                 <p className="mt-3 max-w-xl text-muted-foreground">
                   Active competitive programmer focused on algorithms, data
@@ -210,7 +215,7 @@ export default function CompetitiveProgrammingSection() {
                 {/* Rating Graph */}
                 <div className="rounded-2xl border border-border/60 bg-card/40 p-5">
                   <div className="mb-5">
-                    <h3 className="text-lg font-semibold">
+                    <h3 data-cursor="text" className="text-lg font-semibold">
                       Rating Progression
                     </h3>
 
@@ -221,7 +226,12 @@ export default function CompetitiveProgrammingSection() {
 
                   <div className="h-[320px] w-full">
                     {isMounted && (
-                      <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                      <ResponsiveContainer
+                        width="100%"
+                        height="100%"
+                        minWidth={0}
+                        minHeight={0}
+                      >
                         <AreaChart data={ratingHistory}>
                           <defs>
                             <linearGradient

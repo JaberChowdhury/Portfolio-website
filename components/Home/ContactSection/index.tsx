@@ -89,7 +89,10 @@ export default function ContactSection() {
             Get In Touch
           </p>
 
-          <h2 className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl">
+          <h2
+            data-cursor="text"
+            className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
+          >
             Let's build something
             <br />
             <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
@@ -127,7 +130,10 @@ export default function ContactSection() {
                   Available For Opportunities
                 </Badge>
 
-                <h3 className="max-w-2xl text-3xl font-semibold tracking-tight md:text-4xl">
+                <h3
+                  data-cursor="text"
+                  className="max-w-2xl text-3xl font-semibold tracking-tight md:text-4xl"
+                >
                   Open to internships, freelance work, open-source
                   collaboration, and engineering roles.
                 </h3>

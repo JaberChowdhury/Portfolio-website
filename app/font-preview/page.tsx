@@ -1,121 +1,187 @@
-import React from "react"
+"use client"
+
+import React, { useState } from "react"
+import dynamic from "next/dynamic"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { pangrams } from "./data"
+import Loader from "./components/Loader"
+
+const CompareTab = dynamic(() => import("./components/CompareTab"), {
+  loading: () => <Loader />,
+})
+const CustomFontsTab = dynamic(() => import("./components/CustomFontsTab"), {
+  loading: () => <Loader />,
+})
+const SystemFontsTab = dynamic(() => import("./components/SystemFontsTab"), {
+  loading: () => <Loader />,
+})
+const PlaygroundTab = dynamic(() => import("./components/PlaygroundTab"), {
+  loading: () => <Loader />,
+})
+const AnalysisTab = dynamic(() => import("./components/AnalysisTab"), {
+  loading: () => <Loader />,
+})
+const TypographyMetrics = dynamic(
+  () => import("./components/TypographyMetrics"),
+  { loading: () => <Loader /> }
+)
 
 export default function FontPreviewPage() {
-  const sampleText = "The quick brown fox jumps over the lazy dog."
-  const alphabetUppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  const alphabetLowercase = "abcdefghijklmnopqrstuvwxyz"
-  const numbers = "0123456789"
-  const symbols = "!@#$%^&*()_+-=[]{}|;:',.<>/?"
+  const [activeTab, setActiveTab] = useState<
+    "compare" | "custom" | "system" | "playground" | "analysis"
+  >("compare")
+
+  const [fontSize, setFontSize] = useState(32)
+  const [fontWeight, setFontWeight] = useState(400)
+  const [sampleText, setSampleText] = useState(
+    "The quick brown fox jumps over the lazy dog."
+  )
+
+  const TabButton = ({
+    value,
+    label,
+  }: {
+    value: typeof activeTab
+    label: string
+  }) => (
+    <Button
+      variant={activeTab === value ? "default" : "secondary"}
+      onClick={() => setActiveTab(value)}
+      className="font-medium"
+    >
+      {label}
+    </Button>
+  )
 
   return (
-    <div className="container mx-auto min-h-screen px-4 py-20">
-
-      <div className="mb-12">
-        <h1 className="mb-4 text-4xl font-bold">Font Preview</h1>
-        <p className="text-muted-foreground">
-          Compare the custom fonts loaded in your project.
+    <div className="container mx-auto min-h-screen px-6 py-12">
+      {/* Header */}
+      <div className="mb-10">
+        <h1 className="mb-2 text-5xl font-bold tracking-tight">
+          Typography Playground
+        </h1>
+        <p className="text-lg text-muted-foreground">
+          Compare custom fonts against system fonts and inspect typography
+          differences.
         </p>
       </div>
 
-      <div className="grid gap-12 md:grid-cols-2">
-        {/* Marlin Font Preview */}
-        <div className="space-y-6 rounded-xl border bg-card p-6">
-          <div className="border-b pb-4">
-            <h2 className="mb-1 text-2xl font-semibold">Marlin Soft</h2>
-            <p className="text-sm text-muted-foreground">
-              Class:{" "}
-              <code className="rounded bg-muted px-1.5 py-0.5">
-                font-marlin
-              </code>
-            </p>
+      {/* Controls */}
+      <Card className="mb-10 p-6 shadow-sm">
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="space-y-2">
+            <label className="text-sm leading-none font-semibold tracking-tight">
+              Sample Text
+            </label>
+            <textarea
+              value={sampleText}
+              onChange={(e) => setSampleText(e.target.value)}
+              rows={3}
+              className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
+            />
           </div>
 
-          <div className="font-marlin space-y-8">
-            <section>
-              <h3 className="mb-2 text-sm tracking-wider text-muted-foreground uppercase">
-                Sample
-              </h3>
-              <p className="text-3xl leading-tight">{sampleText}</p>
-            </section>
-
-            <section>
-              <h3 className="mb-2 text-sm tracking-wider text-muted-foreground uppercase">
-                Weights
-              </h3>
-              <div className="space-y-2">
-                <p className="text-xl font-normal">
-                  Regular (400): {sampleText}
-                </p>
-                <p className="text-xl font-medium">
-                  Medium (500): {sampleText}
-                </p>
-                <p className="text-xl font-bold">Bold (700): {sampleText}</p>
-                <p className="text-xl font-extrabold">
-                  ExtraBold (800): {sampleText}
-                </p>
-              </div>
-            </section>
-
-            <section>
-              <h3 className="mb-2 text-sm tracking-wider text-muted-foreground uppercase">
-                Characters
-              </h3>
-              <div className="space-y-4 rounded-lg bg-muted/50 p-4 break-all">
-                <p className="text-xl">{alphabetUppercase}</p>
-                <p className="text-xl">{alphabetLowercase}</p>
-                <p className="text-xl">{numbers}</p>
-                <p className="text-xl">{symbols}</p>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        {/* ABCFont Preview */}
-        <div className="space-y-6 rounded-xl border bg-card p-6">
-          <div className="border-b pb-4">
-            <h2 className="mb-1 text-2xl font-semibold">ABC Favorit Mono</h2>
-            <p className="text-sm text-muted-foreground">
-              Class:{" "}
-              <code className="rounded bg-muted px-1.5 py-0.5">
-                font-abcfont
-              </code>
-            </p>
+          <div className="space-y-2">
+            <label className="flex justify-between text-sm leading-none font-semibold tracking-tight">
+              <span>Font Size</span>
+              <span className="text-muted-foreground">{fontSize}px</span>
+            </label>
+            <input
+              type="range"
+              min={12}
+              max={96}
+              value={fontSize}
+              onChange={(e) => setFontSize(Number(e.target.value))}
+              className="mt-2 w-full accent-primary"
+            />
           </div>
 
-          <div className="font-abcfont space-y-8">
-            <section>
-              <h3 className="mb-2 text-sm tracking-wider text-muted-foreground uppercase">
-                Sample
-              </h3>
-              <p className="text-3xl leading-tight">{sampleText}</p>
-            </section>
-
-            <section>
-              <h3 className="mb-2 text-sm tracking-wider text-muted-foreground uppercase">
-                Weights
-              </h3>
-              <div className="space-y-2">
-                <p className="text-xl font-normal">
-                  Regular (400): {sampleText}
-                </p>
-                <p className="text-xl font-bold">Bold (700): {sampleText}</p>
-              </div>
-            </section>
-
-            <section>
-              <h3 className="mb-2 text-sm tracking-wider text-muted-foreground uppercase">
-                Characters
-              </h3>
-              <div className="space-y-4 rounded-lg bg-muted/50 p-4 break-all">
-                <p className="text-xl">{alphabetUppercase}</p>
-                <p className="text-xl">{alphabetLowercase}</p>
-                <p className="text-xl">{numbers}</p>
-                <p className="text-xl">{symbols}</p>
-              </div>
-            </section>
+          <div className="space-y-2">
+            <label className="text-sm leading-none font-semibold tracking-tight">
+              Font Weight
+            </label>
+            <select
+              value={fontWeight}
+              onChange={(e) => setFontWeight(Number(e.target.value))}
+              className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background focus:ring-1 focus:ring-ring focus:outline-none"
+            >
+              <option value={100}>Thin</option>
+              <option value={200}>Extra Light</option>
+              <option value={300}>Light</option>
+              <option value={400}>Regular</option>
+              <option value={500}>Medium</option>
+              <option value={600}>SemiBold</option>
+              <option value={700}>Bold</option>
+              <option value={800}>ExtraBold</option>
+              <option value={900}>Black</option>
+            </select>
           </div>
         </div>
+
+        {/* Pangrams */}
+        <div className="mt-6 flex flex-wrap gap-2">
+          {pangrams.map((pangram) => (
+            <Button
+              key={pangram}
+              variant="outline"
+              size="sm"
+              onClick={() => setSampleText(pangram)}
+            >
+              Use Pangram
+            </Button>
+          ))}
+        </div>
+      </Card>
+
+      {/* Tabs */}
+      <div className="mb-8 flex flex-wrap gap-2">
+        <TabButton value="compare" label="Compare" />
+        <TabButton value="custom" label="Custom Fonts" />
+        <TabButton value="system" label="System Fonts" />
+        <TabButton value="playground" label="Weights Playground" />
+        <TabButton value="analysis" label="Glyphs Analysis" />
       </div>
+
+      {/* Dynamic Tabs Rendering */}
+      {activeTab === "compare" && (
+        <CompareTab
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sampleText={sampleText}
+        />
+      )}
+      {activeTab === "custom" && (
+        <CustomFontsTab
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sampleText={sampleText}
+        />
+      )}
+      {activeTab === "system" && (
+        <SystemFontsTab
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sampleText={sampleText}
+        />
+      )}
+      {activeTab === "playground" && (
+        <PlaygroundTab
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sampleText={sampleText}
+        />
+      )}
+      {activeTab === "analysis" && (
+        <AnalysisTab
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sampleText={sampleText}
+        />
+      )}
+
+      {/* Typography Metrics */}
+      <TypographyMetrics fontSize={fontSize} fontWeight={fontWeight} />
     </div>
   )
 }

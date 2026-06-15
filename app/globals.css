@@ -103,6 +103,31 @@
   --radius-4xl: calc(var(--radius) * 2.6);
   /* --font-heading: "Marlin Soft", var(--font-sans);
   --font-sans: "Marlin Soft", var(--font-sans); */
+  --animate-gradient: gradient 8s linear infinite;
+
+  @keyframes gradient {
+    to {
+      background-position: var(--bg-size, 300%) 0;
+    }
+  }
+
+  --animate-meteor: meteor 5s linear infinite;
+
+  @keyframes meteor {
+    0% {
+      transform: rotate(var(--angle)) translateX(0);
+      opacity: 1;
+    }
+
+    70% {
+      opacity: 1;
+    }
+
+    100% {
+      transform: rotate(var(--angle)) translateX(-500px);
+      opacity: 0;
+    }
+  }
 }
 
 :root {
@@ -242,20 +267,27 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    font-family: "Marlin Soft SQ", sans-serif;
-    font-weight: 700;
-    /*font-size: clamp(3rem, 6vw, 5.75rem);*/
-    line-height: 0.94;
-    letter-spacing: -0.045em;
-    /* Rendering tweaks */
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     margin: 0;
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0);
   }
 
   body {
     @apply bg-background text-foreground;
+    font-family: "Marlin Soft", sans-serif;
+    font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   html {

@@ -6,11 +6,13 @@ import ButtonShowcase from "@/components/showcases/ButtonShowcase"
 import BadgeShowcase from "@/components/showcases/BadgeShowcase"
 import CardShowcase from "@/components/showcases/CardShowcase"
 import { Layers } from "lucide-react"
+import FontPreviewPage from "../font-preview/page"
 
 const TABS = [
   { id: "button", label: "Button", component: ButtonShowcase },
   { id: "badge", label: "Badge", component: BadgeShowcase },
   { id: "card", label: "Card", component: CardShowcase },
+  { id: "font", label: "Font Preview", component: FontPreviewPage },
 ] as const
 
 export default function UIPage() {
@@ -19,19 +21,23 @@ export default function UIPage() {
   return (
     <div className="container mx-auto min-h-screen px-4 py-20">
       <div className="mb-12">
-        <h1 className="mb-4 flex items-center gap-3 text-4xl font-bold tracking-tight">
+        <h1
+          data-cursor="text"
+          className="mb-4 flex items-center gap-3 text-4xl font-bold tracking-tight"
+        >
           <Layers className="size-10 text-primary" />
           Design System
         </h1>
         <p className="text-xl text-muted-foreground">
-          A comprehensive showcase of all UI components, variants, and configurations used in the project.
+          A comprehensive showcase of all UI components, variants, and
+          configurations used in the project.
         </p>
       </div>
 
       <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
         {/* Navigation Sidebar */}
-        <aside className="md:sticky md:top-24 md:w-64 shrink-0">
-          <nav className="flex flex-row space-x-2 overflow-x-auto pb-4 md:flex-col md:space-x-0 md:space-y-2 md:pb-0">
+        <aside className="shrink-0 md:sticky md:top-24 md:w-64">
+          <nav className="flex flex-row space-x-2 overflow-x-auto pb-4 md:flex-col md:space-y-2 md:space-x-0 md:pb-0">
             {TABS.map((tab) => (
               <button
                 key={tab.id}

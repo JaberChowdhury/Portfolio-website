@@ -1,0 +1,37 @@
+body,
+a,
+button,
+input,
+textarea,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+[data-cursor] {
+  cursor: none !important;
+}
+
+/* 2. Text State Morphing */
+body[data-cursor-state="text"] #cursor-outline {
+  width: 4px !important;
+  height: 32px !important;
+  border-radius: 2px !important;
+  background-color: hsl(var(--foreground)) !important;
+  border-color: transparent !important;
+}
+body[data-cursor-state="text"] #cursor-dot {
+  opacity: 10 !important;
+}
+
+/* 3. Component Cover State Morphing */
+body[data-cursor-state="cover"] #cursor-outline {
+  /* Subtle overlay using shadcn's foreground variable */
+  background-color: hsl(var(--foreground) / 0.1) !important;
+  border-color: hsl(var(--foreground) / 0.2) !important;
+}
+body[data-cursor-state="cover"] #cursor-dot {
+  opacity: 0 !important;
+}

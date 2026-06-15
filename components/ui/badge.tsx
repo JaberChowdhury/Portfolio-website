@@ -38,6 +38,7 @@ function Badge({
     props: mergeProps<"span">(
       {
         className: cn(badgeVariants({ variant }), className),
+        ["data-cursor" as string]: "cover", // ← Fix: Computed property with string cast
       },
       props
     ),

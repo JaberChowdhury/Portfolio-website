@@ -72,7 +72,10 @@ export default function ExperienceSection() {
             Professional History
           </p>
 
-          <h2 className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl">
+          <h2
+            data-cursor="text"
+            className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
+          >
             Building products,
             <br />
             contributing to{" "}

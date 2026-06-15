@@ -90,7 +90,10 @@ export default function ProjectsSection() {
           </p>
 
           {/* Big Typographic Title */}
-          <h2 className="text-4xl leading-[1.05] font-semibold tracking-tight text-foreground md:text-6xl">
+          <h2
+            data-cursor="text"
+            className="text-4xl leading-[1.05] font-semibold tracking-tight text-foreground md:text-6xl"
+          >
             Crafting{" "}
             <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
               digital systems
