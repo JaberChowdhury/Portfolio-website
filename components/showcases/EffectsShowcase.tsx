@@ -24,7 +24,7 @@ export default function EffectsShowcase() {
 
       <div className="grid gap-8 md:grid-cols-2">
         {/* Animated Gradient Text */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm md:col-span-2">
+        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md md:col-span-2 dark:bg-card/50 dark:backdrop-blur-sm">
           <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
           <div className="relative">
             <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">
@@ -33,7 +33,9 @@ export default function EffectsShowcase() {
             </h2>
             <div className="flex flex-col gap-12 md:flex-row md:items-center md:justify-around">
               <div className="flex flex-col items-center gap-4">
-                <p className="text-sm text-muted-foreground">Animated Gradient Text</p>
+                <p className="text-sm text-muted-foreground">
+                  Animated Gradient Text
+                </p>
                 <div className="text-3xl font-bold">
                   <AnimatedGradientText>
                     Beautiful Gradients
@@ -43,7 +45,9 @@ export default function EffectsShowcase() {
               <div className="flex flex-col items-center gap-4">
                 <p className="text-sm text-muted-foreground">Word Rotate</p>
                 <div className="text-3xl font-bold">
-                  <WordRotate words={["Interactive", "Dynamic", "Engaging", "Beautiful"]} />
+                  <WordRotate
+                    words={["Interactive", "Dynamic", "Engaging", "Beautiful"]}
+                  />
                 </div>
               </div>
             </div>
@@ -59,10 +63,12 @@ export default function EffectsShowcase() {
             </h2>
             <div className="flex h-[300px] flex-col gap-6">
               <MagicCard className="flex size-full cursor-pointer flex-col items-center justify-center shadow-2xl">
-                <p className="z-10 whitespace-nowrap text-4xl font-medium text-foreground">
+                <p className="z-10 text-4xl font-medium whitespace-nowrap text-foreground">
                   Magic Card
                 </p>
-                <p className="z-10 mt-2 text-sm text-muted-foreground">Hover over me</p>
+                <p className="z-10 mt-2 text-sm text-muted-foreground">
+                  Hover over me
+                </p>
               </MagicCard>
             </div>
           </div>
@@ -77,7 +83,7 @@ export default function EffectsShowcase() {
             </h2>
             <div className="relative flex h-[300px] flex-col items-center justify-center overflow-hidden rounded-xl border bg-background">
               <Meteors number={20} />
-              <p className="z-10 whitespace-nowrap text-3xl font-medium text-foreground">
+              <p className="z-10 text-3xl font-medium whitespace-nowrap text-foreground">
                 Meteors
               </p>
             </div>
@@ -85,14 +91,14 @@ export default function EffectsShowcase() {
         </div>
 
         {/* Globe */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm md:col-span-2">
+        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md md:col-span-2 dark:bg-card/50 dark:backdrop-blur-sm">
           <div className="relative">
             <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">
               <Sparkles className="size-5 text-primary" />
               Interactive Globe
             </h2>
             <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-xl border bg-background pb-40">
-              <span className="pointer-events-none whitespace-nowrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-5xl leading-none font-semibold text-transparent dark:from-white dark:to-slate-900/10">
+              <span className="pointer-events-none bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-5xl leading-none font-semibold whitespace-nowrap text-transparent dark:from-white dark:to-slate-900/10">
                 Global Reach
               </span>
               <Globe className="top-28" />

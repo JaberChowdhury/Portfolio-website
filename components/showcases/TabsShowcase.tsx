@@ -1,11 +1,6 @@
 "use client"
 
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Layout } from "lucide-react"
 
 export default function TabsShowcase() {
@@ -73,15 +68,9 @@ export default function TabsShowcase() {
                   <TabsTrigger value="tab3">Reports</TabsTrigger>
                 </TabsList>
                 <div className="mt-4 rounded-md border p-4 text-sm text-muted-foreground">
-                  <TabsContent value="tab1">
-                    Overview of your data.
-                  </TabsContent>
-                  <TabsContent value="tab2">
-                    Detailed analytics.
-                  </TabsContent>
-                  <TabsContent value="tab3">
-                    Downloadable reports.
-                  </TabsContent>
+                  <TabsContent value="tab1">Overview of your data.</TabsContent>
+                  <TabsContent value="tab2">Detailed analytics.</TabsContent>
+                  <TabsContent value="tab3">Downloadable reports.</TabsContent>
                 </div>
               </Tabs>
             </div>
@@ -89,7 +78,7 @@ export default function TabsShowcase() {
         </div>
 
         {/* Vertical Tabs */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm md:col-span-2">
+        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md md:col-span-2 dark:bg-card/50 dark:backdrop-blur-sm">
           <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
           <div className="relative">
             <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">
@@ -97,7 +86,11 @@ export default function TabsShowcase() {
               Vertical Tabs
             </h2>
             <div className="flex flex-col gap-6">
-              <Tabs orientation="vertical" defaultValue="tab1" className="flex gap-6">
+              <Tabs
+                orientation="vertical"
+                defaultValue="tab1"
+                className="flex gap-6"
+              >
                 <TabsList className="w-48">
                   <TabsTrigger value="tab1">Profile</TabsTrigger>
                   <TabsTrigger value="tab2">Billing</TabsTrigger>

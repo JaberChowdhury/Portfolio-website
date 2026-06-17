@@ -45,15 +45,21 @@ const item = {
 
 export default function EducationSection() {
   const t = useTranslations("Education")
-  
+
   // Need to re-attach icons since JSON doesn't store components
   const rawHighlights = t.raw("highlights") as Highlight[]
   const highlightIcons = [Code2, Brain, Target]
-  const highlights = rawHighlights.map((h, i) => ({ ...h, icon: highlightIcons[i] }))
+  const highlights = rawHighlights.map((h, i) => ({
+    ...h,
+    icon: highlightIcons[i],
+  }))
 
   const rawHistory = t.raw("history") as EducationCardProps[]
   const historyIcons = [GraduationCap, BookOpen, School, School]
-  const academicHistory = rawHistory.map((h, i) => ({ ...h, icon: historyIcons[i] }))
+  const academicHistory = rawHistory.map((h, i) => ({
+    ...h,
+    icon: historyIcons[i],
+  }))
 
   return (
     <section id="education" className="relative w-full overflow-hidden py-28">

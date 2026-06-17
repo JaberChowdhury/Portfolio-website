@@ -40,9 +40,7 @@ export default function UIPage() {
           <Layers className="size-10 text-primary" />
           {t("title")}
         </h1>
-        <p className="text-xl text-muted-foreground">
-          {t("description")}
-        </p>
+        <p className="text-xl text-muted-foreground">{t("description")}</p>
       </div>
 
       <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
@@ -67,7 +65,9 @@ export default function UIPage() {
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
                 )}
-                <span className="relative z-10">{t(`tabs.${tab.id}` as any)}</span>
+                <span className="relative z-10">
+                  {t(`tabs.${tab.id}` as any)}
+                </span>
               </button>
             ))}
           </nav>

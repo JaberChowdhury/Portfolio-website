@@ -299,9 +299,7 @@ export default function CompetitiveProgrammingSection() {
               <CardHeader>
                 <CardTitle>{t("toolbox.title")}</CardTitle>
 
-                <CardDescription>
-                  {t("toolbox.description")}
-                </CardDescription>
+                <CardDescription>{t("toolbox.description")}</CardDescription>
               </CardHeader>
 
               <CardContent>

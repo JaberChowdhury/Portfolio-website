@@ -1,24 +1,28 @@
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface SkeletonCardProps {
-  viewMode: "grid" | "list";
+  viewMode: "grid" | "list"
 }
 
 export function SkeletonCard({ viewMode }: SkeletonCardProps) {
-  const isList = viewMode === "list";
+  const isList = viewMode === "list"
 
   return (
-    <Card className={`flex h-full overflow-hidden ${isList ? "flex-col md:flex-row items-center" : "flex-col"}`}>
+    <Card
+      className={`flex h-full overflow-hidden ${isList ? "flex-col items-center md:flex-row" : "flex-col"}`}
+    >
       <CardHeader className={`w-full ${isList ? "md:w-1/3" : ""}`}>
-        <div className="flex items-center justify-between mb-2">
+        <div className="mb-2 flex items-center justify-between">
           <Skeleton className="h-4 w-16" />
           <Skeleton className="h-4 w-4" />
         </div>
         <Skeleton className="h-6 w-3/4" />
       </CardHeader>
 
-      <CardContent className={`w-full flex-grow space-y-4 ${isList ? "md:w-2/3 md:pt-6" : ""}`}>
+      <CardContent
+        className={`w-full flex-grow space-y-4 ${isList ? "md:w-2/3 md:pt-6" : ""}`}
+      >
         <div className="space-y-2">
           <Skeleton className="h-4 w-full" />
           <Skeleton className="h-4 w-5/6" />
@@ -30,10 +34,12 @@ export function SkeletonCard({ viewMode }: SkeletonCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className={`w-full flex items-center justify-between border-t border-border/50 bg-muted/20 px-6 py-4 ${isList ? "md:w-auto md:border-t-0 md:border-l md:flex-col md:justify-center md:gap-2" : ""}`}>
+      <CardFooter
+        className={`flex w-full items-center justify-between border-t border-border/50 bg-muted/20 px-6 py-4 ${isList ? "md:w-auto md:flex-col md:justify-center md:gap-2 md:border-t-0 md:border-l" : ""}`}
+      >
         <Skeleton className="h-4 w-20" />
         <Skeleton className="h-3 w-24" />
       </CardFooter>
     </Card>
-  );
+  )
 }

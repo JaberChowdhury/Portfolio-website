@@ -60,12 +60,8 @@ export default function FontPreviewPage() {
     <div className="container mx-auto min-h-screen px-6 py-12">
       {/* Header */}
       <div className="mb-10">
-        <h1 className="mb-2 text-5xl font-bold tracking-tight">
-          {t("title")}
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          {t("description")}
-        </p>
+        <h1 className="mb-2 text-5xl font-bold tracking-tight">{t("title")}</h1>
+        <p className="text-lg text-muted-foreground">{t("description")}</p>
       </div>
 
       {/* Controls */}

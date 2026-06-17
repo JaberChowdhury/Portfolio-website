@@ -139,7 +139,7 @@ export default function Footer() {
               ))}
               <Link
                 href="/dungeon"
-                className="group relative w-fit mt-2 overflow-hidden rounded-md border border-primary/30 bg-primary/5 px-3 py-1 text-sm font-medium transition-colors hover:border-primary/60 hover:bg-primary/10"
+                className="group relative mt-2 w-fit overflow-hidden rounded-md border border-primary/30 bg-primary/5 px-3 py-1 text-sm font-medium transition-colors hover:border-primary/60 hover:bg-primary/10"
               >
                 <AnimatedGradientText
                   colorFrom="hsl(var(--destructive))"
@@ -161,8 +161,7 @@ export default function Footer() {
 
             <div className="space-y-4">
               <Link
-                href="https://github.com/YOUR_USERNAME"
-                target="_blank"
+                href="/projects"
                 className="group flex items-center justify-between rounded-xl border border-border p-4 transition-all hover:border-foreground/30 hover:shadow-sm"
               >
                 <div className="flex items-center gap-3">
@@ -213,14 +212,17 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col items-center justify-between gap-4 border-t border-border py-8 text-sm text-muted-foreground md:flex-row">
           <div className="flex items-center gap-4">
-            <p>© {new Date().getFullYear()} {t("Footer.yourName")}. {t("Footer.rights")}.</p>
+            <p>
+              © {new Date().getFullYear()} {t("Footer.yourName")}.{" "}
+              {t("Footer.rights")}.
+            </p>
           </div>
-          
+
           <div className="flex items-center gap-4">
             <p>{t("Footer.builtWith")}</p>
             <div className="flex items-center gap-2 border-l border-border pl-4">
-               <span>{t("Footer.language")}</span>
-               <LanguageToggle />
+              <span>{t("Footer.language")}</span>
+              <LanguageToggle />
             </div>
           </div>
         </div>

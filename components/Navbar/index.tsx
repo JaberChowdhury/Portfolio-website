@@ -47,7 +47,7 @@ const Navbar = () => {
               JABER
             </div>
             <span
-              className={`font-sans text-4xl font-bold tracking-tight text-foreground ${playwrite_AR_Guides.className} hidden md:block`}
+              className={`preserve-design font-sans text-4xl font-bold tracking-tight text-foreground ${playwrite_AR_Guides.className} hidden md:block`}
             >
               Jaber.dev
             </span>

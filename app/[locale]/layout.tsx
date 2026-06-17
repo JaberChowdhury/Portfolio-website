@@ -12,6 +12,7 @@ import {
 } from "next-intl/server"
 import { routing } from "@/i18n/routing"
 import { notFound } from "next/navigation"
+import NextTopLoader from "nextjs-toploader"
 
 export async function generateMetadata({
   params,
@@ -24,7 +25,7 @@ export async function generateMetadata({
   return {
     title: {
       default: t("title"),
-      template: "%s | Jaber Chowdhury"
+      template: "%s | Jaber Chowdhury",
     },
     description: t("description"),
     metadataBase: new URL("https://jaber.dev"),
@@ -88,6 +89,7 @@ export default async function RootLayout({
       )}
     >
       <body>
+        <NextTopLoader color="var(--primary)" showSpinner={false} />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             {/* <CustomCursor /> */}

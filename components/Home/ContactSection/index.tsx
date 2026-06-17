@@ -50,20 +50,23 @@ const item = {
 
 export default function ContactSection() {
   const t = useTranslations("Contact")
-  
+
   // Map icons for socials
-  const rawSocials = t.raw("socials") as { title: string, description: string }[]
+  const rawSocials = t.raw("socials") as {
+    title: string
+    description: string
+  }[]
   const socialIcons = [Github, Trophy, Linkedin, Mail]
   const socialLinks = [
     "https://github.com/YOUR_USERNAME",
     "https://codeforces.com/profile/YOUR_HANDLE",
     "https://linkedin.com/in/YOUR_USERNAME",
-    "mailto:your@email.com"
+    "mailto:your@email.com",
   ]
-  const socials = rawSocials.map((social, i) => ({ 
-    ...social, 
+  const socials = rawSocials.map((social, i) => ({
+    ...social,
     icon: socialIcons[i],
-    href: socialLinks[i]
+    href: socialLinks[i],
   }))
 
   return (

@@ -16,19 +16,23 @@ export function LanguageToggle() {
   }
 
   return (
-    <div className="relative flex w-[100px] items-center rounded-full bg-muted/50 p-1 backdrop-blur-sm border border-border/50 shadow-inner">
+    <div className="relative flex w-[100px] items-center rounded-full border border-border/50 bg-muted/50 p-1 shadow-inner backdrop-blur-sm">
       <button
         onClick={() => toggleLanguage("en")}
-        className={`relative z-10 w-1/2 rounded-full py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors duration-300 ${
-          locale === "en" ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+        className={`relative z-10 w-1/2 rounded-full py-1.5 text-xs font-semibold tracking-wider uppercase transition-colors duration-300 ${
+          locale === "en"
+            ? "text-primary-foreground"
+            : "text-muted-foreground hover:text-foreground"
         }`}
       >
         EN
       </button>
       <button
         onClick={() => toggleLanguage("bn")}
-        className={`relative z-10 w-1/2 rounded-full py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors duration-300 ${
-          locale === "bn" ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+        className={`relative z-10 w-1/2 rounded-full py-1.5 text-xs font-semibold tracking-wider uppercase transition-colors duration-300 ${
+          locale === "bn"
+            ? "text-primary-foreground"
+            : "text-muted-foreground hover:text-foreground"
         }`}
       >
         BN

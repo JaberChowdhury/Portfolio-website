@@ -110,7 +110,7 @@ export default function AvatarShowcase() {
         </div>
 
         {/* Avatar Groups */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm xl:col-span-3">
+        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md xl:col-span-3 dark:bg-card/50 dark:backdrop-blur-sm">
           <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
           <div className="relative">
             <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">

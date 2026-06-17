@@ -1,4 +1,4 @@
-import type { Repository } from "@/lib/github";
+import type { Repository } from "@/lib/github"
 
 export const FALLBACK_REPOS: Repository[] = [
   {
@@ -128,4 +128,4 @@ export const FALLBACK_REPOS: Repository[] = [
     size: 95,
     open_issues_count: 0,
   },
-];
+]

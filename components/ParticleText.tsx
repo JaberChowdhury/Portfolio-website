@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react"
 import * as THREE from "three"
 
+import { useTheme } from "next-themes"
+
 export interface ParticleTextProps {
   text: string
 
@@ -40,28 +42,50 @@ export interface ParticleTextProps {
 function resolveCssColor(color?: string, fallback = "#000000") {
   if (!color) return fallback
 
-  if (color.startsWith("var(")) {
-    const variableName = color.slice(4, -1).trim()
+  if (typeof window !== "undefined") {
+    let cssValue = color
 
-    if (typeof window !== "undefined") {
+    if (color.startsWith("var(")) {
+      const variableName = color.slice(4, -1).trim()
       const value = getComputedStyle(document.documentElement)
         .getPropertyValue(variableName)
         .trim()
 
       if (value) {
-        if (
-          value.startsWith("#") ||
-          value.startsWith("rgb") ||
-          value.startsWith("hsl")
-        ) {
-          return value
-        }
-
-        return `hsl(${value})`
+        cssValue =
+          value.startsWith("#") || value.includes("(") ? value : `hsl(${value})`
+      } else {
+        cssValue = fallback
       }
     }
 
-    return fallback
+    try {
+      const canvas = document.createElement("canvas")
+      canvas.width = 1
+      canvas.height = 1
+      const ctx = canvas.getContext("2d", { willReadFrequently: true })
+      if (ctx) {
+        ctx.fillStyle = cssValue
+        ctx.fillRect(0, 0, 1, 1)
+        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data
+        // If it's fully transparent black (default failure case), return fallback
+        if (
+          r === 0 &&
+          g === 0 &&
+          b === 0 &&
+          cssValue !== "black" &&
+          cssValue !== "#000" &&
+          cssValue !== "#000000" &&
+          cssValue !== "rgb(0,0,0)"
+        ) {
+          const alpha = ctx.getImageData(0, 0, 1, 1).data[3]
+          if (alpha === 0) return fallback
+        }
+        return `rgb(${r}, ${g}, ${b})`
+      }
+    } catch (e) {
+      console.error("Color parsing failed", e)
+    }
   }
 
   return color
@@ -101,6 +125,8 @@ export default function ParticleText({
   className,
 }: ParticleTextProps) {
   const mountRef = useRef<HTMLDivElement>(null)
+  const { theme, systemTheme } = useTheme()
+  const currentTheme = theme === "system" ? systemTheme : theme
 
   useEffect(() => {
     const container = mountRef.current
@@ -239,7 +265,7 @@ export default function ParticleText({
       vertexColors: true,
       transparent: true,
       opacity: particleOpacity,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
     })
 
     const points = new THREE.Points(geometry, material)
@@ -398,6 +424,7 @@ export default function ParticleText({
     explodeForceZ,
     explosionDecay,
     springForce,
+    currentTheme,
   ])
 
   return (

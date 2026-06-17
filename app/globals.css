@@ -316,15 +316,19 @@
     line-height: 1.9 !important;
   }
 
-  html[lang="bn"] * {
+  html[lang="bn"] *:not(.preserve-design) {
     letter-spacing: normal !important;
     text-rendering: auto !important;
   }
-  html[lang="bn"] .bg-clip-text {
+  html[lang="bn"] .bg-clip-text:not(.preserve-design) {
     background-clip: border-box !important;
     -webkit-background-clip: border-box !important;
     -webkit-text-fill-color: currentcolor !important;
     color: var(--primary) !important;
     background-image: none !important;
+  }
+
+  html[lang="bn"] > .last-name {
+    display: none;
   }
 }
