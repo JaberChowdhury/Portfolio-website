@@ -1,0 +1,329 @@
+{
+  "Navigation": {
+    "projects": "Projects",
+    "programming": "Programming",
+    "education": "Education",
+    "experience": "Experience",
+    "contact": "Contact",
+    "dungeon": "Dungeon",
+    "ui": "Design System",
+    "fontPreview": "Typography"
+  },
+  "Navbar": {
+    "letsTalk": "Let's Talk"
+  },
+  "Footer": {
+    "rights": "All rights reserved",
+    "language": "Language",
+    "finalDestination": "Final Destination",
+    "title1": "Let's create",
+    "title2": "something ",
+    "title3": "remarkable",
+    "title4": ".",
+    "description": "Software engineering, competitive programming, open-source collaboration, and meaningful technical challenges — my inbox is always open.",
+    "startConversation": "Start a Conversation",
+    "yourName": "Jaber Chowdhury",
+    "bio": "Full Stack Engineer, Competitive Programmer, and builder of performant digital systems.",
+    "navigation": "Navigation",
+    "connect": "Connect",
+    "builtWith": "Built with Next.js, TypeScript, Tailwind CSS & Framer Motion.",
+    "dungeon": "Dungeon"
+  },
+  "Home": {
+    "title": "Welcome to my portfolio",
+    "description": "I build things for the web."
+  },
+  "Hero": {
+    "available": "Available For Work",
+    "description": "Frontend and Backend programmer crafting immersive digital experiences through modern web technologies, thoughtful systems design, and interactions that feel effortless.",
+    "tag1": "Frontend Developer",
+    "tag2": "UI Architect",
+    "tag3": "Motion Enthusiast"
+  },
+  "Metadata": {
+    "title": "Jaber Chowdhury - Full Stack Developer",
+    "description": "Portfolio of Jaber Chowdhury, a Full Stack Developer specializing in React, Next.js, and modern web technologies."
+  },
+  "Projects": {
+    "eyebrow": "Selected Work",
+    "title1": "Crafting ",
+    "title2": "digital systems",
+    "title3": "that feel alive.",
+    "description": "A curated set of engineering-focused projects emphasizing performance, scalable architecture, and refined UI motion design.",
+    "items": [
+      {
+        "title": "E-Commerce Platform",
+        "description": "A production-ready commerce system with seamless checkout flows, authentication, and scalable backend architecture.",
+        "tech": ["Next.js", "TypeScript", "Prisma", "Stripe"]
+      },
+      {
+        "title": "AI Chat Interface",
+        "description": "Realtime streaming AI chat experience with persistent memory, modern UI state handling, and smooth transitions.",
+        "tech": ["Next.js", "OpenAI API", "Tailwind", "PostgreSQL"]
+      },
+      {
+        "title": "Portfolio System",
+        "description": "A motion-driven personal portfolio with layered typography, micro-interactions, and responsive design system.",
+        "tech": ["Next.js", "Framer Motion", "Tailwind"]
+      },
+      {
+        "title": "E-Commerce Platform",
+        "description": "A production-ready commerce system with seamless checkout flows, authentication, and scalable backend architecture.",
+        "tech": ["Next.js", "TypeScript", "Prisma", "Stripe"]
+      },
+      {
+        "title": "AI Chat Interface",
+        "description": "Realtime streaming AI chat experience with persistent memory, modern UI state handling, and smooth transitions.",
+        "tech": ["Next.js", "OpenAI API", "Tailwind", "PostgreSQL"]
+      },
+      {
+        "title": "Portfolio System",
+        "description": "A motion-driven personal portfolio with layered typography, micro-interactions, and responsive design system.",
+        "tech": ["Next.js", "Framer Motion", "Tailwind"]
+      }
+    ]
+  },
+  "Experience": {
+    "eyebrow": "Professional History",
+    "title1": "Building products,",
+    "title2": "contributing to ",
+    "title3": "engineering communities",
+    "description": "A timeline of internships, engineering experiences, open-source contributions, and technical leadership roles.",
+    "items": [
+      {
+        "role": "Software Engineer Intern",
+        "company": "Tech Company",
+        "period": "2025 — Present",
+        "description": "Building scalable web applications using Next.js, TypeScript, and modern backend infrastructure. Focused on performance optimization and developer experience.",
+        "tech": ["Next.js", "TypeScript", "PostgreSQL", "Docker"]
+      },
+      {
+        "role": "Open Source Contributor",
+        "company": "GitHub",
+        "period": "2024 — Present",
+        "description": "Contributed to open-source projects, improved documentation, fixed issues, and collaborated with maintainers across multiple repositories.",
+        "tech": ["Git", "Open Source", "CI/CD", "Node.js"]
+      },
+      {
+        "role": "Competitive Programming Mentor",
+        "company": "Programming Community",
+        "period": "2023 — Present",
+        "description": "Guided aspiring programmers in algorithms, data structures, contest preparation, and problem-solving strategies.",
+        "tech": ["Algorithms", "Data Structures", "Codeforces"]
+      }
+    ]
+  },
+  "Education": {
+    "eyebrow": "Education",
+    "title1": "Learning the foundations",
+    "title2": "of ",
+    "title3": "computer science",
+    "description": "Pursuing a bachelor's degree while actively developing practical software engineering skills and competitive programming expertise.",
+    "academicFocus": "Academic Focus",
+    "progressTitle": "Academic Progress",
+    "progressDesc": "Year 2 • Semester 3 of 12 • Bachelor's Degree In Progress",
+    "highlights": [
+      {
+        "title": "Competitive Programming",
+        "description": "Actively solving algorithmic problems and participating in programming contests alongside academic studies."
+      },
+      {
+        "title": "Problem Solving",
+        "description": "Developing analytical thinking through data structures, algorithms, and mathematical reasoning."
+      },
+      {
+        "title": "Engineering Growth",
+        "description": "Focused on becoming a well-rounded software engineer through projects, learning, and practical experience."
+      }
+    ],
+    "history": [
+      {
+        "title": "Bachelor of Science",
+        "subtitle": "Computer Science & Engineering",
+        "description": "Currently pursuing a four-year undergraduate degree while building expertise in software engineering, algorithms, competitive programming, and modern web technologies.",
+        "subjects": [
+          "Data Structures", "Algorithms", "Discrete Mathematics", "Object Oriented Programming",
+          "Database Systems", "Operating Systems", "Computer Networks", "Software Engineering"
+        ],
+        "progress": [
+          { "label": "Current Year", "value": "2nd Year" },
+          { "label": "Current Semester", "value": "3rd (of 12)" },
+          { "label": "Program Length", "value": "4 Years" },
+          { "label": "Status", "value": "2024 - Present" }
+        ]
+      },
+      {
+        "title": "Higher Secondary Certificate (HSC)",
+        "subtitle": "Science Group",
+        "description": "Completed higher secondary education with a strong foundation in science and mathematics.",
+        "subjects": ["Physics", "Chemistry", "Higher Mathematics", "Biology", "ICT"],
+        "progress": [
+          { "label": "Duration", "value": "2020 - 2022" },
+          { "label": "Result", "value": "GPA 5.00" },
+          { "label": "Status", "value": "Completed" }
+        ]
+      },
+      {
+        "title": "Secondary School Certificate (SSC)",
+        "subtitle": "Science Group",
+        "description": "Completed secondary education, developing core analytical skills and a passion for technology.",
+        "subjects": ["Physics", "Chemistry", "Higher Mathematics", "Biology", "General Science"],
+        "progress": [
+          { "label": "Duration", "value": "2018 - 2020" },
+          { "label": "Classes", "value": "9th & 10th Grade" },
+          { "label": "Result", "value": "GPA 5.00" },
+          { "label": "Status", "value": "Completed" }
+        ]
+      },
+      {
+        "title": "Junior School Certificate (JSC)",
+        "subtitle": "General",
+        "description": "Successfully completed junior high school education with academic excellence.",
+        "subjects": ["Mathematics", "Science", "English", "Bengali"],
+        "progress": [
+          { "label": "Completion Year", "value": "2018" },
+          { "label": "Result", "value": "GPA 5.00" },
+          { "label": "Status", "value": "Completed" }
+        ]
+      }
+    ]
+  },
+  "Technology": {
+    "eyebrow": "Technology Stack",
+    "title1": "Tools of the ",
+    "title2": "trade.",
+    "description": "A diverse ecosystem of languages, frameworks, and infrastructure tools I use to build scalable, high-performance applications.",
+    "backgroundText": "TECH STACK"
+  },
+  "CompetitiveProgramming": {
+    "eyebrow": "Competitive Programming",
+    "title1": "Solving ",
+    "title2": "algorithmic challenges",
+    "title3": "with speed and precision.",
+    "description": "Competitive programming sharpened my analytical thinking, optimization mindset, and ability to solve complex problems under pressure.",
+    "codeforces": {
+      "eyebrow": "Primary Platform",
+      "name": "Codeforces",
+      "description": "Active competitive programmer focused on algorithms, data structures, optimization, and contest problem solving.",
+      "viewProfile": "View Profile"
+    },
+    "graph": {
+      "title": "Rating Progression",
+      "description": "Growth trajectory across competitive programming contests."
+    },
+    "toolbox": {
+      "title": "Algorithm Toolbox",
+      "description": "Core concepts frequently used during contests and advanced problem solving."
+    },
+    "stats": [
+      { "label": "Codeforces Rating", "value": "1700+" },
+      { "label": "Problems Solved", "value": "1500+" },
+      { "label": "Contests", "value": "80+" },
+      { "label": "DSA Expertise", "value": "Advanced" }
+    ],
+    "achievements": [
+      {
+        "title": "Contest Experience",
+        "description": "Regular participation in rated contests with strong emphasis on speed, optimization, and problem decomposition."
+      },
+      {
+        "title": "Advanced Problem Solving",
+        "description": "Comfortable solving medium-to-hard algorithmic challenges involving graphs, DP, data structures, and mathematics."
+      },
+      {
+        "title": "Competitive Mindset",
+        "description": "Developed analytical thinking, debugging skills, and performance-focused solutions under strict time constraints."
+      }
+    ]
+  },
+  "Contact": {
+    "eyebrow": "Get In Touch",
+    "title1": "Let's build something",
+    "title2": "meaningful together",
+    "title3": ".",
+    "description": "Whether it's software engineering, competitive programming, open-source collaboration, or an exciting opportunity, I'm always interested in meaningful conversations.",
+    "available": "Available For Opportunities",
+    "openTo": "Open to internships, freelance work, open-source collaboration, and engineering roles.",
+    "ifYouHave": "If you have an interesting project, startup, or technical challenge, I'd love to hear about it.",
+    "sayHello": "Say Hello",
+    "socials": [
+      {
+        "title": "GitHub",
+        "description": "Explore projects, open-source contributions, and experiments."
+      },
+      {
+        "title": "Codeforces",
+        "description": "Competitive programming profile, ratings, and contests."
+      },
+      {
+        "title": "LinkedIn",
+        "description": "Professional experience and engineering journey."
+      },
+      {
+        "title": "Email",
+        "description": "Reach out for opportunities, collaboration, or discussion."
+      }
+    ]
+  },
+  "UI": {
+    "title": "Design System",
+    "description": "A comprehensive showcase of all UI components, variants, and configurations used in the project.",
+    "tabs": {
+      "button": "Button",
+      "badge": "Badge",
+      "card": "Card",
+      "avatar": "Avatar",
+      "input": "Input",
+      "tabs": "Tabs",
+      "select": "Select",
+      "effects": "Effects",
+      "font": "Font Preview"
+    }
+  },
+  "Dungeon": {
+    "title": "DUNGEON",
+    "description": "Welcome to the hidden navigation hub. Access internal development pages, typography previews, and illustration galleries.",
+    "links": [
+      {
+        "title": "UI Elements",
+        "description": "Explore the custom Shadcn and Tailwind component library."
+      },
+      {
+        "title": "Typography",
+        "description": "Preview custom fonts Marlin and ABC Favorit Mono."
+      },
+      {
+        "title": "Illustrations",
+        "description": "Character gallery and SVG assets dictionary."
+      }
+    ]
+  },
+  "FontPreview": {
+    "title": "Typography Playground",
+    "description": "Compare custom fonts against system fonts and inspect typography differences.",
+    "controls": {
+      "sampleText": "Sample Text",
+      "fontSize": "Font Size",
+      "fontWeight": "Font Weight",
+      "usePangram": "Use Pangram"
+    },
+    "weights": {
+      "100": "Thin",
+      "200": "Extra Light",
+      "300": "Light",
+      "400": "Regular",
+      "500": "Medium",
+      "600": "SemiBold",
+      "700": "Bold",
+      "800": "ExtraBold",
+      "900": "Black"
+    },
+    "tabs": {
+      "compare": "Compare",
+      "custom": "Custom Fonts",
+      "system": "System Fonts",
+      "playground": "Weights Playground",
+      "analysis": "Glyphs Analysis"
+    }
+  }
+}

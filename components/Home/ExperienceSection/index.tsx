@@ -2,34 +2,10 @@
 
 import { motion } from "framer-motion"
 
+import { useTranslations } from "next-intl"
 import { ExperienceCard, type Experience } from "./ExperienceCard"
 
-const experiences: Experience[] = [
-  {
-    role: "Software Engineer Intern",
-    company: "Tech Company",
-    period: "2025 — Present",
-    description:
-      "Building scalable web applications using Next.js, TypeScript, and modern backend infrastructure. Focused on performance optimization and developer experience.",
-    tech: ["Next.js", "TypeScript", "PostgreSQL", "Docker"],
-  },
-  {
-    role: "Open Source Contributor",
-    company: "GitHub",
-    period: "2024 — Present",
-    description:
-      "Contributed to open-source projects, improved documentation, fixed issues, and collaborated with maintainers across multiple repositories.",
-    tech: ["Git", "Open Source", "CI/CD", "Node.js"],
-  },
-  {
-    role: "Competitive Programming Mentor",
-    company: "Programming Community",
-    period: "2023 — Present",
-    description:
-      "Guided aspiring programmers in algorithms, data structures, contest preparation, and problem-solving strategies.",
-    tech: ["Algorithms", "Data Structures", "Codeforces"],
-  },
-]
+// Experiences array is now loaded dynamically from translations
 
 const container = {
   hidden: { opacity: 0 },
@@ -57,6 +33,9 @@ const item = {
 }
 
 export default function ExperienceSection() {
+  const t = useTranslations("Experience")
+  const experiences = t.raw("items") as Experience[]
+
   return (
     <section id="experience" className="relative w-full overflow-hidden py-28">
       {/* Background Aura */}
@@ -69,25 +48,24 @@ export default function ExperienceSection() {
         {/* Header */}
         <div className="mb-16">
           <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
-            Professional History
+            {t("eyebrow")}
           </p>
 
           <h2
             data-cursor="text"
             className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
           >
-            Building products,
+            {t("title1")}
             <br />
-            contributing to{" "}
+            {t("title2")}
             <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
-              engineering communities
+              {t("title3")}
             </span>
             .
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            A timeline of internships, engineering experiences, open-source
-            contributions, and technical leadership roles.
+            {t("description")}
           </p>
         </div>
 

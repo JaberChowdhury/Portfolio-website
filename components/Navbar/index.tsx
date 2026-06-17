@@ -3,10 +3,12 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button, buttonVariants } from "@/components/ui/button"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 import { Black_Ops_One, Playwrite_AR_Guides } from "next/font/google"
 import { ArrowRight } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { LanguageToggle } from "../LanguageToggle"
 
 const black_ops_one = Black_Ops_One({
   weight: "400",
@@ -20,15 +22,16 @@ const playwrite_AR_Guides = Playwrite_AR_Guides({
 })
 
 export const navLinks = [
-  { name: "Projects", href: "/#projects" },
-  { name: "Programming", href: "/#programming" },
-  { name: "Education", href: "/#education" },
-  { name: "Experience", href: "/#experience" },
-  { name: "Contact", href: "/#contact" },
+  { id: "projects", href: "/#projects" },
+  { id: "programming", href: "/#programming" },
+  { id: "education", href: "/#education" },
+  { id: "experience", href: "/#experience" },
+  { id: "contact", href: "/#contact" },
 ]
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const t = useTranslations()
 
   return (
     <>
@@ -54,22 +57,23 @@ const Navbar = () => {
           <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={link.id}
                 href={link.href}
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
                   "font-sans text-sm font-medium text-foreground opacity-80 transition-opacity hover:opacity-100"
                 )}
               >
-                {link.name}
+                {t(`Navigation.${link.id}`)}
               </Link>
             ))}
           </div>
 
           {/* Right Side: CTA Button & Mobile Toggle */}
           <div className="flex items-center gap-4">
+            <LanguageToggle />
             <Button className="hidden rounded-full bg-primary px-5 py-2 font-sans text-xs font-semibold tracking-wide text-primary-foreground shadow-sm hover:opacity-90 md:flex">
-              Let&apos;s Talk <ArrowRight />
+              {t("Navbar.letsTalk")} <ArrowRight />
             </Button>
 
             {/* Mobile Hamburger Button */}
@@ -115,19 +119,19 @@ const Navbar = () => {
               <div className="flex flex-col items-center gap-8 px-6 pt-12 pb-20">
                 {navLinks.map((link, i) => (
                   <motion.div
-                    key={link.name}
+                    key={link.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ delay: i * 0.1, duration: 0.3 }}
                   >
-                    <a
+                    <Link
                       href={link.href}
                       onClick={() => setIsOpen(false)}
                       className="text-2xl font-bold tracking-tight text-foreground transition-colors hover:text-primary"
                     >
-                      {link.name}
-                    </a>
+                      {t(`Navigation.${link.id}`)}
+                    </Link>
                   </motion.div>
                 ))}
                 <motion.div
@@ -138,7 +142,7 @@ const Navbar = () => {
                   className="mt-6"
                 >
                   <Button className="rounded-full bg-primary px-10 py-6 font-sans text-lg font-semibold tracking-wide text-primary-foreground shadow-sm hover:opacity-90">
-                    Let's Talk →
+                    {t("Navbar.letsTalk")} →
                   </Button>
                 </motion.div>
               </div>

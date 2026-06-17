@@ -14,6 +14,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 
 import { motion, AnimatePresence } from "framer-motion"
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text"
+import { useTranslations } from "next-intl"
 import { TECH_STACK_DATA, TechItem } from "./techdata"
 
 type Direction = "top" | "bottom" | "left" | "right"
@@ -103,6 +104,7 @@ function TechCell({
 }
 
 const TechnologySection = () => {
+  const t = useTranslations("Technology")
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -129,7 +131,7 @@ const TechnologySection = () => {
           colorTo="var(--color-muted-foreground)"
           className="text-[15vw] leading-none font-black tracking-tighter whitespace-nowrap uppercase select-none"
         >
-          TECH STACK
+          {t("backgroundText")}
         </AnimatedGradientText>
       </div>
 
@@ -138,7 +140,7 @@ const TechnologySection = () => {
         <div className="mb-16 flex flex-col items-center text-center">
           {/* Eyebrow */}
           <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
-            Technology Stack
+            {t("eyebrow")}
           </p>
 
           {/* Big Typographic Title */}
@@ -146,15 +148,14 @@ const TechnologySection = () => {
             data-cursor="text"
             className="text-4xl leading-[1.05] font-semibold tracking-tight text-foreground md:text-6xl"
           >
-            Tools of the{" "}
+            {t("title1")}
             <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
-              trade.
+              {t("title2")}
             </span>
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            A diverse ecosystem of languages, frameworks, and infrastructure
-            tools I use to build scalable, high-performance applications.
+            {t("description")}
           </p>
         </div>
 

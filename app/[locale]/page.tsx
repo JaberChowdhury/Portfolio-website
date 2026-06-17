@@ -1,4 +1,4 @@
-import ProjectsSection from "../components/Home/ProjectsSection"
+import ProjectsSection from "@/components/Home/ProjectsSection"
 import CompetitiveProgrammingSection from "@/components/Home/CompetitiveProgrammingSection"
 import ExperienceSection from "@/components/Home/ExperienceSection"
 import ContactSection from "@/components/Home/ContactSection"

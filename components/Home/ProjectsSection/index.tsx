@@ -2,58 +2,10 @@
 
 import { motion } from "framer-motion"
 
+import { useTranslations } from "next-intl"
 import { ProjectCard, type Project } from "./ProjectCard"
 
-const projects: Project[] = [
-  {
-    title: "E-Commerce Platform",
-    description:
-      "A production-ready commerce system with seamless checkout flows, authentication, and scalable backend architecture.",
-    tech: ["Next.js", "TypeScript", "Prisma", "Stripe"],
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "AI Chat Interface",
-    description:
-      "Realtime streaming AI chat experience with persistent memory, modern UI state handling, and smooth transitions.",
-    tech: ["Next.js", "OpenAI API", "Tailwind", "PostgreSQL"],
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "Portfolio System",
-    description:
-      "A motion-driven personal portfolio with layered typography, micro-interactions, and responsive design system.",
-    tech: ["Next.js", "Framer Motion", "Tailwind"],
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "E-Commerce Platform",
-    description:
-      "A production-ready commerce system with seamless checkout flows, authentication, and scalable backend architecture.",
-    tech: ["Next.js", "TypeScript", "Prisma", "Stripe"],
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "AI Chat Interface",
-    description:
-      "Realtime streaming AI chat experience with persistent memory, modern UI state handling, and smooth transitions.",
-    tech: ["Next.js", "OpenAI API", "Tailwind", "PostgreSQL"],
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "Portfolio System",
-    description:
-      "A motion-driven personal portfolio with layered typography, micro-interactions, and responsive design system.",
-    tech: ["Next.js", "Framer Motion", "Tailwind"],
-    live: "#",
-    github: "#",
-  },
-]
+// Projects array is now loaded dynamically from translations
 
 const container = {
   hidden: { opacity: 0 },
@@ -73,6 +25,9 @@ const item = {
 }
 
 export default function ProjectsSection() {
+  const t = useTranslations("Projects")
+  const projects = t.raw("items") as Project[]
+
   return (
     <section id="projects" className="relative w-full overflow-hidden py-28">
       {/* Background aura */}
@@ -86,7 +41,7 @@ export default function ProjectsSection() {
         <div className="mb-16">
           {/* Eyebrow */}
           <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
-            Selected Work
+            {t("eyebrow")}
           </p>
 
           {/* Big Typographic Title */}
@@ -94,17 +49,16 @@ export default function ProjectsSection() {
             data-cursor="text"
             className="text-4xl leading-[1.05] font-semibold tracking-tight text-foreground md:text-6xl"
           >
-            Crafting{" "}
+            {t("title1")}
             <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
-              digital systems
+              {t("title2")}
             </span>
             <br />
-            that feel alive.
+            {t("title3")}
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            A curated set of engineering-focused projects emphasizing
-            performance, scalable architecture, and refined UI motion design.
+            {t("description")}
           </p>
         </div>
 

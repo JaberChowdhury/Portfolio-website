@@ -12,101 +12,11 @@ import {
 } from "lucide-react"
 
 import { Card, CardContent } from "@/components/ui/card"
+import { useTranslations } from "next-intl"
 import { EducationCard, type EducationCardProps } from "./EducationCard"
 import { HighlightCard, type Highlight } from "./HighlightCard"
 
-const highlights: Highlight[] = [
-  {
-    title: "Competitive Programming",
-    icon: Code2,
-    description:
-      "Actively solving algorithmic problems and participating in programming contests alongside academic studies.",
-  },
-  {
-    title: "Problem Solving",
-    icon: Brain,
-    description:
-      "Developing analytical thinking through data structures, algorithms, and mathematical reasoning.",
-  },
-  {
-    title: "Engineering Growth",
-    icon: Target,
-    description:
-      "Focused on becoming a well-rounded software engineer through projects, learning, and practical experience.",
-  },
-]
-
-const academicHistory: EducationCardProps[] = [
-  {
-    title: "Bachelor of Science",
-    subtitle: "Computer Science & Engineering",
-    description:
-      "Currently pursuing a four-year undergraduate degree while building expertise in software engineering, algorithms, competitive programming, and modern web technologies.",
-    subjects: [
-      "Data Structures",
-      "Algorithms",
-      "Discrete Mathematics",
-      "Object Oriented Programming",
-      "Database Systems",
-      "Operating Systems",
-      "Computer Networks",
-      "Software Engineering",
-    ],
-    progress: [
-      { label: "Current Year", value: "2nd Year" },
-      { label: "Current Semester", value: "3rd (of 12)" },
-      { label: "Program Length", value: "4 Years" },
-      { label: "Status", value: "2024 - Present" },
-    ],
-    icon: GraduationCap,
-  },
-  {
-    title: "Higher Secondary Certificate (HSC)",
-    subtitle: "Science Group",
-    description:
-      "Completed higher secondary education with a strong foundation in science and mathematics.",
-    subjects: ["Physics", "Chemistry", "Higher Mathematics", "Biology", "ICT"],
-    progress: [
-      { label: "Duration", value: "2020 - 2022" },
-      { label: "Result", value: "GPA 5.00" },
-      { label: "Status", value: "Completed" },
-    ],
-    icon: BookOpen,
-  },
-  {
-    title: "Secondary School Certificate (SSC)",
-    subtitle: "Science Group",
-    description:
-      "Completed secondary education, developing core analytical skills and a passion for technology.",
-    subjects: [
-      "Physics",
-      "Chemistry",
-      "Higher Mathematics",
-      "Biology",
-      "General Science",
-    ],
-    progress: [
-      { label: "Duration", value: "2018 - 2020" },
-      { label: "Classes", value: "9th & 10th Grade" },
-      { label: "Result", value: "GPA 5.00" },
-      { label: "Status", value: "Completed" },
-    ],
-    icon: School,
-  },
-  {
-    title: "Junior School Certificate (JSC)",
-    subtitle: "General",
-    description:
-      "Successfully completed junior high school education with academic excellence.",
-    subjects: ["Mathematics", "Science", "English", "Bengali"],
-    progress: [
-      { label: "Completion Year", value: "2018" },
-      { label: "Result", value: "GPA 5.00" },
-      { label: "Status", value: "Completed" },
-    ],
-    icon: School,
-  },
-]
+// Highlights and history are now loaded dynamically from translations
 
 const container = {
   hidden: { opacity: 0 },
@@ -134,6 +44,17 @@ const item = {
 }
 
 export default function EducationSection() {
+  const t = useTranslations("Education")
+  
+  // Need to re-attach icons since JSON doesn't store components
+  const rawHighlights = t.raw("highlights") as Highlight[]
+  const highlightIcons = [Code2, Brain, Target]
+  const highlights = rawHighlights.map((h, i) => ({ ...h, icon: highlightIcons[i] }))
+
+  const rawHistory = t.raw("history") as EducationCardProps[]
+  const historyIcons = [GraduationCap, BookOpen, School, School]
+  const academicHistory = rawHistory.map((h, i) => ({ ...h, icon: historyIcons[i] }))
+
   return (
     <section id="education" className="relative w-full overflow-hidden py-28">
       {/* Background Aura */}
@@ -146,25 +67,24 @@ export default function EducationSection() {
         {/* Header */}
         <div className="mb-16">
           <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
-            Education
+            {t("eyebrow")}
           </p>
 
           <h2
             data-cursor="text"
             className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
           >
-            Learning the foundations
+            {t("title1")}
             <br />
-            of{" "}
+            {t("title2")}
             <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
-              computer science
+              {t("title3")}
             </span>
             .
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Pursuing a bachelor's degree while actively developing practical
-            software engineering skills and competitive programming expertise.
+            {t("description")}
           </p>
         </div>
 
@@ -189,7 +109,7 @@ export default function EducationSection() {
             data-cursor="text"
             className="text-2xl font-semibold tracking-tight"
           >
-            Academic Focus
+            {t("academicFocus")}
           </h3>
         </div>
 
@@ -222,10 +142,10 @@ export default function EducationSection() {
                 <Calendar className="h-5 w-5 text-primary" />
 
                 <div>
-                  <h4 className="font-medium">Academic Progress</h4>
+                  <h4 className="font-medium">{t("progressTitle")}</h4>
 
                   <p className="text-sm text-muted-foreground">
-                    Year 2 • Semester 3 of 12 • Bachelor's Degree In Progress
+                    {t("progressDesc")}
                   </p>
                 </div>
               </div>

@@ -24,31 +24,11 @@ import {
   CardDescription,
 } from "@/components/ui/card"
 
+import { useTranslations } from "next-intl"
 import { StatCard, type Stat } from "./StatCard"
 import { AchievementCard, type Achievement } from "./AchievementCard"
 
-const stats: Stat[] = [
-  {
-    label: "Codeforces Rating",
-    value: "1700+",
-    icon: Trophy,
-  },
-  {
-    label: "Problems Solved",
-    value: "1500+",
-    icon: Code2,
-  },
-  {
-    label: "Contests",
-    value: "80+",
-    icon: Target,
-  },
-  {
-    label: "DSA Expertise",
-    value: "Advanced",
-    icon: Brain,
-  },
-]
+// Stats array is loaded from translations
 
 const ratingHistory = [
   { contest: "C1", rating: 980 },
@@ -73,23 +53,7 @@ const skills = [
   "DSU",
 ]
 
-const achievements: Achievement[] = [
-  {
-    title: "Contest Experience",
-    description:
-      "Regular participation in rated contests with strong emphasis on speed, optimization, and problem decomposition.",
-  },
-  {
-    title: "Advanced Problem Solving",
-    description:
-      "Comfortable solving medium-to-hard algorithmic challenges involving graphs, DP, data structures, and mathematics.",
-  },
-  {
-    title: "Competitive Mindset",
-    description:
-      "Developed analytical thinking, debugging skills, and performance-focused solutions under strict time constraints.",
-  },
-]
+// Achievements array is loaded from translations
 
 const container = {
   hidden: { opacity: 0 },
@@ -117,7 +81,15 @@ const item = {
 }
 
 export default function CompetitiveProgrammingSection() {
+  const t = useTranslations("CompetitiveProgramming")
   const [isMounted, setIsMounted] = React.useState(false)
+
+  // Map stat icons
+  const rawStats = t.raw("stats") as Stat[]
+  const statIcons = [Trophy, Code2, Target, Brain]
+  const stats = rawStats.map((stat, i) => ({ ...stat, icon: statIcons[i] }))
+
+  const achievements = t.raw("achievements") as Achievement[]
 
   React.useEffect(() => {
     setIsMounted(true)
@@ -135,25 +107,23 @@ export default function CompetitiveProgrammingSection() {
         {/* Header */}
         <div className="mb-16">
           <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
-            Competitive Programming
+            {t("eyebrow")}
           </p>
 
           <h2
             data-cursor="text"
             className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
           >
-            Solving{" "}
+            {t("title1")}
             <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
-              algorithmic challenges
+              {t("title2")}
             </span>
             <br />
-            with speed and precision.
+            {t("title3")}
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Competitive programming sharpened my analytical thinking,
-            optimization mindset, and ability to solve complex problems under
-            pressure.
+            {t("description")}
           </p>
         </div>
 
@@ -169,16 +139,15 @@ export default function CompetitiveProgrammingSection() {
             <CardContent className="flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="text-sm tracking-[0.25em] text-muted-foreground uppercase">
-                  Primary Platform
+                  {t("codeforces.eyebrow")}
                 </p>
 
                 <h3 data-cursor="text" className="mt-2 text-3xl font-semibold">
-                  Codeforces
+                  {t("codeforces.name")}
                 </h3>
 
                 <p className="mt-3 max-w-xl text-muted-foreground">
-                  Active competitive programmer focused on algorithms, data
-                  structures, optimization, and contest problem solving.
+                  {t("codeforces.description")}
                 </p>
               </div>
 
@@ -187,7 +156,7 @@ export default function CompetitiveProgrammingSection() {
                 target="_blank"
                 className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-6 py-3 text-sm font-medium transition-all hover:border-primary/40 hover:text-primary"
               >
-                View Profile
+                {t("codeforces.viewProfile")}
                 <ExternalLink className="h-4 w-4" />
               </Link>
             </CardContent>
@@ -216,11 +185,11 @@ export default function CompetitiveProgrammingSection() {
                 <div className="rounded-2xl border border-border/60 bg-card/40 p-5">
                   <div className="mb-5">
                     <h3 data-cursor="text" className="text-lg font-semibold">
-                      Rating Progression
+                      {t("graph.title")}
                     </h3>
 
                     <p className="text-sm text-muted-foreground">
-                      Growth trajectory across competitive programming contests.
+                      {t("graph.description")}
                     </p>
                   </div>
 
@@ -328,11 +297,10 @@ export default function CompetitiveProgrammingSection() {
           >
             <Card className="h-full border border-border/60 bg-card/60 backdrop-blur-xl">
               <CardHeader>
-                <CardTitle>Algorithm Toolbox</CardTitle>
+                <CardTitle>{t("toolbox.title")}</CardTitle>
 
                 <CardDescription>
-                  Core concepts frequently used during contests and advanced
-                  problem solving.
+                  {t("toolbox.description")}
                 </CardDescription>
               </CardHeader>
 

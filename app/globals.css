@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -53,11 +54,23 @@
 }
 
 .marlin-font {
-  font-family: "Marlin Soft";
+  font-family: "Marlin Soft", sans-serif;
 }
 
 .abc-font {
   font-family: "abcfont";
+}
+
+@font-face {
+  font-family: "Sohid Osman Hadi";
+  src: url("/font/Sohid_Osman_Hadi.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.sohid-font {
+  font-family: "Sohid Osman Hadi", sans-serif;
 }
 
 @theme inline {
@@ -281,7 +294,6 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Marlin Soft", sans-serif;
     font-weight: 700;
     line-height: 0.94;
     letter-spacing: -0.045em;
@@ -293,5 +305,26 @@
   html {
     @apply font-sans;
     scroll-behavior: smooth;
+  }
+
+  html[lang="bn"] h1,
+  html[lang="bn"] h2,
+  html[lang="bn"] h3,
+  html[lang="bn"] h4,
+  html[lang="bn"] h5,
+  html[lang="bn"] h6 {
+    line-height: 1.9 !important;
+  }
+
+  html[lang="bn"] * {
+    letter-spacing: normal !important;
+    text-rendering: auto !important;
+  }
+  html[lang="bn"] .bg-clip-text {
+    background-clip: border-box !important;
+    -webkit-background-clip: border-box !important;
+    -webkit-text-fill-color: currentcolor !important;
+    color: var(--primary) !important;
+    background-image: none !important;
   }
 }

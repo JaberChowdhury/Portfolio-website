@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import withWaveDivider from "@/components/Wavedivider"
-// import { ArrowUpRight } from "lucide-react"
+import { useTranslations } from "next-intl"
 // import { Button } from "@/components/ui/button"
 // import AnimatedTextBorder from "@/components/AnimatedTextBorder"
 
@@ -36,6 +36,7 @@ const letterVariants = {
 }
 
 export function Hero() {
+  const t = useTranslations("Hero")
   const [mouse, setMouse] = useState({
     x: 0,
     y: 0,
@@ -128,7 +129,7 @@ export function Hero() {
           <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
 
           <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
-            Available For Work
+            {t("available")}
           </span>
         </motion.div>
 
@@ -191,9 +192,7 @@ export function Hero() {
           }}
           className="mt-10 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl"
         >
-          Frontend and Backend programmer crafting immersive digital experiences
-          through modern web technologies, thoughtful systems design , and
-          interactions that feel effortless.
+          {t("description")}
         </motion.p>
 
         {/* CTA */}
@@ -258,9 +257,9 @@ export function Hero() {
           }}
           className="mt-24 flex flex-wrap gap-6 text-xs tracking-[0.3em] text-muted-foreground uppercase"
         >
-          <span>Frontend Developer</span>
-          <span>UI Architect</span>
-          <span>Motion Enthusiast</span>
+          <span>{t("tag1")}</span>
+          <span>{t("tag2")}</span>
+          <span>{t("tag3")}</span>
         </motion.div>
       </div>
 

@@ -5,17 +5,29 @@ import { motion, AnimatePresence } from "framer-motion"
 import ButtonShowcase from "@/components/showcases/ButtonShowcase"
 import BadgeShowcase from "@/components/showcases/BadgeShowcase"
 import CardShowcase from "@/components/showcases/CardShowcase"
+import AvatarShowcase from "@/components/showcases/AvatarShowcase"
+import InputShowcase from "@/components/showcases/InputShowcase"
+import TabsShowcase from "@/components/showcases/TabsShowcase"
+import SelectShowcase from "@/components/showcases/SelectShowcase"
+import EffectsShowcase from "@/components/showcases/EffectsShowcase"
 import { Layers } from "lucide-react"
+import { useTranslations } from "next-intl"
 import FontPreviewPage from "../font-preview/page"
 
 const TABS = [
   { id: "button", label: "Button", component: ButtonShowcase },
   { id: "badge", label: "Badge", component: BadgeShowcase },
   { id: "card", label: "Card", component: CardShowcase },
+  { id: "avatar", label: "Avatar", component: AvatarShowcase },
+  { id: "input", label: "Input", component: InputShowcase },
+  { id: "tabs", label: "Tabs", component: TabsShowcase },
+  { id: "select", label: "Select", component: SelectShowcase },
+  { id: "effects", label: "Effects", component: EffectsShowcase },
   { id: "font", label: "Font Preview", component: FontPreviewPage },
 ] as const
 
 export default function UIPage() {
+  const t = useTranslations("UI")
   const [activeTab, setActiveTab] = useState<string>(TABS[0].id)
 
   return (
@@ -26,11 +38,10 @@ export default function UIPage() {
           className="mb-4 flex items-center gap-3 text-4xl font-bold tracking-tight"
         >
           <Layers className="size-10 text-primary" />
-          Design System
+          {t("title")}
         </h1>
         <p className="text-xl text-muted-foreground">
-          A comprehensive showcase of all UI components, variants, and
-          configurations used in the project.
+          {t("description")}
         </p>
       </div>
 
@@ -56,7 +67,7 @@ export default function UIPage() {
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
                 )}
-                <span className="relative z-10">{tab.label}</span>
+                <span className="relative z-10">{t(`tabs.${tab.id}` as any)}</span>
               </button>
             ))}
           </nav>

@@ -19,34 +19,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { useTranslations } from "next-intl"
 
-const socials = [
-  {
-    title: "GitHub",
-    description:
-      "Explore projects, open-source contributions, and experiments.",
-    href: "https://github.com/YOUR_USERNAME",
-    icon: Github,
-  },
-  {
-    title: "Codeforces",
-    description: "Competitive programming profile, ratings, and contests.",
-    href: "https://codeforces.com/profile/YOUR_HANDLE",
-    icon: Trophy,
-  },
-  {
-    title: "LinkedIn",
-    description: "Professional experience and engineering journey.",
-    href: "https://linkedin.com/in/YOUR_USERNAME",
-    icon: Linkedin,
-  },
-  {
-    title: "Email",
-    description: "Reach out for opportunities, collaboration, or discussion.",
-    href: "mailto:your@email.com",
-    icon: Mail,
-  },
-]
+// Socials array is loaded from translations
 
 const container = {
   hidden: { opacity: 0 },
@@ -74,6 +49,23 @@ const item = {
 }
 
 export default function ContactSection() {
+  const t = useTranslations("Contact")
+  
+  // Map icons for socials
+  const rawSocials = t.raw("socials") as { title: string, description: string }[]
+  const socialIcons = [Github, Trophy, Linkedin, Mail]
+  const socialLinks = [
+    "https://github.com/YOUR_USERNAME",
+    "https://codeforces.com/profile/YOUR_HANDLE",
+    "https://linkedin.com/in/YOUR_USERNAME",
+    "mailto:your@email.com"
+  ]
+  const socials = rawSocials.map((social, i) => ({ 
+    ...social, 
+    icon: socialIcons[i],
+    href: socialLinks[i]
+  }))
+
   return (
     <section id="contact" className="relative w-full overflow-hidden py-28">
       {/* Background Aura */}
@@ -86,25 +78,23 @@ export default function ContactSection() {
         {/* Header */}
         <div className="mb-16">
           <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
-            Get In Touch
+            {t("eyebrow")}
           </p>
 
           <h2
             data-cursor="text"
             className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
           >
-            Let's build something
+            {t("title1")}
             <br />
             <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
-              meaningful together
+              {t("title2")}
             </span>
-            .
+            {t("title3")}
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Whether it&apos;s software engineering, competitive programming,
-            open-source collaboration, or an exciting opportunity, I'm always
-            interested in meaningful conversations.
+            {t("description")}
           </p>
         </div>
 
@@ -127,20 +117,18 @@ export default function ContactSection() {
                   variant="secondary"
                   className="mb-4 rounded-full border border-border/50 bg-muted/40"
                 >
-                  Available For Opportunities
+                  {t("available")}
                 </Badge>
 
                 <h3
                   data-cursor="text"
                   className="max-w-2xl text-3xl font-semibold tracking-tight md:text-4xl"
                 >
-                  Open to internships, freelance work, open-source
-                  collaboration, and engineering roles.
+                  {t("openTo")}
                 </h3>
 
                 <p className="mt-4 max-w-2xl text-muted-foreground">
-                  If you have an interesting project, startup, or technical
-                  challenge, I'd love to hear about it.
+                  {t("ifYouHave")}
                 </p>
               </div>
 
@@ -150,7 +138,7 @@ export default function ContactSection() {
                 nativeButton={false}
                 render={<Link href="mailto:your@email.com" />}
               >
-                Say Hello
+                {t("sayHello")}
                 <ArrowUpRight className="ml-2 h-4 w-4" />
               </Button>
             </CardContent>
