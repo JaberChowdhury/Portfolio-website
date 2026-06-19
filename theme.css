@@ -1,0 +1,60 @@
+:root[data-mantine-color-scheme="light"] {
+    --bg-main: #f0efeb;
+    --bg-sidebar: #e6e5dd;
+    --bg-card: #e4e3dd;
+    --bg-dark-card: #2a2a2a;
+    --text-main: #1c1c1a;
+    --text-dimmed: #555555;
+    --text-inverse: #ffffff;
+    --border-light: #d4d3cc;
+    --border-subtle: #e4e3dd;
+    --btn-dark: #2b2b2b;
+    --btn-hover: #fdfdfc;
+    --btn-active-bg: #fdfdfc;
+    --bg-auth: linear-gradient(135deg, #e6e5dd 0%, #d4d3cc 100%);
+}
+
+:root[data-mantine-color-scheme="dark"] {
+    --bg-main: #111111;
+    --bg-sidebar: #1a1a1a;
+    --bg-card: #242424;
+    --bg-dark-card: #2d2d2d;
+    /* Fix: use a sleek dark shade instead of inverting */
+    --text-main: #ececec;
+    --text-dimmed: #a0a0a0;
+    --text-inverse: #ececec;
+    /* Keep text light inside the dark card */
+    --border-light: #333333;
+    --border-subtle: #2a2a2a;
+    --btn-dark: #e0e0e0;
+    --btn-hover: #2a2a2a;
+    --btn-active-bg: #2a2a2a;
+    --bg-auth: linear-gradient(135deg, #111111 0%, #2a2a2a 100%);
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Ensure unstyled buttons transition smoothly */
+button {
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
