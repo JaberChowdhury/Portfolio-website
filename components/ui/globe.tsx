@@ -7,8 +7,10 @@ import { useMotionValue, useSpring } from "motion/react"
 import { cn } from "@/lib/utils"
 
 const MOVEMENT_DAMPING = 1400
-
-export const GLOBE_CONFIG: COBEOptions = {
+interface COBEOptionsCustom extends COBEOptions {
+  onRender: (data: any) => void
+}
+export const GLOBE_CONFIG: COBEOptionsCustom = {
   width: 800,
   height: 1800,
   onRender: () => {},
