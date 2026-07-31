@@ -1,0 +1,95 @@
+<svg
+  width="32"
+  height="32"
+  viewBox="0 0 40 35"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g filter="url(#base)">
+    <path
+      d="M8 5 L8 30 L31 30"
+      stroke="#FFFCEA"
+      stroke-width="6.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+    ></path>
+  </g>
+  <path
+    d="M8.5 25.5 L11.5 25.5 L10 28 Z"
+    fill="#210784"
+  ></path>
+  <path
+    d="M10 30 L29 30"
+    stroke="#F99"
+    stroke-width="4"
+    stroke-linecap="round"
+    fill="none"
+  ></path>
+  <path
+    d="M15 24 L22 24"
+    stroke="#0034FE"
+    stroke-width="4"
+    stroke-linecap="round"
+    fill="none"
+  ></path>
+  <g filter="url(#soft)">
+    <path
+      d="M8.9 7 L8.9 28"
+      stroke="#FF5060"
+      stroke-width="3.2"
+      stroke-linecap="round"
+      fill="none"
+    ></path>
+  </g>
+  <defs>
+    <filter
+      id="base"
+      x="3"
+      y="1"
+      width="33"
+      height="34"
+      filterUnits="userSpaceOnUse"
+    >
+      <feFlood result="BackgroundImageFix"></feFlood>
+      <feGaussianBlur
+        in="BackgroundImageFix"
+        stdDeviation=".495"
+      ></feGaussianBlur>
+      <feComposite
+        in2="SourceAlpha"
+        operator="in"
+        result="effect1_backgroundBlur_259_65398"
+      ></feComposite>
+      <feBlend
+        in="SourceGraphic"
+        in2="effect1_backgroundBlur_259_65398"
+        result="shape"
+      ></feBlend>
+    </filter>
+    <filter
+      id="soft"
+      x="6"
+      y="4"
+      width="6"
+      height="27"
+      filterUnits="userSpaceOnUse"
+    >
+      <feFlood result="BackgroundImageFix"></feFlood>
+      <feGaussianBlur
+        in="BackgroundImageFix"
+        stdDeviation=".495"
+      ></feGaussianBlur>
+      <feComposite
+        in2="SourceAlpha"
+        operator="in"
+        result="effect1_backgroundBlur_259_65398"
+      ></feComposite>
+      <feBlend
+        in="SourceGraphic"
+        in2="effect1_backgroundBlur_259_65398"
+        result="shape"
+      ></feBlend>
+    </filter>
+  </defs>
+</svg>

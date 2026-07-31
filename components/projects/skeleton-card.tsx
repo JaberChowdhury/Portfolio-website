@@ -1,4 +1,3 @@
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
 interface SkeletonCardProps {
@@ -9,37 +8,33 @@ export function SkeletonCard({ viewMode }: SkeletonCardProps) {
   const isList = viewMode === "list"
 
   return (
-    <Card
-      className={`flex h-full overflow-hidden ${isList ? "flex-col items-center md:flex-row" : "flex-col"}`}
+    <div
+      className={`hum-card--plain flex h-full overflow-hidden rounded-2xl ${isList ? "flex-col md:flex-row" : "flex-col"}`}
     >
-      <CardHeader className={`w-full ${isList ? "md:w-1/3" : ""}`}>
-        <div className="mb-2 flex items-center justify-between">
-          <Skeleton className="h-4 w-16" />
-          <Skeleton className="h-4 w-4" />
-        </div>
-        <Skeleton className="h-6 w-3/4" />
-      </CardHeader>
-
-      <CardContent
-        className={`w-full flex-grow space-y-4 ${isList ? "md:w-2/3 md:pt-6" : ""}`}
+      <div
+        className={`flex flex-1 flex-col p-6 md:p-7 ${isList ? "md:w-2/3" : ""}`}
       >
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-5/6" />
+        <div className="mb-4 flex items-center justify-between">
+          <Skeleton className="h-4 w-16 rounded-full" />
+          <Skeleton className="h-4 w-4 rounded-full" />
         </div>
-        <div className="flex gap-2">
-          <Skeleton className="h-5 w-12" />
-          <Skeleton className="h-5 w-16" />
-          <Skeleton className="h-5 w-14" />
+        <Skeleton className="h-6 w-3/4 rounded-full" />
+        <div className="mt-3 space-y-2">
+          <Skeleton className="h-4 w-full rounded-full" />
+          <Skeleton className="h-4 w-5/6 rounded-full" />
         </div>
-      </CardContent>
-
-      <CardFooter
-        className={`flex w-full items-center justify-between border-t border-border/50 bg-muted/20 px-6 py-4 ${isList ? "md:w-auto md:flex-col md:justify-center md:gap-2 md:border-t-0 md:border-l" : ""}`}
+        <div className="mt-5 flex gap-2">
+          <Skeleton className="h-5 w-12 rounded-full" />
+          <Skeleton className="h-5 w-16 rounded-full" />
+          <Skeleton className="h-5 w-14 rounded-full" />
+        </div>
+      </div>
+      <div
+        className={`flex items-center justify-between gap-3 px-6 pb-6 md:pb-0 ${isList ? "md:w-1/3 md:flex-col md:items-start md:justify-center md:gap-3 md:border-l md:border-border/60 md:px-7" : ""}`}
       >
-        <Skeleton className="h-4 w-20" />
-        <Skeleton className="h-3 w-24" />
-      </CardFooter>
-    </Card>
+        <Skeleton className="h-4 w-20 rounded-full" />
+        <Skeleton className="h-3 w-24 rounded-full" />
+      </div>
+    </div>
   )
 }

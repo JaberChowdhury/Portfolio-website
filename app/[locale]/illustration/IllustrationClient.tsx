@@ -11,7 +11,7 @@ import {
   SYMBOLS,
   IllustrationItem,
 } from "./data"
-import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 
 function IllustrationModal({
   item,
@@ -55,10 +55,10 @@ function IllustrationModal({
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        className="relative z-10 flex w-full max-w-3xl flex-col overflow-hidden rounded-3xl border border-border/50 bg-card shadow-2xl md:flex-row"
+        className="relative z-10 flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-border/50 bg-card shadow-2xl md:flex-row"
       >
         {/* Preview Area */}
-        <div className="relative flex min-h-[300px] flex-1 items-center justify-center overflow-hidden border-b border-border/50 bg-muted/30 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] p-12 md:border-r md:border-b-0 dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]">
+        <div className="relative flex min-h-[300px] flex-1 items-center justify-center overflow-hidden border-b border-border/50 bg-muted/30 bg-[radial-gradient(oklch(0.42_0.015_250_/_0.18)_1px,transparent_1px)] [background-size:16px_16px] p-12 md:border-r md:border-b-0">
           <div
             className="flex h-full w-full items-center justify-center transition-transform duration-200"
             style={{
@@ -86,16 +86,16 @@ function IllustrationModal({
         <div className="flex w-full flex-col gap-8 bg-card p-6 md:w-80">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-bold tracking-tight">
-                Character <span className="text-primary">{item.label}</span>
+              <h3 className="text-xl font-bold tracking-tight text-ink">
+                Character <span className="text-cyan">{item.label}</span>
               </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="mt-1 text-sm text-ink-2">
                 ID: {item.id}
               </p>
             </div>
             <button
               onClick={onClose}
-              className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="rounded-full p-2 text-ink-2 transition-colors hover:bg-paper-3 hover:text-ink"
             >
               <X className="h-5 w-5" />
             </button>
@@ -105,10 +105,10 @@ function IllustrationModal({
             {/* Scale Tweak */}
             <div className="space-y-3">
               <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center gap-2 font-medium">
-                  <Maximize2 className="h-4 w-4 text-muted-foreground" /> Scale
+                <label className="flex items-center gap-2 font-medium text-ink">
+                  <Maximize2 className="h-4 w-4 text-ink-2" /> Scale
                 </label>
-                <span className="text-muted-foreground">
+                <span className="text-ink-2">
                   {scale.toFixed(1)}x
                 </span>
               </div>
@@ -119,18 +119,18 @@ function IllustrationModal({
                 step="0.1"
                 value={scale}
                 onChange={(e) => setScale(parseFloat(e.target.value))}
-                className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-muted accent-primary"
+                className="h-2 w-full cursor-pointer appearance-none rounded-full bg-paper-3 accent-primary"
               />
             </div>
 
             {/* Rotation Tweak */}
             <div className="space-y-3">
               <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center gap-2 font-medium">
-                  <RotateCw className="h-4 w-4 text-muted-foreground" />{" "}
+                <label className="flex items-center gap-2 font-medium text-ink">
+                  <RotateCw className="h-4 w-4 text-ink-2" />{" "}
                   Rotation
                 </label>
-                <span className="text-muted-foreground">{rotation}°</span>
+                <span className="text-ink-2">{rotation}°</span>
               </div>
               <input
                 type="range"
@@ -139,34 +139,29 @@ function IllustrationModal({
                 step="1"
                 value={rotation}
                 onChange={(e) => setRotation(parseInt(e.target.value))}
-                className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-muted accent-primary"
+                className="h-2 w-full cursor-pointer appearance-none rounded-full bg-paper-3 accent-primary"
               />
             </div>
           </div>
 
           {/* Action */}
-          <button
+          <Button
             onClick={copySvg}
             disabled={!hasSvg}
-            className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-medium transition-all ${
-              !hasSvg
-                ? "cursor-not-allowed bg-muted text-muted-foreground"
-                : copied
-                  ? "border border-green-500/20 bg-green-500/10 text-green-500"
-                  : "bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/90"
-            }`}
+            variant={!hasSvg || copied ? "secondary" : "default"}
+            className={`w-full ${copied ? "bg-mint text-ink hover:bg-mint" : ""}`}
           >
             {copied ? (
               <>
-                <Check className="h-4 w-4" /> Copied Code!
+                <Check /> Copied Code!
               </>
             ) : (
               <>
-                <Copy className="h-4 w-4" />{" "}
+                <Copy />{" "}
                 {hasSvg ? "Copy SVG Code" : "No SVG to Copy"}
               </>
             )}
-          </button>
+          </Button>
         </div>
       </motion.div>
     </div>
@@ -188,7 +183,7 @@ function IllustrationGrid({
     <div className="mb-16">
       <h2
         data-cursor="text"
-        className="mb-6 text-2xl font-semibold tracking-tight"
+        className="mono-label mb-6 text-ink-2"
       >
         {title}
       </h2>
@@ -197,33 +192,31 @@ function IllustrationGrid({
           const hasSvg = availableSvgs.includes(`${item.id}.svg`)
 
           return (
-            <Card
+            <div
               key={item.id}
               onClick={() => onSelect(item)}
-              className="group cursor-pointer overflow-hidden border-border/50 bg-card/40 transition-all hover:border-primary/50 hover:bg-card/60 hover:shadow-[0_0_20px_hsl(var(--primary)/0.1)]"
+              className="hum-card hum-card--plain group flex cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden p-3"
             >
-              <CardContent className="flex aspect-square flex-col items-center justify-center gap-2 p-3">
-                <div className="flex w-full flex-1 items-center justify-center">
-                  {hasSvg ? (
-                    <div className="relative flex h-full w-full scale-125 items-center justify-center transition-transform duration-500 group-hover:scale-150">
-                      <Image
-                        src={`/illustrations/${item.id}.svg`}
-                        alt={item.label}
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                  ) : (
-                    <div className="flex h-8 w-8 items-center justify-center rounded border border-dashed border-muted-foreground/30 font-mono text-xs text-muted-foreground/30 transition-colors group-hover:border-primary/50 group-hover:text-primary">
-                      {item.label}
-                    </div>
-                  )}
-                </div>
-                <span className="text-[10px] font-medium text-muted-foreground uppercase">
-                  {item.label}
-                </span>
-              </CardContent>
-            </Card>
+              <div className="flex w-full flex-1 items-center justify-center">
+                {hasSvg ? (
+                  <div className="relative flex h-full w-full scale-125 items-center justify-center transition-transform duration-500 group-hover:scale-150">
+                    <Image
+                      src={`/illustrations/${item.id}.svg`}
+                      alt={item.label}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-dashed border-ink-2/30 font-mono text-xs text-ink-2/30 transition-colors group-hover:border-cyan/50 group-hover:text-cyan">
+                    {item.label}
+                  </div>
+                )}
+              </div>
+              <span className="mono-label text-[10px] text-ink-2">
+                {item.label}
+              </span>
+            </div>
           )
         })}
       </div>
@@ -243,13 +236,14 @@ export default function IllustrationClient({
   return (
     <div className="container mx-auto min-h-screen px-4 py-20 pt-32">
       <div className="mb-16">
+        <p className="mono-label mb-4 text-ink-2">Vector Gallery</p>
         <h1
           data-cursor="text"
-          className="mb-4 text-4xl font-extrabold tracking-tight lg:text-5xl"
+          className="text-4xl font-bold tracking-tight text-ink lg:text-6xl"
         >
-          Character Illustrations
+          <span className="hl hl--coral">Character Illustrations</span>
         </h1>
-        <p className="max-w-2xl text-lg text-muted-foreground">
+        <p className="mt-4 max-w-2xl text-lg text-ink-2">
           A collection of custom SVG illustrations for every character, number,
           and symbol.
         </p>

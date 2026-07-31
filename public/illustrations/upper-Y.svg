@@ -1,0 +1,95 @@
+<svg
+  width="32"
+  height="32"
+  viewBox="0 0 40 35"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g filter="url(#base)">
+    <path
+      d="M6 5 L20 20 L34 5 M20 20 L20 30"
+      stroke="#FFFCEA"
+      stroke-width="6.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+    ></path>
+  </g>
+  <path
+    d="M19 22.5 L21 22.5 L20 25 Z"
+    fill="#210784"
+  ></path>
+  <path
+    d="M31 9 L23 17"
+    stroke="#F99"
+    stroke-width="3.5"
+    stroke-linecap="round"
+    fill="none"
+  ></path>
+  <path
+    d="M20.9 21 L20.9 29"
+    stroke="#FF5060"
+    stroke-width="3.2"
+    stroke-linecap="round"
+    fill="none"
+  ></path>
+  <g filter="url(#soft)">
+    <path
+      d="M9 9 L17 17"
+      stroke="#0034FE"
+      stroke-width="3.5"
+      stroke-linecap="round"
+      fill="none"
+    ></path>
+  </g>
+  <defs>
+    <filter
+      id="base"
+      x="1"
+      y="1"
+      width="38"
+      height="34"
+      filterUnits="userSpaceOnUse"
+    >
+      <feFlood result="BackgroundImageFix"></feFlood>
+      <feGaussianBlur
+        in="BackgroundImageFix"
+        stdDeviation=".495"
+      ></feGaussianBlur>
+      <feComposite
+        in2="SourceAlpha"
+        operator="in"
+        result="effect1_backgroundBlur_259_65398"
+      ></feComposite>
+      <feBlend
+        in="SourceGraphic"
+        in2="effect1_backgroundBlur_259_65398"
+        result="shape"
+      ></feBlend>
+    </filter>
+    <filter
+      id="soft"
+      x="6"
+      y="6"
+      width="14"
+      height="14"
+      filterUnits="userSpaceOnUse"
+    >
+      <feFlood result="BackgroundImageFix"></feFlood>
+      <feGaussianBlur
+        in="BackgroundImageFix"
+        stdDeviation=".495"
+      ></feGaussianBlur>
+      <feComposite
+        in2="SourceAlpha"
+        operator="in"
+        result="effect1_backgroundBlur_259_65398"
+      ></feComposite>
+      <feBlend
+        in="SourceGraphic"
+        in2="effect1_backgroundBlur_259_65398"
+        result="shape"
+      ></feBlend>
+    </filter>
+  </defs>
+</svg>

@@ -1,4 +1,5 @@
 import "../globals.css"
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import Navbar from "@/components/Navbar"
@@ -13,6 +14,18 @@ import {
 import { routing } from "@/i18n/routing"
 import { notFound } from "next/navigation"
 import NextTopLoader from "nextjs-toploader"
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-plus-jakarta",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains-mono",
+})
 
 export async function generateMetadata({
   params,
@@ -84,8 +97,10 @@ export default async function RootLayout({
       lang={locale}
       suppressHydrationWarning
       className={cn(
+        plusJakarta.variable,
+        jetbrainsMono.variable,
         "antialiased",
-        locale === "bn" ? "sohid-font" : "marlin-font"
+        locale === "bn" ? "sohid-font" : ""
       )}
     >
       <body>

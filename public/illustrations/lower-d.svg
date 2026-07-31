@@ -1,0 +1,102 @@
+<svg
+  width="32"
+  height="32"
+  viewBox="0 0 40 35"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g filter="url(#base)">
+    <circle
+      cx="19.5"
+      cy="21.5"
+      r="7"
+      stroke="#FFFCEA"
+      stroke-width="6.5"
+      fill="none"
+    ></circle>
+    <path
+      d="M27 4v24"
+      stroke="#FFFCEA"
+      stroke-width="6.5"
+      stroke-linecap="round"
+      fill="none"
+    ></path>
+  </g>
+  <rect
+    x="24.5"
+    y="7"
+    width="5"
+    height="3.5"
+    rx="1.75"
+    fill="#0034FE"
+  ></rect>
+  <rect
+    x="15"
+    y="25"
+    width="9"
+    height="3.5"
+    rx="1.75"
+    fill="#F99"
+  ></rect>
+  <ellipse cx="13.5" cy="28.5" rx="3" ry="1.6" fill="#210784"></ellipse>
+  <g filter="url(#soft)">
+    <rect
+      x="11"
+      y="18.5"
+      width="13"
+      height="4"
+      rx="2"
+      fill="#FF5060"
+    ></rect>
+  </g>
+  <defs>
+    <filter
+      id="base"
+      x="-0.5"
+      y="-0.6"
+      width="41"
+      height="36.2"
+      filterUnits="userSpaceOnUse"
+    >
+      <feFlood result="BackgroundImageFix"></feFlood>
+      <feGaussianBlur
+        in="BackgroundImageFix"
+        stdDeviation=".495"
+      ></feGaussianBlur>
+      <feComposite
+        in2="SourceAlpha"
+        operator="in"
+        result="effect1_backgroundBlur_259_65398"
+      ></feComposite>
+      <feBlend
+        in="SourceGraphic"
+        in2="effect1_backgroundBlur_259_65398"
+        result="shape"
+      ></feBlend>
+    </filter>
+    <filter
+      id="soft"
+      x="10.5"
+      y="18"
+      width="14"
+      height="5"
+      filterUnits="userSpaceOnUse"
+    >
+      <feFlood result="BackgroundImageFix"></feFlood>
+      <feGaussianBlur
+        in="BackgroundImageFix"
+        stdDeviation=".495"
+      ></feGaussianBlur>
+      <feComposite
+        in2="SourceAlpha"
+        operator="in"
+        result="effect1_backgroundBlur_259_65398"
+      ></feComposite>
+      <feBlend
+        in="SourceGraphic"
+        in2="effect1_backgroundBlur_259_65398"
+        result="shape"
+      ></feBlend>
+    </filter>
+  </defs>
+</svg>

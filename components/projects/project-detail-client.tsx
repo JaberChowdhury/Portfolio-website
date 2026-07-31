@@ -102,22 +102,28 @@ export default function ProjectDetailClient({
 
   if (loadingRepo || !repoInfo) {
     return (
-      <div className="container mx-auto flex min-h-screen max-w-5xl flex-col space-y-8 px-4 pt-32 pb-20">
-        <Skeleton className="h-12 w-1/3" />
-        <Skeleton className="h-[280px] w-full" />
-        <Skeleton className="h-6 w-1/2" />
-        <div className="flex gap-4">
-          <Skeleton className="h-10 w-32" />
-          <Skeleton className="h-10 w-32" />
+      <div className="mx-auto flex min-h-screen max-w-7xl flex-col space-y-8 px-6 pt-32 pb-20 md:px-10">
+        <Skeleton className="h-4 w-24 rounded-full" />
+        <Skeleton className="h-14 w-1/2 rounded-full" />
+        <div className="hum-card--plain space-y-3 rounded-2xl p-6 md:p-8">
+          <Skeleton className="h-6 w-3/4 rounded-full" />
+          <Skeleton className="h-6 w-1/2 rounded-full" />
+          <Skeleton className="h-6 w-2/3 rounded-full" />
         </div>
-        <Skeleton className="h-64 w-full" />
+        <div className="flex gap-4">
+          <Skeleton className="h-10 w-32 rounded-full" />
+          <Skeleton className="h-10 w-32 rounded-full" />
+        </div>
+        <div className="hum-card--plain rounded-2xl p-6 md:p-8">
+          <Skeleton className="h-64 w-full rounded-2xl" />
+        </div>
       </div>
     )
   }
 
   if (errorRepo) {
     return (
-      <div className="container mx-auto flex min-h-screen max-w-5xl items-center justify-center px-4 pt-32 pb-20 text-center">
+      <div className="mx-auto flex min-h-screen max-w-7xl items-center justify-center px-6 pt-32 pb-20 text-center md:px-10">
         <div>
           <h2 className="mb-4 text-2xl font-bold text-destructive">Error</h2>
           <p className="text-muted-foreground">{errorRepo}</p>
@@ -131,7 +137,7 @@ export default function ProjectDetailClient({
   ]
 
   return (
-    <div className="container mx-auto min-h-screen max-w-5xl px-4 pt-24 pb-20">
+    <div className="mx-auto min-h-screen max-w-7xl px-6 pt-24 pb-20 md:px-10">
       <ProjectHeader repoInfo={repoInfo} />
 
       <BranchSelector
@@ -153,7 +159,7 @@ export default function ProjectDetailClient({
         <div className="mb-4 flex items-center font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
           <span className="mr-2 text-primary">~/</span> README.md
         </div>
-        <div className="rounded-md border border-border bg-card p-6 text-card-foreground shadow-sm md:p-10">
+        <div className="hum-card--plain rounded-2xl p-6 md:p-10">
           <AnimatePresence mode="wait">
             {loadingReadme ? (
               <motion.div
@@ -163,7 +169,7 @@ export default function ProjectDetailClient({
                 exit={{ opacity: 0 }}
                 className="flex justify-center py-20"
               >
-                <Skeleton className="h-64 w-full" />
+                <Skeleton className="h-64 w-full rounded-2xl" />
               </motion.div>
             ) : (
               <motion.div

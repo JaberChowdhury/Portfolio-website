@@ -33,34 +33,39 @@ export default function UIPage() {
   return (
     <div className="container mx-auto min-h-screen px-4 py-20">
       <div className="mb-12">
+        <p className="mono-label mb-4 text-ink-2">Component Workbench</p>
         <h1
           data-cursor="text"
-          className="mb-4 flex items-center gap-3 text-4xl font-bold tracking-tight"
+          className="flex flex-wrap items-center gap-4 text-4xl font-bold tracking-tight text-ink md:text-5xl"
         >
-          <Layers className="size-10 text-primary" />
-          {t("title")}
+          <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            <Layers className="size-6" />
+          </span>
+          <span className="hl hl--pear">{t("title")}</span>
         </h1>
-        <p className="text-xl text-muted-foreground">{t("description")}</p>
+        <p className="mt-4 max-w-2xl text-lg text-ink-2 md:text-xl">
+          {t("description")}
+        </p>
       </div>
 
       <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
         {/* Navigation Sidebar */}
         <aside className="shrink-0 md:sticky md:top-24 md:w-64">
-          <nav className="flex flex-row space-x-2 overflow-x-auto pb-4 md:flex-col md:space-y-2 md:space-x-0 md:pb-0">
+          <nav className="flex flex-row gap-2 overflow-x-auto pb-4 md:flex-col md:gap-2 md:pb-0">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative flex px-4 py-3 text-sm font-medium transition-colors md:rounded-lg ${
+                className={`relative flex shrink-0 items-center rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
                   activeTab === tab.id
-                    ? "text-primary"
-                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                    ? "text-primary-foreground"
+                    : "text-ink-2 hover:bg-paper-3 hover:text-ink"
                 }`}
               >
                 {activeTab === tab.id && (
                   <motion.div
                     layoutId="active-tab-indicator"
-                    className="absolute inset-0 z-0 rounded-lg bg-primary/10"
+                    className="absolute inset-0 z-0 rounded-full bg-primary"
                     initial={false}
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
@@ -85,6 +90,7 @@ export default function UIPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
+                    className="rounded-2xl bg-paper-2 p-6 md:p-8"
                   >
                     <tab.component />
                   </motion.div>

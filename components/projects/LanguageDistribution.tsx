@@ -27,41 +27,38 @@ export default function LanguageDistribution({
     .sort((a, b) => b.value - a.value)
 
   const langColors: Record<string, string> = {
-    TypeScript: "#3178c6",
-    JavaScript: "#f1e05a",
-    CSS: "#563d7c",
-    HTML: "#e34c26",
-    Astro: "#ff5a03",
-    "C++": "#f34b7d",
-    C: "#555555",
-    Python: "#3572A5",
-    Rust: "#dea584",
-    GLSL: "#5686a5",
-    Shell: "#89e051",
-    Markdown: "#083fa1",
+    TypeScript: "var(--cyan)",
+    JavaScript: "var(--pear)",
+    CSS: "var(--lavender)",
+    HTML: "var(--mint)",
+    Astro: "var(--coral)",
+    "C++": "var(--coral)",
+    C: "var(--cyan)",
+    Python: "var(--pear)",
+    Rust: "var(--coral)",
+    GLSL: "var(--cyan)",
+    Shell: "var(--mint)",
+    Markdown: "var(--lavender)",
   }
 
   const getLangColor = (name: string, index: number) => {
     if (langColors[name]) return langColors[name]
     const fallbackColors = [
-      "#00E5E5",
-      "#FF3366",
-      "#FFCC00",
-      "#00FF66",
-      "#CC33FF",
-      "#FF6600",
+      "var(--pear)",
+      "var(--cyan)",
+      "var(--coral)",
+      "var(--mint)",
+      "var(--lavender)",
     ]
     return fallbackColors[index % fallbackColors.length]
   }
 
   return (
-    <div className="w-full border border-border bg-muted/20 p-6 shadow-sm">
-      <div className="mb-6 font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
-        LANGUAGES
-      </div>
+    <div className="hum-card--plain w-full rounded-2xl p-6 md:p-8">
+      <div className="mono-label mb-6 text-muted-foreground">LANGUAGES</div>
 
       {/* Stacked bar chart */}
-      <div className="mb-6 flex h-3 w-full overflow-hidden rounded-sm border border-border bg-muted">
+      <div className="mb-6 flex h-3 w-full overflow-hidden rounded-full bg-paper-3">
         {langSorted.map((lang, idx) => (
           <motion.div
             key={lang.name}

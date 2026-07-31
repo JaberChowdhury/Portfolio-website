@@ -54,10 +54,10 @@ export default function BranchSelector({
               transition={{ duration: 0.3, delay: Math.min(index * 0.03, 0.6) }}
               whileHover={{ y: isActive ? 0 : -2 }}
               whileTap={{ scale: 0.95 }}
-              className={`relative inline-flex cursor-pointer items-center overflow-hidden rounded-sm border px-3 py-1.5 font-mono text-xs font-bold tracking-widest uppercase transition-all duration-200 select-none ${
+              className={`inline-flex cursor-pointer items-center rounded-full px-4 py-1.5 font-mono text-xs font-bold tracking-widest uppercase transition-all duration-200 select-none ${
                 isActive
-                  ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                  : "border-border bg-transparent text-muted-foreground hover:border-muted-foreground hover:bg-muted hover:text-primary"
+                  ? "bg-primary text-primary-foreground shadow-[0_4px_0_0_var(--primary-edge)]"
+                  : "bg-paper-2 text-muted-foreground hover:bg-paper-3 hover:text-primary"
               } `}
             >
               {isActive && (

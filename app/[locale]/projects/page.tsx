@@ -1,6 +1,5 @@
 "use client"
 
-import ParticleText from "@/components/ParticleText"
 import { ProjectCard } from "@/components/projects/project-card"
 import { SkeletonCard } from "@/components/projects/skeleton-card"
 import { Badge } from "@/components/ui/badge"
@@ -17,6 +16,7 @@ import { FALLBACK_REPOS } from "@/data/fallbackRepos"
 import type { RepoSummary } from "@/lib/github"
 import { AnimatePresence, motion } from "framer-motion"
 import { LayoutGrid, List, Search } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 
 const CACHE_KEY = "github_repos_cache"
@@ -24,6 +24,7 @@ const CACHE_TIME_KEY = "github_repos_cache_time"
 const CACHE_DURATION = 15 * 60 * 1000
 
 export default function ProjectsPage() {
+  const t = useTranslations("Projects")
   const [repos, setRepos] = useState<RepoSummary[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
@@ -111,28 +112,21 @@ export default function ProjectsPage() {
     })
 
   return (
-    <div className="container mx-auto min-h-screen px-4 pt-24 pb-20 md:pt-32">
+    <div className="mx-auto min-h-screen max-w-7xl px-6 pt-24 pb-20 md:px-10 md:pt-32">
       {/* Header Section */}
-      <div className="mb-10 md:mb-16">
-        <div className="relative mb-6 h-[120px] w-full overflow-hidden md:h-[220px]">
-          <ParticleText
-            text="PROJECTS"
-            colorStart="hsl(var(--primary))"
-            colorEnd="hsl(var(--primary))"
-            canvasWidth={3400}
-            canvasHeight={3400}
-            fontSize={450}
-            fontWeight={900}
-            particleSize={0.5}
-          />
-        </div>
-        <p className="max-w-2xl text-lg text-muted-foreground">
+      <div className="mb-12 md:mb-16">
+        <p className="mono-label mb-5 text-muted-foreground">{t("eyebrow")}</p>
+        <h1 className="text-4xl leading-[1.05] font-bold tracking-tight text-foreground md:text-6xl">
+          Open-source{" "}
+          <span className="hl hl--pear">projects</span>
+        </h1>
+        <p className="mt-6 max-w-2xl text-base text-muted-foreground md:text-lg">
           Explore my open-source repositories and development work.
         </p>
       </div>
 
       {isFallback && !loading && (
-        <div className="mb-8 border-l-4 border-primary bg-muted/50 p-4 font-mono text-sm text-muted-foreground">
+        <div className="mb-10 rounded-2xl border border-coral/30 bg-coral-tint p-4 font-mono text-sm text-ink-2">
           // Displaying cached catalog (GitHub API rate limit hit).
         </div>
       )}
@@ -146,28 +140,32 @@ export default function ProjectsPage() {
             placeholder="Search repositories..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-background pl-10"
+            className="rounded-full bg-paper-2 pl-10"
           />
         </div>
 
-        <div className="flex w-full flex-col gap-4 sm:flex-row lg:w-auto">
+        <div className="flex w-full flex-col gap-4 sm:flex-row lg:w-auto lg:items-center">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase">
-              Sort by:
-            </span>
+            <span className="mono-label text-muted-foreground">Sort by</span>
             <Select
               value={sortBy}
               onValueChange={(v) => {
                 if (v) setSortBy(v as "updated" | "stars" | "name")
               }}
             >
-              <SelectTrigger className="w-[160px] bg-background font-medium">
+              <SelectTrigger className="w-[160px] rounded-full bg-paper-2 font-medium">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="updated">Latest Update</SelectItem>
-                <SelectItem value="stars">Most Stars</SelectItem>
-                <SelectItem value="name">Alphabetical</SelectItem>
+              <SelectContent className="rounded-2xl border-border bg-popover p-1">
+                <SelectItem className="rounded-full" value="updated">
+                  Latest Update
+                </SelectItem>
+                <SelectItem className="rounded-full" value="stars">
+                  Most Stars
+                </SelectItem>
+                <SelectItem className="rounded-full" value="name">
+                  Alphabetical
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -177,16 +175,16 @@ export default function ProjectsPage() {
             onValueChange={(v) => setViewMode(v as "grid" | "list")}
             className="w-[160px]"
           >
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-2 rounded-full bg-paper-2 p-1">
               <TabsTrigger
                 value="grid"
-                className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase"
+                className="flex items-center gap-2 rounded-full font-mono text-[11px] font-bold tracking-widest uppercase data-active:bg-primary data-active:text-primary-foreground"
               >
                 <LayoutGrid className="h-3.5 w-3.5" /> Grid
               </TabsTrigger>
               <TabsTrigger
                 value="list"
-                className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase"
+                className="flex items-center gap-2 rounded-full font-mono text-[11px] font-bold tracking-widest uppercase data-active:bg-primary data-active:text-primary-foreground"
               >
                 <List className="h-3.5 w-3.5" /> List
               </TabsTrigger>
@@ -203,8 +201,11 @@ export default function ProjectsPage() {
             return (
               <Badge
                 key={lang}
-                variant={isSelected ? "default" : "outline"}
-                className="cursor-pointer px-3 py-1 font-mono text-xs transition-all hover:-translate-y-[1px]"
+                className={`cursor-pointer rounded-full border-none px-3 py-1 font-mono text-xs transition-all hover:-translate-y-[1px] ${
+                  isSelected
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-paper-2 text-ink-2 hover:bg-paper-3"
+                }`}
                 onClick={() => setSelectedLanguage(lang)}
               >
                 {lang === "All" ? "All Languages" : lang}
@@ -239,7 +240,7 @@ export default function ProjectsPage() {
           </motion.div>
         </AnimatePresence>
       ) : (
-        <div className="py-20 text-center">
+        <div className="rounded-2xl border border-border bg-paper-2 p-16 text-center">
           <p className="text-lg text-muted-foreground">
             No projects found matching your criteria.
           </p>

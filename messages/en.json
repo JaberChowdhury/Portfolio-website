@@ -15,6 +15,7 @@
   "Footer": {
     "rights": "All rights reserved",
     "language": "Language",
+    "marqueeLabel": "Let's Build",
     "finalDestination": "Final Destination",
     "title1": "Let's create",
     "title2": "something ",
@@ -35,7 +36,11 @@
   },
   "Hero": {
     "available": "Available For Work",
+    "eyebrow": "01 · Portfolio",
     "description": "Frontend and Backend programmer crafting immersive digital experiences through modern web technologies, thoughtful systems design, and interactions that feel effortless.",
+    "ctaPrimary": "Let's work together",
+    "ctaSecondary": "View projects",
+    "ratingLabel": "Codeforces Rating",
     "tag1": "Frontend Developer",
     "tag2": "UI Architect",
     "tag3": "Motion Enthusiast"

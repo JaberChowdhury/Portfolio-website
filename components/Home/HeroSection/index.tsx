@@ -1,160 +1,142 @@
 "use client"
 
 import { useState } from "react"
-import withWaveDivider from "@/components/Wavedivider"
+import type { CSSProperties, MouseEvent } from "react"
 import { useTranslations } from "next-intl"
-// import { Button } from "@/components/ui/button"
-// import AnimatedTextBorder from "@/components/AnimatedTextBorder"
+import { motion } from "motion/react"
+import { ArrowUpRight } from "lucide-react"
+import { Link } from "@/i18n/routing"
+import { Button } from "@/components/ui/button"
 
 export function Hero() {
   const t = useTranslations("Hero")
-  const [mouse, setMouse] = useState({
-    x: 0,
-    y: 0,
-  })
+  const [stars, setStars] = useState<{ id: number; x: number; y: number }[]>([])
+
+  const spawnStar = (e: MouseEvent<HTMLElement>) => {
+    if (e.detail === 0) return
+    const id = Date.now()
+    setStars((prev) => [...prev, { id, x: e.clientX, y: e.clientY }])
+    window.setTimeout(() => {
+      setStars((prev) => prev.filter((star) => star.id !== id))
+    }, 450)
+  }
 
   return (
     <section
       id="home"
-      onMouseMove={(e) => {
-        setMouse({
-          x: e.clientX,
-          y: e.clientY,
-        })
-      }}
-      className="_bg-background relative flex min-h-screen items-center overflow-hidden text-foreground"
+      className="relative flex min-h-screen items-center overflow-hidden bg-paper text-ink"
     >
-      {/* Grid */}
-      <div className="absolute inset-0 opacity-40">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-size-[80px_80px]" />
-      </div>
-
-      {/* Noise Texture */}
       <div
-        className="absolute inset-0 opacity-[0.025] mix-blend-soft-light"
-        style={{
-          backgroundImage:
-            "url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22 viewBox=%220 0 200 200%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22/%3E%3C/filter%3E%3Crect width=%22200%22 height=%22200%22 filter=%22url(%23n)%22/%3E%3C/svg%3E')",
-        }}
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-[20%] -right-[15%] h-[560px] w-[560px] rounded-full bg-primary/15 blur-[140px]"
       />
 
-      {/* Mouse Spotlight */}
-      <div
-        className="pointer-events-none absolute top-0 left-0 h-[700px] w-[700px] rounded-full bg-primary/20 blur-[160px] transition-transform duration-75 ease-out"
-        style={{
-          transform: `translate(${mouse.x - 350}px, ${mouse.y - 350}px)`,
-        }}
-      />
-
-      {/* Center Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[220px]" />
-
-      {/* Radial Theme Glow */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at center, hsl(var(--primary) / 0.05), transparent 65%)",
-        }}
-      />
-
-      {/* Huge Background Name */}
-      <div className="absolute inset-0 flex animate-in items-center justify-center duration-1000 fill-mode-both fade-in">
-        <h2
-          data-cursor="text"
-          className="marlin-font preserve-design last-name pointer-events-none mt-50 bg-linear-to-r from-foreground/5 via-foreground/10 to-foreground/5 bg-clip-text text-[14vw] font-black tracking-[-0.08em] text-transparent select-none"
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-14 px-6 py-24 md:px-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-16">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
         >
-          CHOWDHURY
-        </h2>
-      </div>
+          <div className="mb-8 flex items-center gap-2.5">
+            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-pear" />
+            <p className="mono-label text-ink-2">{t("eyebrow")}</p>
+          </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10">
-        {/* Badge */}
-        <div className="mb-10 inline-flex animate-in items-center gap-3 rounded-full border border-border/50 bg-card/40 px-4 py-2 backdrop-blur-3xl delay-200 duration-1000 fill-mode-both fade-in slide-in-from-top-4">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
-
-          <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase">
-            {t("available")}
-          </span>
-        </div>
-
-        {/* Main Name */}
-        <div className="overflow-hidden">
-          <h1 className="marlin-font preserve-design flex animate-in flex-wrap text-[20vw] leading-[0.82] font-black tracking-[-0.08em] uppercase duration-1000 fill-mode-both fade-in slide-in-from-bottom-8 md:text-[10rem] lg:text-[14rem] xl:text-[16rem]">
-            <span
-              data-cursor="cover"
-              className="preserve-design hero-title inline-block drop-shadow-[0_0_60px_hsl(var(--primary)/0.15)]"
-            >
-              JABER
+          <h1 className="preserve-design text-6xl leading-[0.95] font-bold tracking-[-0.03em] md:text-8xl">
+            <span className="block">Jaber</span>
+            <span className="block">
+              <span className="last-name hl hl--pear">Hossain</span>
+              <span
+                aria-hidden="true"
+                className="hum-char ml-3 inline-block h-6 w-6 md:h-7 md:w-7"
+              />
             </span>
           </h1>
-        </div>
 
-        {/* Middle Name */}
-        <h2
-          data-cursor="text"
-          className="marlin-font preserve-design animate-in bg-gradient-to-r from-primary via-foreground to-primary bg-[length:300%_300%] bg-clip-text text-4xl font-light tracking-[0.45em] text-transparent uppercase delay-300 duration-1000 fill-mode-both fade-in slide-in-from-bottom-4 md:text-6xl"
-          style={{
-            animation: "gradientMove 8s ease infinite",
-          }}
-        >
-          HOSSAIN
-        </h2>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-2 md:text-xl">
+            {t("description")}
+          </p>
 
-        {/* Description */}
-        <p className="mt-10 max-w-2xl animate-in text-lg leading-relaxed text-muted-foreground delay-500 duration-1000 fill-mode-both fade-in slide-in-from-bottom-4 md:text-xl">
-          {t("description")}
-        </p>
-
-        {/* CTA */}
-        <div className="mt-12 flex animate-in flex-wrap gap-4 delay-700 duration-1000 fill-mode-both fade-in slide-in-from-bottom-4">
-          {/*
-          <div className="transition-transform duration-300 hover:scale-105 active:scale-95">
-            <Button size="lg" className="group rounded-full px-8">
-              View Projects
-              <ArrowUpRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </Button>
-          </div>
-          */}
-
-          {/*
-          <div className="transition-transform duration-300 hover:scale-105 active:scale-95">
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <Button
-              variant="outline"
               size="lg"
-              className="rounded-full border-border bg-card/30 px-8 backdrop-blur-xl"
+              className="px-8"
+              nativeButton={false}
+              render={<a href="mailto:your@email.com" />}
+              onClick={spawnStar}
             >
-              Contact Me
+              {t("ctaPrimary")}
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5" />
+            </Button>
+
+            <Button
+              size="lg"
+              variant="outline"
+              className="px-8"
+              nativeButton={false}
+              render={<Link href="/projects" />}
+            >
+              {t("ctaSecondary")}
+              <ArrowUpRight className="h-4 w-4" />
             </Button>
           </div>
-          */}
-        </div>
 
-        {/* Footer Meta */}
-        <div className="mt-24 flex animate-in flex-wrap gap-6 text-xs tracking-[0.3em] text-muted-foreground uppercase delay-1000 duration-1000 fill-mode-both fade-in">
-          <span>{t("tag1")}</span>
-          <span>{t("tag2")}</span>
-          <span>{t("tag3")}</span>
-        </div>
+          <div className="mt-14 flex flex-wrap gap-2.5">
+            {(["tag1", "tag2", "tag3"] as const).map((key) => (
+              <span
+                key={key}
+                className="mono-label rounded-full border border-border bg-paper-2 px-4 py-2 text-ink-2"
+              >
+                {t(key)}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.15,
+            ease: [0.22, 1, 0.36, 1] as const,
+          }}
+          className="flex flex-col gap-5"
+        >
+          <div className="hum-card hum-card--cyan p-6">
+            <div className="flex items-center gap-2.5">
+              <span
+                aria-hidden="true"
+                className="h-2.5 w-2.5 animate-pulse rounded-full bg-cyan"
+              />
+              <p className="mono-label text-ink">{t("available")}</p>
+            </div>
+          </div>
+
+          <div className="hum-card hum-card--mint p-6">
+            <p className="mono-label mb-3 text-ink-2">{t("ratingLabel")}</p>
+            <p className="text-4xl font-bold tracking-tight text-ink">
+              <span
+                className="counter"
+                data-target="1700"
+                style={{ "--target": 1700 } as CSSProperties}
+              />
+              <span className="text-ink-2">+</span>
+            </p>
+          </div>
+        </motion.div>
       </div>
 
-      <style jsx global>{`
-        @keyframes gradientMove {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-      `}</style>
+      {stars.map((star) => (
+        <span
+          key={star.id}
+          aria-hidden="true"
+          className="star-burst z-10"
+          style={{ left: star.x - 12, top: star.y - 12 }}
+        />
+      ))}
     </section>
   )
 }
 
-const HeroSection = withWaveDivider(Hero)
-
-export default HeroSection
+export default Hero

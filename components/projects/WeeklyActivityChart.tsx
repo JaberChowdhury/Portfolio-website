@@ -42,12 +42,10 @@ export default function WeeklyActivityChart({
   }
 
   return (
-    <div className="flex h-full flex-col border border-border bg-muted/20 p-6 shadow-sm">
+    <div className="hum-card--plain flex h-full flex-col rounded-2xl p-6 md:p-8">
       <div className="mb-4 flex items-start justify-between">
-        <div className="font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
-          WEEKLY ACTIVITY
-        </div>
-        <div className="rounded-sm bg-primary px-2 py-1 font-mono text-xs font-bold text-primary-foreground">
+        <div className="mono-label text-muted-foreground">WEEKLY ACTIVITY</div>
+        <div className="rounded-full bg-primary px-3 py-1 font-mono text-xs font-bold text-primary-foreground">
           {totalCommits} commits
         </div>
       </div>

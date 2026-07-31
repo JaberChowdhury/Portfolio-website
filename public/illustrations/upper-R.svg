@@ -1,0 +1,92 @@
+<svg
+  width="32"
+  height="32"
+  viewBox="0 0 40 35"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g filter="url(#base)">
+    <path
+      d="M8 4 L8 31 M8 4 C 15 3.5, 21 7, 21 11.5 C 21 14.5, 15.5 17, 8 17.5 M8 17.5 L29 31"
+      stroke="#FFFCEA"
+      stroke-width="6.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+    ></path>
+  </g>
+  <rect x="18.5" y="6.5" width="3" height="3" rx="1.5" fill="#210784"></rect>
+  <path
+    d="M8.9 5 L8.9 30"
+    stroke="#0034FE"
+    stroke-width="3.2"
+    stroke-linecap="round"
+    fill="none"
+  ></path>
+  <path
+    d="M10 20 C 15 22, 20 25, 24 29"
+    stroke="#FF5060"
+    stroke-width="4"
+    stroke-linecap="round"
+    fill="none"
+  ></path>
+  <g filter="url(#soft)">
+    <path
+      d="M11 5.5 C 17 4.5, 22 7.5, 23 12"
+      stroke="#F99"
+      stroke-width="4"
+      stroke-linecap="round"
+      fill="none"
+    ></path>
+  </g>
+  <defs>
+    <filter
+      id="base"
+      x="2"
+      y="0"
+      width="33"
+      height="35"
+      filterUnits="userSpaceOnUse"
+    >
+      <feFlood result="BackgroundImageFix"></feFlood>
+      <feGaussianBlur
+        in="BackgroundImageFix"
+        stdDeviation=".495"
+      ></feGaussianBlur>
+      <feComposite
+        in2="SourceAlpha"
+        operator="in"
+        result="effect1_backgroundBlur_259_65398"
+      ></feComposite>
+      <feBlend
+        in="SourceGraphic"
+        in2="effect1_backgroundBlur_259_65398"
+        result="shape"
+      ></feBlend>
+    </filter>
+    <filter
+      id="soft"
+      x="8"
+      y="1"
+      width="19"
+      height="15"
+      filterUnits="userSpaceOnUse"
+    >
+      <feFlood result="BackgroundImageFix"></feFlood>
+      <feGaussianBlur
+        in="BackgroundImageFix"
+        stdDeviation=".495"
+      ></feGaussianBlur>
+      <feComposite
+        in2="SourceAlpha"
+        operator="in"
+        result="effect1_backgroundBlur_259_65398"
+      ></feComposite>
+      <feBlend
+        in="SourceGraphic"
+        in2="effect1_backgroundBlur_259_65398"
+        result="shape"
+      ></feBlend>
+    </filter>
+  </defs>
+</svg>

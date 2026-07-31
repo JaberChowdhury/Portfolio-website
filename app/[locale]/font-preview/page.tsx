@@ -3,7 +3,6 @@
 import React, { useState } from "react"
 import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { pangrams } from "./data"
 import { useTranslations } from "next-intl"
 import Loader from "./components/Loader"
@@ -60,29 +59,34 @@ export default function FontPreviewPage() {
     <div className="container mx-auto min-h-screen px-6 py-12">
       {/* Header */}
       <div className="mb-10">
-        <h1 className="mb-2 text-5xl font-bold tracking-tight">{t("title")}</h1>
-        <p className="text-lg text-muted-foreground">{t("description")}</p>
+        <p className="mono-label mb-4 text-ink-2">Type Lab</p>
+        <h1 className="text-4xl font-bold tracking-tight text-ink md:text-6xl">
+          <span className="hl hl--cyan">{t("title")}</span>
+        </h1>
+        <p className="mt-4 max-w-2xl text-lg text-ink-2">
+          {t("description")}
+        </p>
       </div>
 
       {/* Controls */}
-      <Card className="mb-10 p-6 shadow-sm">
+      <div className="hum-card--plain mb-10 rounded-2xl p-6 md:p-8">
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="space-y-2">
-            <label className="text-sm leading-none font-semibold tracking-tight">
+            <label className="text-sm leading-none font-semibold tracking-tight text-ink">
               {t("controls.sampleText")}
             </label>
             <textarea
               value={sampleText}
               onChange={(e) => setSampleText(e.target.value)}
               rows={3}
-              className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
+              className="flex w-full rounded-xl border border-border bg-paper px-3 py-2 text-sm text-ink shadow-sm placeholder:text-ink-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="flex justify-between text-sm leading-none font-semibold tracking-tight">
+            <label className="flex justify-between text-sm leading-none font-semibold tracking-tight text-ink">
               <span>{t("controls.fontSize")}</span>
-              <span className="text-muted-foreground">{fontSize}px</span>
+              <span className="text-ink-2">{fontSize}px</span>
             </label>
             <input
               type="range"
@@ -95,13 +99,13 @@ export default function FontPreviewPage() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm leading-none font-semibold tracking-tight">
+            <label className="text-sm leading-none font-semibold tracking-tight text-ink">
               {t("controls.fontWeight")}
             </label>
             <select
               value={fontWeight}
               onChange={(e) => setFontWeight(Number(e.target.value))}
-              className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background focus:ring-1 focus:ring-ring focus:outline-none"
+              className="flex h-9 w-full items-center justify-between rounded-xl border border-border bg-paper px-3 py-2 text-sm text-ink shadow-sm focus:ring-2 focus:ring-ring focus:outline-none"
             >
               <option value={100}>{t("weights.100")}</option>
               <option value={200}>{t("weights.200")}</option>
@@ -129,7 +133,7 @@ export default function FontPreviewPage() {
             </Button>
           ))}
         </div>
-      </Card>
+      </div>
 
       {/* Tabs */}
       <div className="mb-8 flex flex-wrap gap-2">
@@ -141,41 +145,43 @@ export default function FontPreviewPage() {
       </div>
 
       {/* Dynamic Tabs Rendering */}
-      {activeTab === "compare" && (
-        <CompareTab
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          sampleText={sampleText}
-        />
-      )}
-      {activeTab === "custom" && (
-        <CustomFontsTab
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          sampleText={sampleText}
-        />
-      )}
-      {activeTab === "system" && (
-        <SystemFontsTab
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          sampleText={sampleText}
-        />
-      )}
-      {activeTab === "playground" && (
-        <PlaygroundTab
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          sampleText={sampleText}
-        />
-      )}
-      {activeTab === "analysis" && (
-        <AnalysisTab
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          sampleText={sampleText}
-        />
-      )}
+      <div className="hum-card--plain rounded-2xl p-6 md:p-8">
+        {activeTab === "compare" && (
+          <CompareTab
+            fontSize={fontSize}
+            fontWeight={fontWeight}
+            sampleText={sampleText}
+          />
+        )}
+        {activeTab === "custom" && (
+          <CustomFontsTab
+            fontSize={fontSize}
+            fontWeight={fontWeight}
+            sampleText={sampleText}
+          />
+        )}
+        {activeTab === "system" && (
+          <SystemFontsTab
+            fontSize={fontSize}
+            fontWeight={fontWeight}
+            sampleText={sampleText}
+          />
+        )}
+        {activeTab === "playground" && (
+          <PlaygroundTab
+            fontSize={fontSize}
+            fontWeight={fontWeight}
+            sampleText={sampleText}
+          />
+        )}
+        {activeTab === "analysis" && (
+          <AnalysisTab
+            fontSize={fontSize}
+            fontWeight={fontWeight}
+            sampleText={sampleText}
+          />
+        )}
+      </div>
 
       {/* Typography Metrics */}
       <TypographyMetrics fontSize={fontSize} fontWeight={fontWeight} />

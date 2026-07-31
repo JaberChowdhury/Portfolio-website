@@ -1,9 +1,8 @@
 "use client"
 
 import React from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { Trophy, Code2, Brain, Target, ExternalLink } from "lucide-react"
+import { motion } from "motion/react"
+import { ExternalLink } from "lucide-react"
 
 import {
   ResponsiveContainer,
@@ -15,20 +14,11 @@ import {
   YAxis,
 } from "recharts"
 
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 
 import { useTranslations } from "next-intl"
-import { StatCard, type Stat } from "./StatCard"
+import { StatCard, parseStatValue, type Stat } from "./StatCard"
 import { AchievementCard, type Achievement } from "./AchievementCard"
-
-// Stats array is loaded from translations
 
 const ratingHistory = [
   { contest: "C1", rating: 980 },
@@ -52,8 +42,6 @@ const skills = [
   "Shortest Path",
   "DSU",
 ]
-
-// Achievements array is loaded from translations
 
 const container = {
   hidden: { opacity: 0 },
@@ -84,10 +72,15 @@ export default function CompetitiveProgrammingSection() {
   const t = useTranslations("CompetitiveProgramming")
   const [isMounted, setIsMounted] = React.useState(false)
 
-  // Map stat icons
   const rawStats = t.raw("stats") as Stat[]
-  const statIcons = [Trophy, Code2, Target, Brain]
-  const stats = rawStats.map((stat, i) => ({ ...stat, icon: statIcons[i] }))
+
+  const headlineIndex = rawStats.reduce((best, stat, index) => {
+    const current = parseStatValue(stat.value).number
+    const target = parseStatValue(rawStats[best].value).number
+    return current != null && (target == null || current > target)
+      ? index
+      : best
+  }, 0)
 
   const achievements = t.raw("achievements") as Achievement[]
 
@@ -96,38 +89,29 @@ export default function CompetitiveProgrammingSection() {
   }, [])
 
   return (
-    <section id="programming" className="relative w-full overflow-hidden py-28">
-      {/* Background Aura */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute right-0 bottom-0 h-[450px] w-[650px] rounded-full bg-foreground/5 blur-[140px]" />
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-        {/* Header */}
+    <section
+      id="programming"
+      className="band-cyan relative w-full overflow-hidden py-28"
+    >
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div className="mb-16">
-          <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
-            {t("eyebrow")}
-          </p>
+          <p className="mono-label mb-4 text-ink-2">03 · {t("eyebrow")}</p>
 
           <h2
             data-cursor="text"
-            className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
+            className="text-4xl leading-[1.05] font-bold tracking-tight md:text-6xl"
           >
             {t("title1")}
-            <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
-              {t("title2")}
-            </span>
+            <span className="hl hl--cyan">{t("title2")}</span>
             <br />
             {t("title3")}
           </h2>
 
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink-2 md:text-lg">
             {t("description")}
           </p>
         </div>
 
-        {/* Codeforces Profile */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -135,204 +119,225 @@ export default function CompetitiveProgrammingSection() {
           transition={{ duration: 0.8 }}
           className="mb-10"
         >
-          <Card className="overflow-hidden border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-            <CardContent className="flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="text-sm tracking-[0.25em] text-muted-foreground uppercase">
-                  {t("codeforces.eyebrow")}
-                </p>
+          <div className="hum-card hum-card--pear flex flex-col gap-6 rounded-2xl p-8 md:flex-row md:items-center md:justify-between md:p-9">
+            <div>
+              <p className="mono-label text-pear-deep">
+                {t("codeforces.eyebrow")}
+              </p>
 
-                <h3 data-cursor="text" className="mt-2 text-3xl font-semibold">
-                  {t("codeforces.name")}
-                </h3>
-
-                <p className="mt-3 max-w-xl text-muted-foreground">
-                  {t("codeforces.description")}
-                </p>
-              </div>
-
-              <Link
-                href="https://codeforces.com/profile/YOUR_HANDLE"
-                target="_blank"
-                className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-6 py-3 text-sm font-medium transition-all hover:border-primary/40 hover:text-primary"
+              <h3
+                data-cursor="text"
+                className="mt-3 text-3xl font-bold tracking-tight text-ink"
               >
-                {t("codeforces.viewProfile")}
-                <ExternalLink className="h-4 w-4" />
-              </Link>
-            </CardContent>
-          </Card>
+                {t("codeforces.name")}
+              </h3>
+
+              <p className="mt-3 max-w-xl text-ink-2">
+                {t("codeforces.description")}
+              </p>
+            </div>
+
+            <Button
+              className="rounded-full px-7"
+              nativeButton={false}
+              render={
+                <a
+                  href="https://codeforces.com/profile/YOUR_HANDLE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              }
+            >
+              {t("codeforces.viewProfile")}
+              <ExternalLink className="h-4 w-4" />
+            </Button>
+          </div>
         </motion.div>
 
-        {/* Stats + Graph */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="mb-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {rawStats.map((stat, index) => (
+            <motion.div key={stat.label} variants={item}>
+              <StatCard
+                stat={stat}
+                index={index}
+                headline={index === headlineIndex}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-12"
         >
-          <Card className="overflow-hidden border border-border/60 bg-card/60 backdrop-blur-xl">
-            <CardContent className="p-6 md:p-8">
-              <div className="grid gap-6 lg:grid-cols-[420px_1fr]">
-                {/* Left Side Stats */}
-                <div className="grid grid-cols-2 gap-4">
-                  {stats.map((stat) => (
-                    <StatCard key={stat.label} stat={stat} />
-                  ))}
-                </div>
+          <div className="hum-card hum-card--plain rounded-2xl p-6 md:p-8">
+            <div className="mb-6">
+              <h3
+                data-cursor="text"
+                className="text-lg font-bold tracking-tight text-ink"
+              >
+                {t("graph.title")}
+              </h3>
 
-                {/* Rating Graph */}
-                <div className="rounded-2xl border border-border/60 bg-card/40 p-5">
-                  <div className="mb-5">
-                    <h3 data-cursor="text" className="text-lg font-semibold">
-                      {t("graph.title")}
-                    </h3>
+              <p className="mt-1 text-sm text-ink-2">
+                {t("graph.description")}
+              </p>
+            </div>
 
-                    <p className="text-sm text-muted-foreground">
-                      {t("graph.description")}
-                    </p>
-                  </div>
-
-                  <div className="h-[320px] w-full">
-                    {isMounted && (
-                      <ResponsiveContainer
-                        width="100%"
-                        height="100%"
-                        minWidth={0}
-                        minHeight={0}
+            <div className="h-[320px] w-full">
+              {isMounted && (
+                <ResponsiveContainer
+                  width="100%"
+                  height="100%"
+                  minWidth={0}
+                  minHeight={0}
+                >
+                  <AreaChart
+                    data={ratingHistory}
+                    margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
+                  >
+                    <defs>
+                      <linearGradient
+                        id="ratingGradient"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
                       >
-                        <AreaChart data={ratingHistory}>
-                          <defs>
-                            <linearGradient
-                              id="ratingGradient"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="1"
-                            >
-                              <stop
-                                offset="0%"
-                                stopColor="hsl(var(--primary))"
-                                stopOpacity={0.35}
-                              />
-                              <stop
-                                offset="100%"
-                                stopColor="hsl(var(--primary))"
-                                stopOpacity={0}
-                              />
-                            </linearGradient>
-                          </defs>
+                        <stop
+                          offset="0%"
+                          stopColor="hsl(var(--primary))"
+                          stopOpacity={0.3}
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="hsl(var(--primary))"
+                          stopOpacity={0}
+                        />
+                      </linearGradient>
+                    </defs>
 
-                          <CartesianGrid
-                            strokeDasharray="3 3"
-                            stroke="hsl(var(--border))"
-                            opacity={0.25}
-                          />
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="hsl(var(--muted-foreground))"
+                      strokeOpacity={0.18}
+                      vertical={false}
+                    />
 
-                          <XAxis
-                            dataKey="contest"
-                            tickLine={false}
-                            axisLine={false}
-                            tick={{
-                              fill: "hsl(var(--muted-foreground))",
-                            }}
-                          />
+                    <XAxis
+                      dataKey="contest"
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={10}
+                      tick={{
+                        fill: "hsl(var(--muted-foreground))",
+                        fontSize: 12,
+                      }}
+                    />
 
-                          <YAxis
-                            tickLine={false}
-                            axisLine={false}
-                            tick={{
-                              fill: "hsl(var(--muted-foreground))",
-                            }}
-                          />
+                    <YAxis
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={6}
+                      width={44}
+                      tick={{
+                        fill: "hsl(var(--muted-foreground))",
+                        fontSize: 12,
+                      }}
+                    />
 
-                          <Tooltip
-                            contentStyle={{
-                              background: "hsl(var(--card))",
-                              border: "1px solid hsl(var(--border))",
-                              borderRadius: "12px",
-                            }}
-                          />
+                    <Tooltip
+                      cursor={{
+                        stroke: "hsl(var(--muted-foreground))",
+                        strokeOpacity: 0.3,
+                      }}
+                      contentStyle={{
+                        background: "hsl(var(--paper))",
+                        border: "1px solid hsl(var(--border))",
+                        borderRadius: "0.75rem",
+                        boxShadow:
+                          "0 12px 32px -16px oklch(0.2 0.012 250 / 0.25)",
+                        padding: "0.75rem 1rem",
+                      }}
+                      labelStyle={{
+                        color: "hsl(var(--ink))",
+                        fontWeight: 700,
+                      }}
+                      itemStyle={{
+                        color: "hsl(var(--ink))",
+                      }}
+                    />
 
-                          <Area
-                            type="monotone"
-                            dataKey="rating"
-                            stroke="hsl(var(--primary))"
-                            strokeWidth={3}
-                            fill="url(#ratingGradient)"
-                          />
-                        </AreaChart>
-                      </ResponsiveContainer>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                    <Area
+                      type="monotone"
+                      dataKey="rating"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth={3}
+                      strokeLinecap="round"
+                      fill="url(#ratingGradient)"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </div>
         </motion.div>
 
-        {/* Bottom Section */}
-        <div className="grid gap-7 lg:grid-cols-2">
-          {/* Achievements */}
+        <div className="mt-10 grid gap-7 lg:grid-cols-2">
           <motion.div
             variants={container}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="space-y-7"
+            className="space-y-5"
           >
-            {achievements.map((achievement) => (
+            {achievements.map((achievement, index) => (
               <motion.div key={achievement.title} variants={item}>
-                <AchievementCard achievement={achievement} />
+                <AchievementCard achievement={achievement} index={index} />
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Skills */}
           <motion.div
             variants={item}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
           >
-            <Card className="h-full border border-border/60 bg-card/60 backdrop-blur-xl">
-              <CardHeader>
-                <CardTitle>{t("toolbox.title")}</CardTitle>
+            <div className="hum-card hum-card--plain flex h-full flex-col rounded-2xl p-7 md:p-9">
+              <h3
+                data-cursor="text"
+                className="text-lg font-bold tracking-tight text-ink"
+              >
+                {t("toolbox.title")}
+              </h3>
 
-                <CardDescription>{t("toolbox.description")}</CardDescription>
-              </CardHeader>
+              <p className="mt-1 text-sm text-ink-2">
+                {t("toolbox.description")}
+              </p>
 
-              <CardContent>
-                <div className="flex flex-wrap gap-3">
-                  {skills.map((skill) => (
-                    <Badge
-                      key={skill}
-                      variant="secondary"
-                      className="rounded-full border border-border/50 bg-muted/40 px-3 py-1"
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+              <div className="mt-6 flex flex-wrap gap-2.5">
+                {skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="rounded-full bg-paper/80 px-4 py-1.5 text-sm font-medium text-ink-2 ring-1 ring-ink/10 transition-colors hover:bg-paper-3 hover:text-ink"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes gradientMove {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-      `}</style>
     </section>
   )
 }

@@ -1,10 +1,4 @@
 import { ElementType } from "react"
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 
 export interface Highlight {
   title: string
@@ -12,28 +6,44 @@ export interface Highlight {
   icon: ElementType
 }
 
+type HighlightTint = "pear" | "cyan" | "mint"
+
 interface HighlightCardProps {
   highlight: Highlight
+  tint?: HighlightTint
 }
 
-export function HighlightCard({ highlight }: HighlightCardProps) {
+const tintStyles: Record<
+  HighlightTint,
+  { card: string; icon: string; tile: string }
+> = {
+  pear: { card: "hum-card--pear", icon: "text-pear-deep", tile: "bg-pear/15" },
+  cyan: { card: "hum-card--cyan", icon: "text-cyan-deep", tile: "bg-cyan/15" },
+  mint: { card: "hum-card--mint", icon: "text-mint-deep", tile: "bg-mint/15" },
+}
+
+export function HighlightCard({
+  highlight,
+  tint = "pear",
+}: HighlightCardProps) {
   const Icon = highlight.icon
+  const style = tintStyles[tint]
 
   return (
-    <Card className="group h-full border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-      <CardHeader>
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-border/60 bg-muted/40">
-          <Icon className="h-5 w-5 text-primary" />
-        </div>
+    <div className={`hum-card h-full rounded-2xl p-6 ${style.card}`}>
+      <div
+        className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl ${style.tile}`}
+      >
+        <Icon className={`h-5 w-5 ${style.icon}`} />
+      </div>
 
-        <CardTitle className="transition-colors group-hover:text-primary">
-          {highlight.title}
-        </CardTitle>
+      <h3 className="text-xl font-bold tracking-[-0.025em] text-ink">
+        {highlight.title}
+      </h3>
 
-        <CardDescription className="leading-relaxed">
-          {highlight.description}
-        </CardDescription>
-      </CardHeader>
-    </Card>
+      <p className="mt-2 text-sm leading-relaxed text-ink-2">
+        {highlight.description}
+      </p>
+    </div>
   )
 }
