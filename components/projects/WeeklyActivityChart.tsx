@@ -42,25 +42,23 @@ export default function WeeklyActivityChart({
   }
 
   return (
-    <div className="flex h-full flex-col border border-border bg-muted/20 p-6 shadow-sm">
+    <div className="flex h-full flex-col rounded-2xl bg-paper-2 p-6">
       <div className="mb-4 flex items-start justify-between">
-        <div className="font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
-          WEEKLY ACTIVITY
-        </div>
-        <div className="rounded-sm bg-primary px-2 py-1 font-mono text-xs font-bold text-primary-foreground">
+        <div className="mono-label">Weekly Activity</div>
+        <div className="rounded-full bg-paper-3 px-2.5 py-1 font-mono text-[10px] font-bold tracking-widest text-cyan uppercase">
           {totalCommits} commits
         </div>
       </div>
 
       <div
-        className={`mb-6 h-5 font-mono text-xs ${hoveredWeek !== null ? "font-bold text-primary" : "text-muted-foreground"}`}
+        className={`mb-6 h-5 font-mono text-xs ${hoveredWeek !== null ? "font-bold text-cyan" : "text-ink-2"}`}
       >
         {hoveredWeek !== null
           ? `${getWeekDateRange(hoveredWeek)}: ${activity[hoveredWeek]} ${activity[hoveredWeek] === 1 ? "commit" : "commits"}`
           : "Hover over the bars to see activity detail"}
       </div>
 
-      <div className="relative w-full">
+      <div className="relative w-full text-ink-2">
         <svg
           viewBox="0 0 520 100"
           width="100%"
@@ -109,7 +107,7 @@ export default function WeeklyActivityChart({
             let opacity = 0.15
 
             if (commits > 0) {
-              fill = "hsl(var(--primary))"
+              fill = "var(--cyan)"
               opacity = isHovered ? 1 : 0.65
             } else if (isHovered) {
               opacity = 0.4
@@ -135,7 +133,7 @@ export default function WeeklyActivityChart({
           })}
         </svg>
 
-        <div className="mt-3 flex justify-between font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
+        <div className="mt-3 flex justify-between font-mono text-[10px] tracking-widest text-ink-2 uppercase">
           <span>1 year ago</span>
           <span>Today</span>
         </div>

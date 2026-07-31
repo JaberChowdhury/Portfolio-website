@@ -1,4 +1,6 @@
 import "../globals.css"
+import { Geist, Geist_Mono } from "next/font/google"
+import localFont from "next/font/local"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import Navbar from "@/components/Navbar"
@@ -13,6 +15,28 @@ import {
 import { routing } from "@/i18n/routing"
 import { notFound } from "next/navigation"
 import NextTopLoader from "nextjs-toploader"
+
+const geistSans = Geist({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-geist-sans",
+})
+
+const sentient = localFont({
+  src: [
+    { path: "../../public/font/Sentient-400.woff2", weight: "400" },
+    { path: "../../public/font/Sentient-500.woff2", weight: "500" },
+    { path: "../../public/font/Sentient-700.woff2", weight: "700" },
+  ],
+  display: "swap",
+  variable: "--font-sentient",
+})
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-geist-mono",
+})
 
 export async function generateMetadata({
   params,
@@ -84,17 +108,21 @@ export default async function RootLayout({
       lang={locale}
       suppressHydrationWarning
       className={cn(
+        geistSans.variable,
+        sentient.variable,
+        geistMono.variable,
         "antialiased",
-        locale === "bn" ? "sohid-font" : "marlin-font"
+        locale === "bn" ? "sohid-font" : ""
       )}
     >
       <body>
+        <div className="aurora-canvas" aria-hidden="true" />
         <NextTopLoader color="var(--primary)" showSpinner={false} />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             {/* <CustomCursor /> */}
             <Navbar />
-            <main className="mt-8">{children}</main>
+            <main>{children}</main>
             <Footer />
           </ThemeProvider>
         </NextIntlClientProvider>

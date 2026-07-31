@@ -7,13 +7,9 @@ import { useMotionValue, useSpring } from "motion/react"
 import { cn } from "@/lib/utils"
 
 const MOVEMENT_DAMPING = 1400
-interface COBEOptionsCustom extends COBEOptions {
-  onRender: (data: any) => void
-}
-export const GLOBE_CONFIG: COBEOptionsCustom = {
+export const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 1800,
-  onRender: () => {},
   devicePixelRatio: 2,
   phi: 0,
   theta: 0.3,
@@ -87,16 +83,23 @@ export function Globe({
       ...config,
       width: widthRef.current * 2,
       height: widthRef.current * 2,
-      onRender: (state) => {
-        if (!pointerInteracting.current) phiRef.current += 0.005
-        state.phi = phiRef.current + rs.get()
-        state.width = widthRef.current * 2
-        state.height = widthRef.current * 2
-      },
     })
+
+    let rafId = 0
+    const animate = () => {
+      if (!pointerInteracting.current) phiRef.current += 0.005
+      globe.update({
+        phi: phiRef.current + rs.get(),
+        width: widthRef.current * 2,
+        height: widthRef.current * 2,
+      })
+      rafId = requestAnimationFrame(animate)
+    }
+    rafId = requestAnimationFrame(animate)
 
     setTimeout(() => (canvasRef.current!.style.opacity = "1"), 0)
     return () => {
+      cancelAnimationFrame(rafId)
       globe.destroy()
       window.removeEventListener("resize", onResize)
     }

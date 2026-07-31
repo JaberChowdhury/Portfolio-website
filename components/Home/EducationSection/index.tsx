@@ -1,50 +1,29 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
+import type { CSSProperties } from "react"
 import {
-  Calendar,
   BookA as BookOpen,
   Brain,
   Code2,
-  Target,
   GraduationCap,
   School,
+  Target,
 } from "lucide-react"
-
-import { Card, CardContent } from "@/components/ui/card"
 import { useTranslations } from "next-intl"
-import { EducationCard, type EducationCardProps } from "./EducationCard"
-import { HighlightCard, type Highlight } from "./HighlightCard"
+import type { EducationCardProps } from "./EducationCard"
+import type { Highlight } from "./HighlightCard"
 
 // Highlights and history are now loaded dynamically from translations
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-}
-
-const item = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-}
-
 export default function EducationSection() {
   const t = useTranslations("Education")
+
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setVisible(true))
+    return () => cancelAnimationFrame(id)
+  }, [])
 
   // Need to re-attach icons since JSON doesn't store components
   const rawHighlights = t.raw("highlights") as Highlight[]
@@ -61,122 +40,141 @@ export default function EducationSection() {
     icon: historyIcons[i],
   }))
 
+  const yearsOf = (edu: EducationCardProps) =>
+    edu.progress.find((p) =>
+      /year|duration|status|completion/i.test(p.label)
+    )?.value
+
   return (
-    <section id="education" className="relative w-full overflow-hidden py-28">
-      {/* Background Aura */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute right-0 bottom-0 h-[450px] w-[650px] rounded-full bg-foreground/5 blur-[140px]" />
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10">
+    <section
+      id="education"
+      className="relative w-full pb-[clamp(4rem,10vw,7.5rem)]"
+    >
+      <div className="mx-auto w-full max-w-3xl px-6 md:px-10">
         {/* Header */}
-        <div className="mb-16">
-          <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
-            {t("eyebrow")}
-          </p>
+        <div
+          className={"head-hang reveal" + (visible ? " is-visible" : "")}
+          style={{ "--reveal-delay": "0s" } as CSSProperties}
+        >
+          <div className="head-hang__eyebrow">
+            <span className="mono-label">( 07 )</span>
+            <span className="mono-label">{t("eyebrow")}</span>
+          </div>
 
-          <h2
-            data-cursor="text"
-            className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
-          >
+          <h2 data-cursor="text" className="head-hang__title">
             {t("title1")}
             <br />
             {t("title2")}
-            <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
-              {t("title3")}
-            </span>
-            .
+            <span className="hl">{t("title3")}</span>.
           </h2>
 
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            {t("description")}
-          </p>
+          <p className="head-hang__body">{t("description")}</p>
         </div>
 
-        {/* Academic History Timeline */}
-        <div className="mb-20 flex flex-col gap-10">
-          {academicHistory.map((edu, index) => (
-            <motion.div
-              key={edu.title}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-            >
-              <EducationCard {...edu} />
-            </motion.div>
-          ))}
-        </div>
+        {/* Academic History */}
+        <div className="mt-8 flex flex-col gap-16 md:gap-20">
+          {academicHistory.map((edu, index) => {
+            const Icon = edu.icon ?? GraduationCap
+            const years = yearsOf(edu)
 
-        {/* Highlights Header */}
-        <div className="mb-10">
-          <h3
-            data-cursor="text"
-            className="text-2xl font-semibold tracking-tight"
-          >
-            {t("academicFocus")}
-          </h3>
+            return (
+              <article
+                key={edu.title}
+                className={"reveal" + (visible ? " is-visible" : "")}
+                style={
+                  {
+                    "--reveal-delay": `${(index + 1) * 0.1}s`,
+                  } as CSSProperties
+                }
+              >
+                <p className="mono-label flex items-center gap-2">
+                  <span className="text-cyan">
+                    <Icon className="h-3.5 w-3.5" />
+                  </span>
+                  <span>{edu.subtitle}</span>
+                  {years && <span className="text-ink-2">· {years}</span>}
+                </p>
+
+                <h3 className="mt-4 text-2xl font-semibold tracking-tight text-ink md:text-3xl">
+                  {edu.title}
+                </h3>
+
+                <p className="mt-3 max-w-2xl font-serif text-ink-2">
+                  {edu.description}
+                </p>
+
+                {edu.subjects.length > 0 && (
+                  <p className="mt-5 font-serif text-sm text-ink-2">
+                    {edu.subjects.join(" · ")}
+                  </p>
+                )}
+              </article>
+            )
+          })}
         </div>
 
         {/* Highlights */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid gap-7 md:grid-cols-3"
-        >
-          {highlights.map((highlight) => (
-            <motion.div key={highlight.title} variants={item}>
-              <HighlightCard highlight={highlight} />
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="mt-24">
+          <h3
+            className={"mono-label reveal" + (visible ? " is-visible" : "")}
+            style={{ "--reveal-delay": "0.5s" } as CSSProperties}
+          >
+            {t("academicFocus")}
+          </h3>
 
-        {/* Timeline Footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="mt-16"
-        >
-          <Card className="border border-border/60 bg-card/40 backdrop-blur-xl">
-            <CardContent className="flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-center gap-3">
-                <Calendar className="h-5 w-5 text-primary" />
+          <div className="mt-8 flex flex-col gap-6">
+            {highlights.map((highlight, index) => {
+              const Icon = highlight.icon
 
-                <div>
-                  <h4 className="font-medium">{t("progressTitle")}</h4>
+              return (
+                <div
+                  key={highlight.title}
+                  className={"aurora-card reveal" + (visible ? " is-visible" : "")}
+                  style={
+                    {
+                      "--reveal-delay": `${0.6 + index * 0.1}s`,
+                    } as CSSProperties
+                  }
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="mt-1 shrink-0 text-cyan">
+                      <Icon className="h-4 w-4" />
+                    </span>
 
-                  <p className="text-sm text-muted-foreground">
-                    {t("progressDesc")}
-                  </p>
+                    <div>
+                      <h4 className="text-lg font-semibold tracking-tight text-ink">
+                        {highlight.title}
+                      </h4>
+
+                      <p className="mt-2 font-serif text-ink-2">
+                        {highlight.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )
+            })}
+          </div>
+        </div>
 
-              <div className="h-2 w-full overflow-hidden rounded-full bg-muted md:w-80">
-                <div className="h-full w-[25%] rounded-full bg-primary" />
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+        {/* Academic Progress */}
+        <div
+          className={"mt-20 reveal" + (visible ? " is-visible" : "")}
+          style={{ "--reveal-delay": "0.9s" } as CSSProperties}
+        >
+          <div className="flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between">
+            <h4 className="font-semibold tracking-tight text-ink">
+              {t("progressTitle")}
+            </h4>
+
+            <p className="font-serif text-sm text-ink-2">{t("progressDesc")}</p>
+          </div>
+
+          <div className="mt-5 h-1 w-full overflow-hidden rounded-full bg-ink-2/15">
+            <div className="h-full w-[25%] rounded-full bg-cyan" />
+          </div>
+        </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes gradientMove {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-      `}</style>
     </section>
   )
 }

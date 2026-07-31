@@ -102,25 +102,27 @@ export default function ProjectDetailClient({
 
   if (loadingRepo || !repoInfo) {
     return (
-      <div className="container mx-auto flex min-h-screen max-w-5xl flex-col space-y-8 px-4 pt-32 pb-20">
-        <Skeleton className="h-12 w-1/3" />
-        <Skeleton className="h-[280px] w-full" />
-        <Skeleton className="h-6 w-1/2" />
+      <div className="container mx-auto flex min-h-screen max-w-5xl flex-col space-y-8 px-6 pt-16 pb-24 md:px-10">
+        <Skeleton className="h-12 w-1/3 bg-paper-3" />
+        <Skeleton className="h-[280px] w-full rounded-2xl bg-paper-3" />
+        <Skeleton className="h-6 w-1/2 bg-paper-3" />
         <div className="flex gap-4">
-          <Skeleton className="h-10 w-32" />
-          <Skeleton className="h-10 w-32" />
+          <Skeleton className="h-10 w-32 bg-paper-3" />
+          <Skeleton className="h-10 w-32 bg-paper-3" />
         </div>
-        <Skeleton className="h-64 w-full" />
+        <Skeleton className="h-64 w-full rounded-2xl bg-paper-3" />
       </div>
     )
   }
 
   if (errorRepo) {
     return (
-      <div className="container mx-auto flex min-h-screen max-w-5xl items-center justify-center px-4 pt-32 pb-20 text-center">
+      <div className="container mx-auto flex min-h-screen max-w-5xl items-center justify-center px-6 pt-16 pb-24 text-center md:px-10">
         <div>
-          <h2 className="mb-4 text-2xl font-bold text-destructive">Error</h2>
-          <p className="text-muted-foreground">{errorRepo}</p>
+          <h2 className="mb-4 text-2xl font-semibold tracking-tight text-ink">
+            Error
+          </h2>
+          <p className="text-ink-2">{errorRepo}</p>
         </div>
       </div>
     )
@@ -131,7 +133,7 @@ export default function ProjectDetailClient({
   ]
 
   return (
-    <div className="container mx-auto min-h-screen max-w-5xl px-4 pt-24 pb-20">
+    <div className="container mx-auto min-h-screen max-w-5xl px-6 pt-16 pb-24 md:px-10">
       <ProjectHeader repoInfo={repoInfo} />
 
       <BranchSelector
@@ -150,10 +152,13 @@ export default function ProjectDetailClient({
       )}
 
       <div className="w-full">
-        <div className="mb-4 flex items-center font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
-          <span className="mr-2 text-primary">~/</span> README.md
+        <div className="mono-label mb-4 flex items-baseline gap-2">
+          <span className="text-cyan-2">~/</span>
+          <span className="font-mono text-[0.6875rem] tracking-[0.12em] text-ink-2 uppercase">
+            README.md
+          </span>
         </div>
-        <div className="rounded-md border border-border bg-card p-6 text-card-foreground shadow-sm md:p-10">
+        <div className="rounded-2xl bg-paper-2 p-6 text-ink md:p-10">
           <AnimatePresence mode="wait">
             {loadingReadme ? (
               <motion.div
@@ -163,7 +168,7 @@ export default function ProjectDetailClient({
                 exit={{ opacity: 0 }}
                 className="flex justify-center py-20"
               >
-                <Skeleton className="h-64 w-full" />
+                <Skeleton className="h-64 w-full rounded-xl bg-paper-3" />
               </motion.div>
             ) : (
               <motion.div

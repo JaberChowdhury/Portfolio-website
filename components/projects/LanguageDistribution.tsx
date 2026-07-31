@@ -27,41 +27,39 @@ export default function LanguageDistribution({
     .sort((a, b) => b.value - a.value)
 
   const langColors: Record<string, string> = {
-    TypeScript: "#3178c6",
-    JavaScript: "#f1e05a",
-    CSS: "#563d7c",
-    HTML: "#e34c26",
-    Astro: "#ff5a03",
-    "C++": "#f34b7d",
-    C: "#555555",
-    Python: "#3572A5",
-    Rust: "#dea584",
-    GLSL: "#5686a5",
-    Shell: "#89e051",
-    Markdown: "#083fa1",
+    TypeScript: "oklch(72% 0.12 225)",
+    JavaScript: "oklch(78% 0.11 200)",
+    CSS: "oklch(64% 0.12 205)",
+    HTML: "oklch(80% 0.09 180)",
+    Astro: "oklch(58% 0.13 235)",
+    "C++": "oklch(70% 0.12 190)",
+    C: "oklch(82% 0.08 210)",
+    Python: "oklch(66% 0.12 215)",
+    Rust: "oklch(76% 0.11 195)",
+    GLSL: "oklch(60% 0.13 245)",
+    Shell: "oklch(85% 0.07 200)",
+    Markdown: "oklch(55% 0.14 240)",
   }
 
   const getLangColor = (name: string, index: number) => {
     if (langColors[name]) return langColors[name]
     const fallbackColors = [
-      "#00E5E5",
-      "#FF3366",
-      "#FFCC00",
-      "#00FF66",
-      "#CC33FF",
-      "#FF6600",
+      "oklch(80% 0.11 200)",
+      "oklch(70% 0.13 225)",
+      "oklch(85% 0.08 190)",
+      "oklch(75% 0.12 180)",
+      "oklch(60% 0.14 240)",
+      "oklch(68% 0.12 210)",
     ]
     return fallbackColors[index % fallbackColors.length]
   }
 
   return (
-    <div className="w-full border border-border bg-muted/20 p-6 shadow-sm">
-      <div className="mb-6 font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
-        LANGUAGES
-      </div>
+    <div className="w-full rounded-2xl bg-paper-2 p-6">
+      <div className="mono-label mb-6">Languages</div>
 
       {/* Stacked bar chart */}
-      <div className="mb-6 flex h-3 w-full overflow-hidden rounded-sm border border-border bg-muted">
+      <div className="mb-6 flex h-3 w-full overflow-hidden rounded-full bg-paper">
         {langSorted.map((lang, idx) => (
           <motion.div
             key={lang.name}
@@ -87,15 +85,15 @@ export default function LanguageDistribution({
               : `${lang.value} ${lang.value === 1 ? "file" : "files"}`
 
           return (
-            <div key={lang.name} className="flex items-center gap-2">
-              <div
+            <div key={lang.name} className="flex items-baseline gap-2">
+              <span
                 className="h-2.5 w-2.5 rounded-full"
                 style={{ backgroundColor: getLangColor(lang.name, idx) }}
               />
-              <span className="font-mono text-xs font-bold text-foreground">
+              <span className="font-mono text-xs font-bold text-ink">
                 {lang.name}
               </span>
-              <span className="font-mono text-xs text-muted-foreground">
+              <span className="font-mono text-xs text-ink-2">
                 {lang.percentage.toFixed(1)}% ({formattedValue})
               </span>
             </div>

@@ -31,17 +31,15 @@ export default function BranchSelector({
   }
 
   return (
-    <div className="mb-8 w-full">
-      <div className="mb-3 flex items-center font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
-        BRANCHES
-        <span className="ml-3 text-[10px] font-medium tracking-wider opacity-50">
+    <div className="mb-12 w-full">
+      <div className="mono-label mb-4 flex items-baseline gap-3">
+        Branches
+        <span className="font-mono text-[10px] font-medium tracking-wider text-ink-2 uppercase">
           {allBranches.length}
         </span>
       </div>
 
-      <div className="mb-4 h-px w-full bg-border" />
-
-      <div className="flex flex-wrap gap-2 pb-2">
+      <div className="flex flex-wrap gap-x-6 gap-y-3 pb-2">
         {allBranches.map((branch, index) => {
           const isActive = index === (activeIndex === -1 ? 0 : activeIndex)
 
@@ -54,22 +52,20 @@ export default function BranchSelector({
               transition={{ duration: 0.3, delay: Math.min(index * 0.03, 0.6) }}
               whileHover={{ y: isActive ? 0 : -2 }}
               whileTap={{ scale: 0.95 }}
-              className={`relative inline-flex cursor-pointer items-center overflow-hidden rounded-sm border px-3 py-1.5 font-mono text-xs font-bold tracking-widest uppercase transition-all duration-200 select-none ${
+              className={`relative inline-flex cursor-pointer items-center gap-2 font-mono text-xs font-bold tracking-widest uppercase transition-colors duration-200 select-none ${
                 isActive
-                  ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                  : "border-border bg-transparent text-muted-foreground hover:border-muted-foreground hover:bg-muted hover:text-primary"
-              } `}
+                  ? "text-cyan"
+                  : "text-ink-2 hover:text-cyan focus-visible:text-cyan"
+              }`}
             >
               {isActive && (
-                <div className="mr-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary-foreground opacity-80" />
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
               )}
               {branch.name}
             </motion.button>
           )
         })}
       </div>
-
-      <div className="mt-2 h-px w-full bg-border" />
     </div>
   )
 }

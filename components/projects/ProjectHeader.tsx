@@ -42,77 +42,89 @@ export default function ProjectHeader({ repoInfo }: ProjectHeaderProps) {
     <div className="w-full">
       <Link
         href="/projects"
-        className="mb-10 inline-flex items-center gap-2 font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase transition-colors hover:text-primary"
+        className="mb-10 inline-flex items-center gap-2 font-mono text-[11px] font-bold tracking-widest text-ink-2 uppercase transition-colors hover:text-cyan focus-visible:text-cyan"
       >
         <ArrowLeft className="h-4 w-4" />
         Back
       </Link>
 
-      <div className="mb-12 border-b border-border pb-8">
-        <div className="relative mb-6 h-[150px] w-full overflow-hidden md:h-[280px]">
+      <header className="head-hang relative">
+        {/* Cyan particle bloom behind the hanging head */}
+        <div className="pointer-events-none absolute inset-x-0 -top-2 h-[300px] w-full opacity-[0.16] md:h-[420px]">
           <ParticleText
             text={repoInfo.name}
             canvasWidth={3000}
             canvasHeight={3000}
-            colorStart="hsl(var(--primary))"
-            colorEnd="hsl(var(--primary))"
+            colorStart="var(--cyan)"
+            colorEnd="var(--cyan-2)"
             fontSize={getParticleFont(repoInfo.name, isMobile)}
             fontWeight={900}
             particleSize={0.45}
           />
         </div>
 
+        <div className="head-hang__eyebrow relative">
+          <span className="mono-label">Project</span>
+          <span className="font-mono text-[0.6875rem] tracking-[0.12em] text-ink-2 uppercase">
+            {repoInfo.default_branch}
+          </span>
+        </div>
+
+        <h1 className="head-hang__title relative">{repoInfo.name}</h1>
+
         {repoInfo.description && (
-          <p className="mb-8 max-w-4xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            {repoInfo.description}
-          </p>
+          <p className="head-hang__body relative">{repoInfo.description}</p>
         )}
 
-        <div className="flex flex-wrap items-center gap-6">
-          <div className="flex items-center gap-1.5 text-muted-foreground">
-            <Star className="h-4 w-4" />
-            <span className="font-mono text-xs font-bold tracking-wider">
-              Stars: {repoInfo.stargazers_count}
-            </span>
+        <dl className="relative mt-12 grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3">
+          <div className="flex flex-col gap-1.5">
+            <dt className="mono-label text-[10px]!">Stars</dt>
+            <dd className="text-xl font-semibold tracking-tight text-ink">
+              {repoInfo.stargazers_count}
+            </dd>
           </div>
 
-          <div className="flex items-center gap-1.5 text-muted-foreground">
-            <GitFork className="h-4 w-4" />
-            <span className="font-mono text-xs font-bold tracking-wider">
-              Forks: {repoInfo.forks_count}
-            </span>
+          <div className="flex flex-col gap-1.5">
+            <dt className="mono-label text-[10px]!">Forks</dt>
+            <dd className="text-xl font-semibold tracking-tight text-ink">
+              {repoInfo.forks_count}
+            </dd>
           </div>
 
           {repoInfo.size > 0 && (
-            <div className="flex items-center gap-1.5 text-muted-foreground">
-              <span className="font-mono text-xs font-bold tracking-wider">
-                Size:{" "}
+            <div className="flex flex-col gap-1.5">
+              <dt className="mono-label text-[10px]!">Size</dt>
+              <dd className="text-xl font-semibold tracking-tight text-ink">
                 {repoInfo.size > 1024
                   ? `${(repoInfo.size / 1024).toFixed(1)} MB`
                   : `${repoInfo.size} KB`}
-              </span>
+              </dd>
             </div>
           )}
 
           {repoInfo.open_issues_count > 0 && (
-            <div className="flex items-center gap-1.5 text-muted-foreground">
-              <span className="font-mono text-xs font-bold tracking-wider">
-                Issues: {repoInfo.open_issues_count}
-              </span>
+            <div className="flex flex-col gap-1.5">
+              <dt className="mono-label text-[10px]!">Issues</dt>
+              <dd className="text-xl font-semibold tracking-tight text-ink">
+                {repoInfo.open_issues_count}
+              </dd>
             </div>
           )}
 
-          <div className="text-muted-foreground">
-            <span className="font-mono text-xs font-bold tracking-wider">
-              Updated: {formatDate(repoInfo.pushed_at || repoInfo.updated_at)}
-            </span>
+          <div className="flex flex-col gap-1.5">
+            <dt className="mono-label text-[10px]!">Updated</dt>
+            <dd className="text-xl font-semibold tracking-tight text-ink">
+              {formatDate(repoInfo.pushed_at || repoInfo.updated_at)}
+            </dd>
           </div>
+        </dl>
 
+        <div className="relative mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
           <a
             href={repoInfo.html_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-primary underline transition-colors hover:text-primary/80"
+            className="inline-flex items-center gap-2 font-mono text-xs font-bold tracking-widest text-ink-2 uppercase transition-colors hover:text-cyan focus-visible:text-cyan"
           >
             <Code className="h-4 w-4" />
             GitHub
@@ -123,14 +135,14 @@ export default function ProjectHeader({ repoInfo }: ProjectHeaderProps) {
               href={repoInfo.homepage}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-primary underline transition-colors hover:text-primary/80"
+              className="inline-flex items-center gap-2 font-mono text-xs font-bold tracking-widest text-ink-2 uppercase transition-colors hover:text-cyan focus-visible:text-cyan"
             >
               <ExternalLink className="h-4 w-4" />
               Live Demo
             </a>
           )}
         </div>
-      </div>
+      </header>
     </div>
   )
 }

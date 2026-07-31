@@ -1,0 +1,24 @@
+<svg width="32" height="32" viewBox="0 0 40 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#base)">
+    <path d="M13.5 5.5L25.5 5.5C26.6 5.5 27.5 6.4 27.5 7.5L27.5 27.5C27.5 28.6 26.6 29.5 25.5 29.5L13.5 29.5" stroke="#FFFCEA" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+  </g>
+  <path d="M15 26.5L24 26.5" stroke="#FF5060" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+  <g filter="url(#soft)">
+    <path d="M18 17.5L27 17.5" stroke="#26069C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+  </g>
+  <circle cx="13.5" cy="5.5" r="2" fill="#210784"></circle>
+  <defs>
+    <filter id="base" x="8.75" y="0.75" width="23.5" height="33.5" filterUnits="userSpaceOnUse">
+      <feFlood result="BackgroundImageFix"></feFlood>
+      <feGaussianBlur in="BackgroundImageFix" stdDeviation=".495"></feGaussianBlur>
+      <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_base"></feComposite>
+      <feBlend in="SourceGraphic" in2="effect1_backgroundBlur_base" result="shape"></feBlend>
+    </filter>
+    <filter id="soft" x="14.5" y="14" width="16" height="7" filterUnits="userSpaceOnUse">
+      <feFlood result="BackgroundImageFix"></feFlood>
+      <feGaussianBlur in="BackgroundImageFix" stdDeviation=".495"></feGaussianBlur>
+      <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_soft"></feComposite>
+      <feBlend in="SourceGraphic" in2="effect1_backgroundBlur_soft" result="shape"></feBlend>
+    </filter>
+  </defs>
+</svg>

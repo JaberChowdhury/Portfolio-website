@@ -34,13 +34,13 @@ export default function ProjectVisualizations({
   const branchCommits = activeBranch?.recentCommits || []
 
   return (
-    <div className="mb-12 flex w-full flex-col gap-6">
+    <div className="mb-16 flex w-full flex-col gap-8">
       {hasLanguages && (
         <LanguageDistribution languages={languagesData} mode={mode} />
       )}
 
       {(hasWeeklyActivity || branchCommits.length >= 0) && (
-        <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-2">
           {hasWeeklyActivity && (
             <WeeklyActivityChart weeklyActivity={repoInfo.weeklyActivity} />
           )}

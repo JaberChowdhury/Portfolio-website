@@ -18,20 +18,20 @@ interface ProjectCardProps {
 
 const getLanguageColor = (lang: string) => {
   const colors: Record<string, string> = {
-    typescript: "bg-blue-500",
-    javascript: "bg-yellow-400",
-    css: "bg-purple-500",
-    html: "bg-red-500",
-    astro: "bg-orange-500",
-    "c++": "bg-pink-500",
-    c: "bg-slate-500",
-    python: "bg-blue-400",
-    rust: "bg-orange-600",
-    glsl: "bg-cyan-500",
-    shell: "bg-green-500",
-    markdown: "bg-sky-500",
+    typescript: "oklch(72% 0.12 225)",
+    javascript: "oklch(78% 0.11 200)",
+    css: "oklch(64% 0.12 205)",
+    html: "oklch(80% 0.09 180)",
+    astro: "oklch(58% 0.13 235)",
+    "c++": "oklch(70% 0.12 190)",
+    c: "oklch(82% 0.08 210)",
+    python: "oklch(66% 0.12 215)",
+    rust: "oklch(76% 0.11 195)",
+    glsl: "oklch(60% 0.13 245)",
+    shell: "oklch(85% 0.07 200)",
+    markdown: "oklch(55% 0.14 240)",
   }
-  return colors[lang?.toLowerCase()] || "bg-cyan-400"
+  return colors[lang?.toLowerCase()] || "oklch(78% 0.11 200)"
 }
 
 export function ProjectCard({ repo, viewMode }: ProjectCardProps) {
@@ -51,7 +51,7 @@ export function ProjectCard({ repo, viewMode }: ProjectCardProps) {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -15 }}
-      whileHover={{ y: -6 }}
+      whileHover={{ y: -3 }}
       transition={{ duration: 0.3 }}
       className="h-full"
     >
@@ -60,41 +60,34 @@ export function ProjectCard({ repo, viewMode }: ProjectCardProps) {
         className="block h-full outline-none"
       >
         <Card
-          className={`group relative flex h-full overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-[6px_6px_0px_0px_hsl(var(--primary))] ${isList ? "flex-col items-center md:flex-row" : "flex-col"}`}
+          className={`group relative flex h-full flex-col overflow-hidden rounded-2xl bg-paper-2 text-ink shadow-none ring-0 transition-colors duration-300 hover:bg-paper-3 hover:shadow-glow-cyan ${
+            isList ? "md:flex-row" : ""
+          }`}
         >
-          {/* Subtle noise pattern overlay */}
-          <div
-            className="pointer-events-none absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.05]"
-            style={{
-              backgroundImage:
-                "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-            }}
-          />
-
           <CardHeader
-            className={`relative z-10 w-full ${isList ? "md:w-1/3" : ""}`}
+            className={`w-full ${isList ? "md:w-1/3 md:justify-center" : ""}`}
           >
-            <div className="mb-2 flex items-center justify-between">
-              <div className="flex items-center space-x-3 text-muted-foreground">
-                <div className="flex items-center space-x-1">
-                  <Star className="h-4 w-4" />
-                  <span className="text-xs font-medium">
-                    {repo.stargazers_count}
-                  </span>
-                </div>
+            <div className="mb-3 flex items-baseline justify-between">
+              <div className="flex items-baseline gap-2 font-mono text-[10px] tracking-widest text-ink-2 uppercase">
+                <span>{repo.language || "repository"}</span>
+                <span className="text-ink-2/60">·</span>
+                <span className="flex items-baseline gap-1">
+                  <Star className="h-3.5 w-3.5 translate-y-0.5" />
+                  {repo.stargazers_count}
+                </span>
               </div>
-              <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-primary" />
+              <ArrowUpRight className="h-4 w-4 text-ink-2 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-cyan" />
             </div>
 
-            <CardTitle className="line-clamp-1 text-xl font-bold tracking-tight transition-colors group-hover:text-primary">
+            <CardTitle className="line-clamp-1 text-2xl font-semibold tracking-tight text-ink transition-colors group-hover:text-cyan">
               {repo.name}
             </CardTitle>
           </CardHeader>
 
           <CardContent
-            className={`relative z-10 w-full flex-grow ${isList ? "md:w-2/3 md:pt-6" : ""}`}
+            className={`w-full flex-grow ${isList ? "md:w-2/3 md:pt-6" : ""}`}
           >
-            <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">
+            <p className="mb-5 line-clamp-2 text-sm text-ink-2">
               {repo.description || "No description provided."}
             </p>
 
@@ -103,7 +96,7 @@ export function ProjectCard({ repo, viewMode }: ProjectCardProps) {
                 <Badge
                   key={topic}
                   variant="secondary"
-                  className="px-1.5 py-0 font-mono text-[10px]"
+                  className="border-0 bg-paper-3 px-2 py-0 font-mono text-[10px] tracking-widest text-ink-2 uppercase hover:bg-paper-3!"
                 >
                   {topic}
                 </Badge>
@@ -111,7 +104,7 @@ export function ProjectCard({ repo, viewMode }: ProjectCardProps) {
               {repo.topics?.length > 3 && (
                 <Badge
                   variant="secondary"
-                  className="px-1.5 py-0 font-mono text-[10px]"
+                  className="border-0 bg-paper-3 px-2 py-0 font-mono text-[10px] tracking-widest text-ink-2 uppercase hover:bg-paper-3!"
                 >
                   +{repo.topics.length - 3}
                 </Badge>
@@ -120,19 +113,20 @@ export function ProjectCard({ repo, viewMode }: ProjectCardProps) {
           </CardContent>
 
           <CardFooter
-            className={`relative z-10 flex w-full items-center justify-between border-t border-border/50 bg-muted/20 px-6 py-4 ${isList ? "md:w-auto md:flex-col md:justify-center md:gap-2 md:border-t-0 md:border-l" : ""}`}
+            className={`flex w-full items-center justify-between gap-4 ${isList ? "md:w-auto md:flex-col md:justify-center md:gap-2" : ""}`}
           >
             {repo.language && (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-baseline gap-2">
                 <span
-                  className={`h-2.5 w-2.5 rounded-full ${getLanguageColor(repo.language)}`}
+                  className={`h-2.5 w-2.5 rounded-full`}
+                  style={{ backgroundColor: getLanguageColor(repo.language) }}
                 />
-                <span className="text-xs font-medium text-muted-foreground">
+                <span className="font-mono text-xs font-bold text-ink-2">
                   {repo.language}
                 </span>
               </div>
             )}
-            <span className="text-[10px] font-medium tracking-wider text-muted-foreground uppercase">
+            <span className="font-mono text-[10px] tracking-widest text-ink-2 uppercase">
               Updated {formatDate(repo.updated_at)}
             </span>
           </CardFooter>

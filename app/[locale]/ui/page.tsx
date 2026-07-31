@@ -10,7 +10,6 @@ import InputShowcase from "@/components/showcases/InputShowcase"
 import TabsShowcase from "@/components/showcases/TabsShowcase"
 import SelectShowcase from "@/components/showcases/SelectShowcase"
 import EffectsShowcase from "@/components/showcases/EffectsShowcase"
-import { Layers } from "lucide-react"
 import { useTranslations } from "next-intl"
 import FontPreviewPage from "../font-preview/page"
 
@@ -31,50 +30,57 @@ export default function UIPage() {
   const [activeTab, setActiveTab] = useState<string>(TABS[0].id)
 
   return (
-    <div className="container mx-auto min-h-screen px-4 py-20">
-      <div className="mb-12">
-        <h1
-          data-cursor="text"
-          className="mb-4 flex items-center gap-3 text-4xl font-bold tracking-tight"
-        >
-          <Layers className="size-10 text-primary" />
+    <div className="mx-auto min-h-screen max-w-6xl px-6 pb-24 md:px-10">
+      <header className="head-hang">
+        <div className="head-hang__eyebrow">
+          <span className="mono-label">Components</span>
+        </div>
+        <h1 data-cursor="text" className="head-hang__title">
           {t("title")}
         </h1>
-        <p className="text-xl text-muted-foreground">{t("description")}</p>
-      </div>
+        <p className="head-hang__body">{t("description")}</p>
+      </header>
 
-      <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
+      <div className="flex flex-col gap-10 md:flex-row md:items-start md:gap-12">
         {/* Navigation Sidebar */}
-        <aside className="shrink-0 md:sticky md:top-24 md:w-64">
-          <nav className="flex flex-row space-x-2 overflow-x-auto pb-4 md:flex-col md:space-y-2 md:space-x-0 md:pb-0">
-            {TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`relative flex px-4 py-3 text-sm font-medium transition-colors md:rounded-lg ${
-                  activeTab === tab.id
-                    ? "text-primary"
-                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                }`}
-              >
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="active-tab-indicator"
-                    className="absolute inset-0 z-0 rounded-lg bg-primary/10"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">
-                  {t(`tabs.${tab.id}` as any)}
-                </span>
-              </button>
-            ))}
+        <aside className="shrink-0 md:sticky md:top-24 md:w-56">
+          <nav className="flex flex-row overflow-x-auto pb-4 md:flex-col md:pb-0">
+            {TABS.map((tab, i) => {
+              const isActive = activeTab === tab.id
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`relative flex shrink-0 items-baseline gap-3 px-4 py-3 text-sm transition-colors ${
+                    isActive
+                      ? "text-cyan"
+                      : "text-ink-2 hover:text-ink"
+                  }`}
+                >
+                  <span
+                    className={`mono-label ${isActive ? "opacity-100" : "opacity-40"}`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className={isActive ? "font-semibold" : "font-medium"}>
+                    {t(`tabs.${tab.id}` as any)}
+                  </span>
+                  {isActive && (
+                    <motion.span
+                      layoutId="active-tab-indicator"
+                      className="absolute inset-0 -z-10 rounded-full bg-paper-3"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                    />
+                  )}
+                </button>
+              )
+            })}
           </nav>
         </aside>
 
         {/* Content Area */}
-        <main className="flex-1 overflow-hidden">
+        <main className="min-w-0 flex-1">
           <AnimatePresence mode="wait">
             {TABS.map(
               (tab) =>
@@ -84,7 +90,7 @@ export default function UIPage() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <tab.component />
                   </motion.div>
