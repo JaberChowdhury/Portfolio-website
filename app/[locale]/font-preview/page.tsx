@@ -2,8 +2,15 @@
 
 import React, { useState } from "react"
 import dynamic from "next/dynamic"
-import { pangrams } from "./data"
 import { useTranslations } from "next-intl"
+import { Button } from "@/components/pouf/Button"
+import { Select } from "@/components/pouf/controls"
+import { Field, Input, Textarea } from "@/components/pouf/Input"
+import { Row, Stack } from "@/components/pouf/layout"
+import { Card } from "@/components/pouf/surface"
+import { Tabs } from "@/components/pouf/disclosure"
+import { Eyebrow, Heading, Text } from "@/components/pouf/text"
+import { pangrams } from "./data"
 import Loader from "./components/Loader"
 
 const CompareTab = dynamic(() => import("./components/CompareTab"), {
@@ -26,11 +33,13 @@ const TypographyMetrics = dynamic(
   { loading: () => <Loader /> }
 )
 
+type FontPreviewTab = "compare" | "custom" | "system" | "playground" | "analysis"
+
+const WEIGHTS = [100, 200, 300, 400, 500, 600, 700, 800, 900]
+
 export default function FontPreviewPage() {
   const t = useTranslations("FontPreview")
-  const [activeTab, setActiveTab] = useState<
-    "compare" | "custom" | "system" | "playground" | "analysis"
-  >("compare")
+  const [activeTab, setActiveTab] = useState<FontPreviewTab>("compare")
 
   const [fontSize, setFontSize] = useState(32)
   const [fontWeight, setFontWeight] = useState(400)
@@ -38,147 +47,146 @@ export default function FontPreviewPage() {
     "The quick brown fox jumps over the lazy dog."
   )
 
-  const TabButton = ({
-    value,
-    label,
-  }: {
-    value: typeof activeTab
+  const tabs: Array<{
+    value: FontPreviewTab
     label: string
-  }) => (
-    <button
-      onClick={() => setActiveTab(value)}
-      className={`rounded-full px-5 py-2 font-mono text-xs uppercase tracking-wider transition-colors ${
-        activeTab === value
-          ? "bg-paper-3 text-cyan"
-          : "text-ink-2 hover:bg-paper-2 hover:text-ink"
-      }`}
-    >
-      {label}
-    </button>
-  )
+    content: React.ReactNode
+  }> = [
+    {
+      value: "compare",
+      label: t("tabs.compare"),
+      content: (
+        <CompareTab
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sampleText={sampleText}
+        />
+      ),
+    },
+    {
+      value: "custom",
+      label: t("tabs.custom"),
+      content: (
+        <CustomFontsTab
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sampleText={sampleText}
+        />
+      ),
+    },
+    {
+      value: "system",
+      label: t("tabs.system"),
+      content: (
+        <SystemFontsTab
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sampleText={sampleText}
+        />
+      ),
+    },
+    {
+      value: "playground",
+      label: t("tabs.playground"),
+      content: (
+        <PlaygroundTab
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sampleText={sampleText}
+        />
+      ),
+    },
+    {
+      value: "analysis",
+      label: t("tabs.analysis"),
+      content: (
+        <AnalysisTab
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          sampleText={sampleText}
+        />
+      ),
+    },
+  ]
 
   return (
-    <div className="mx-auto min-h-screen max-w-6xl px-6 pb-24 md:px-10">
-      <header className="head-hang">
-        <div className="head-hang__eyebrow">
-          <span className="mono-label">Typography</span>
+    <div className="mx-auto min-h-screen max-w-6xl px-(--s5) pb-24 pt-28 md:px-(--s8)">
+      <div className="flex flex-col gap-(--s4) mb-(--s6)">
+        <Eyebrow>Typography</Eyebrow>
+        <div data-cursor="text">
+          <Heading level={1}>{t("title")}</Heading>
         </div>
-        <h1 data-cursor="text" className="head-hang__title">
-          {t("title")}
-        </h1>
-        <p className="head-hang__body">{t("description")}</p>
-      </header>
+        <Text muted>{t("description")}</Text>
+      </div>
 
-      {/* Controls */}
-      <div className="aurora-card mb-12">
-        <div className="grid gap-6 lg:grid-cols-3">
-          <div className="space-y-3">
-            <label className="mono-label block">{t("controls.sampleText")}</label>
-            <textarea
-              value={sampleText}
-              onChange={(e) => setSampleText(e.target.value)}
-              rows={3}
-              className="w-full resize-none rounded-xl border border-white/10 bg-paper px-4 py-3 font-serif text-ink placeholder:text-ink-2/50 focus:border-cyan/60 focus:outline-none"
-            />
-          </div>
+      <Card>
+        <div className="grid gap-(--s5) lg:grid-cols-3">
+          <Field label={t("controls.sampleText")}>
+            {(id) => (
+              <Textarea
+                id={id}
+                value={sampleText}
+                onChange={setSampleText}
+                rows={3}
+              />
+            )}
+          </Field>
 
-          <div className="space-y-3">
-            <label className="mono-label flex justify-between">
-              <span>{t("controls.fontSize")}</span>
-              <span className="text-ink-2">{fontSize}px</span>
-            </label>
+          <div className="flex flex-col gap-(--s3)">
+            <Row gap={3} justify="between">
+              <Text size="sm" muted>
+                {t("controls.fontSize")}
+              </Text>
+              <Text size="sm" muted num>
+                {fontSize}px
+              </Text>
+            </Row>
             <input
               type="range"
               min={12}
               max={96}
               value={fontSize}
               onChange={(e) => setFontSize(Number(e.target.value))}
-              className="mt-2 w-full accent-cyan"
+              className="mt-auto w-full accent-purple"
             />
           </div>
 
-          <div className="space-y-3">
-            <label className="mono-label block">{t("controls.fontWeight")}</label>
-            <select
-              value={fontWeight}
-              onChange={(e) => setFontWeight(Number(e.target.value))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-paper px-4 text-ink focus:border-cyan/60 focus:outline-none"
-            >
-              <option value={100}>{t("weights.100")}</option>
-              <option value={200}>{t("weights.200")}</option>
-              <option value={300}>{t("weights.300")}</option>
-              <option value={400}>{t("weights.400")}</option>
-              <option value={500}>{t("weights.500")}</option>
-              <option value={600}>{t("weights.600")}</option>
-              <option value={700}>{t("weights.700")}</option>
-              <option value={800}>{t("weights.800")}</option>
-              <option value={900}>{t("weights.900")}</option>
-            </select>
-          </div>
+          <Select
+            label={t("controls.fontWeight")}
+            value={String(fontWeight)}
+            onChange={(value) => setFontWeight(Number(value))}
+            options={WEIGHTS.map((w) => ({
+              value: String(w),
+              label: t(`weights.${w}`),
+            }))}
+          />
         </div>
 
-        {/* Pangrams */}
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-(--s5) flex flex-wrap gap-(--s2)">
           {pangrams.map((pangram) => (
-            <button
+            <Button
               key={pangram}
+              size="sm"
+              variant="quiet"
               onClick={() => setSampleText(pangram)}
-              className="rounded-full border border-white/10 px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-ink-2 transition-colors hover:border-cyan/50 hover:text-cyan"
             >
               {t("controls.usePangram")}
-            </button>
+            </Button>
           ))}
         </div>
+      </Card>
+
+      <div className="mt-(--s6)">
+        <Tabs
+          tabs={tabs}
+          value={activeTab}
+          onChange={(value) => setActiveTab(value as FontPreviewTab)}
+        />
       </div>
 
-      {/* Tabs */}
-      <div className="mb-10 flex flex-wrap gap-2">
-        <TabButton value="compare" label={t("tabs.compare")} />
-        <TabButton value="custom" label={t("tabs.custom")} />
-        <TabButton value="system" label={t("tabs.system")} />
-        <TabButton value="playground" label={t("tabs.playground")} />
-        <TabButton value="analysis" label={t("tabs.analysis")} />
+      <div className="mt-(--s8)">
+        <TypographyMetrics fontSize={fontSize} fontWeight={fontWeight} />
       </div>
-
-      {/* Dynamic Tabs Rendering */}
-      {activeTab === "compare" && (
-        <CompareTab
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          sampleText={sampleText}
-        />
-      )}
-      {activeTab === "custom" && (
-        <CustomFontsTab
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          sampleText={sampleText}
-        />
-      )}
-      {activeTab === "system" && (
-        <SystemFontsTab
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          sampleText={sampleText}
-        />
-      )}
-      {activeTab === "playground" && (
-        <PlaygroundTab
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          sampleText={sampleText}
-        />
-      )}
-      {activeTab === "analysis" && (
-        <AnalysisTab
-          fontSize={fontSize}
-          fontWeight={fontWeight}
-          sampleText={sampleText}
-        />
-      )}
-
-      {/* Typography Metrics */}
-      <TypographyMetrics fontSize={fontSize} fontWeight={fontWeight} />
     </div>
   )
 }

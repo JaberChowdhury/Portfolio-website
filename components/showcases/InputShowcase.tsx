@@ -1,94 +1,105 @@
 "use client"
 
-import { Input } from "@/components/ui/input"
-import { Keyboard } from "lucide-react"
+import { useState } from "react"
+import { Select, Switch } from "@/components/pouf/controls"
+import { Field, Input, Textarea } from "@/components/pouf/Input"
+import { Row, Stack } from "@/components/pouf/layout"
+import { Card } from "@/components/pouf/surface"
+import { Heading, Text } from "@/components/pouf/text"
 
 export default function InputShowcase() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [note, setNote] = useState("")
+  const [accent, setAccent] = useState("mint")
+  const [optIn, setOptIn] = useState(true)
+
+  const emailInvalid = email.length > 0 && !email.includes("@")
+
   return (
-    <div className="space-y-12">
-      <div className="flex flex-col gap-2">
-        <h1
-          data-cursor="text"
-          className="text-4xl font-extrabold tracking-tight lg:text-5xl"
-        >
-          Input Showcase
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          Explore different input types and states.
-        </p>
-      </div>
+    <Stack gap={5}>
+      <Card>
+        <Stack gap={4}>
+          <Heading level={3}>Field + Input</Heading>
+          <Field label="Name" hint="How people should address you.">
+            {(id, describedBy) => (
+              <Input
+                id={id}
+                describedBy={describedBy}
+                value={name}
+                onChange={setName}
+                placeholder="Ada Lovelace"
+              />
+            )}
+          </Field>
+          <Field
+            label="Email"
+            error={emailInvalid ? "That doesn't look like an email address." : undefined}
+          >
+            {(id, describedBy) => (
+              <Input
+                id={id}
+                describedBy={describedBy}
+                type="email"
+                value={email}
+                onChange={setEmail}
+                placeholder="ada@example.dev"
+                invalid={emailInvalid}
+              />
+            )}
+          </Field>
+        </Stack>
+      </Card>
 
-      <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-        {/* Default Input */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm">
-          <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-          <div className="relative">
-            <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">
-              <Keyboard className="size-5 text-primary" />
-              Default Input
-            </h2>
-            <div className="flex flex-col gap-6">
-              <Input type="text" placeholder="Enter your name" />
-            </div>
-          </div>
-        </div>
+      <Card>
+        <Stack gap={4}>
+          <Heading level={3}>Textarea</Heading>
+          <Field label="Notes">
+            {(id, describedBy) => (
+              <Textarea
+                id={id}
+                describedBy={describedBy}
+                value={note}
+                onChange={setNote}
+                placeholder="Anything else to add?"
+              />
+            )}
+          </Field>
+        </Stack>
+      </Card>
 
-        {/* Email Input */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm">
-          <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-          <div className="relative">
-            <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">
-              <Keyboard className="size-5 text-primary" />
-              Email
-            </h2>
-            <div className="flex flex-col gap-6">
-              <Input type="email" placeholder="Email address" />
-            </div>
-          </div>
-        </div>
+      <Card>
+        <Stack gap={4}>
+          <Heading level={3}>Select</Heading>
+          <Field label="Accent">
+            {(id, describedBy) => (
+              <Select
+                id={id}
+                describedBy={describedBy}
+                value={accent}
+                onChange={setAccent}
+                options={[
+                  { value: "mint", label: "Mint" },
+                  { value: "purple", label: "Purple" },
+                  { value: "pink", label: "Pink" },
+                  { value: "yellow", label: "Yellow" },
+                  { value: "blue", label: "Blue" },
+                ]}
+              />
+            )}
+          </Field>
+        </Stack>
+      </Card>
 
-        {/* Password Input */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm">
-          <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-          <div className="relative">
-            <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">
-              <Keyboard className="size-5 text-primary" />
-              Password
-            </h2>
-            <div className="flex flex-col gap-6">
-              <Input type="password" placeholder="Password" />
-            </div>
-          </div>
-        </div>
-
-        {/* File Input */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm">
-          <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-          <div className="relative">
-            <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">
-              <Keyboard className="size-5 text-primary" />
-              File Input
-            </h2>
-            <div className="flex flex-col gap-6">
-              <Input type="file" />
-            </div>
-          </div>
-        </div>
-
-        {/* Disabled Input */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm">
-          <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-          <div className="relative">
-            <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">
-              <Keyboard className="size-5 text-primary" />
-              Disabled
-            </h2>
-            <div className="flex flex-col gap-6">
-              <Input type="text" placeholder="Disabled input" disabled />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <Card>
+        <Stack gap={4}>
+          <Heading level={3}>Switch</Heading>
+          <Row gap={3} wrap={false}>
+            <Switch checked={optIn} onChange={setOptIn} label="Newsletter opt-in" />
+            <Text>Opt in to updates</Text>
+          </Row>
+        </Stack>
+      </Card>
+    </Stack>
   )
 }

@@ -1,8 +1,8 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
-
+import { motion, useReducedMotion } from "framer-motion"
+import { useTranslations } from "next-intl"
 import {
   ResponsiveContainer,
   AreaChart,
@@ -13,11 +13,14 @@ import {
   YAxis,
 } from "recharts"
 
-import { useTranslations } from "next-intl"
-import type { Stat } from "./StatCard"
-import type { Achievement } from "./AchievementCard"
-
-// Stats and achievements are loaded from translations
+import { Card } from "@/components/pouf/surface"
+import { Eyebrow, Heading, Highlight, Text } from "@/components/pouf/text"
+import { Badge } from "@/components/pouf/media"
+import { buttonClasses } from "@/components/pouf/Button"
+import type { IconName } from "@/components/pouf/Icon"
+import type { Tone } from "@/components/pouf/tone"
+import { StatCard, type Stat } from "./StatCard"
+import { AchievementCard, type Achievement } from "./AchievementCard"
 
 const ratingHistory = [
   { contest: "C1", rating: 980 },
@@ -42,6 +45,12 @@ const skills = [
   "DSU",
 ]
 
+const statIcons: IconName[] = ["chart", "ok", "calendar", "flame"]
+const statTones: Tone[] = ["purple", "mint", "blue", "pink"]
+const achievementIcons: IconName[] = ["sword", "target", "flame"]
+const achievementTones: Tone[] = ["purple", "blue", "mint"]
+const badgeTones: Tone[] = ["purple", "blue", "mint", "pink", "yellow"]
+
 function Reveal({
   delay = 0,
   className = "",
@@ -51,23 +60,18 @@ function Reveal({
   className?: string
   children: React.ReactNode
 }) {
-  const ref = React.useRef<HTMLDivElement>(null)
-
-  React.useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const raf = requestAnimationFrame(() => el.classList.add("is-visible"))
-    return () => cancelAnimationFrame(raf)
-  }, [])
+  const reduceMotion = useReducedMotion()
 
   return (
-    <div
-      ref={ref}
-      className={`reveal ${className}`}
-      style={{ "--reveal-delay": `${delay}s` } as React.CSSProperties}
+    <motion.div
+      className={className}
+      initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
+      whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.5, delay, ease: "easeOut" }}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }
 
@@ -84,93 +88,64 @@ export default function CompetitiveProgrammingSection() {
 
   return (
     <section id="programming" className="relative w-full overflow-hidden">
-      <div className="relative mx-auto max-w-6xl px-6 md:px-10">
-        {/* Hanging section head */}
-        <header className="head-hang">
-          <div className="head-hang__eyebrow">
-            <p className="mono-label">03 · {t("eyebrow")}</p>
+      <div className="mx-auto max-w-6xl px-6 md:px-10">
+        <Reveal>
+          <div className="flex flex-col gap-(--s3)">
+            <Eyebrow>03 · {t("eyebrow")}</Eyebrow>
+            <Heading level={2}>
+              {t("title1")}
+              <Highlight>{t("title2")}</Highlight>
+              <br />
+              {t("title3")}
+            </Heading>
+            <Text muted>{t("description")}</Text>
           </div>
+        </Reveal>
 
-          <h2
-            data-cursor="text"
-            className="head-hang__title text-ink"
-          >
-            {t("title1")}
-            <span className="hl">{t("title2")}</span>
-            <br />
-            {t("title3")}
-          </h2>
-
-          <p className="head-hang__body">{t("description")}</p>
-        </header>
-
-        {/* Codeforces profile */}
-        <div className="mb-20 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+        <div className="mt-(--s8) flex flex-col gap-(--s5) md:flex-row md:items-end md:justify-between">
           <Reveal className="max-w-xl">
-            <p className="mono-label">{t("codeforces.eyebrow")}</p>
-
-            <h3
-              data-cursor="text"
-              className="mt-4 text-2xl font-semibold tracking-tight text-ink md:text-3xl"
-            >
-              {t("codeforces.name")}
-            </h3>
-
-            <p className="mt-3 text-ink-2">{t("codeforces.description")}</p>
+            <div className="flex flex-col gap-(--s2)">
+              <Eyebrow>{t("codeforces.eyebrow")}</Eyebrow>
+              <Heading level={3}>{t("codeforces.name")}</Heading>
+              <Text muted>{t("codeforces.description")}</Text>
+            </div>
           </Reveal>
 
-          <Reveal delay={0.1}>
-            <Link
+          <Reveal delay={0.05}>
+            <a
               href="https://codeforces.com/profile/YOUR_HANDLE"
               target="_blank"
-              className="cta-word"
+              rel="noopener noreferrer"
+              className={buttonClasses({ tone: "purple", size: "md" })}
             >
               {t("codeforces.viewProfile")}
-              <span className="cta-word__arrow">→</span>
-            </Link>
+            </a>
           </Reveal>
         </div>
 
-        {/* Stats + rating graph */}
-        <div className="grid gap-6 lg:grid-cols-[400px_1fr]">
-          <div className="grid grid-cols-2 gap-4">
+        <div className="mt-(--s8) grid gap-(--s4) lg:grid-cols-[minmax(0,420px)_1fr]">
+          <div className="grid grid-cols-2 gap-(--s3)">
             {stats.map((stat, i) => (
-              <Reveal key={stat.label} delay={i * 0.06}>
-                <div data-cursor="cover" className="aurora-card h-full">
-                  <p className="mono-label">{stat.label}</p>
-
-                  <p
-                    data-cursor="text"
-                    className="mt-4 text-3xl font-semibold tracking-tight text-ink"
-                  >
-                    {stat.value}
-                  </p>
-                </div>
+              <Reveal key={stat.label} delay={i * 0.05} className="h-full">
+                <StatCard
+                  stat={stat}
+                  icon={statIcons[i % statIcons.length]}
+                  tone={statTones[i % statTones.length]}
+                />
               </Reveal>
             ))}
           </div>
 
-          <Reveal delay={0.12}>
-            <div data-cursor="cover" className="aurora-card h-full">
-              <h3
-                data-cursor="text"
-                className="text-lg font-semibold tracking-tight text-ink"
-              >
-                {t("graph.title")}
-              </h3>
+          <Reveal delay={0.1}>
+            <Card>
+              <div className="flex flex-col gap-(--s1)">
+                <Heading level={3}>{t("graph.title")}</Heading>
+                <Text muted>{t("graph.description")}</Text>
+              </div>
 
-              <p className="mt-2 text-sm text-ink-2">
-                {t("graph.description")}
-              </p>
-
-              <div className="mt-6 h-[320px] w-full">
+              <div className="mt-(--s5) h-[320px] w-full">
                 {isMounted && (
-                  <ResponsiveContainer
-                    width="100%"
-                    height="100%"
-                    minWidth={0}
-                    minHeight={0}
-                  >
+                  <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <AreaChart data={ratingHistory}>
                       <defs>
                         <linearGradient
@@ -182,12 +157,12 @@ export default function CompetitiveProgrammingSection() {
                         >
                           <stop
                             offset="0%"
-                            stopColor="var(--cyan)"
+                            stopColor="var(--purple)"
                             stopOpacity={0.3}
                           />
                           <stop
                             offset="100%"
-                            stopColor="var(--cyan)"
+                            stopColor="var(--purple)"
                             stopOpacity={0}
                           />
                         </linearGradient>
@@ -195,7 +170,7 @@ export default function CompetitiveProgrammingSection() {
 
                       <CartesianGrid
                         strokeDasharray="3 3"
-                        stroke="var(--ink-2)"
+                        stroke="var(--muted)"
                         opacity={0.15}
                       />
 
@@ -203,29 +178,30 @@ export default function CompetitiveProgrammingSection() {
                         dataKey="contest"
                         tickLine={false}
                         axisLine={false}
-                        tick={{ fill: "var(--ink-2)" }}
+                        tick={{ fill: "var(--muted)" }}
                       />
 
                       <YAxis
                         tickLine={false}
                         axisLine={false}
-                        tick={{ fill: "var(--ink-2)" }}
+                        tick={{ fill: "var(--muted)" }}
                       />
 
                       <Tooltip
                         contentStyle={{
-                          background: "var(--paper-2)",
+                          background: "var(--surface)",
                           border: "none",
-                          borderRadius: "12px",
+                          borderRadius: "16px",
+                          boxShadow: "0 10px 20px rgba(58,46,92,0.15)",
                         }}
                         labelStyle={{ color: "var(--ink)" }}
-                        itemStyle={{ color: "var(--cyan)" }}
+                        itemStyle={{ color: "var(--purple)" }}
                       />
 
                       <Area
                         type="monotone"
                         dataKey="rating"
-                        stroke="var(--cyan)"
+                        stroke="var(--purple)"
                         strokeWidth={2.5}
                         fill="url(#ratingGradient)"
                       />
@@ -233,48 +209,33 @@ export default function CompetitiveProgrammingSection() {
                   </ResponsiveContainer>
                 )}
               </div>
-            </div>
+            </Card>
           </Reveal>
         </div>
 
-        {/* Achievements + toolbox */}
-        <div className="mt-20 grid gap-12 lg:grid-cols-2">
-          <div>
+        <div className="mt-(--s8) grid gap-(--s5) lg:grid-cols-2">
+          <div className="flex flex-col gap-(--s3)">
             {achievements.map((achievement, i) => (
-              <Reveal key={achievement.title} delay={i * 0.06} className="mb-10 last:mb-0">
-                <div data-cursor="cover" className="aurora-card">
-                  <h3
-                    data-cursor="text"
-                    className="text-xl font-semibold tracking-tight text-ink"
-                  >
-                    {achievement.title}
-                  </h3>
-
-                  <p className="mt-3 text-ink-2">{achievement.description}</p>
-                </div>
+              <Reveal key={achievement.title} delay={i * 0.05}>
+                <AchievementCard
+                  achievement={achievement}
+                  icon={achievementIcons[i % achievementIcons.length]}
+                  tone={achievementTones[i % achievementTones.length]}
+                />
               </Reveal>
             ))}
           </div>
 
           <Reveal delay={0.1}>
-            <div>
-              <h3
-                data-cursor="text"
-                className="text-xl font-semibold tracking-tight text-ink"
-              >
-                {t("toolbox.title")}
-              </h3>
+            <div className="flex flex-col gap-(--s3)">
+              <Heading level={3}>{t("toolbox.title")}</Heading>
+              <Text muted>{t("toolbox.description")}</Text>
 
-              <p className="mt-3 text-ink-2">{t("toolbox.description")}</p>
-
-              <div className="mt-6 flex flex-wrap gap-2.5">
-                {skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full bg-paper-2 px-3.5 py-1.5 font-mono text-[11px] tracking-[0.12em] text-ink-2 uppercase transition-colors duration-300 hover:text-cyan"
-                  >
+              <div className="flex flex-wrap gap-(--s2)">
+                {skills.map((skill, i) => (
+                  <Badge key={skill} tone={badgeTones[i % badgeTones.length]}>
                     {skill}
-                  </span>
+                  </Badge>
                 ))}
               </div>
             </div>

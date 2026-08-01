@@ -1,18 +1,26 @@
 import React from "react"
 import { customFonts } from "../data"
 import { TabProps } from "./types"
+import { Card } from "@/components/pouf/surface"
+import { Text } from "@/components/pouf/text"
 
 export default function CustomFontsTab({ fontSize, sampleText }: TabProps) {
   return (
-    <div className="grid gap-8 md:grid-cols-2">
+    <div className="grid gap-(--s5) md:grid-cols-2">
       {customFonts.map((font) => (
-        <div key={font.name} className="aurora-card">
-          <div className="mono-label mb-6">{font.name}</div>
-          <div className={`${font.className} space-y-6`}>
+        <Card key={font.name}>
+          <div className="mb-(--s4)">
+            <Text size="sm" muted>
+              {font.name}
+            </Text>
+          </div>
+          <div className={`${font.className} flex flex-col gap-(--s4)`}>
             {font.weights.map((weight) => (
-              <div key={weight} className="rounded-xl bg-paper/60 p-4">
-                <div className="mb-3">
-                  <span className="mono-label">Weight {weight}</span>
+              <div key={weight} className="rounded-card bg-bg p-(--s3)">
+                <div className="mb-(--s2)">
+                  <Text size="sm" muted>
+                    Weight {weight}
+                  </Text>
                 </div>
                 <p
                   style={{ fontWeight: weight, fontSize }}
@@ -23,7 +31,7 @@ export default function CustomFontsTab({ fontSize, sampleText }: TabProps) {
               </div>
             ))}
           </div>
-        </div>
+        </Card>
       ))}
     </div>
   )

@@ -1,143 +1,149 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+} from "recharts"
+import { Segmented } from "@/components/pouf/Segmented"
+import { Card } from "@/components/pouf/surface"
+import { Text } from "@/components/pouf/text"
+import type { SegmentedOption } from "@/components/pouf/Segmented"
 
 interface WeeklyActivityChartProps {
   weeklyActivity: number[]
 }
 
+const PURPLE = "#c9a8ff"
+const MINT = "#a8f0d0"
+
+type ChartType = "area" | "bar"
+
+function getWeekDateRange(weekIndex: number) {
+  const today = new Date()
+  const daysAgoStart = (51 - weekIndex) * 7
+  const startOfWeek = new Date(
+    today.getTime() - daysAgoStart * 24 * 60 * 60 * 1000
+  )
+  const dayOfWeek = startOfWeek.getDay()
+  const monday = new Date(
+    startOfWeek.getTime() -
+      (dayOfWeek === 0 ? 6 : dayOfWeek - 1) * 24 * 60 * 60 * 1000
+  )
+  const sunday = new Date(monday.getTime() + 6 * 24 * 60 * 60 * 1000)
+
+  const formatWeekDate = (d: Date) =>
+    d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    })
+
+  return `${formatWeekDate(monday)} – ${formatWeekDate(sunday)}`
+}
+
+function ChartTooltip({
+  active,
+  payload,
+}: {
+  active?: boolean
+  payload?: Array<{ name?: string; value?: number; color?: string }>
+}) {
+  if (!active || !payload || payload.length === 0) return null
+  const entry = payload[0]
+  return (
+    <div className="pouf-chart__tooltip">
+      <div className="pouf-chart__tooltip__label">Weekly Activity</div>
+      <div className="pouf-chart__tooltip__item">
+        <span
+          className="pouf-chart__tooltip__swatch"
+          style={{ background: entry.color }}
+        />
+        <span>
+          {entry.name}: {entry.value} {entry.value === 1 ? "commit" : "commits"}
+        </span>
+      </div>
+    </div>
+  )
+}
+
 export default function WeeklyActivityChart({
   weeklyActivity,
 }: WeeklyActivityChartProps) {
-  const [hoveredWeek, setHoveredWeek] = useState<number | null>(null)
+  const [chartType, setChartType] = useState<ChartType>("area")
 
   const activity = weeklyActivity || []
   if (activity.length === 0) return null
 
-  const maxCommits = Math.max(...activity, 1)
   const totalCommits = activity.reduce((a, b) => a + b, 0)
 
-  const getWeekDateRange = (weekIndex: number) => {
-    const today = new Date()
-    const daysAgoStart = (51 - weekIndex) * 7
-    const startOfWeek = new Date(
-      today.getTime() - daysAgoStart * 24 * 60 * 60 * 1000
-    )
-    const dayOfWeek = startOfWeek.getDay()
-    const monday = new Date(
-      startOfWeek.getTime() -
-        (dayOfWeek === 0 ? 6 : dayOfWeek - 1) * 24 * 60 * 60 * 1000
-    )
-    const sunday = new Date(monday.getTime() + 6 * 24 * 60 * 60 * 1000)
+  const chartData = useMemo(
+    () => activity.map((commits, i) => ({ week: i, commits })),
+    [activity]
+  )
 
-    const formatWeekDate = (d: Date) => {
-      return d.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })
-    }
-
-    return `${formatWeekDate(monday)} – ${formatWeekDate(sunday)}`
-  }
+  const options: SegmentedOption<ChartType>[] = [
+    { value: "area", label: "Area" },
+    { value: "bar", label: "Bar" },
+  ]
 
   return (
-    <div className="flex h-full flex-col rounded-2xl bg-paper-2 p-6">
-      <div className="mb-4 flex items-start justify-between">
-        <div className="mono-label">Weekly Activity</div>
-        <div className="rounded-full bg-paper-3 px-2.5 py-1 font-mono text-[10px] font-bold tracking-widest text-cyan uppercase">
-          {totalCommits} commits
+    <Card>
+      <div className="mb-(--s4) flex flex-wrap items-center justify-between gap-(--s3)">
+        <Text size="sm" muted>
+          Weekly Activity
+        </Text>
+        <div className="flex flex-wrap items-center gap-(--s3)">
+          <span className="inline-flex items-center gap-2">
+            <Text size="sm" muted num>
+              {totalCommits} commits
+            </Text>
+          </span>
+          <Segmented<ChartType>
+            label="Chart type"
+            options={options}
+            value={chartType}
+            onChange={setChartType}
+          />
         </div>
       </div>
 
-      <div
-        className={`mb-6 h-5 font-mono text-xs ${hoveredWeek !== null ? "font-bold text-cyan" : "text-ink-2"}`}
-      >
-        {hoveredWeek !== null
-          ? `${getWeekDateRange(hoveredWeek)}: ${activity[hoveredWeek]} ${activity[hoveredWeek] === 1 ? "commit" : "commits"}`
-          : "Hover over the bars to see activity detail"}
-      </div>
-
-      <div className="relative w-full text-ink-2">
-        <svg
-          viewBox="0 0 520 100"
-          width="100%"
-          height="100"
-          style={{ overflow: "visible", display: "block" }}
-          role="img"
-        >
-          <title>Weekly Commit Activity Chart</title>
-
-          <line
-            x1="0"
-            y1="0"
-            x2="520"
-            y2="0"
-            stroke="currentColor"
-            strokeOpacity="0.1"
-            strokeDasharray="3,3"
-          />
-          <line
-            x1="0"
-            y1="50"
-            x2="520"
-            y2="50"
-            stroke="currentColor"
-            strokeOpacity="0.1"
-            strokeDasharray="3,3"
-          />
-          <line
-            x1="0"
-            y1="100"
-            x2="520"
-            y2="100"
-            stroke="currentColor"
-            strokeOpacity="0.2"
-          />
-
-          {activity.map((commits, idx) => {
-            const barWidth = 7
-            const spacing = 3
-            const x = idx * (barWidth + spacing)
-            const barHeight = maxCommits > 0 ? (commits / maxCommits) * 90 : 0
-            const y = 100 - barHeight
-
-            const isHovered = hoveredWeek === idx
-            let fill = "currentColor"
-            let opacity = 0.15
-
-            if (commits > 0) {
-              fill = "var(--cyan)"
-              opacity = isHovered ? 1 : 0.65
-            } else if (isHovered) {
-              opacity = 0.4
-            }
-
-            return (
-              <rect
-                key={idx}
-                x={x}
-                y={y}
-                width={barWidth}
-                height={barHeight || 3}
-                fill={fill}
-                style={{
-                  opacity,
-                  cursor: "pointer",
-                  transition: "all 0.15s ease",
-                }}
-                onMouseEnter={() => setHoveredWeek(idx)}
-                onMouseLeave={() => setHoveredWeek(null)}
+      <div className="pouf-chart h-[160px] w-full">
+        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+          {chartType === "area" ? (
+            <AreaChart
+              data={chartData}
+              margin={{ top: 4, right: 0, left: 0, bottom: 0 }}
+            >
+              <XAxis dataKey="week" hide />
+              <Tooltip cursor={false} content={<ChartTooltip />} />
+              <Area
+                type="monotone"
+                dataKey="commits"
+                stroke={PURPLE}
+                strokeWidth={2}
+                fill={PURPLE}
+                fillOpacity={0.4}
+                activeDot={{ r: 4, fill: PURPLE, stroke: MINT, strokeWidth: 2 }}
               />
-            )
-          })}
-        </svg>
-
-        <div className="mt-3 flex justify-between font-mono text-[10px] tracking-widest text-ink-2 uppercase">
-          <span>1 year ago</span>
-          <span>Today</span>
-        </div>
+            </AreaChart>
+          ) : (
+            <BarChart
+              data={chartData}
+              margin={{ top: 4, right: 0, left: 0, bottom: 0 }}
+            >
+              <XAxis dataKey="week" hide />
+              <Tooltip cursor={false} content={<ChartTooltip />} />
+              <Bar dataKey="commits" fill={MINT} radius={[6, 6, 6, 6]} />
+            </BarChart>
+          )}
+        </ResponsiveContainer>
       </div>
-    </div>
+    </Card>
   )
 }

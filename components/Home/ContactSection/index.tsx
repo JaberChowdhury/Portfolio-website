@@ -1,137 +1,191 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import type { CSSProperties } from "react"
-import Link from "next/link"
-import {
-  AArrowDown as Github,
-  AArrowUp as Linkedin,
-  Mail,
-  Trophy,
-} from "lucide-react"
+import React, { useState, type FormEvent } from "react"
+import { motion, useReducedMotion } from "framer-motion"
 import { useTranslations } from "next-intl"
 
-// Socials array is loaded from translations
+import { Card, RowCard } from "@/components/pouf/surface"
+import { Eyebrow, Heading, Highlight, Text } from "@/components/pouf/text"
+import { Blob, Dot } from "@/components/pouf/media"
+import { Button } from "@/components/pouf/Button"
+import { Field, Input, Textarea } from "@/components/pouf/Input"
+import type { IconName } from "@/components/pouf/Icon"
+import type { Tone } from "@/components/pouf/tone"
 
-const socialIcons = [Github, Trophy, Linkedin, Mail]
+const EMAIL = "mailto:your@email.com"
 
+const socialRoles: IconName[] = ["sparkle", "trophy", "users", "mail"]
+const socialTones: Tone[] = ["purple", "orange", "blue", "mint"]
 const socialLinks = [
   "https://github.com/YOUR_USERNAME",
   "https://codeforces.com/profile/YOUR_HANDLE",
   "https://linkedin.com/in/YOUR_USERNAME",
-  "mailto:your@email.com",
+  EMAIL,
 ]
+
+function Reveal({
+  delay = 0,
+  className = "",
+  children,
+}: {
+  delay?: number
+  className?: string
+  children: React.ReactNode
+}) {
+  const reduceMotion = useReducedMotion()
+
+  return (
+    <motion.div
+      className={className}
+      initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
+      whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 export default function ContactSection() {
   const t = useTranslations("Contact")
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
 
-  const [visible, setVisible] = useState(false)
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setVisible(true))
-    return () => cancelAnimationFrame(id)
-  }, [])
-
-  // Map icons for socials
   const rawSocials = t.raw("socials") as {
     title: string
     description: string
   }[]
-  const socials = rawSocials.map((social, i) => ({
-    ...social,
-    icon: socialIcons[i],
-    href: socialLinks[i],
-  }))
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const subject = encodeURIComponent(`Hello from ${name || "a visitor"}`)
+    const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`)
+    window.location.href = `${EMAIL}?subject=${subject}&body=${body}`
+  }
 
   return (
-    <section
-      id="contact"
-      className="relative w-full pb-[clamp(4rem,10vw,7.5rem)]"
-    >
-      <div className="mx-auto w-full max-w-3xl px-6 md:px-10">
-        {/* Header */}
-        <div
-          className={"head-hang reveal" + (visible ? " is-visible" : "")}
-          style={{ "--reveal-delay": "0s" } as CSSProperties}
-        >
-          <div className="head-hang__eyebrow">
-            <span className="mono-label">( 06 )</span>
-            <span className="mono-label">{t("eyebrow")}</span>
+    <section id="contact" className="relative w-full pb-[clamp(4rem,10vw,7.5rem)]">
+      <div className="mx-auto w-full max-w-6xl px-6 md:px-10">
+        <Reveal>
+          <div className="flex flex-col gap-(--s3)">
+            <Eyebrow>( 06 ) · {t("eyebrow")}</Eyebrow>
+            <Heading level={2}>
+              {t("title1")}
+              <br />
+              <Highlight>{t("title2")}</Highlight>
+              {t("title3")}
+            </Heading>
+            <Text muted>{t("description")}</Text>
           </div>
+        </Reveal>
 
-          <h2 data-cursor="text" className="head-hang__title">
-            {t("title1")}
-            <br />
-            <span className="hl">{t("title2")}</span>
-            {t("title3")}
-          </h2>
+        <div className="mt-(--s8) flex flex-col gap-(--s4)">
+          <Reveal delay={0.05}>
+            <div className="flex flex-col gap-(--s2)">
+              <div className="flex items-center gap-(--s2)">
+                <Dot tone="mint" />
+                <Text>{t("available")}</Text>
+              </div>
+              <Heading level={3}>{t("openTo")}</Heading>
+              <Text muted>{t("ifYouHave")}</Text>
+            </div>
+          </Reveal>
 
-          <p className="head-hang__body">{t("description")}</p>
-        </div>
+          <div className="grid gap-(--s4) lg:grid-cols-[1fr_minmax(0,0.9fr)]">
+            <Reveal delay={0.1}>
+              <Card>
+                <div className="flex flex-col gap-(--s4)">
+                  <Heading level={3}>{t("sayHello")}</Heading>
 
-        {/* Availability CTA */}
-        <div
-          className={"mt-14 reveal" + (visible ? " is-visible" : "")}
-          style={{ "--reveal-delay": "0.1s" } as CSSProperties}
-        >
-          <p className="mono-label">{t("available")}</p>
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-(--s4)"
+                  >
+                    <div className="grid gap-(--s3) sm:grid-cols-2">
+                      <Field label="Your Name">
+                        {(id, describedBy) => (
+                          <Input
+                            id={id}
+                            describedBy={describedBy}
+                            value={name}
+                            onChange={setName}
+                            placeholder="Jane Doe"
+                            autoComplete="name"
+                            required
+                          />
+                        )}
+                      </Field>
 
-          <p className="mt-5 max-w-2xl text-2xl font-semibold tracking-tight text-ink md:text-3xl">
-            {t("openTo")}
-          </p>
+                      <Field label="Your Email">
+                        {(id, describedBy) => (
+                          <Input
+                            id={id}
+                            describedBy={describedBy}
+                            value={email}
+                            onChange={setEmail}
+                            placeholder="jane@example.com"
+                            type="email"
+                            autoComplete="email"
+                            required
+                          />
+                        )}
+                      </Field>
+                    </div>
 
-          <p className="mt-4 max-w-2xl font-serif text-ink-2">
-            {t("ifYouHave")}
-          </p>
+                    <Field label="Your Message">
+                      {(id, describedBy) => (
+                        <Textarea
+                          id={id}
+                          describedBy={describedBy}
+                          value={message}
+                          onChange={setMessage}
+                          placeholder="Tell me about your project…"
+                          rows={5}
+                          required
+                        />
+                      )}
+                    </Field>
 
-          <Link
-            href="mailto:your@email.com"
-            className="cta-word mt-10 inline-flex"
-          >
-            {t("sayHello")}
-            <span aria-hidden="true" className="cta-word__arrow">
-              →
-            </span>
-          </Link>
-        </div>
+                    <Button type="submit" size="lg" tone="purple" block>
+                      Send Message
+                    </Button>
+                  </form>
+                </div>
+              </Card>
+            </Reveal>
 
-        {/* Socials */}
-        <div
-          className={"mt-20 reveal" + (visible ? " is-visible" : "")}
-          style={{ "--reveal-delay": "0.2s" } as CSSProperties}
-        >
-          <ul className="flex flex-col gap-12">
-            {socials.map((social) => {
-              const Icon = social.icon
-
-              return (
-                <li key={social.title}>
-                  <Link
-                    href={social.href}
+            <Reveal delay={0.15}>
+              <div className="flex flex-col gap-(--s3)">
+                {rawSocials.map((social, i) => (
+                  <a
+                    key={social.title}
+                    href={socialLinks[i]}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-baseline gap-4"
+                    className="block"
                   >
-                    <span className="shrink-0 text-cyan">
-                      <Icon className="h-4 w-4" />
-                    </span>
-
-                    <span>
-                      <span className="cta-word">
-                        {social.title}
-                        <span aria-hidden="true" className="cta-word__arrow">
-                          →
-                        </span>
-                      </span>
-
-                      <span className="mt-1 block font-serif text-sm text-ink-2">
-                        {social.description}
-                      </span>
-                    </span>
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
+                    <RowCard>
+                      <div className="flex items-start gap-(--s4)">
+                        <Blob
+                          icon={socialRoles[i % socialRoles.length]}
+                          tone={socialTones[i % socialTones.length]}
+                          size="md"
+                        />
+                        <div className="flex flex-col gap-[2px]">
+                          <Heading level={3}>{social.title}</Heading>
+                          <Text size="sm" muted>
+                            {social.description}
+                          </Text>
+                        </div>
+                      </div>
+                    </RowCard>
+                  </a>
+                ))}
+              </div>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>

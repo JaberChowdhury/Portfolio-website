@@ -1,6 +1,9 @@
 "use client"
 
-import { Skeleton } from "@/components/ui/skeleton"
+import { ErrorNote, Skeleton } from "@/components/pouf/feedback"
+import { Stack } from "@/components/pouf/layout"
+import { Card } from "@/components/pouf/surface"
+import { Text } from "@/components/pouf/text"
 import type { CombinedRepo } from "@/lib/github"
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useState } from "react"
@@ -102,28 +105,22 @@ export default function ProjectDetailClient({
 
   if (loadingRepo || !repoInfo) {
     return (
-      <div className="container mx-auto flex min-h-screen max-w-5xl flex-col space-y-8 px-6 pt-16 pb-24 md:px-10">
-        <Skeleton className="h-12 w-1/3 bg-paper-3" />
-        <Skeleton className="h-[280px] w-full rounded-2xl bg-paper-3" />
-        <Skeleton className="h-6 w-1/2 bg-paper-3" />
-        <div className="flex gap-4">
-          <Skeleton className="h-10 w-32 bg-paper-3" />
-          <Skeleton className="h-10 w-32 bg-paper-3" />
-        </div>
-        <Skeleton className="h-64 w-full rounded-2xl bg-paper-3" />
+      <div className="mx-auto min-h-screen max-w-6xl px-(--s5) pt-28 pb-20 md:px-(--s8)">
+        <Stack gap={6}>
+          <Skeleton variant="text" count={1} />
+          <Skeleton variant="card" count={1} />
+          <Skeleton variant="text" count={1} />
+          <Skeleton variant="row" count={1} />
+          <Skeleton variant="card" count={1} />
+        </Stack>
       </div>
     )
   }
 
   if (errorRepo) {
     return (
-      <div className="container mx-auto flex min-h-screen max-w-5xl items-center justify-center px-6 pt-16 pb-24 text-center md:px-10">
-        <div>
-          <h2 className="mb-4 text-2xl font-semibold tracking-tight text-ink">
-            Error
-          </h2>
-          <p className="text-ink-2">{errorRepo}</p>
-        </div>
+      <div className="mx-auto flex min-h-screen max-w-6xl items-center justify-center px-(--s5) pt-28 pb-20 md:px-(--s8)">
+        <ErrorNote>{errorRepo}</ErrorNote>
       </div>
     )
   }
@@ -133,56 +130,56 @@ export default function ProjectDetailClient({
   ]
 
   return (
-    <div className="container mx-auto min-h-screen max-w-5xl px-6 pt-16 pb-24 md:px-10">
-      <ProjectHeader repoInfo={repoInfo} />
+    <div className="mx-auto min-h-screen max-w-6xl px-(--s5) pt-28 pb-20 md:px-(--s8)">
+      <Stack gap={6}>
+        <ProjectHeader repoInfo={repoInfo} />
 
-      <BranchSelector
-        repoName={repoName}
-        allBranches={allBranches}
-        activeBranchName={activeBranchName}
-      />
+        <BranchSelector
+          repoName={repoName}
+          allBranches={allBranches}
+          activeBranchName={activeBranchName}
+        />
 
-      <ProjectVisualizations
-        repoInfo={repoInfo}
-        activeBranchName={activeBranchName}
-      />
+        <ProjectVisualizations
+          repoInfo={repoInfo}
+          activeBranchName={activeBranchName}
+        />
 
-      {repoInfo.homepage && (
-        <BrowserPreview homepage={repoInfo.homepage} repoName={repoInfo.name} />
-      )}
+        {repoInfo.homepage && (
+          <BrowserPreview homepage={repoInfo.homepage} repoName={repoInfo.name} />
+        )}
 
-      <div className="w-full">
-        <div className="mono-label mb-4 flex items-baseline gap-2">
-          <span className="text-cyan-2">~/</span>
-          <span className="font-mono text-[0.6875rem] tracking-[0.12em] text-ink-2 uppercase">
-            README.md
-          </span>
+        <div className="w-full">
+          <div className="mb-(--s3)">
+            <Text size="sm" muted>
+              README.md
+            </Text>
+          </div>
+          <Card>
+            <AnimatePresence mode="wait">
+              {loadingReadme ? (
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <Skeleton variant="card" count={1} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="content"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <ReadmeRenderer html={readmesMap[activeBranchName] || ""} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Card>
         </div>
-        <div className="rounded-2xl bg-paper-2 p-6 text-ink md:p-10">
-          <AnimatePresence mode="wait">
-            {loadingReadme ? (
-              <motion.div
-                key="loading"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex justify-center py-20"
-              >
-                <Skeleton className="h-64 w-full rounded-xl bg-paper-3" />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="content"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-              >
-                <ReadmeRenderer html={readmesMap[activeBranchName] || ""} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </div>
+      </Stack>
     </div>
   )
 }

@@ -1,21 +1,29 @@
 import React from "react"
 import { customFonts } from "../data"
 import { TabProps } from "./types"
+import { Card } from "@/components/pouf/surface"
+import { Text } from "@/components/pouf/text"
 
 export default function PlaygroundTab({ fontSize, sampleText }: TabProps) {
   return (
-    <div className="space-y-8">
+    <div className="flex flex-col gap-(--s5)">
       {customFonts.map((font) => (
-        <div key={font.name} className="aurora-card">
-          <div className="mono-label mb-6">{font.name}</div>
-          <div className={`${font.className} grid gap-5`}>
+        <Card key={font.name}>
+          <div className="mb-(--s4)">
+            <Text size="sm" muted>
+              {font.name}
+            </Text>
+          </div>
+          <div className={`${font.className} grid gap-(--s4)`}>
             {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((weight) => (
               <div
                 key={weight}
-                className="rounded-xl bg-paper/60 p-4 transition-colors hover:bg-paper"
+                className="rounded-card bg-bg p-(--s3) transition-colors hover:bg-[color-mix(in_srgb,var(--color-purple)_14%,var(--color-surface))]"
               >
-                <div className="mb-2">
-                  <span className="mono-label">Weight {weight}</span>
+                <div className="mb-(--s2)">
+                  <Text size="sm" muted>
+                    Weight {weight}
+                  </Text>
                 </div>
                 <p
                   style={{ fontWeight: weight, fontSize }}
@@ -26,7 +34,7 @@ export default function PlaygroundTab({ fontSize, sampleText }: TabProps) {
               </div>
             ))}
           </div>
-        </div>
+        </Card>
       ))}
     </div>
   )

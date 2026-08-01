@@ -1,85 +1,59 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
-import { Copy, Tag, Check, AlertCircle } from "lucide-react"
+import { Dot } from "@/components/pouf/media"
+import { Stack } from "@/components/pouf/layout"
+import { Card } from "@/components/pouf/surface"
+import { Heading, Highlight, Text } from "@/components/pouf/text"
+import { Status } from "@/components/pouf/status"
+import type { Tone } from "@/components/pouf/tone"
 
-const badgeConfig = {
-  variant: [
-    "default",
-    "secondary",
-    "destructive",
-    "outline",
-    "ghost",
-    "link",
-  ] as const,
-}
+const tones: Tone[] = ["pink", "purple", "blue", "mint", "yellow", "orange"]
 
 export default function BadgeShowcase() {
   return (
-    <div className="space-y-12">
-      <div className="flex flex-col gap-2">
-        <h1
-          data-cursor="text"
-          className="text-4xl font-extrabold tracking-tight lg:text-5xl"
-        >
-          Badge Showcase
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          Explore all{" "}
-          <span className="font-semibold text-foreground">
-            {badgeConfig.variant.length}
-          </span>{" "}
-          generated combinations of badge variants.
-        </p>
-      </div>
-
-      <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-        {badgeConfig.variant.map((variant) => (
-          <div
-            key={variant}
-            className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm"
-          >
-            <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-
-            <div className="relative">
-              <h2
-                data-cursor="text"
-                className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight capitalize"
-              >
-                <Tag className="size-5 text-primary" />
-                {variant}
-              </h2>
-
-              <div className="flex flex-col gap-6">
-                <div className="group/item flex flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    {/* Standard render */}
-                    <Badge variant={variant}>{variant}</Badge>
-
-                    {/* With Icon */}
-                    <Badge variant={variant} data-icon="inline-start">
-                      {variant === "destructive" ? (
-                        <AlertCircle className="mr-1 size-3" />
-                      ) : (
-                        <Check className="mr-1 size-3" />
-                      )}
-                      With Icon
-                    </Badge>
-                  </div>
-
-                  <div className="mt-2 rounded-md bg-muted/50 p-3 font-mono text-xs">
-                    <div className="flex items-center justify-between">
-                      <code className="text-muted-foreground">
-                        {`<Badge variant="${variant}">...</Badge>`}
-                      </code>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <Stack gap={5}>
+      <Card>
+        <Stack gap={4}>
+          <div className="flex flex-col gap-(--s1)">
+            <Heading level={3}>Highlights</Heading>
+            <Text muted>The reference&apos;s marker behind a word.</Text>
           </div>
-        ))}
-      </div>
-    </div>
+          <div className="flex flex-wrap gap-(--s3)">
+            {tones.map((tone) => (
+              <Highlight key={tone} tone={tone}>
+                Highlight
+              </Highlight>
+            ))}
+          </div>
+        </Stack>
+      </Card>
+
+      <Card>
+        <Stack gap={4}>
+          <Heading level={3}>Status</Heading>
+          <div className="flex flex-col gap-(--s3)">
+            <Status label="Deployed" tone="up" />
+            <Status label="Building" tone="info" />
+            <Status label="Rolling back" tone="down" />
+            <Status label="Awaiting review" tone="warn" />
+            <Status label="Idle" tone="idle" />
+          </div>
+        </Stack>
+      </Card>
+
+      <Card>
+        <Stack gap={4}>
+          <Heading level={3}>Dots</Heading>
+          <div className="flex flex-wrap items-center gap-(--s4)">
+            {tones.map((tone) => (
+              <span key={tone} className="inline-flex items-center gap-2">
+                <Dot tone={tone} />
+                <Text size="sm">{tone}</Text>
+              </span>
+            ))}
+          </div>
+        </Stack>
+      </Card>
+    </Stack>
   )
 }

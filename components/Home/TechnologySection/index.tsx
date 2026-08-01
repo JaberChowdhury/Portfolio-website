@@ -1,53 +1,55 @@
 "use client"
-import { useEffect, useState, type CSSProperties } from "react"
 
+import { motion, useReducedMotion } from "framer-motion"
 import { useTranslations } from "next-intl"
+import { Blob } from "@/components/pouf/media"
+import { Progress } from "@/components/pouf/progress"
+import { Card } from "@/components/pouf/surface"
+import { Eyebrow, Heading, Highlight, Text } from "@/components/pouf/text"
 import { TECH_STACK_DATA } from "./techdata"
 
-const TechnologySection = () => {
+export default function TechnologySection() {
   const t = useTranslations("Technology")
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const reduceMotion = useReducedMotion()
 
   return (
-    <section id="technology" className="relative w-full">
-      <div className="mx-auto max-w-6xl px-6 md:px-10">
-        {/* Section head */}
-        <header className="head-hang">
-          <div className="head-hang__eyebrow">
-            <span className="mono-label">01 · {t("eyebrow")}</span>
-          </div>
-          <h2 className="head-hang__title text-ink">
+    <section id="technology" className="relative w-full pb-[clamp(4rem,10vw,7.5rem)]">
+      <div className="mx-auto w-full max-w-6xl px-6 md:px-10">
+        <div className="max-w-2xl">
+          <Eyebrow>01 · {t("eyebrow")}</Eyebrow>
+          <Heading level={2}>
             {t("title1")}
-            <span className="hl">{t("title2")}</span>
-          </h2>
-          <p className="head-hang__body font-serif text-lg">{t("description")}</p>
-        </header>
+            <Highlight>{t("title2")}</Highlight>
+          </Heading>
+          <div className="mt-(--s3)">
+            <Text muted>{t("description")}</Text>
+          </div>
+        </div>
 
-        {/* Tech grid */}
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {TECH_STACK_DATA.map((tech, index) => (
-            <li
-              key={tech.id}
-              className={`reveal${mounted ? " is-visible" : ""}`}
-              style={{ "--reveal-delay": `${index * 0.04}s` } as CSSProperties}
-            >
-              <span className="mono-label block rounded-full border border-white/10 bg-paper-2/70 px-4 py-2.5 text-center">
-                {tech.label}
-              </span>
-            </li>
+        <motion.div
+          className="mt-(--s7) grid grid-cols-2 gap-(--s3) sm:grid-cols-3 lg:grid-cols-4"
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          {TECH_STACK_DATA.map((tech) => (
+            <Card key={tech.id} variant="tight" motion="lift">
+              <div className="flex flex-col items-start gap-(--s3)">
+                <Blob icon={tech.icon} tone={tech.tone} size="sm" />
+                <Heading level={3}>{tech.label}</Heading>
+                <Progress value={tech.value} tone={tech.tone} />
+              </div>
+            </Card>
           ))}
-        </ul>
+        </motion.div>
 
-        <p className="mono-label pb-28 text-center opacity-50">
-          {t("backgroundText")}
-        </p>
+        <div className="mt-(--s8) text-center">
+          <Text muted size="sm" mono>
+            {t("backgroundText")}
+          </Text>
+        </div>
       </div>
     </section>
   )
 }
-
-export default TechnologySection

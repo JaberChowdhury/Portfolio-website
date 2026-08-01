@@ -1,65 +1,73 @@
-import { ArrowUpRight } from "lucide-react"
+import {
+  ArrowUpRight,
+  Code2,
+  Globe,
+  Layers,
+  MessageSquare,
+  ShoppingBag,
+  Zap,
+} from "lucide-react"
+import { Link } from "@/i18n/routing"
+import { Badge, Blob } from "@/components/pouf/media"
+import { Card } from "@/components/pouf/surface"
+import { Heading, Text } from "@/components/pouf/text"
+import type { Tone } from "@/components/pouf/tone"
 
 export interface Project {
   title: string
   description: string
   tech: string[]
-  live: string
-  github: string
 }
 
 interface ProjectCardProps {
   project: Project
+  index?: number
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+const TONES: Tone[] = ["purple", "blue", "pink", "mint", "yellow", "orange"]
+const ICONS = [ShoppingBag, MessageSquare, Code2, Layers, Zap, Globe]
+
+export function slugify(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+}
+
+export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+  const tone = TONES[index % TONES.length]
+  const Icon = ICONS[index % ICONS.length]
+  const href = `/projects/${slugify(project.title)}`
+
   return (
-    <article className="aurora-card group flex h-full flex-col gap-5">
-      {/* Title links to the live project */}
-      <div className="flex items-start justify-between gap-4">
-        <a
-          href={project.live}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-heading text-xl font-semibold tracking-tight text-ink transition-colors duration-300 group-hover:text-cyan"
-        >
-          {project.title}
-        </a>
-        <ArrowUpRight
-          aria-hidden="true"
-          className="mt-1.5 h-5 w-5 shrink-0 text-ink-2 transition-transform duration-300 ease-[var(--ease-fade)] group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-cyan"
-        />
-      </div>
+    <Link href={href} className="flex h-full">
+      <Card variant="tight" motion="lift">
+        <div className="flex h-full flex-col items-start gap-(--s3)">
+          <div className="flex w-full items-start justify-between gap-(--s2)">
+            <Blob icon={<Icon size={20} />} tone={tone} size="sm" />
+            <ArrowUpRight
+              aria-hidden="true"
+              className="mt-1 size-5 shrink-0 text-muted"
+            />
+          </div>
 
-      {/* Description */}
-      <p className="flex-1 font-serif text-sm leading-relaxed text-ink-2">
-        {project.description}
-      </p>
+          <Heading level={3}>{project.title}</Heading>
 
-      {/* Tech chips */}
-      <div className="flex flex-wrap gap-2">
-        {project.tech.map((tech, idx) => (
-          <span
-            key={idx}
-            className="mono-label rounded-full border border-white/10 bg-paper-2/70 px-3 py-1"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
+          <div className="flex-1">
+            <Text muted size="sm">
+              {project.description}
+            </Text>
+          </div>
 
-      {/* Source CTA */}
-      <a
-        href={project.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="cta-word self-start"
-      >
-        <span>Code</span>
-        <span className="cta-word__arrow" aria-hidden="true">
-          →
-        </span>
-      </a>
-    </article>
+          <div className="flex flex-wrap gap-(--s2)">
+            {project.tech.map((tech) => (
+              <Badge key={tech} tone={tone}>
+                {tech}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      </Card>
+    </Link>
   )
 }

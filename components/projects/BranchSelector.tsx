@@ -1,8 +1,11 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { Select } from "@/components/pouf/controls"
+import { Blob } from "@/components/pouf/media"
+import { Row } from "@/components/pouf/layout"
+import { Card } from "@/components/pouf/surface"
+import { Eyebrow, Text } from "@/components/pouf/text"
+import { useRouter } from "@/i18n/routing"
 
 interface BranchSelectorProps {
   repoName: string
@@ -16,56 +19,40 @@ export default function BranchSelector({
   activeBranchName,
 }: BranchSelectorProps) {
   const router = useRouter()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const activeIndex = allBranches.findIndex(
     (b) => b.name.toLowerCase() === activeBranchName.toLowerCase()
   )
+  const currentBranch =
+    allBranches[activeIndex === -1 ? 0 : activeIndex]?.name ?? activeBranchName
 
-  const handleClick = (branchName: string) => {
+  const handleChange = (branchName: string) => {
+    if (branchName === currentBranch) return
     router.push(`/projects/${repoName}/${encodeURIComponent(branchName)}`)
   }
 
   return (
-    <div className="mb-12 w-full">
-      <div className="mono-label mb-4 flex items-baseline gap-3">
-        Branches
-        <span className="font-mono text-[10px] font-medium tracking-wider text-ink-2 uppercase">
-          {allBranches.length}
-        </span>
-      </div>
+    <Card variant="tight">
+      <Row gap={4} justify="between">
+        <Row gap={3} wrap={false}>
+          <Blob size="sm" tone="purple" icon="tag" />
+          <div className="flex flex-col gap-[2px]">
+            <Eyebrow>Branches</Eyebrow>
+            <Text size="sm" muted num>
+              {allBranches.length} total
+            </Text>
+          </div>
+        </Row>
 
-      <div className="flex flex-wrap gap-x-6 gap-y-3 pb-2">
-        {allBranches.map((branch, index) => {
-          const isActive = index === (activeIndex === -1 ? 0 : activeIndex)
-
-          return (
-            <motion.button
-              key={branch.name}
-              onClick={() => handleClick(branch.name)}
-              initial={false}
-              animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 4 }}
-              transition={{ duration: 0.3, delay: Math.min(index * 0.03, 0.6) }}
-              whileHover={{ y: isActive ? 0 : -2 }}
-              whileTap={{ scale: 0.95 }}
-              className={`relative inline-flex cursor-pointer items-center gap-2 font-mono text-xs font-bold tracking-widest uppercase transition-colors duration-200 select-none ${
-                isActive
-                  ? "text-cyan"
-                  : "text-ink-2 hover:text-cyan focus-visible:text-cyan"
-              }`}
-            >
-              {isActive && (
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
-              )}
-              {branch.name}
-            </motion.button>
-          )
-        })}
-      </div>
-    </div>
+        <div className="w-full max-w-[260px]">
+          <Select
+            label="Branch"
+            value={currentBranch}
+            onChange={handleChange}
+            options={allBranches.map((b) => ({ value: b.name, label: b.name }))}
+          />
+        </div>
+      </Row>
+    </Card>
   )
 }

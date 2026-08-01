@@ -2,16 +2,22 @@ import React from "react"
 import { customFonts, systemFonts } from "../data"
 import { TabProps } from "./types"
 import { cn } from "@/lib/utils"
+import { Card } from "@/components/pouf/surface"
+import { Text } from "@/components/pouf/text"
 
 export default function AnalysisTab({ fontWeight }: TabProps) {
   return (
-    <div className="space-y-8">
+    <div className="flex flex-col gap-(--s5)">
       {[...customFonts, ...systemFonts].map((font) => (
-        <div key={font.name} className="aurora-card">
-          <div className="mono-label mb-8">{font.name} — Glyph Analysis</div>
+        <Card key={font.name}>
+          <div className="mb-(--s5)">
+            <Text size="sm" muted>
+              {font.name} — Glyph Analysis
+            </Text>
+          </div>
           <div
             className={cn(
-              "flex flex-col gap-12",
+              "flex flex-col gap-(--s6)",
               (font as any).className || ""
             )}
             style={
@@ -20,7 +26,7 @@ export default function AnalysisTab({ fontWeight }: TabProps) {
                 : undefined
             }
           >
-            <div className="flex flex-wrap items-end gap-8 pb-8">
+            <div className="flex flex-wrap items-end gap-(--s5) pb-(--s5)">
               <span
                 style={{ fontWeight: fontWeight }}
                 className="text-[150px] leading-none tracking-tight text-ink"
@@ -47,27 +53,31 @@ export default function AnalysisTab({ fontWeight }: TabProps) {
               </span>
             </div>
 
-            <div className="space-y-4">
-              <div className="mono-label">Numerals</div>
+            <div className="flex flex-col gap-(--s3)">
+              <Text size="sm" muted>
+                Numerals
+              </Text>
               <div
                 style={{ fontWeight: fontWeight }}
-                className="text-[100px] leading-none tracking-tighter break-all text-ink-2"
+                className="text-[100px] leading-none tracking-tighter break-all text-muted"
               >
                 0123456789
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="mono-label">Ligatures & Symbols</div>
+            <div className="flex flex-col gap-(--s3)">
+              <Text size="sm" muted>
+                Ligatures & Symbols
+              </Text>
               <div
                 style={{ fontWeight: fontWeight }}
-                className="text-[80px] leading-none tracking-tighter break-all text-ink-2"
+                className="text-[80px] leading-none tracking-tighter break-all text-muted"
               >
                 @#$%*()_+-=!?
               </div>
             </div>
           </div>
-        </div>
+        </Card>
       ))}
     </div>
   )

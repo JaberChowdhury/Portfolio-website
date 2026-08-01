@@ -1,109 +1,82 @@
 "use client"
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { ListFilter } from "lucide-react"
+import { useState } from "react"
+import { Combobox, Select } from "@/components/pouf/controls"
+import { Field } from "@/components/pouf/Input"
+import { Grid, Stack } from "@/components/pouf/layout"
+import { Card } from "@/components/pouf/surface"
+import { Heading, Text } from "@/components/pouf/text"
 
 export default function SelectShowcase() {
+  const [fruit, setFruit] = useState("")
+  const [timezone, setTimezone] = useState("")
+  const [model, setModel] = useState("")
+
   return (
-    <div className="space-y-12">
-      <div className="flex flex-col gap-2">
-        <h1
-          data-cursor="text"
-          className="text-4xl font-extrabold tracking-tight lg:text-5xl"
-        >
-          Select Showcase
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          Explore different select dropdown configurations.
-        </p>
-      </div>
+    <Stack gap={5}>
+      <Card>
+        <Stack gap={4}>
+          <Heading level={3}>Select</Heading>
+          <Grid cols={2}>
+            <Field label="Fruit">
+              {(id, describedBy) => (
+                <Select
+                  id={id}
+                  describedBy={describedBy}
+                  value={fruit}
+                  onChange={setFruit}
+                  placeholder="Pick a fruit"
+                  options={[
+                    { value: "apple", label: "Apple" },
+                    { value: "banana", label: "Banana" },
+                    { value: "blueberry", label: "Blueberry" },
+                    { value: "grapes", label: "Grapes" },
+                    { value: "pineapple", label: "Pineapple" },
+                  ]}
+                />
+              )}
+            </Field>
+            <Field label="Timezone">
+              {(id, describedBy) => (
+                <Select
+                  id={id}
+                  describedBy={describedBy}
+                  value={timezone}
+                  onChange={setTimezone}
+                  placeholder="Pick a timezone"
+                  options={[
+                    { value: "est", label: "Eastern Standard Time (EST)" },
+                    { value: "cst", label: "Central Standard Time (CST)" },
+                    { value: "mst", label: "Mountain Standard Time (MST)" },
+                    { value: "pst", label: "Pacific Standard Time (PST)" },
+                    { value: "gmt", label: "Greenwich Mean Time (GMT)" },
+                    { value: "cet", label: "Central European Time (CET)" },
+                  ]}
+                />
+              )}
+            </Field>
+          </Grid>
+        </Stack>
+      </Card>
 
-      <div className="grid gap-8 md:grid-cols-2">
-        {/* Default Select */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm">
-          <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-          <div className="relative">
-            <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">
-              <ListFilter className="size-5 text-primary" />
-              Default Select
-            </h2>
-            <div className="flex flex-col gap-6">
-              <Select>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select a fruit" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Fruits</SelectLabel>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                    <SelectItem value="grapes">Grapes</SelectItem>
-                    <SelectItem value="pineapple">Pineapple</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
-
-        {/* Grouped Select */}
-        <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm">
-          <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-          <div className="relative">
-            <h2 className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight">
-              <ListFilter className="size-5 text-primary" />
-              Grouped with Separator
-            </h2>
-            <div className="flex flex-col gap-6">
-              <Select>
-                <SelectTrigger className="w-[280px]">
-                  <SelectValue placeholder="Select a timezone" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>North America</SelectLabel>
-                    <SelectItem value="est">
-                      Eastern Standard Time (EST)
-                    </SelectItem>
-                    <SelectItem value="cst">
-                      Central Standard Time (CST)
-                    </SelectItem>
-                    <SelectItem value="mst">
-                      Mountain Standard Time (MST)
-                    </SelectItem>
-                    <SelectItem value="pst">
-                      Pacific Standard Time (PST)
-                    </SelectItem>
-                  </SelectGroup>
-                  <SelectSeparator />
-                  <SelectGroup>
-                    <SelectLabel>Europe & Africa</SelectLabel>
-                    <SelectItem value="gmt">
-                      Greenwich Mean Time (GMT)
-                    </SelectItem>
-                    <SelectItem value="cet">
-                      Central European Time (CET)
-                    </SelectItem>
-                    <SelectItem value="eet">
-                      Eastern European Time (EET)
-                    </SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <Card>
+        <Stack gap={4}>
+          <Heading level={3}>Combobox</Heading>
+          <Text muted>Type to filter, or enter a value the list doesn&apos;t offer.</Text>
+          <Field label="Model">
+            {(id, describedBy) => (
+              <Combobox
+                id={id}
+                describedBy={describedBy}
+                value={model}
+                onChange={setModel}
+                placeholder="Pick or type a model"
+                options={["gpt-4o", "claude-3.5", "llama-3", "mistral", "gemini-1.5"]}
+              />
+            )}
+          </Field>
+        </Stack>
+      </Card>
+    </Stack>
   )
 }

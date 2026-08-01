@@ -4,125 +4,155 @@ A locked design system for this portfolio. Every page redesign reads this file
 before emitting code. Do not regenerate per page — extend or amend this file when
 the system needs to grow.
 
-Produced by `hallmark redesign` in the **Aurora** theme. All production code that
-deviates from this system is a slop-test failure.
+Produced by `hallmark redesign` in the **pouf** (1st-Pouf claymorphism) theme.
+All production code that deviates from this system is a slop-test failure.
 
 ## Genre
 
-atmospheric — the AI-creative product register (Suno / Runway / late-night
-tooling). Dark canvas with radial cyan blooms, weighty sans display, Sentient
-serif body, plain-English copy, single cool accent. The aesthetic of a tool you'd
-want to use after dark.
+claymorphism — "soft software, absurdly built". Pastel canvas with raised,
+cushioned surfaces: every card, button, blob and row reads as soft clay with an
+inner top light, an inner floor shadow, and a cast drop. Nunito Variable
+display/body, plain-English copy, a five-tone pastel accent system. The
+aesthetic of a toy you'd want to press.
 
 ## Macrostructure family
 
-- **Home page:** Hanging section heads — headings float above each section in
-  negative space, no borders, no rules. Single-column body. Negative-space
-  dividers (the gap IS the divider — no hairlines). No imagery; typography
-  carries everything. Fade-up reveal only.
+- **Home page:** KPI-stat hero (availability dot + blob stats + CTA), then
+  cushion sections — Technology (puffy cards with tonal progress), Projects
+  (cushion grid), Competitive Programming (stat cards + achievement rows),
+  Experience / Education (row-cushions), Contact (cushioned form card). The
+  cushion IS the divider; section gaps are the negative space.
 - **Content / lab pages** (`/projects`, `/projects/[name]/[branch]`, `/dungeon`,
-  `/ui`, `/font-preview`, `/illustration`): same tokens, same CTA voice; content
-  is a single column on the dark canvas, blooms stay behind the type.
+  `/ui`, `/font-preview`): same tokens, same cushion voice; content is a single
+  column of cushions on the pastel canvas.
 
-## Theme — Aurora
+## Theme — pouf
 
-Dark-only. Deep cool night-blue ground (never pure black), two fixed cool cyan
-radial blooms behind the content, weighty sans display + Sentient serif body,
-single cyan accent. No light sections, no glassmorphism, no hairlines, no
-gradient text, no italic headers.
+Pastel by default, with an opt-in dark variant (`<html class="dark">` — driven
+by next-themes). Accents stay pastel in both themes (they are the brand); only
+the page `bg` / `ink` / `surface` flip.
 
-- `--color-paper`    oklch(15% 0.015 210)   canvas (dark, cool — never #000)
-- `--color-paper-2`  oklch(19% 0.02 215)    elevated card
-- `--color-paper-3`  oklch(24% 0.025 215)   hover card
-- `--color-ink`      oklch(94% 0.008 200)   near-white cool text
-- `--color-ink-2`    oklch(78% 0.012 210)   muted body (light grey on dark)
-- `--color-cyan`     oklch(78% 0.11 200)    THE accent — links, tags, blooms, focus
-- `--color-cyan-2`   oklch(64% 0.12 205)    accent deep (hover / press)
+- `--color-bg`      #f0e9ff   canvas (light pastel lavender)
+- `--color-surface` #ffffff   cushions (cards / rows / menus)
+- `--color-ink`     #3a2e5c   text on the page (dark plum)
+- `--color-muted`   #71609b   secondary text (clears AA on bg and surface)
+- `--color-pink`    #ffb3d1   tone accent
+- `--color-purple`  #c9a8ff   tone accent (the default "brand" tone)
+- `--color-blue`    #9ec8ff   tone accent
+- `--color-mint`    #a8f0d0   tone accent (semantic `--up`)
+- `--color-yellow`  #ffe58a   tone accent (semantic `--warn`)
+- `--color-orange`  #ffb38a   tone accent
 
-**One-accent rule:** cyan is the single accent. Warm hues only if a single
-"ember" moment is truly needed — max one small tag per page, never on display.
+Dark: `--color-bg #12111a`, `--color-surface #211f2b`, `--color-ink #f7f3ff`,
+`--color-muted #b8afcb`. Accent cushions and their ink (`--on-accent`, pinned
+dark `#2a2145`) are unchanged.
+
+**Ink-on-pastel rule:** text that sits ON a pastel fill uses `--on-accent`
+(dark ink), never white. This is a WCAG decision from the reference fork and is
+non-negotiable. `--on-accent` resolves to `--ink` in light mode and stays dark
+in dark mode because the accents do.
 
 ## Canvas treatment
 
-- Two radial-gradient blooms in cyan, ~20–30% viewport footprint each, fixed,
-  no animation. Implemented once at the page root (`.aurora-canvas`).
-- Banned: whole-page rotating mesh "aurora blob", gradient text, glassmorphism,
-  animated blooms.
+- Flat pastel `--color-bg`, no background imagery, no blooms, no glassmorphism,
+  no gradients. Depth comes from cushions only.
+- Banned: gradient text, glassmorphism, dark-only sections, white-on-pastel.
+
+## Cushions (the clay recipe)
+
+- **Card** `pouf-card`: `inset 0 -10px 0 rgba(201,168,255,.35)` (floor),
+  `inset 0 6px 0 rgba(255,255,255,.9)` (top light),
+  `0 20px 40px rgba(58,46,92,.15)` (drop). Radius 32px. Surface `#fff`.
+- **Control** (buttons, pills): heavier inset bevels, radius 20px, pressed state
+  flattens to `--pouf-control-active`.
+- **Row** `pouf-row`: tighter padding, same recipe — "every row a cushion".
+- **Blob**: 24px radius pastel disc holding an icon, with its own bevels.
+- Provided as Tailwind utilities `cushion-card`, `cushion-control`,
+  `cushion-control-active`, `cushion-blob`, `cushion-field`, `cushion-row`,
+  `cushion-row-hover` in `components/pouf/pouf.css`. Tones compose via
+  `.tone-*` / `toneClass()`.
 
 ## Typography
 
-- **Display:** Geist Sans 600 (weighty sans), plain English, letter-spacing
-  tight (`-0.03em`). Display can reach `clamp(3rem, 6vw + 1rem, 6rem)`.
-  Bengali: "Sohid Osman Hadi" (unchanged, bn locale only).
-- **Body:** Sentient serif (self-hosted woff2, 400/500/700) — the signature
-  Aurora move. Body copy in Sentient 400, `--color-ink-2`.
-- **Mono:** Geist Mono, uppercase labels only, 11px, tracking `0.10–0.12em`.
-  Eyebrows / stat labels / section indices.
-- **No italic headers.** Emphasis is weight (600–700), cyan accent, or the `.hl`
-  drawn underline.
+- **Everything:** Nunito Variable (`@fontsource-variable/nunito`, family
+  `"Nunito Variable"`), weight 700 body / up to 900 for display and controls.
+  Rounded, friendly, kid-shaped. This is the signature pouf move.
+- **Display:** `Heading` (pouf) — 48px/28px/19px, `font-black`, tight tracking.
+- **Eyebrows:** pouf `Eyebrow` — 14px, tracking 2px, uppercase, `--color-muted`.
+- **Mono:** `abcfont` (self-hosted woff2) for the `/font-preview` page and
+  numerics; `Text mono` sets a system mono stack.
+- Bengali: "Sohid Osman Hadi" (unchanged, bn locale only) via `.sohid-font`.
 
 ## Spacing
 
-Tailwind default 4-pt scale. One content shell everywhere: `max-w-3xl` for body
-copy (single column), `max-w-6xl` for grids, gutter `px-6 md:px-10`. Sections
-separated by generous negative space — `--space-3xl` minimum between major
-sections; the gap is the divider, no rules between sections.
+Pouf scale `--s1..--s8` (6/8/12/16/20/24/32/40px). One content shell: `max-w-6xl`
+for grids, gutter `px-(--s5) md:px-(--s8)`. Major sections separated by
+`--s7`–`--s8`; the gap is the divider.
 
 ## Motion
 
-- `--ease-fade: cubic-bezier(0.22, 1, 0.36, 1)` — the ONLY easing. Fade-in
-  only, orchestrated once as a fade-up stagger per section.
-- No slide, no bounce, no marquee, no counters unless they are genuine data.
-- `prefers-reduced-motion: reduce` → opacity/colour only, reveals instant.
+- Cushion press (translateY + shadow flatten), card `lift` / `tilt-left` /
+  `tilt-right` on hover (composed in `Card motion`), 120–160ms.
+- Framer-motion used sparingly for section reveals only, honoring
+  `prefers-reduced-motion: reduce` (`useReducedMotion`).
+- No slide, no bounce, no marquee, no counters unless genuine data.
 
 ## Microinteractions stance
 
-- Cards: lift toward the user with a soft cyan glow shadow on hover (elevated
-  `paper-3`, glow, no border).
-- Links / CTAs: cyan on hover, underline sweeps in.
+- Cards: lift / tilt on hover (cushion vocabulary), pressed state flattens.
+- Buttons: `:active` presses in (translateY 2px + active shadow); `disabled`
+  reads as pressed-flat.
+- Focus-visible: 3px `--ink` outline (pouf base).
 - Every interactive element has a state response (hover, focus-visible, active,
   disabled).
 
 ## CTA voice
 
-- **Primary:** typographic-only — a word in Geist 600, cyan (or ink that turns
-  cyan), a drawn underline + arrow. Looks like a headline that happens to be
-  clickable. No box, no fill, no border.
-- **Tertiary / link:** same voice smaller; muted, cyan on hover.
-- No filled pill buttons except where a form genuinely needs a submit surface —
-  even then, a quiet cyan text button wins.
+- **Primary:** a solid pastel `Button` (purple default), ink `--on-accent`
+  label, cushion control shadow.
+- **Quiet / tertiary:** `variant="quiet"` — outlined pill, fills on hover.
+- Forms: `Field` + `Input`/`Textarea` with `cushion-field` (focus ring = purple
+  inset), `Button type="submit"`.
 
 ## Per-page allowances
 
-- Home page MAY use the aurora canvas blooms + fade-up reveals. No photography,
-  no icons-as-decoration.
-- Content/lab pages: typography + blooms only. The content column stays centered
-  and quiet; the type is the surface.
+- Home page MAY use the KPI-stat hero with `Stat`/`Blob`, availability `Dot`,
+  and `Highlight` swatches. Icons-as-decoration are allowed (they're the
+  clay vocabulary — blobs hold icons).
+- Content/lab pages: cushions + type. The content column stays centered and
+  quiet; the cushion is the surface.
 
 ## What every page MUST share
 
-- The wordmark ("Jaber.dev" — Geist 600, ink, cyan dot or underline) and its
-  placement in the N5 floating pill.
-- The cyan accent system. Cyan ≤ ~5% of viewport except blooms.
-- Geist Sans + Sentient serif + Geist Mono (bn: Sohid Osman Hadi).
-- The CTA voice (typographic-only word).
-- Section-heading rhythm: Geist Mono eyebrow (index + label), then a Hanging
-  Geist 600 display heading floating above the section body in negative space,
-  then a Sentient body line.
+- The wordmark ("Jaber.dev" — Nunito 900, ink) in the pouf floating pill
+  `Navbar` (`components/pouf/navbar.tsx`), with locale-aware links and the
+  EN/BN `Segmented` language toggle.
+- The pastel tone system (pink/purple/blue/mint/yellow/orange) via
+  `toneClass()`; tones are pastel and never the dominant page colour.
+- Ink-on-pastel (`--on-accent`), never white-on-pastel.
+- Nunito Variable everywhere (bn: Sohid Osman Hadi).
+- The cushion CTA voice.
+- Section-heading rhythm: `Eyebrow` (uppercase, 2px tracking), then a
+  `Heading` display, then a muted `Text` line.
 - `overflow-x: clip` on html and body (root).
-- Dark-only canvas — never a light section.
 
 ## What pages MAY differ on
 
 - Heading size and eyebrow content per page.
-- Card physics within the single-column rhythm (soft glow lift only).
-- The exact bloom placement behind each section.
+- Card physics within the cushion vocabulary (lift vs tilt, motion none).
+- Which tone leads a given section.
 
 ## Tokens / source of truth
 
-- `app/globals.css` — `:root` holds raw vars; `@theme inline` maps them into
-  Tailwind utilities (`bg-paper`, `text-ink-2`, `bg-cyan`, `shadow-glow-cyan`,
-  …). `.dark`/`.light` are aliases — Aurora is dark-only, so both resolve to the
-  same dark palette.
-- `app/[locale]/layout.tsx` — font variables `--font-geist-sans`,
-  `--font-sentient`, `--font-geist-mono`.
+- `components/pouf/pouf.css` — the single Tailwind v4 entry (imported by
+  `app/globals.css`): `@theme` palette + radii, `:root` legacy aliases, the
+  clay recipe, `.tone-*`, cushion `@utility`s, dark overrides. Do NOT fork
+  this file; extend via `app/globals.css` if the system needs to grow.
+- `app/globals.css` — imports pouf.css + Nunito; maps shadcn-semantic tokens
+  (`--background`, `--foreground`, `--card`, `--primary`, …) onto pouf vars so
+  any legacy shadcn/ui primitive degrades gracefully; keeps `@font-face`
+  blocks (marlin / abcfont / Sentient / Sohid) for `/font-preview`.
+- `components/pouf/` — the UI kit (Button, Card, RowCard, Heading/Text/
+  Eyebrow/Highlight, Blob/Dot, Stat/Metric, Navbar/Footer/NavLink, Segmented,
+  Tabs/Accordion, Field/Input/Select, Dialog/Sheet/Tooltip, Progress, Status,
+  Skeleton/Empty/ErrorNote, Icon). Consume these; do not restyle them inline.

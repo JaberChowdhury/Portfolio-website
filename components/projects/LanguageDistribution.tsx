@@ -1,10 +1,64 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from "recharts"
+import { Card } from "@/components/pouf/surface"
+import { Text } from "@/components/pouf/text"
 
 interface LanguageDistributionProps {
   languages: Record<string, number>
   mode: "bytes" | "files"
+}
+
+const PALETTE = [
+  "#c9a8ff",
+  "#9ec8ff",
+  "#a8f0d0",
+  "#ffe58a",
+  "#ffb3d1",
+  "#ffb38a",
+  "#3a2e5c",
+  "#71609b",
+]
+
+const NAMED_COLORS: Record<string, string> = {
+  TypeScript: "#c9a8ff",
+  JavaScript: "#ffe58a",
+  CSS: "#9ec8ff",
+  HTML: "#ffb38a",
+  Astro: "#ffb3d1",
+  "C++": "#9ec8ff",
+  C: "#c9a8ff",
+  Python: "#a8f0d0",
+  Rust: "#ffb3d1",
+  GLSL: "#3a2e5c",
+  Shell: "#ffb38a",
+  Markdown: "#71609b",
+}
+
+function formatValue(mode: "bytes" | "files", value: number): string {
+  if (mode === "bytes") {
+    return value > 1024 ? `${(value / 1024).toFixed(1)} KB` : `${value} B`
+  }
+  return `${value} ${value === 1 ? "file" : "files"}`
+}
+
+function LangTooltip({ active, payload }: { active?: boolean; payload?: Array<{ name?: string; value?: number; fill?: string }> }) {
+  if (!active || !payload || payload.length === 0) return null
+  return (
+    <div className="pouf-chart__tooltip">
+      <div className="pouf-chart__tooltip__label">Languages</div>
+      {payload
+        .filter((entry) => entry.value)
+        .map((entry) => (
+          <div key={entry.name} className="pouf-chart__tooltip__item">
+            <span className="pouf-chart__tooltip__swatch" style={{ background: entry.fill }} />
+            <span>
+              {entry.name} — {Number(entry.value).toFixed(1)}%
+            </span>
+          </div>
+        ))}
+    </div>
+  )
 }
 
 export default function LanguageDistribution({
@@ -19,87 +73,71 @@ export default function LanguageDistribution({
   if (total === 0) return null
 
   const langSorted = Object.entries(languages)
-    .map(([name, val]) => ({
+    .map(([name, value]) => ({
       name,
-      value: val,
-      percentage: (val / total) * 100,
+      value,
+      percentage: (value / total) * 100,
     }))
     .sort((a, b) => b.value - a.value)
 
-  const langColors: Record<string, string> = {
-    TypeScript: "oklch(72% 0.12 225)",
-    JavaScript: "oklch(78% 0.11 200)",
-    CSS: "oklch(64% 0.12 205)",
-    HTML: "oklch(80% 0.09 180)",
-    Astro: "oklch(58% 0.13 235)",
-    "C++": "oklch(70% 0.12 190)",
-    C: "oklch(82% 0.08 210)",
-    Python: "oklch(66% 0.12 215)",
-    Rust: "oklch(76% 0.11 195)",
-    GLSL: "oklch(60% 0.13 245)",
-    Shell: "oklch(85% 0.07 200)",
-    Markdown: "oklch(55% 0.14 240)",
-  }
+  const getLangColor = (name: string, index: number) =>
+    NAMED_COLORS[name] || PALETTE[index % PALETTE.length]
 
-  const getLangColor = (name: string, index: number) => {
-    if (langColors[name]) return langColors[name]
-    const fallbackColors = [
-      "oklch(80% 0.11 200)",
-      "oklch(70% 0.13 225)",
-      "oklch(85% 0.08 190)",
-      "oklch(75% 0.12 180)",
-      "oklch(60% 0.14 240)",
-      "oklch(68% 0.12 210)",
-    ]
-    return fallbackColors[index % fallbackColors.length]
-  }
+  const chartData = [
+    {
+      name: "distribution",
+      ...Object.fromEntries(
+        langSorted.map((lang) => [lang.name, lang.percentage])
+      ),
+    },
+  ]
 
   return (
-    <div className="w-full rounded-2xl bg-paper-2 p-6">
-      <div className="mono-label mb-6">Languages</div>
+    <Card>
+      <div className="mb-(--s4) flex items-center justify-between gap-(--s3)">
+        <Text size="sm" muted>
+          Languages
+        </Text>
+        <Text size="sm" muted num>
+          {langSorted.length} total
+        </Text>
+      </div>
 
-      {/* Stacked bar chart */}
-      <div className="mb-6 flex h-3 w-full overflow-hidden rounded-full bg-paper">
+      <div className="pouf-chart h-[120px] w-full">
+        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+          <BarChart
+            data={chartData}
+            barCategoryGap={0}
+            margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+          >
+            <XAxis dataKey="name" hide />
+            <Tooltip cursor={false} content={<LangTooltip />} />
+            {langSorted.map((lang, idx) => (
+              <Bar
+                key={lang.name}
+                dataKey={lang.name}
+                stackId="langs"
+                fill={getLangColor(lang.name, idx)}
+              />
+            ))}
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div className="mt-(--s4) flex flex-wrap gap-x-(--s5) gap-y-(--s2)">
         {langSorted.map((lang, idx) => (
-          <motion.div
-            key={lang.name}
-            initial={{ width: 0 }}
-            animate={{ width: `${lang.percentage}%` }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: idx * 0.1 }}
-            style={{
-              height: "100%",
-              backgroundColor: getLangColor(lang.name, idx),
-            }}
-          />
+          <span key={lang.name} className="inline-flex items-center gap-2">
+            <span
+              className="h-[9px] w-[9px] flex-none rounded-[50%]"
+              style={{ backgroundColor: getLangColor(lang.name, idx) }}
+            />
+            <Text size="sm">{lang.name}</Text>
+            <Text size="sm" muted num>
+              {lang.percentage.toFixed(1)}% ({formatValue(mode, lang.value)})
+            </Text>
+          </span>
         ))}
       </div>
-
-      {/* Legend */}
-      <div className="flex flex-wrap gap-x-6 gap-y-3">
-        {langSorted.map((lang, idx) => {
-          const formattedValue =
-            mode === "bytes"
-              ? lang.value > 1024
-                ? `${(lang.value / 1024).toFixed(1)} KB`
-                : `${lang.value} B`
-              : `${lang.value} ${lang.value === 1 ? "file" : "files"}`
-
-          return (
-            <div key={lang.name} className="flex items-baseline gap-2">
-              <span
-                className="h-2.5 w-2.5 rounded-full"
-                style={{ backgroundColor: getLangColor(lang.name, idx) }}
-              />
-              <span className="font-mono text-xs font-bold text-ink">
-                {lang.name}
-              </span>
-              <span className="font-mono text-xs text-ink-2">
-                {lang.percentage.toFixed(1)}% ({formattedValue})
-              </span>
-            </div>
-          )
-        })}
-      </div>
-    </div>
+    </Card>
   )
 }

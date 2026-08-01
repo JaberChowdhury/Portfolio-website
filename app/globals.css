@@ -1,9 +1,16 @@
-@import "tailwindcss";
+@import "../components/pouf/pouf.css";
+@import "@fontsource-variable/nunito";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
+
+/* pouf.css ships `@source './'`, which in Tailwind v4 opts OUT of automatic
+ * source detection — only components/pouf would be scanned. Re-add the whole
+ * app so every utility used in components/, app/, and messages/ is emitted. */
+@source "../";
+@source "../messages";
 
 @font-face {
   font-family: "abcfont";
@@ -103,66 +110,69 @@
   inherits: false;
 }
 
-:root,
-.dark,
-.light {
-  /* Hallmark · genre: atmospheric · macrostructure: Hanging · theme: Aurora · enrichment: none · nav: N5 · footer: Ft5 */
-  color-scheme: dark;
+:root {
+  /* pouf (1st-Pouf claymorphism) is the sole design system. shadcn-semantic
+   * tokens resolve to pouf vars so the remaining shadcn/ui primitives and the
+   * showcase pages inherit the palette; pouf's own `.dark` block drives the
+   * flip by redefining --color-* below. */
+  color-scheme: light;
 
-  --background: oklch(15% 0.015 210);
-  --foreground: oklch(94% 0.008 200);
-  --card: oklch(19% 0.02 215);
-  --card-foreground: oklch(94% 0.008 200);
-  --popover: oklch(19% 0.02 215);
-  --popover-foreground: oklch(94% 0.008 200);
+  --background: var(--color-bg);
+  --foreground: var(--color-ink);
+  --card: var(--color-surface);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-surface);
+  --popover-foreground: var(--color-ink);
 
-  --primary: oklch(78% 0.11 200);
-  --primary-foreground: oklch(15% 0.015 210);
-  --secondary: oklch(24% 0.025 215);
-  --secondary-foreground: oklch(94% 0.008 200);
-  --muted: oklch(24% 0.025 215);
-  --muted-foreground: oklch(78% 0.012 210);
-  --accent: oklch(78% 0.11 200);
-  --accent-foreground: oklch(15% 0.015 210);
+  --primary: var(--color-purple);
+  --primary-foreground: var(--on-accent);
+  --secondary: var(--color-surface);
+  --secondary-foreground: var(--color-ink);
+  --muted: var(--color-bg);
+  --muted-foreground: var(--color-muted);
+  --accent: var(--color-pink);
+  --accent-foreground: var(--on-accent);
 
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(94% 0.008 200 / 12%);
-  --input: oklch(94% 0.008 200 / 12%);
-  --ring: oklch(78% 0.11 200);
+  --destructive: var(--color-pink);
+  --border: rgba(201, 168, 255, 0.45);
+  --input: rgba(201, 168, 255, 0.55);
+  --ring: var(--color-purple);
 
-  --chart-1: oklch(0.68 0.13 200);
-  --chart-2: oklch(0.72 0.12 230);
-  --chart-3: oklch(0.6 0.11 190);
-  --chart-4: oklch(0.8 0.09 170);
-  --chart-5: oklch(0.55 0.14 240);
+  --chart-1: var(--color-purple);
+  --chart-2: var(--color-blue);
+  --chart-3: var(--color-mint);
+  --chart-4: var(--color-yellow);
+  --chart-5: var(--color-pink);
 
-  --radius: 0.625rem;
+  --radius: 1rem;
 
-  --sidebar: oklch(19% 0.02 215);
-  --sidebar-foreground: oklch(94% 0.008 200);
-  --sidebar-primary: oklch(78% 0.11 200);
-  --sidebar-primary-foreground: oklch(15% 0.015 210);
-  --sidebar-accent: oklch(24% 0.025 215);
-  --sidebar-accent-foreground: oklch(94% 0.008 200);
-  --sidebar-border: oklch(94% 0.008 200 / 12%);
-  --sidebar-ring: oklch(78% 0.11 200);
+  --sidebar: var(--color-surface);
+  --sidebar-foreground: var(--color-ink);
+  --sidebar-primary: var(--color-purple);
+  --sidebar-primary-foreground: var(--on-accent);
+  --sidebar-accent: var(--color-bg);
+  --sidebar-accent-foreground: var(--color-ink);
+  --sidebar-border: rgba(201, 168, 255, 0.45);
+  --sidebar-ring: var(--color-purple);
 
-  --paper: oklch(15% 0.015 210);
-  --paper-2: oklch(19% 0.02 215);
-  --paper-3: oklch(24% 0.025 215);
-  --ink: oklch(94% 0.008 200);
-  --ink-2: oklch(78% 0.012 210);
-  --cyan: oklch(78% 0.11 200);
-  --cyan-2: oklch(64% 0.12 205);
+  /* Legacy aurora aliases, kept mapped onto pouf pastels so any surviving
+   * class (bg-paper-2, text-ink, border-cyan…) degrades gracefully. */
+  --paper: var(--color-bg);
+  --paper-2: var(--color-surface);
+  --paper-3: var(--color-bg);
+  --ink: var(--color-ink);
+  --ink-2: var(--color-muted);
+  --cyan: var(--color-purple);
+  --cyan-2: var(--color-blue);
 
   --ease-fade: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-heading: var(--font-geist-sans);
-  --font-serif: var(--font-sentient);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-pouf);
+  --font-heading: var(--font-pouf);
+  --font-serif: var(--font-pouf);
+  --font-mono: "abcfont", var(--font-pouf);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -213,7 +223,7 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  --shadow-glow-cyan: 0 0 24px oklch(78% 0.11 200 / 0.18);
+  --shadow-glow-cyan: 0 0 24px var(--color-purple);
 
   --ease-fade: var(--ease-fade);
 }
@@ -232,13 +242,6 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-sentient), var(--font-geist-sans), serif;
-    font-weight: 400;
-    line-height: 1.6;
-    letter-spacing: 0;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
   }
 
@@ -248,10 +251,8 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-geist-sans);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+    font-weight: 700;
+    line-height: 1.15;
   }
 
   html[lang="bn"] h1,
@@ -275,179 +276,14 @@
   }
 }
 
-/* ── Aurora canvas: two fixed cyan blooms behind the type ─────────────────── */
-.aurora-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.aurora-canvas::before,
-.aurora-canvas::after {
-  content: "";
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(60px);
-}
-
-.aurora-canvas::before {
-  width: min(70vw, 46rem);
-  height: min(70vw, 46rem);
-  top: -18%;
-  right: -12%;
-  background: radial-gradient(
-    circle,
-    oklch(78% 0.11 200 / 0.16),
-    oklch(78% 0.11 200 / 0.06) 45%,
-    transparent 70%
-  );
-}
-
-.aurora-canvas::after {
-  width: min(64vw, 40rem);
-  height: min(64vw, 40rem);
-  bottom: -22%;
-  left: -14%;
-  background: radial-gradient(
-    circle,
-    oklch(64% 0.12 205 / 0.14),
-    oklch(64% 0.12 205 / 0.05) 45%,
-    transparent 70%
-  );
-}
-
-/* ── Mono eyebrow ─────────────────────────────────────────────────────────── */
-.mono-label {
-  font-family: var(--font-geist-mono);
-  font-size: 0.6875rem;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--cyan);
-}
-
-/* ── Drawn underline highlight for emphasised words ───────────────────────── */
+/* ── Draft underline highlight for emphasised words (legacy alias) ────────── */
 .hl {
   background-image: linear-gradient(
-    oklch(78% 0.11 200 / 0.35),
-    oklch(78% 0.11 200 / 0.35)
+    color-mix(in oklab, var(--color-purple) 40%, transparent),
+    color-mix(in oklab, var(--color-purple) 40%, transparent)
   );
   background-position: 0 92%;
   background-repeat: no-repeat;
   background-size: 100% 0.3em;
   padding: 0 0.05em;
-}
-
-/* ── Hanging section head (S2) ────────────────────────────────────────────── */
-.head-hang {
-  padding-block: clamp(4rem, 10vw, 7.5rem) clamp(2.5rem, 6vw, 4rem);
-  max-width: 60rem;
-}
-
-.head-hang__eyebrow {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75em;
-  margin-bottom: 1.25rem;
-}
-
-.head-hang__title {
-  font-size: clamp(2.25rem, 5vw, 4.5rem);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-  max-width: 16ch;
-}
-
-.head-hang__body {
-  margin-top: 1.75rem;
-  max-width: 52ch;
-  color: var(--ink-2);
-}
-
-/* ── Elevated aurora card ─────────────────────────────────────────────────── */
-.aurora-card {
-  background: var(--paper-2);
-  color: var(--ink);
-  border-radius: 1.25rem;
-  padding: 1.5rem;
-  transition:
-    background-color 0.35s var(--ease-fade),
-    transform 0.35s var(--ease-fade),
-    box-shadow 0.35s var(--ease-fade);
-}
-
-.aurora-card:hover {
-  background: var(--paper-3);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-glow-cyan);
-}
-
-/* ── Fade-up reveal ───────────────────────────────────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity 0.8s var(--ease-fade),
-    transform 0.8s var(--ease-fade);
-  transition-delay: var(--reveal-delay, 0s);
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
-
-/* ── Typographic-only CTA ─────────────────────────────────────────────────── */
-.cta-word {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.5em;
-  font-family: var(--font-geist-sans);
-  font-weight: 600;
-  font-size: 1.125rem;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.3s var(--ease-fade);
-  padding-block: 0.35em;
-}
-
-.cta-word::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: var(--cyan);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s var(--ease-fade);
-}
-
-.cta-word:hover {
-  color: var(--cyan);
-}
-
-.cta-word:hover::after {
-  transform: scaleX(1);
-}
-
-.cta-word__arrow {
-  transition: transform 0.4s var(--ease-fade);
-}
-
-.cta-word:hover .cta-word__arrow {
-  transform: translateX(4px);
 }

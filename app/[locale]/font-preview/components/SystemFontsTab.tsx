@@ -1,6 +1,8 @@
 import React from "react"
 import { systemFonts } from "../data"
 import { TabProps } from "./types"
+import { Card } from "@/components/pouf/surface"
+import { Text } from "@/components/pouf/text"
 
 export default function SystemFontsTab({
   fontSize,
@@ -8,12 +10,14 @@ export default function SystemFontsTab({
   sampleText,
 }: TabProps) {
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-(--s4)">
       {systemFonts.map((font) => (
-        <div key={font.name} className="aurora-card">
-          <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
-            <div className="mono-label">{font.name}</div>
-            <code className="font-mono text-xs text-ink-2">{font.stack}</code>
+        <Card key={font.name}>
+          <div className="mb-(--s4) flex flex-wrap items-baseline justify-between gap-(--s2)">
+            <Text size="sm" muted>
+              {font.name}
+            </Text>
+            <code className="font-mono text-[12px] text-muted">{font.stack}</code>
           </div>
           <p
             style={{ fontFamily: font.stack, fontSize, fontWeight }}
@@ -21,7 +25,7 @@ export default function SystemFontsTab({
           >
             {sampleText}
           </p>
-        </div>
+        </Card>
       ))}
     </div>
   )
