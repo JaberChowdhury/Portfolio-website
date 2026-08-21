@@ -1,10 +1,7 @@
 "use client"
 
 import React from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
 import { Trophy, Code2, Brain, Target, ExternalLink } from "lucide-react"
-
 import {
   ResponsiveContainer,
   AreaChart,
@@ -14,21 +11,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
-
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card"
-
+import { Card } from "@/components/ui/card"
 import { useTranslations } from "next-intl"
 import { StatCard, type Stat } from "./StatCard"
 import { AchievementCard, type Achievement } from "./AchievementCard"
-
-// Stats array is loaded from translations
 
 const ratingHistory = [
   { contest: "C1", rating: 980 },
@@ -40,299 +26,137 @@ const ratingHistory = [
   { contest: "C30", rating: 1710 },
 ]
 
-const skills = [
-  "Dynamic Programming",
-  "Graphs",
-  "Trees",
-  "Greedy",
-  "Binary Search",
-  "Number Theory",
-  "Segment Tree",
-  "Bitmask DP",
-  "Shortest Path",
-  "DSU",
-]
-
-// Achievements array is loaded from translations
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-}
-
-const item = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-}
-
-export default function CompetitiveProgrammingSection() {
+export function CompetitiveProgrammingSection() {
   const t = useTranslations("CompetitiveProgramming")
   const [isMounted, setIsMounted] = React.useState(false)
 
-  // Map stat icons
   const rawStats = t.raw("stats") as Stat[]
   const statIcons = [Trophy, Code2, Target, Brain]
   const stats = rawStats.map((stat, i) => ({ ...stat, icon: statIcons[i] }))
-
-  const achievements = t.raw("achievements") as Achievement[]
+  const achievements = (t.raw("achievements") as Achievement[]).slice(0, 2)
 
   React.useEffect(() => {
     setIsMounted(true)
   }, [])
 
   return (
-    <section id="programming" className="relative w-full overflow-hidden py-28">
-      {/* Background Aura */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute right-0 bottom-0 h-[450px] w-[650px] rounded-full bg-foreground/5 blur-[140px]" />
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-        {/* Header */}
-        <div className="mb-16">
-          <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
+    <section
+      id="programming"
+      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
+    >
+      <div className="relative mx-auto w-full max-w-6xl px-6 md:px-12">
+        {/* Section Header */}
+        <div className="mb-5">
+          <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-muted-foreground uppercase">
             {t("eyebrow")}
           </p>
 
           <h2
             data-cursor="text"
-            className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
+            className="text-2xl font-bold tracking-tight text-foreground md:text-4xl"
           >
-            {t("title1")}
-            <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
+            {t("title1")}{" "}
+            <span className="text-primary">
               {t("title2")}
-            </span>
-            <br />
+            </span>{" "}
             {t("title3")}
           </h2>
-
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            {t("description")}
-          </p>
         </div>
 
-        {/* Codeforces Profile */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-10"
-        >
-          <Card className="overflow-hidden border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-            <CardContent className="flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="text-sm tracking-[0.25em] text-muted-foreground uppercase">
-                  {t("codeforces.eyebrow")}
-                </p>
+        {/* 2-Column Dashboard */}
+        <div className="grid gap-4 md:grid-cols-12 md:gap-5">
+          {/* Left Column: Codeforces profile + Stats Grid */}
+          <div className="flex flex-col gap-3 md:col-span-6">
+            <Card className="rounded-2xl border border-border bg-card p-3.5 text-card-foreground shadow-xs md:p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">
+                    {t("codeforces.eyebrow")}
+                  </span>
+                  <h3 className="text-base font-bold text-foreground md:text-lg">
+                    {t("codeforces.name")}
+                  </h3>
+                  <p className="text-xs text-muted-foreground line-clamp-1 font-normal">
+                    {t("codeforces.description")}
+                  </p>
+                </div>
 
-                <h3 data-cursor="text" className="mt-2 text-3xl font-semibold">
-                  {t("codeforces.name")}
-                </h3>
-
-                <p className="mt-3 max-w-xl text-muted-foreground">
-                  {t("codeforces.description")}
-                </p>
+                <a
+                  href="https://codeforces.com/profile/YOUR_HANDLE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+                >
+                  <span>Profile</span>
+                  <ExternalLink className="h-3 w-3 text-muted-foreground" />
+                </a>
               </div>
-
-              <Link
-                href="https://codeforces.com/profile/YOUR_HANDLE"
-                target="_blank"
-                className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-6 py-3 text-sm font-medium transition-all hover:border-primary/40 hover:text-primary"
-              >
-                {t("codeforces.viewProfile")}
-                <ExternalLink className="h-4 w-4" />
-              </Link>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Stats + Graph */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-12"
-        >
-          <Card className="overflow-hidden border border-border/60 bg-card/60 backdrop-blur-xl">
-            <CardContent className="p-6 md:p-8">
-              <div className="grid gap-6 lg:grid-cols-[420px_1fr]">
-                {/* Left Side Stats */}
-                <div className="grid grid-cols-2 gap-4">
-                  {stats.map((stat) => (
-                    <StatCard key={stat.label} stat={stat} />
-                  ))}
-                </div>
-
-                {/* Rating Graph */}
-                <div className="rounded-2xl border border-border/60 bg-card/40 p-5">
-                  <div className="mb-5">
-                    <h3 data-cursor="text" className="text-lg font-semibold">
-                      {t("graph.title")}
-                    </h3>
-
-                    <p className="text-sm text-muted-foreground">
-                      {t("graph.description")}
-                    </p>
-                  </div>
-
-                  <div className="h-[320px] w-full">
-                    {isMounted && (
-                      <ResponsiveContainer
-                        width="100%"
-                        height="100%"
-                        minWidth={0}
-                        minHeight={0}
-                      >
-                        <AreaChart data={ratingHistory}>
-                          <defs>
-                            <linearGradient
-                              id="ratingGradient"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="1"
-                            >
-                              <stop
-                                offset="0%"
-                                stopColor="hsl(var(--primary))"
-                                stopOpacity={0.35}
-                              />
-                              <stop
-                                offset="100%"
-                                stopColor="hsl(var(--primary))"
-                                stopOpacity={0}
-                              />
-                            </linearGradient>
-                          </defs>
-
-                          <CartesianGrid
-                            strokeDasharray="3 3"
-                            stroke="hsl(var(--border))"
-                            opacity={0.25}
-                          />
-
-                          <XAxis
-                            dataKey="contest"
-                            tickLine={false}
-                            axisLine={false}
-                            tick={{
-                              fill: "hsl(var(--muted-foreground))",
-                            }}
-                          />
-
-                          <YAxis
-                            tickLine={false}
-                            axisLine={false}
-                            tick={{
-                              fill: "hsl(var(--muted-foreground))",
-                            }}
-                          />
-
-                          <Tooltip
-                            contentStyle={{
-                              background: "hsl(var(--card))",
-                              border: "1px solid hsl(var(--border))",
-                              borderRadius: "12px",
-                            }}
-                          />
-
-                          <Area
-                            type="monotone"
-                            dataKey="rating"
-                            stroke="hsl(var(--primary))"
-                            strokeWidth={3}
-                            fill="url(#ratingGradient)"
-                          />
-                        </AreaChart>
-                      </ResponsiveContainer>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Bottom Section */}
-        <div className="grid gap-7 lg:grid-cols-2">
-          {/* Achievements */}
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="space-y-7"
-          >
-            {achievements.map((achievement) => (
-              <motion.div key={achievement.title} variants={item}>
-                <AchievementCard achievement={achievement} />
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Skills */}
-          <motion.div
-            variants={item}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-          >
-            <Card className="h-full border border-border/60 bg-card/60 backdrop-blur-xl">
-              <CardHeader>
-                <CardTitle>{t("toolbox.title")}</CardTitle>
-
-                <CardDescription>{t("toolbox.description")}</CardDescription>
-              </CardHeader>
-
-              <CardContent>
-                <div className="flex flex-wrap gap-3">
-                  {skills.map((skill) => (
-                    <Badge
-                      key={skill}
-                      variant="secondary"
-                      className="rounded-full border border-border/50 bg-muted/40 px-3 py-1"
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
             </Card>
-          </motion.div>
+
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 md:grid-cols-2">
+              {stats.map((stat) => (
+                <StatCard key={stat.label} stat={stat} />
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column: Chart + Top Achievements */}
+          <div className="flex flex-col gap-3 md:col-span-6">
+            <Card className="rounded-2xl border border-border bg-card p-3.5 text-card-foreground shadow-xs">
+              <div className="mb-1 text-xs font-semibold text-foreground">Rating Progress</div>
+              <div className="h-[120px] w-full">
+                {isMounted ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart
+                      data={ratingHistory}
+                      margin={{ top: 5, right: 10, left: -20, bottom: 0 }}
+                    >
+                      <defs>
+                        <linearGradient id="ratingTerracottaGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#c85a32" stopOpacity={0.35} />
+                          <stop offset="95%" stopColor="#c85a32" stopOpacity={0.0} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="currentColor" className="text-border" opacity={0.4} />
+                      <XAxis dataKey="contest" stroke="currentColor" className="text-muted-foreground" fontSize={10} tickLine={false} />
+                      <YAxis stroke="currentColor" className="text-muted-foreground" fontSize={10} domain={["dataMin - 100", "dataMax + 100"]} tickLine={false} />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "var(--card)",
+                          borderColor: "var(--border)",
+                          borderRadius: "8px",
+                          color: "var(--foreground)",
+                          fontSize: "12px",
+                          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                        }}
+                        itemStyle={{ color: "var(--foreground)" }}
+                        labelStyle={{ color: "var(--muted-foreground)", fontWeight: 600 }}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="rating"
+                        stroke="#c85a32"
+                        strokeWidth={2}
+                        fill="url(#ratingTerracottaGradient)"
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-full w-full animate-pulse rounded bg-muted/40" />
+                )}
+              </div>
+            </Card>
+
+            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-1">
+              {achievements.map((ach) => (
+                <AchievementCard key={ach.title} achievement={ach} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes gradientMove {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-      `}</style>
     </section>
   )
 }
+
+export default CompetitiveProgrammingSection

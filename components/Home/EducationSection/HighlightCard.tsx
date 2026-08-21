@@ -20,17 +20,17 @@ export function HighlightCard({ highlight }: HighlightCardProps) {
   const Icon = highlight.icon
 
   return (
-    <Card className="group h-full border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-      <CardHeader>
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-border/60 bg-muted/40">
-          <Icon className="h-5 w-5 text-primary" />
+    <Card className="group h-full rounded-xl border border-border bg-card p-4 text-card-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md">
+      <CardHeader className="p-0">
+        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-[#b85d38] dark:text-[#e07a5f]">
+          <Icon className="h-5 w-5" />
         </div>
 
-        <CardTitle className="transition-colors group-hover:text-primary">
+        <CardTitle className="text-sm font-bold text-card-foreground transition-colors group-hover:text-primary">
           {highlight.title}
         </CardTitle>
 
-        <CardDescription className="leading-relaxed">
+        <CardDescription className="mt-1 text-xs leading-relaxed text-muted-foreground">
           {highlight.description}
         </CardDescription>
       </CardHeader>

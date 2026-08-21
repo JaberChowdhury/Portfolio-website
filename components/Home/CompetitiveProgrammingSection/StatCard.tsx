@@ -16,15 +16,16 @@ export function StatCard({ stat }: StatCardProps) {
   return (
     <div
       data-cursor="cover"
-      className="group rounded-2xl border border-border/60 bg-card/40 p-5 transition-all duration-500 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_10px_40px_-15px_hsl(var(--primary)/0.3)]"
+      className="group rounded-xl border border-border bg-card p-3 text-card-foreground shadow-xs transition-all duration-200 hover:border-primary/40 hover:shadow-sm"
     >
-      <Icon className="mb-4 h-5 w-5 text-primary" />
+      <Icon className="mb-1.5 h-4 w-4 text-[#c85a32]" />
 
-      <h3 data-cursor="text" className="text-3xl font-bold tracking-tight">
+      <div data-cursor="text" className="text-xl font-bold tracking-tight text-foreground">
         {stat.value}
-      </h3>
+      </div>
 
-      <p className="mt-2 text-sm text-muted-foreground">{stat.label}</p>
+      <div className="text-[11px] font-medium text-muted-foreground">{stat.label}</div>
     </div>
   )
 }
+

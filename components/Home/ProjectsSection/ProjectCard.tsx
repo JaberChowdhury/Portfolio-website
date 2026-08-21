@@ -1,10 +1,7 @@
 import { ExternalLink, GitPullRequestClosed } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -14,8 +11,8 @@ export interface Project {
   title: string
   description: string
   tech: string[]
-  live: string
-  github: string
+  live?: string
+  github?: string
 }
 
 interface ProjectCardProps {
@@ -24,72 +21,73 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Card className="group relative overflow-hidden border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-      {/* Soft hover glow */}
-      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <div className="absolute -top-20 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
-      </div>
+    <Card className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/40 md:p-5">
+      <div>
+        <CardHeader className="p-0 space-y-1.5">
+          <CardTitle className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
+            {project.title}
+          </CardTitle>
 
-      <CardHeader className="space-y-3">
-        {/* Project Title Typography */}
-        <CardTitle className="text-xl font-semibold tracking-tight transition-colors group-hover:text-primary">
-          {project.title}
-        </CardTitle>
+          <CardDescription className="line-clamp-2 text-xs leading-relaxed text-muted-foreground md:text-sm font-normal">
+            {project.description}
+          </CardDescription>
+        </CardHeader>
 
-        <CardDescription className="min-h-20 leading-relaxed text-muted-foreground">
-          {project.description}
-        </CardDescription>
-      </CardHeader>
-
-      <CardContent className="space-y-6">
         {/* Tech Pills */}
-        <div className="flex min-h-20 flex-wrap gap-2">
-          {project.tech.map((tech, idx) => (
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {project.tech.slice(0, 3).map((tech, idx) => (
             <Badge
               key={idx}
               variant="secondary"
-              className="rounded-full border border-border/50 bg-muted/40 px-3 py-1 text-[11px] tracking-wide"
+              className="rounded-md border-0 bg-secondary px-2 py-0.5 text-[10px] font-medium tracking-wide text-secondary-foreground"
             >
               {tech}
             </Badge>
           ))}
+          {project.tech.length > 3 && (
+            <span className="self-center text-[10px] font-medium text-muted-foreground">
+              +{project.tech.length - 3}
+            </span>
+          )}
         </div>
+      </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-3 pt-2">
-          <Button
-            className="rounded-full px-8 text-xs tracking-wide"
-            nativeButton={false}
-            render={
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-              />
-            }
+      {/* Actions */}
+      <div className="mt-4 flex items-center gap-2 border-t border-border pt-3">
+        {project.live ? (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg border border-border bg-secondary text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
           >
-            Live
-            <ExternalLink className="ml-2 h-3.5 w-3.5" />
-          </Button>
+            <span>Live</span>
+            <ExternalLink className="h-3 w-3 text-muted-foreground" />
+          </a>
+        ) : (
+          <div className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg border border-border bg-secondary/50 text-xs font-medium text-muted-foreground">
+            <span>Demo</span>
+          </div>
+        )}
 
-          <Button
-            size="sm"
-            variant="outline"
-            className="rounded-full border-border/60 bg-card/30 px-5 text-xs font-bold tracking-wide backdrop-blur-md"
-            nativeButton={false}
-            render={
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-              />
-            }
+        {project.github ? (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
           >
-            Code
-            <GitPullRequestClosed className="ml-2 h-3.5 w-3.5" />
-          </Button>
-        </div>
-      </CardContent>
+            <GitPullRequestClosed className="h-3 w-3" />
+            <span>Code</span>
+          </a>
+        ) : (
+          <div className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg text-xs font-medium text-muted-foreground/60">
+            <GitPullRequestClosed className="h-3 w-3 opacity-50" />
+            <span>Code</span>
+          </div>
+        )}
+      </div>
     </Card>
   )
 }
+

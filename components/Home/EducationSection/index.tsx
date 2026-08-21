@@ -1,52 +1,20 @@
 "use client"
 
-import { motion } from "framer-motion"
 import {
-  Calendar,
-  BookA as BookOpen,
-  Brain,
   Code2,
+  Brain,
   Target,
   GraduationCap,
-  School,
 } from "lucide-react"
-
-import { Card, CardContent } from "@/components/ui/card"
 import { useTranslations } from "next-intl"
-import { EducationCard, type EducationCardProps } from "./EducationCard"
-import { HighlightCard, type Highlight } from "./HighlightCard"
+import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { type Highlight } from "./HighlightCard"
+import { type EducationCardProps } from "./EducationCard"
 
-// Highlights and history are now loaded dynamically from translations
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-}
-
-const item = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-}
-
-export default function EducationSection() {
+export function EducationSection() {
   const t = useTranslations("Education")
 
-  // Need to re-attach icons since JSON doesn't store components
   const rawHighlights = t.raw("highlights") as Highlight[]
   const highlightIcons = [Code2, Brain, Target]
   const highlights = rawHighlights.map((h, i) => ({
@@ -55,128 +23,100 @@ export default function EducationSection() {
   }))
 
   const rawHistory = t.raw("history") as EducationCardProps[]
-  const historyIcons = [GraduationCap, BookOpen, School, School]
-  const academicHistory = rawHistory.map((h, i) => ({
-    ...h,
-    icon: historyIcons[i],
-  }))
+  const primaryEdu = rawHistory[0]
 
   return (
-    <section id="education" className="relative w-full overflow-hidden py-28">
-      {/* Background Aura */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute right-0 bottom-0 h-[450px] w-[650px] rounded-full bg-foreground/5 blur-[140px]" />
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-        {/* Header */}
-        <div className="mb-16">
-          <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
+    <section id="education" className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground">
+      <div className="relative mx-auto w-full max-w-6xl px-6 md:px-12">
+        {/* Section Header */}
+        <div className="mb-6">
+          <p className="mb-2 text-xs font-semibold tracking-[0.3em] text-[#b85d38] dark:text-[#e07a5f] uppercase">
             {t("eyebrow")}
           </p>
 
           <h2
             data-cursor="text"
-            className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
+            className="text-3xl font-bold tracking-tight text-foreground md:text-5xl"
           >
-            {t("title1")}
-            <br />
-            {t("title2")}
-            <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
-              {t("title3")}
+            {t("title1")}{" "}
+            <span className="text-[#b85d38] dark:text-[#e07a5f]">
+              {t("title2")} {t("title3")}
             </span>
-            .
           </h2>
-
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            {t("description")}
-          </p>
         </div>
 
-        {/* Academic History Timeline */}
-        <div className="mb-20 flex flex-col gap-10">
-          {academicHistory.map((edu, index) => (
-            <motion.div
-              key={edu.title}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-            >
-              <EducationCard {...edu} />
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Highlights Header */}
-        <div className="mb-10">
-          <h3
-            data-cursor="text"
-            className="text-2xl font-semibold tracking-tight"
-          >
-            {t("academicFocus")}
-          </h3>
-        </div>
-
-        {/* Highlights */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid gap-7 md:grid-cols-3"
-        >
-          {highlights.map((highlight) => (
-            <motion.div key={highlight.title} variants={item}>
-              <HighlightCard highlight={highlight} />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Timeline Footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="mt-16"
-        >
-          <Card className="border border-border/60 bg-card/40 backdrop-blur-xl">
-            <CardContent className="flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-center gap-3">
-                <Calendar className="h-5 w-5 text-primary" />
-
+        {/* 2-Column Academic Layout */}
+        <div className="grid gap-4 md:grid-cols-12 md:gap-5">
+          {/* Main Degree Card (Left Column) */}
+          {primaryEdu && (
+            <div className="md:col-span-7">
+              <Card className="flex h-full flex-col justify-between rounded-2xl border border-border bg-card p-5 text-card-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md md:p-6">
                 <div>
-                  <h4 className="font-medium">{t("progressTitle")}</h4>
+                  <div className="flex items-start gap-3.5">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-[#b85d38] dark:text-[#e07a5f]">
+                      <GraduationCap className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-card-foreground md:text-xl">
+                        {primaryEdu.title}
+                      </h3>
+                      <p className="mt-0.5 text-xs font-medium text-muted-foreground md:text-sm">
+                        {primaryEdu.subtitle}
+                      </p>
+                    </div>
+                  </div>
 
-                  <p className="text-sm text-muted-foreground">
-                    {t("progressDesc")}
+                  <p className="mt-4 text-xs leading-relaxed text-muted-foreground md:text-sm">
+                    {primaryEdu.description}
                   </p>
                 </div>
-              </div>
 
-              <div className="h-2 w-full overflow-hidden rounded-full bg-muted md:w-80">
-                <div className="h-full w-[25%] rounded-full bg-primary" />
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+                <div className="mt-5 border-t border-border pt-4">
+                  <div className="mb-2 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">
+                    Core Coursework
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {primaryEdu.subjects.map((sub) => (
+                      <Badge
+                        key={sub}
+                        variant="secondary"
+                        className="rounded-md border border-border/50 bg-secondary text-secondary-foreground px-2.5 py-0.5 text-[11px] font-medium transition-colors hover:bg-secondary/80"
+                      >
+                        {sub}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* Academic Focus Highlights (Right Column) */}
+          <div className="flex flex-col justify-between gap-3 md:col-span-5">
+            {highlights.slice(0, 3).map((h, i) => {
+              const Icon = h.icon
+              return (
+                <div
+                  key={i}
+                  className="group flex items-center gap-3.5 rounded-xl border border-border bg-card p-4 text-card-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md"
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary text-[#b85d38] dark:text-[#e07a5f] transition-colors group-hover:bg-secondary/80">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-sm font-bold text-card-foreground">{h.title}</div>
+                    <div className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
+                      {h.description}
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes gradientMove {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-      `}</style>
     </section>
   )
 }
+
+export default EducationSection

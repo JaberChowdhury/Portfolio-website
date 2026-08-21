@@ -1,8 +1,7 @@
 import "../globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
-import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
+import LayoutWrapper from "@/components/LayoutWrapper"
 import { CustomCursor } from "@/components/customCursor/custom-cursor"
 import { NextIntlClientProvider } from "next-intl"
 import {
@@ -93,9 +92,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             {/* <CustomCursor /> */}
-            <Navbar />
-            <main className="mt-8">{children}</main>
-            <Footer />
+            <LayoutWrapper>{children}</LayoutWrapper>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

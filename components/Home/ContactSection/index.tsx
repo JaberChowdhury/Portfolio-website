@@ -1,62 +1,57 @@
 "use client"
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import {
-  AArrowDown as Github,
-  AArrowUp as Linkedin,
-  Mail,
-  ArrowUpRight,
-  Trophy,
-} from "lucide-react"
-
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import React from "react"
+import { Mail, ArrowUpRight, Trophy } from "lucide-react"
+import { Card } from "@/components/ui/card"
 import { useTranslations } from "next-intl"
 
-// Socials array is loaded from translations
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
+function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      stroke="currentColor"
+      strokeWidth="2"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+  )
 }
 
-const item = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
+function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      stroke="currentColor"
+      strokeWidth="2"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  )
 }
 
-export default function ContactSection() {
+export function ContactSection() {
   const t = useTranslations("Contact")
 
-  // Map icons for socials
   const rawSocials = t.raw("socials") as {
     title: string
     description: string
   }[]
-  const socialIcons = [Github, Trophy, Linkedin, Mail]
+  const socialIcons = [GithubIcon, Trophy, LinkedinIcon, Mail]
   const socialLinks = [
     "https://github.com/YOUR_USERNAME",
     "https://codeforces.com/profile/YOUR_HANDLE",
@@ -70,139 +65,88 @@ export default function ContactSection() {
   }))
 
   return (
-    <section id="contact" className="relative w-full overflow-hidden py-28">
-      {/* Background Aura */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute right-0 bottom-0 h-[450px] w-[650px] rounded-full bg-foreground/5 blur-[140px]" />
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-        {/* Header */}
-        <div className="mb-16">
-          <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
+    <section
+      id="contact"
+      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
+    >
+      <div className="relative mx-auto w-full max-w-6xl px-6 md:px-12">
+        {/* Section Header */}
+        <div className="mb-6">
+          <p className="mb-2 text-xs font-semibold tracking-[0.3em] text-[#b85d38] dark:text-[#e07a5f] uppercase">
             {t("eyebrow")}
           </p>
 
           <h2
             data-cursor="text"
-            className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl"
+            className="text-3xl font-bold tracking-tight text-foreground md:text-5xl"
           >
-            {t("title1")}
-            <br />
-            <span className="animate-[gradientMove_6s_linear_infinite] bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent">
+            {t("title1")}{" "}
+            <span className="text-[#b85d38] dark:text-[#e07a5f]">
               {t("title2")}
-            </span>
+            </span>{" "}
             {t("title3")}
           </h2>
-
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            {t("description")}
-          </p>
         </div>
 
-        {/* Main CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-10"
-        >
-          <Card className="group relative overflow-hidden border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-            <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-              <div className="absolute -top-32 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
+        {/* Start a Conversation Card */}
+        <Card className="mb-4 rounded-2xl border border-border bg-card p-5 text-card-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md md:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/80 px-3 py-1 text-xs font-semibold tracking-wider text-[#b85d38] dark:text-[#e07a5f] uppercase">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>{t("available")}</span>
+              </div>
+              <h3 className="mt-2 text-xl font-bold text-card-foreground md:text-2xl">
+                {t("openTo")}
+              </h3>
+              <p className="mt-1 max-w-xl text-xs text-muted-foreground md:text-sm">
+                {t("ifYouHave") || t("description")}
+              </p>
             </div>
 
-            <CardContent className="relative flex flex-col gap-8 p-8 md:flex-row md:items-center md:justify-between md:p-12">
-              <div>
-                <Badge
-                  variant="secondary"
-                  className="mb-4 rounded-full border border-border/50 bg-muted/40"
-                >
-                  {t("available")}
-                </Badge>
+            <a
+              href="mailto:your@email.com"
+              className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:opacity-90 active:scale-95"
+            >
+              <span>{t("sayHello")}</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
+        </Card>
 
-                <h3
-                  data-cursor="text"
-                  className="max-w-2xl text-3xl font-semibold tracking-tight md:text-4xl"
-                >
-                  {t("openTo")}
-                </h3>
-
-                <p className="mt-4 max-w-2xl text-muted-foreground">
-                  {t("ifYouHave")}
-                </p>
-              </div>
-
-              <Button
-                size="lg"
-                className="rounded-full px-8"
-                nativeButton={false}
-                render={<Link href="mailto:your@email.com" />}
-              >
-                {t("sayHello")}
-                <ArrowUpRight className="ml-2 h-4 w-4" />
-              </Button>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Social Grid */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid gap-6 md:grid-cols-2 xl:grid-cols-4"
-        >
+        {/* 4 Social Handle Cards */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:gap-4">
           {socials.map((social) => {
             const Icon = social.icon
-
             return (
-              <motion.div key={social.title} variants={item}>
-                <Link
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Card className="group h-full overflow-hidden border border-border/60 bg-card/60 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-primary/30 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.25)]">
-                    <CardHeader>
-                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-border/60 bg-muted/40 transition-colors group-hover:border-primary/30">
-                        <Icon className="h-5 w-5 text-primary" />
-                      </div>
-
-                      <CardTitle className="flex items-center justify-between transition-colors group-hover:text-primary">
-                        {social.title}
-
-                        <ArrowUpRight className="h-4 w-4 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100" />
-                      </CardTitle>
-
-                      <CardDescription className="leading-relaxed">
-                        {social.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Link>
-              </motion.div>
+              <a
+                key={social.title}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 text-card-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary text-card-foreground transition-colors group-hover:bg-secondary/80 group-hover:text-primary">
+                    <Icon className="h-4.5 w-4.5" />
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
+                </div>
+                <div className="mt-3">
+                  <div className="text-sm font-bold text-card-foreground">
+                    {social.title}
+                  </div>
+                  <div className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
+                    {social.description}
+                  </div>
+                </div>
+              </a>
             )
           })}
-        </motion.div>
+        </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes gradientMove {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-      `}</style>
     </section>
   )
 }
+
+export default ContactSection
