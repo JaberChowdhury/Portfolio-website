@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Mail, ArrowUpRight, Trophy } from "lucide-react"
+import { Mail, ArrowUpRight, Trophy, Sparkles } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { useTranslations } from "next-intl"
 
@@ -44,6 +44,33 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   )
 }
 
+const SOCIAL_CONFIGS = [
+  {
+    icon: GithubIcon,
+    href: "https://github.com/YOUR_USERNAME",
+    iconBg: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
+    hoverBorder: "hover:border-purple-500/40",
+  },
+  {
+    icon: Trophy,
+    href: "https://codeforces.com/profile/YOUR_HANDLE",
+    iconBg: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+    hoverBorder: "hover:border-amber-500/40",
+  },
+  {
+    icon: LinkedinIcon,
+    href: "https://linkedin.com/in/YOUR_USERNAME",
+    iconBg: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20",
+    hoverBorder: "hover:border-sky-500/40",
+  },
+  {
+    icon: Mail,
+    href: "mailto:your@email.com",
+    iconBg: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+    hoverBorder: "hover:border-rose-500/40",
+  },
+]
+
 export function ContactSection() {
   const t = useTranslations("Contact")
 
@@ -51,17 +78,10 @@ export function ContactSection() {
     title: string
     description: string
   }[]
-  const socialIcons = [GithubIcon, Trophy, LinkedinIcon, Mail]
-  const socialLinks = [
-    "https://github.com/YOUR_USERNAME",
-    "https://codeforces.com/profile/YOUR_HANDLE",
-    "https://linkedin.com/in/YOUR_USERNAME",
-    "mailto:your@email.com",
-  ]
+
   const socials = rawSocials.map((social, i) => ({
     ...social,
-    icon: socialIcons[i],
-    href: socialLinks[i],
+    ...SOCIAL_CONFIGS[i % SOCIAL_CONFIGS.length],
   }))
 
   return (
@@ -72,16 +92,19 @@ export function ContactSection() {
       <div className="relative mx-auto w-full max-w-6xl px-6 md:px-12">
         {/* Section Header */}
         <div className="mb-6">
-          <p className="mb-2 text-xs font-semibold tracking-[0.3em] text-[#b85d38] dark:text-[#e07a5f] uppercase">
-            {t("eyebrow")}
-          </p>
+          <div className="mb-2 flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold tracking-[0.25em] text-muted-foreground uppercase">
+              <span className="h-2 w-2 rounded-full bg-amber-500" />
+              07 ⁄ {t("eyebrow")}
+            </span>
+          </div>
 
           <h2
             data-cursor="text"
             className="text-3xl font-bold tracking-tight text-foreground md:text-5xl"
           >
             {t("title1")}{" "}
-            <span className="text-[#b85d38] dark:text-[#e07a5f]">
+            <span className="text-amber-600 dark:text-amber-400">
               {t("title2")}
             </span>{" "}
             {t("title3")}
@@ -89,24 +112,24 @@ export function ContactSection() {
         </div>
 
         {/* Start a Conversation Card */}
-        <Card className="mb-4 rounded-2xl border border-border bg-card p-5 text-card-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md md:p-6">
+        <Card className="mb-4 rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:border-amber-500/40 hover:shadow-md md:p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/80 px-3 py-1 text-xs font-semibold tracking-wider text-[#b85d38] dark:text-[#e07a5f] uppercase">
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-emerald-700 dark:text-emerald-400 uppercase">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span>{t("available")}</span>
               </div>
-              <h3 className="mt-2 text-xl font-bold text-card-foreground md:text-2xl">
+              <h3 className="mt-2.5 text-xl font-bold text-card-foreground md:text-2xl">
                 {t("openTo")}
               </h3>
-              <p className="mt-1 max-w-xl text-xs text-muted-foreground md:text-sm">
+              <p className="mt-1 max-w-xl text-xs text-muted-foreground md:text-sm leading-relaxed">
                 {t("ifYouHave") || t("description")}
               </p>
             </div>
 
             <a
               href="mailto:your@email.com"
-              className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:opacity-90 active:scale-95"
+              className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-foreground px-6 text-sm font-semibold text-background shadow-sm transition-all duration-300 hover:scale-105 active:scale-95"
             >
               <span>{t("sayHello")}</span>
               <ArrowUpRight className="h-4 w-4" />
@@ -114,7 +137,7 @@ export function ContactSection() {
           </div>
         </Card>
 
-        {/* 4 Social Handle Cards */}
+        {/* 4 Multi-Accent Hum Social Cards */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:gap-4">
           {socials.map((social) => {
             const Icon = social.icon
@@ -124,19 +147,21 @@ export function ContactSection() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 text-card-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md"
+                className={`group flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-4.5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-[0.98] ${social.hoverBorder}`}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary text-card-foreground transition-colors group-hover:bg-secondary/80 group-hover:text-primary">
-                    <Icon className="h-4.5 w-4.5" />
+                  <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 ${social.iconBg}`}
+                  >
+                    <Icon className="h-5 w-5" />
                   </div>
-                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-foreground" />
                 </div>
-                <div className="mt-3">
+                <div className="mt-3.5">
                   <div className="text-sm font-bold text-card-foreground">
                     {social.title}
                   </div>
-                  <div className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
+                  <div className="mt-0.5 text-xs text-muted-foreground line-clamp-2 leading-relaxed">
                     {social.description}
                   </div>
                 </div>

@@ -2,7 +2,7 @@ import { GraduationCap, type LucideIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 
-interface ProgressItem {
+export interface ProgressItem {
   label: string
   value: string
 }
@@ -25,54 +25,67 @@ export function EducationCard({
   icon: Icon = GraduationCap,
 }: EducationCardProps) {
   return (
-    <Card className="overflow-hidden rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md">
+    <Card className="group overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-rose-500/40 md:p-6">
       <CardContent className="p-0">
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          {/* Left Side */}
-          <div>
-            <div className="mb-4 flex items-center gap-3.5">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary text-[#b85d38] dark:text-[#e07a5f]">
-                <Icon className="h-6 w-6" />
+        <div className="grid gap-5 lg:grid-cols-[1.3fr_0.7fr]">
+          {/* Left Side: Program Overview & Coursework */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <div className="mb-3.5 flex items-start gap-3.5">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400 transition-transform duration-300 group-hover:scale-105">
+                  <Icon className="h-6 w-6" />
+                </div>
+
+                <div>
+                  <h3
+                    data-cursor="text"
+                    className="text-lg font-bold text-card-foreground md:text-xl"
+                  >
+                    {title}
+                  </h3>
+                  <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground md:text-sm">
+                    <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
+                    {subtitle}
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <h3 data-cursor="text" className="text-xl font-bold text-card-foreground">
-                  {title}
-                </h3>
-                <p className="text-xs font-medium text-muted-foreground">{subtitle}</p>
-              </div>
+              <p className="text-xs leading-relaxed text-muted-foreground md:text-sm">
+                {description}
+              </p>
             </div>
 
-            <p className="leading-relaxed text-xs text-muted-foreground md:text-sm">
-              {description}
-            </p>
-
             {subjects.length > 0 && (
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {subjects.map((subject) => (
-                  <Badge
-                    key={subject}
-                    variant="secondary"
-                    className="rounded-md border border-border/50 bg-secondary text-secondary-foreground px-2.5 py-0.5 text-[11px] font-medium"
-                  >
-                    {subject}
-                  </Badge>
-                ))}
+              <div className="mt-4 border-t border-border/70 pt-3">
+                <div className="mb-2 font-mono text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
+                  Core Coursework
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {subjects.map((subject) => (
+                    <Badge
+                      key={subject}
+                      variant="secondary"
+                      className="rounded-full border border-border/60 bg-secondary/50 px-2.5 py-0.5 font-mono text-[11px] font-medium text-muted-foreground transition-all duration-200 hover:scale-105 hover:bg-secondary hover:text-foreground"
+                    >
+                      {subject}
+                    </Badge>
+                  ))}
+                </div>
               </div>
             )}
           </div>
 
-          {/* Right Side Stats */}
-          <div className="grid grid-cols-2 gap-3">
+          {/* Right Side: Progress Metric Chips */}
+          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-2">
             {progress.map((item) => (
               <div
                 key={item.label}
-                className="flex flex-col justify-center rounded-xl border border-border bg-secondary/40 p-3.5"
+                className="flex flex-col justify-center rounded-xl border border-border/70 bg-secondary/40 p-3 transition-colors hover:bg-secondary/60"
               >
-                <div className="text-lg font-bold tracking-tight text-card-foreground">
+                <div className="font-mono text-base font-bold tracking-tight text-card-foreground md:text-lg">
                   {item.value}
                 </div>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-0.5 font-mono text-[10px] sm:text-[11px] text-muted-foreground">
                   {item.label}
                 </p>
               </div>

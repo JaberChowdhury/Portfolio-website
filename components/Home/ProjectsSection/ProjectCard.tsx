@@ -1,4 +1,7 @@
-import { ExternalLink, GitPullRequestClosed } from "lucide-react"
+"use client"
+
+import React from "react"
+import { ExternalLink, GitPullRequestClosed, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
@@ -17,14 +20,107 @@ export interface Project {
 
 interface ProjectCardProps {
   project: Project
+  index?: number
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+// Hallmark Hum multi-accent palette schemes
+const CARD_ACCENTS = [
+  {
+    name: "cyan",
+    topGradient: "from-sky-500/90 via-sky-400 to-cyan-400",
+    indexBadge: "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+    hoverBorder: "hover:border-sky-500/40",
+    liveBtnHover: "hover:bg-sky-500/15 hover:border-sky-500/35 hover:text-sky-700 dark:hover:text-sky-300",
+    dot: "bg-sky-500",
+  },
+  {
+    name: "pear",
+    topGradient: "from-amber-500/90 via-amber-400 to-yellow-400",
+    indexBadge: "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+    hoverBorder: "hover:border-amber-500/40",
+    liveBtnHover: "hover:bg-amber-500/15 hover:border-amber-500/35 hover:text-amber-700 dark:hover:text-amber-300",
+    dot: "bg-amber-500",
+  },
+  {
+    name: "mint",
+    topGradient: "from-emerald-500/90 via-emerald-400 to-teal-400",
+    indexBadge: "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+    hoverBorder: "hover:border-emerald-500/40",
+    liveBtnHover: "hover:bg-emerald-500/15 hover:border-emerald-500/35 hover:text-emerald-700 dark:hover:text-emerald-300",
+    dot: "bg-emerald-500",
+  },
+  {
+    name: "coral",
+    topGradient: "from-rose-500/90 via-rose-400 to-orange-400",
+    indexBadge: "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+    hoverBorder: "hover:border-rose-500/40",
+    liveBtnHover: "hover:bg-rose-500/15 hover:border-rose-500/35 hover:text-rose-700 dark:hover:text-rose-300",
+    dot: "bg-rose-500",
+  },
+  {
+    name: "lilac",
+    topGradient: "from-purple-500/90 via-purple-400 to-pink-400",
+    indexBadge: "border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300",
+    hoverBorder: "hover:border-purple-500/40",
+    liveBtnHover: "hover:bg-purple-500/15 hover:border-purple-500/35 hover:text-purple-700 dark:hover:text-purple-300",
+    dot: "bg-purple-500",
+  },
+]
+
+// Hum Multi-Accent Tech Tag Badges
+const TECH_TAG_STYLES: Record<string, string> = {
+  "Next.js": "border-slate-500/20 bg-slate-500/10 text-foreground dark:text-slate-200",
+  "TypeScript": "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+  "Prisma": "border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300",
+  "Stripe": "border-indigo-500/25 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300",
+  "OpenAI API": "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+  "Tailwind": "border-cyan-500/25 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
+  "PostgreSQL": "border-blue-500/25 bg-blue-500/10 text-blue-700 dark:text-blue-300",
+  "Framer Motion": "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+  "Docker": "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+}
+
+const FALLBACK_TAG_STYLES = [
+  "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+  "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+  "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+  "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+  "border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300",
+]
+
+export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+  const accent = CARD_ACCENTS[index % CARD_ACCENTS.length]
+  const formattedIndex = String(index + 1).padStart(2, "0")
+
   return (
-    <Card className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/40 md:p-5">
-      <div>
+    <Card
+      data-cursor="cover"
+      className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4.5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xs ${accent.hoverBorder} md:p-5`}
+    >
+      {/* Top Accent Color Highlight Ribbon */}
+      <div
+        className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${accent.topGradient} opacity-90 transition-opacity duration-300 group-hover:opacity-100`}
+      />
+
+      <div className="relative pt-1">
+        {/* Card Header Micro-meta (Index + Category Tag) */}
+        <div className="mb-2.5 flex items-center justify-between">
+          <div
+            className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-widest uppercase ${accent.indexBadge}`}
+          >
+            <span className={`h-1.5 w-1.5 rounded-full ${accent.dot}`} />
+            <span>#{formattedIndex}</span>
+          </div>
+
+          <div className="flex items-center gap-1 text-[10px] font-mono font-medium tracking-wider text-muted-foreground/80 uppercase">
+            <Sparkles className="h-3 w-3 text-muted-foreground/60" />
+            <span>FEATURED</span>
+          </div>
+        </div>
+
+        {/* Title and Description */}
         <CardHeader className="p-0 space-y-1.5">
-          <CardTitle className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
+          <CardTitle className="text-lg font-bold tracking-tight text-foreground md:text-xl">
             {project.title}
           </CardTitle>
 
@@ -33,61 +129,55 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </CardDescription>
         </CardHeader>
 
-        {/* Tech Pills */}
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {project.tech.slice(0, 3).map((tech, idx) => (
-            <Badge
-              key={idx}
-              variant="secondary"
-              className="rounded-md border-0 bg-secondary px-2 py-0.5 text-[10px] font-medium tracking-wide text-secondary-foreground"
-            >
-              {tech}
-            </Badge>
-          ))}
-          {project.tech.length > 3 && (
-            <span className="self-center text-[10px] font-medium text-muted-foreground">
-              +{project.tech.length - 3}
+        {/* Hallmark Multi-Accent Tech Badges */}
+        <div className="mt-3.5 flex flex-wrap gap-1.5">
+          {project.tech.slice(0, 4).map((tech, idx) => {
+            const tagStyle =
+              TECH_TAG_STYLES[tech] ||
+              FALLBACK_TAG_STYLES[idx % FALLBACK_TAG_STYLES.length]
+
+            return (
+              <Badge
+                key={idx}
+                variant="secondary"
+                className={`rounded-md border px-2 py-0.5 font-mono text-[10px] font-medium tracking-wide transition-colors ${tagStyle}`}
+              >
+                {tech}
+              </Badge>
+            )
+          })}
+          {project.tech.length > 4 && (
+            <span className="self-center font-mono text-[10px] font-medium text-muted-foreground">
+              +{project.tech.length - 4}
             </span>
           )}
         </div>
       </div>
 
-      {/* Actions */}
-      <div className="mt-4 flex items-center gap-2 border-t border-border pt-3">
-        {project.live ? (
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg border border-border bg-secondary text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
-          >
-            <span>Live</span>
-            <ExternalLink className="h-3 w-3 text-muted-foreground" />
-          </a>
-        ) : (
-          <div className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg border border-border bg-secondary/50 text-xs font-medium text-muted-foreground">
-            <span>Demo</span>
-          </div>
-        )}
+      {/* Tactile Live & Code Action Buttons */}
+      <div className="mt-4 flex items-center gap-2 border-t border-border/80 pt-3.5">
+        <a
+          href={project.live || "https://github.com"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`flex h-8.5 flex-1 items-center justify-center gap-1.5 rounded-xl border border-border/90 bg-secondary/80 text-xs font-semibold text-foreground shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xs active:scale-95 ${accent.liveBtnHover}`}
+        >
+          <span>Live Demo</span>
+          <ExternalLink className="h-3 w-3 text-muted-foreground transition-colors group-hover:text-foreground" />
+        </a>
 
-        {project.github ? (
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-          >
-            <GitPullRequestClosed className="h-3 w-3" />
-            <span>Code</span>
-          </a>
-        ) : (
-          <div className="flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg text-xs font-medium text-muted-foreground/60">
-            <GitPullRequestClosed className="h-3 w-3 opacity-50" />
-            <span>Code</span>
-          </div>
-        )}
+        <a
+          href={project.github || "https://github.com"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-8.5 flex-1 items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/60 text-xs font-semibold text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-border hover:bg-secondary/70 hover:text-foreground active:scale-95"
+        >
+          <GitPullRequestClosed className="h-3.5 w-3.5" />
+          <span>Source</span>
+        </a>
       </div>
     </Card>
   )
 }
 
+export default ProjectCard

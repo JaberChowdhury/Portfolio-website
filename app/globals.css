@@ -399,7 +399,7 @@
 
 .card-stack-item.pushed-1 {
   transform: translate3d(0, -28px, -50px) scale(0.92) rotateX(0deg);
-  opacity: 0.85;
+  opacity: 0.95;
   border-radius: 28px;
   /* box-shadow:
     0 30px 70px rgba(0, 0, 0, 0.15),
@@ -410,7 +410,7 @@
 
 .card-stack-item.pushed-2 {
   transform: translate3d(0, -52px, -100px) scale(0.84);
-  opacity: 0.5;
+  opacity: 0.8;
   border-radius: 32px;
   /* box-shadow:
     0 30px 70px rgba(0, 0, 0, 0.2),
@@ -455,18 +455,18 @@
   z-index: 5;
 }
 
-/* Depth shade commented out for testing */
-/* .card-stack-item.pushed-1 .card-stack-shade {
-  opacity: 0.35;
+/* Semi-transparent dark overlay to mimic shadow depth when pushed behind */
+.card-stack-item.pushed-1 .card-stack-shade {
+  opacity: 0.28;
 }
 
 .card-stack-item.pushed-2 .card-stack-shade {
-  opacity: 0.65;
+  opacity: 0.55;
 }
 
 .card-stack-item.pushed-more .card-stack-shade {
-  opacity: 0.85;
-} */
+  opacity: 0.8;
+}
 
 .card-stack-scroll-wrapper {
   width: 100%;

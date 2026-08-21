@@ -9,7 +9,7 @@ import {
 import { useTranslations } from "next-intl"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { type Highlight } from "./HighlightCard"
+import { HighlightCard, type Highlight } from "./HighlightCard"
 import { type EducationCardProps } from "./EducationCard"
 
 export function EducationSection() {
@@ -19,30 +19,40 @@ export function EducationSection() {
   const highlightIcons = [Code2, Brain, Target]
   const highlights = rawHighlights.map((h, i) => ({
     ...h,
-    icon: highlightIcons[i],
+    icon: highlightIcons[i % highlightIcons.length],
   }))
 
   const rawHistory = t.raw("history") as EducationCardProps[]
   const primaryEdu = rawHistory[0]
 
   return (
-    <section id="education" className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground">
+    <section
+      id="education"
+      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
+    >
       <div className="relative mx-auto w-full max-w-6xl px-6 md:px-12">
         {/* Section Header */}
         <div className="mb-6">
-          <p className="mb-2 text-xs font-semibold tracking-[0.3em] text-[#b85d38] dark:text-[#e07a5f] uppercase">
-            {t("eyebrow")}
-          </p>
+          <div className="mb-2 flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold tracking-[0.25em] text-muted-foreground uppercase">
+              <span className="h-2 w-2 rounded-full bg-rose-500" />
+              06 ⁄ {t("eyebrow")}
+            </span>
+          </div>
 
           <h2
             data-cursor="text"
             className="text-3xl font-bold tracking-tight text-foreground md:text-5xl"
           >
             {t("title1")}{" "}
-            <span className="text-[#b85d38] dark:text-[#e07a5f]">
+            <span className="text-rose-600 dark:text-rose-400">
               {t("title2")} {t("title3")}
             </span>
           </h2>
+
+          <p className="mt-2 max-w-xl text-xs leading-relaxed text-muted-foreground md:text-sm font-normal">
+            {t("description")}
+          </p>
         </div>
 
         {/* 2-Column Academic Layout */}
@@ -50,29 +60,49 @@ export function EducationSection() {
           {/* Main Degree Card (Left Column) */}
           {primaryEdu && (
             <div className="md:col-span-7">
-              <Card className="flex h-full flex-col justify-between rounded-2xl border border-border bg-card p-5 text-card-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md md:p-6">
+              <Card className="group flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-rose-500/40 hover:shadow-md active:scale-[0.99] md:p-6">
                 <div>
                   <div className="flex items-start gap-3.5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-[#b85d38] dark:text-[#e07a5f]">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400 transition-transform duration-300 group-hover:scale-105">
                       <GraduationCap className="h-6 w-6" />
                     </div>
                     <div>
                       <h3 className="text-lg font-bold text-card-foreground md:text-xl">
                         {primaryEdu.title}
                       </h3>
-                      <p className="mt-0.5 text-xs font-medium text-muted-foreground md:text-sm">
+                      <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground md:text-sm">
+                        <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
                         {primaryEdu.subtitle}
                       </p>
                     </div>
                   </div>
 
-                  <p className="mt-4 text-xs leading-relaxed text-muted-foreground md:text-sm">
+                  <p className="mt-3 text-xs leading-relaxed text-muted-foreground md:text-sm">
                     {primaryEdu.description}
                   </p>
+
+                  {/* Progress Metric Chips */}
+                  {primaryEdu.progress && primaryEdu.progress.length > 0 && (
+                    <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                      {primaryEdu.progress.map((item) => (
+                        <div
+                          key={item.label}
+                          className="flex flex-col justify-center rounded-xl border border-border/60 bg-secondary/40 p-2.5"
+                        >
+                          <div className="font-mono text-xs font-bold text-card-foreground">
+                            {item.value}
+                          </div>
+                          <p className="font-mono text-[10px] text-muted-foreground">
+                            {item.label}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                <div className="mt-5 border-t border-border pt-4">
-                  <div className="mb-2 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">
+                <div className="mt-4 border-t border-border/70 pt-3.5">
+                  <div className="mb-2 font-mono text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
                     Core Coursework
                   </div>
                   <div className="flex flex-wrap gap-1.5">
@@ -80,7 +110,7 @@ export function EducationSection() {
                       <Badge
                         key={sub}
                         variant="secondary"
-                        className="rounded-md border border-border/50 bg-secondary text-secondary-foreground px-2.5 py-0.5 text-[11px] font-medium transition-colors hover:bg-secondary/80"
+                        className="rounded-full border border-border/60 bg-secondary/50 px-2.5 py-0.5 font-mono text-[11px] font-medium text-muted-foreground transition-all duration-200 hover:scale-105 hover:bg-secondary hover:text-foreground"
                       >
                         {sub}
                       </Badge>
@@ -93,25 +123,9 @@ export function EducationSection() {
 
           {/* Academic Focus Highlights (Right Column) */}
           <div className="flex flex-col justify-between gap-3 md:col-span-5">
-            {highlights.slice(0, 3).map((h, i) => {
-              const Icon = h.icon
-              return (
-                <div
-                  key={i}
-                  className="group flex items-center gap-3.5 rounded-xl border border-border bg-card p-4 text-card-foreground shadow-sm transition-all duration-300 hover:border-primary/40 hover:shadow-md"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary text-[#b85d38] dark:text-[#e07a5f] transition-colors group-hover:bg-secondary/80">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-sm font-bold text-card-foreground">{h.title}</div>
-                    <div className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
-                      {h.description}
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
+            {highlights.slice(0, 3).map((h, i) => (
+              <HighlightCard key={i} highlight={h} index={i} />
+            ))}
           </div>
         </div>
       </div>
