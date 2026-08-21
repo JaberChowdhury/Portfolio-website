@@ -2,12 +2,7 @@
 
 import * as React from "react"
 import { Link } from "@/i18n/routing"
-import {
-  Mail,
-  ArrowUpRight,
-  Trophy,
-  Globe2,
-} from "lucide-react"
+import { Mail, ArrowUpRight, Trophy, Globe2 } from "lucide-react"
 import { navLinks } from "@/components/Navbar"
 import { useTranslations } from "next-intl"
 import { LanguageToggle } from "@/components/LanguageToggle"
@@ -59,19 +54,19 @@ export function FooterSection() {
       id="footer"
       className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
     >
-      <div className="relative mx-auto w-full max-w-6xl px-6 md:px-12">
+      <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-12">
         {/* Top CTA Banner */}
-        <div className="mb-4 flex flex-col justify-between gap-4 rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:border-purple-500/40 hover:shadow-md sm:flex-row sm:items-center md:p-6">
+        <div className="mb-3 flex flex-col justify-between gap-3 rounded-xl border border-border/80 bg-card p-3.5 text-card-foreground shadow-xs transition-all duration-300 hover:border-purple-500/40 sm:mb-4 sm:flex-row sm:items-center sm:gap-4 sm:rounded-2xl sm:p-5 md:p-6">
           <div>
-            <div className="mb-1.5 flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold tracking-[0.25em] text-muted-foreground uppercase">
+            <div className="mb-1 flex items-center gap-2 sm:mb-1.5">
+              <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase sm:tracking-[0.25em]">
                 <span className="h-2 w-2 rounded-full bg-purple-500" />
                 08 ⁄ {t("Footer.finalDestination")}
               </span>
             </div>
             <h2
               data-cursor="text"
-              className="text-2xl font-bold tracking-tight text-card-foreground md:text-3xl"
+              className="text-xl font-bold tracking-tight text-card-foreground sm:text-2xl md:text-3xl"
             >
               {t("Footer.title1")} {t("Footer.title2")}{" "}
               <span className="text-purple-600 dark:text-purple-400">
@@ -79,45 +74,45 @@ export function FooterSection() {
               </span>{" "}
               {t("Footer.title4")}
             </h2>
-            <p className="mt-1 max-w-xl text-xs text-muted-foreground md:text-sm leading-relaxed">
+            <p className="mt-0.5 max-w-xl text-xs leading-relaxed text-muted-foreground sm:mt-1 sm:text-sm">
               {t("Footer.description")}
             </p>
           </div>
 
           <a
             href="mailto:your@email.com"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-foreground px-6 text-sm font-semibold text-background shadow-sm transition-all duration-300 hover:scale-105 active:scale-95 shrink-0"
+            className="inline-flex h-9 shrink-0 items-center justify-center gap-2 self-start rounded-full bg-foreground px-5 text-xs font-semibold text-background shadow-sm transition-all duration-300 hover:scale-105 active:scale-95 sm:h-11 sm:self-center sm:px-6 sm:text-sm"
           >
             <span>{t("Footer.startConversation")}</span>
-            <ArrowUpRight className="h-4 w-4" />
+            <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </a>
         </div>
 
         {/* 3-Column Info Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+        <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 md:gap-5">
           {/* Brand / Bio */}
-          <div className="flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-4.5 text-card-foreground shadow-xs transition-all duration-300 hover:border-border md:p-5">
+          <div className="flex flex-col justify-between rounded-xl border border-border/80 bg-card p-3.5 text-card-foreground shadow-xs transition-all duration-300 hover:border-border sm:rounded-2xl sm:p-4.5 md:p-5">
             <div>
-              <h3 className="text-base font-bold text-card-foreground md:text-lg">
+              <h3 className="text-sm font-bold text-card-foreground sm:text-base md:text-lg">
                 {t("Footer.yourName")}
               </h3>
-              <p className="mt-2 text-xs leading-relaxed text-muted-foreground md:text-sm">
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground sm:mt-2 sm:text-sm">
                 {t("Footer.bio")}
               </p>
             </div>
-            <div className="mt-4 flex items-center gap-2 border-t border-border/70 pt-3 text-xs text-muted-foreground">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="mt-3 flex items-center gap-2 border-t border-border/70 pt-2.5 text-[11px] text-muted-foreground sm:mt-4 sm:pt-3 sm:text-xs">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500 sm:h-2 sm:w-2" />
               <Globe2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>Available for remote & freelance</span>
             </div>
           </div>
 
           {/* Quick Navigation */}
-          <div className="rounded-2xl border border-border/80 bg-card p-4.5 text-card-foreground shadow-xs transition-all duration-300 hover:border-border md:p-5">
-            <h4 className="mb-3 font-mono text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+          <div className="rounded-xl border border-border/80 bg-card p-3.5 text-card-foreground shadow-xs transition-all duration-300 hover:border-border sm:rounded-2xl sm:p-4.5 md:p-5">
+            <h4 className="mb-2 font-mono text-[11px] font-semibold tracking-wider text-muted-foreground uppercase sm:mb-3 sm:text-xs">
               {t("Footer.navigation")}
             </h4>
-            <div className="grid grid-cols-2 gap-2 text-xs">
+            <div className="grid grid-cols-2 gap-1.5 text-xs sm:gap-2">
               {navLinks.map((item) => (
                 <Link
                   key={item.id}
@@ -129,7 +124,7 @@ export function FooterSection() {
               ))}
               <Link
                 href="/dungeon"
-                className="font-semibold text-rose-600 dark:text-rose-400 transition-colors hover:underline"
+                className="font-semibold text-rose-600 transition-colors hover:underline dark:text-rose-400"
               >
                 {t("Footer.dungeon")} ⚔️
               </Link>
@@ -137,18 +132,18 @@ export function FooterSection() {
           </div>
 
           {/* Connect & Socials */}
-          <div className="rounded-2xl border border-border/80 bg-card p-4.5 text-card-foreground shadow-xs transition-all duration-300 hover:border-border md:p-5 sm:col-span-2 md:col-span-1">
-            <h4 className="mb-3 font-mono text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+          <div className="rounded-xl border border-border/80 bg-card p-3.5 text-card-foreground shadow-xs transition-all duration-300 hover:border-border sm:col-span-2 sm:rounded-2xl sm:p-4.5 md:col-span-1 md:p-5">
+            <h4 className="mb-2 font-mono text-[11px] font-semibold tracking-wider text-muted-foreground uppercase sm:mb-3 sm:text-xs">
               {t("Footer.connect")}
             </h4>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
               <a
                 href="https://github.com/YOUR_USERNAME"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between rounded-xl border border-border/70 bg-secondary/50 p-2 text-xs font-medium text-card-foreground transition-all duration-200 hover:bg-secondary hover:border-purple-500/30"
+                className="group flex items-center justify-between rounded-lg border border-border/70 bg-secondary/50 p-2 text-xs font-medium text-card-foreground transition-all duration-200 hover:border-purple-500/30 hover:bg-secondary sm:rounded-xl"
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5 sm:gap-2">
                   <GithubIcon className="h-3.5 w-3.5 text-purple-600 dark:text-purple-400" />
                   GitHub
                 </span>
@@ -159,9 +154,9 @@ export function FooterSection() {
                 href="https://linkedin.com/in/YOUR_USERNAME"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between rounded-xl border border-border/70 bg-secondary/50 p-2 text-xs font-medium text-card-foreground transition-all duration-200 hover:bg-secondary hover:border-sky-500/30"
+                className="group flex items-center justify-between rounded-lg border border-border/70 bg-secondary/50 p-2 text-xs font-medium text-card-foreground transition-all duration-200 hover:border-sky-500/30 hover:bg-secondary sm:rounded-xl"
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5 sm:gap-2">
                   <LinkedinIcon className="h-3.5 w-3.5 text-sky-600 dark:text-sky-400" />
                   LinkedIn
                 </span>
@@ -172,9 +167,9 @@ export function FooterSection() {
                 href="https://codeforces.com/profile/YOUR_HANDLE"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between rounded-xl border border-border/70 bg-secondary/50 p-2 text-xs font-medium text-card-foreground transition-all duration-200 hover:bg-secondary hover:border-amber-500/30"
+                className="group flex items-center justify-between rounded-lg border border-border/70 bg-secondary/50 p-2 text-xs font-medium text-card-foreground transition-all duration-200 hover:border-amber-500/30 hover:bg-secondary sm:rounded-xl"
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5 sm:gap-2">
                   <Trophy className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
                   Codeforces
                 </span>
@@ -183,9 +178,9 @@ export function FooterSection() {
 
               <a
                 href="mailto:your@email.com"
-                className="group flex items-center justify-between rounded-xl border border-border/70 bg-secondary/50 p-2 text-xs font-medium text-card-foreground transition-all duration-200 hover:bg-secondary hover:border-rose-500/30"
+                className="group flex items-center justify-between rounded-lg border border-border/70 bg-secondary/50 p-2 text-xs font-medium text-card-foreground transition-all duration-200 hover:border-rose-500/30 hover:bg-secondary sm:rounded-xl"
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5 sm:gap-2">
                   <Mail className="h-3.5 w-3.5 text-rose-600 dark:text-rose-400" />
                   Email
                 </span>
@@ -196,14 +191,17 @@ export function FooterSection() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-4 flex flex-col items-center justify-between gap-3 border-t border-border/70 pt-3 text-xs text-muted-foreground sm:flex-row">
-          <p className="font-mono text-[11px]">
-            © {new Date().getFullYear()} {t("Footer.yourName")}. {t("Footer.rights")}.
+        <div className="mt-3 flex flex-col items-center justify-between gap-2.5 border-t border-border/70 pt-2.5 text-xs text-muted-foreground sm:mt-4 sm:flex-row sm:gap-3 sm:pt-3">
+          <p className="font-mono text-[10px] sm:text-[11px]">
+            © {new Date().getFullYear()} {t("Footer.yourName")}.{" "}
+            {t("Footer.rights")}.
           </p>
 
-          <div className="flex items-center gap-3">
-            <span className="text-[11px]">{t("Footer.builtWith")}</span>
-            <div className="flex items-center gap-2 border-l border-border/70 pl-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <span className="text-[10px] sm:text-[11px]">
+              {t("Footer.builtWith")}
+            </span>
+            <div className="flex items-center gap-2 border-l border-border/70 pl-2.5 sm:pl-3">
               <LanguageToggle />
             </div>
           </div>

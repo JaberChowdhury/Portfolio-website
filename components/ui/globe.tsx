@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 
 const MOVEMENT_DAMPING = 1400
 interface COBEOptionsCustom extends COBEOptions {
-  onRender: (data: any) => void
+  onRender: (data: Record<string, unknown>) => void
 }
 export const GLOBE_CONFIG: COBEOptionsCustom = {
   width: 800,
@@ -87,13 +87,13 @@ export function Globe({
       ...config,
       width: widthRef.current * 2,
       height: widthRef.current * 2,
-      onRender: (state: any) => {
+      onRender: (state: Record<string, unknown>) => {
         if (!pointerInteracting.current) phiRef.current += 0.005
         state.phi = phiRef.current + rs.get()
         state.width = widthRef.current * 2
         state.height = widthRef.current * 2
       },
-    } as any)
+    } as unknown as COBEOptions)
 
     setTimeout(() => (canvasRef.current!.style.opacity = "1"), 0)
     return () => {

@@ -28,56 +28,73 @@ const CARD_ACCENTS = [
   {
     name: "cyan",
     topGradient: "from-sky-500/90 via-sky-400 to-cyan-400",
-    indexBadge: "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+    indexBadge:
+      "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
     hoverBorder: "hover:border-sky-500/40",
-    liveBtnHover: "hover:bg-sky-500/15 hover:border-sky-500/35 hover:text-sky-700 dark:hover:text-sky-300",
+    liveBtnHover:
+      "hover:bg-sky-500/15 hover:border-sky-500/35 hover:text-sky-700 dark:hover:text-sky-300",
     dot: "bg-sky-500",
   },
   {
     name: "pear",
     topGradient: "from-amber-500/90 via-amber-400 to-yellow-400",
-    indexBadge: "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+    indexBadge:
+      "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
     hoverBorder: "hover:border-amber-500/40",
-    liveBtnHover: "hover:bg-amber-500/15 hover:border-amber-500/35 hover:text-amber-700 dark:hover:text-amber-300",
+    liveBtnHover:
+      "hover:bg-amber-500/15 hover:border-amber-500/35 hover:text-amber-700 dark:hover:text-amber-300",
     dot: "bg-amber-500",
   },
   {
     name: "mint",
     topGradient: "from-emerald-500/90 via-emerald-400 to-teal-400",
-    indexBadge: "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+    indexBadge:
+      "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
     hoverBorder: "hover:border-emerald-500/40",
-    liveBtnHover: "hover:bg-emerald-500/15 hover:border-emerald-500/35 hover:text-emerald-700 dark:hover:text-emerald-300",
+    liveBtnHover:
+      "hover:bg-emerald-500/15 hover:border-emerald-500/35 hover:text-emerald-700 dark:hover:text-emerald-300",
     dot: "bg-emerald-500",
   },
   {
     name: "coral",
     topGradient: "from-rose-500/90 via-rose-400 to-orange-400",
-    indexBadge: "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+    indexBadge:
+      "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
     hoverBorder: "hover:border-rose-500/40",
-    liveBtnHover: "hover:bg-rose-500/15 hover:border-rose-500/35 hover:text-rose-700 dark:hover:text-rose-300",
+    liveBtnHover:
+      "hover:bg-rose-500/15 hover:border-rose-500/35 hover:text-rose-700 dark:hover:text-rose-300",
     dot: "bg-rose-500",
   },
   {
     name: "lilac",
     topGradient: "from-purple-500/90 via-purple-400 to-pink-400",
-    indexBadge: "border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300",
+    indexBadge:
+      "border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300",
     hoverBorder: "hover:border-purple-500/40",
-    liveBtnHover: "hover:bg-purple-500/15 hover:border-purple-500/35 hover:text-purple-700 dark:hover:text-purple-300",
+    liveBtnHover:
+      "hover:bg-purple-500/15 hover:border-purple-500/35 hover:text-purple-700 dark:hover:text-purple-300",
     dot: "bg-purple-500",
   },
 ]
 
 // Hum Multi-Accent Tech Tag Badges
 const TECH_TAG_STYLES: Record<string, string> = {
-  "Next.js": "border-slate-500/20 bg-slate-500/10 text-foreground dark:text-slate-200",
-  "TypeScript": "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
-  "Prisma": "border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300",
-  "Stripe": "border-indigo-500/25 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300",
-  "OpenAI API": "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
-  "Tailwind": "border-cyan-500/25 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
-  "PostgreSQL": "border-blue-500/25 bg-blue-500/10 text-blue-700 dark:text-blue-300",
-  "Framer Motion": "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
-  "Docker": "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+  "Next.js":
+    "border-slate-500/20 bg-slate-500/10 text-foreground dark:text-slate-200",
+  TypeScript: "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+  Prisma:
+    "border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300",
+  Stripe:
+    "border-indigo-500/25 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300",
+  "OpenAI API":
+    "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+  Tailwind:
+    "border-cyan-500/25 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
+  PostgreSQL:
+    "border-blue-500/25 bg-blue-500/10 text-blue-700 dark:text-blue-300",
+  "Framer Motion":
+    "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+  Docker: "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
 }
 
 const FALLBACK_TAG_STYLES = [
@@ -99,7 +116,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     >
       {/* Top Accent Color Highlight Ribbon */}
       <div
-        className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${accent.topGradient} opacity-90 transition-opacity duration-300 group-hover:opacity-100`}
+        className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${accent.topGradient} opacity-90 transition-opacity duration-300 group-hover:opacity-100`}
       />
 
       <div className="relative pt-1">
@@ -112,19 +129,19 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             <span>#{formattedIndex}</span>
           </div>
 
-          <div className="flex items-center gap-1 text-[10px] font-mono font-medium tracking-wider text-muted-foreground/80 uppercase">
+          <div className="flex items-center gap-1 font-mono text-[10px] font-medium tracking-wider text-muted-foreground/80 uppercase">
             <Sparkles className="h-3 w-3 text-muted-foreground/60" />
             <span>FEATURED</span>
           </div>
         </div>
 
         {/* Title and Description */}
-        <CardHeader className="p-0 space-y-1.5">
+        <CardHeader className="space-y-1.5 p-0">
           <CardTitle className="text-lg font-bold tracking-tight text-foreground md:text-xl">
             {project.title}
           </CardTitle>
 
-          <CardDescription className="line-clamp-2 text-xs leading-relaxed text-muted-foreground md:text-sm font-normal">
+          <CardDescription className="line-clamp-2 text-xs leading-relaxed font-normal text-muted-foreground md:text-sm">
             {project.description}
           </CardDescription>
         </CardHeader>

@@ -31,29 +31,31 @@ export default function UIPage() {
   const [activeTab, setActiveTab] = useState<string>(TABS[0].id)
 
   return (
-    <div className="container mx-auto min-h-screen px-4 py-20">
-      <div className="mb-12">
+    <div className="container mx-auto min-h-screen max-w-7xl px-4 pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-32">
+      <div className="mb-8 sm:mb-12">
         <h1
           data-cursor="text"
-          className="mb-4 flex items-center gap-3 text-4xl font-bold tracking-tight"
+          className="mb-2 flex items-center gap-2.5 text-2xl font-bold tracking-tight sm:mb-4 sm:gap-3 sm:text-4xl"
         >
-          <Layers className="size-10 text-primary" />
+          <Layers className="size-7 shrink-0 text-primary sm:size-10" />
           {t("title")}
         </h1>
-        <p className="text-xl text-muted-foreground">{t("description")}</p>
+        <p className="text-xs text-muted-foreground sm:text-sm md:text-lg">
+          {t("description")}
+        </p>
       </div>
 
-      <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
+      <div className="flex flex-col gap-6 md:flex-row md:items-start md:gap-10">
         {/* Navigation Sidebar */}
-        <aside className="shrink-0 md:sticky md:top-24 md:w-64">
-          <nav className="flex flex-row space-x-2 overflow-x-auto pb-4 md:flex-col md:space-y-2 md:space-x-0 md:pb-0">
+        <aside className="shrink-0 md:sticky md:top-24 md:w-56 lg:w-64">
+          <nav className="scrollbar-hide flex flex-row gap-1.5 overflow-x-auto pb-2 sm:gap-2 md:flex-col md:gap-2 md:pb-0">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative flex px-4 py-3 text-sm font-medium transition-colors md:rounded-lg ${
+                className={`relative flex shrink-0 cursor-pointer items-center rounded-lg px-3.5 py-2 text-xs font-medium whitespace-nowrap transition-colors sm:px-4 sm:py-2.5 sm:text-sm ${
                   activeTab === tab.id
-                    ? "text-primary"
+                    ? "font-semibold text-primary"
                     : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                 }`}
               >
@@ -66,7 +68,7 @@ export default function UIPage() {
                   />
                 )}
                 <span className="relative z-10">
-                  {t(`tabs.${tab.id}` as any)}
+                  {t(`tabs.${tab.id}` as `tabs.${(typeof TABS)[number]["id"]}`)}
                 </span>
               </button>
             ))}

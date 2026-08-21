@@ -24,38 +24,44 @@ export default function FontPreviewCard({
   sampleText: string
 }) {
   return (
-    <Card className="overflow-hidden">
-      <CardHeader className="border-b bg-muted/20 pb-4">
-        <CardTitle>{title}</CardTitle>
+    <Card className="overflow-hidden rounded-2xl">
+      <CardHeader className="border-b bg-muted/20 p-4 pb-3 sm:p-6 sm:pb-4">
+        <CardTitle className="text-lg sm:text-xl">{title}</CardTitle>
       </CardHeader>
-      <CardContent className="pt-6">
+      <CardContent className="overflow-x-hidden p-4 pt-4 sm:p-6 sm:pt-6">
         <div
-          className={className}
+          className={`overflow-hidden break-words ${className || ""}`}
           style={{
             fontSize,
             fontWeight,
             ...style,
           }}
         >
-          <p className="mb-6 leading-tight">{sampleText}</p>
+          <p className="mb-4 leading-tight break-words sm:mb-6">{sampleText}</p>
 
-          <div className="space-y-4 text-base opacity-90">
-            <div>
-              <p>{alphabetUppercase}</p>
-              <p>{alphabetLowercase}</p>
+          <div className="space-y-3 text-xs opacity-90 sm:space-y-4 sm:text-base">
+            <div className="space-y-1">
+              <p className="font-medium break-all">{alphabetUppercase}</p>
+              <p className="break-all">{alphabetLowercase}</p>
             </div>
-            <div>{numbers}</div>
-            <div>{symbols}</div>
-            <div className="pt-3">
-              <p>{paragraph}</p>
+            <div className="font-mono break-all">{numbers}</div>
+            <div className="font-mono break-all">{symbols}</div>
+            <div className="pt-2 sm:pt-3">
+              <p className="leading-relaxed">{paragraph}</p>
             </div>
-            <div className="pt-3">
-              <h1 className="text-5xl font-bold">Heading H1</h1>
-              <h2 className="text-4xl font-semibold">Heading H2</h2>
-              <h3 className="text-3xl font-medium">Heading H3</h3>
+            <div className="space-y-1 pt-2 sm:space-y-2 sm:pt-3">
+              <h1 className="text-2xl font-bold break-words sm:text-4xl md:text-5xl">
+                Heading H1
+              </h1>
+              <h2 className="text-xl font-semibold break-words sm:text-3xl md:text-4xl">
+                Heading H2
+              </h2>
+              <h3 className="text-lg font-medium break-words sm:text-2xl md:text-3xl">
+                Heading H3
+              </h3>
             </div>
-            <div className="rounded bg-muted p-3 font-mono text-sm opacity-100">
-              const hello = "world"
+            <div className="rounded-lg bg-muted p-2.5 font-mono text-xs break-all opacity-100 sm:p-3 sm:text-sm">
+              {'const hello = "world"'}
             </div>
           </div>
         </div>

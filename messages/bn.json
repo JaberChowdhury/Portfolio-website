@@ -54,60 +54,32 @@
       {
         "title": "ই-কমার্স প্ল্যাটফর্ম",
         "description": "চেকআউট, অথেন্টিকেশন এবং শক্তিশালী ব্যাকএন্ডসহ একটি পূর্ণাঙ্গ ই-কমার্স সিস্টেম।",
-        "tech": [
-          "Next.js",
-          "TypeScript",
-          "Prisma",
-          "Stripe"
-        ]
+        "tech": ["Next.js", "TypeScript", "Prisma", "Stripe"]
       },
       {
         "title": "এআই চ্যাট ইন্টারফেস",
         "description": "রিয়েল-টাইম স্ট্রিমিং, মেমরি এবং আধুনিক UI স্টেট ম্যানেজমেন্টসহ একটি AI চ্যাট অ্যাপ্লিকেশন।",
-        "tech": [
-          "Next.js",
-          "OpenAI API",
-          "Tailwind",
-          "PostgreSQL"
-        ]
+        "tech": ["Next.js", "OpenAI API", "Tailwind", "PostgreSQL"]
       },
       {
         "title": "পোর্টফোলিও সিস্টেম",
         "description": "রেসপন্সিভ ডিজাইন, অ্যানিমেশন এবং পরিচ্ছন্ন টাইপোগ্রাফিসহ একটি ব্যক্তিগত পোর্টফোলিও ওয়েবসাইট।",
-        "tech": [
-          "Next.js",
-          "Framer Motion",
-          "Tailwind"
-        ]
+        "tech": ["Next.js", "Framer Motion", "Tailwind"]
       },
       {
         "title": "ই-কমার্স প্ল্যাটফর্ম",
         "description": "চেকআউট, অথেন্টিকেশন এবং শক্তিশালী ব্যাকএন্ডসহ একটি পূর্ণাঙ্গ ই-কমার্স সিস্টেম।",
-        "tech": [
-          "Next.js",
-          "TypeScript",
-          "Prisma",
-          "Stripe"
-        ]
+        "tech": ["Next.js", "TypeScript", "Prisma", "Stripe"]
       },
       {
         "title": "এআই চ্যাট ইন্টারফেস",
         "description": "রিয়েল-টাইম স্ট্রিমিং, মেমরি এবং আধুনিক UI স্টেট ম্যানেজমেন্টসহ একটি AI চ্যাট অ্যাপ্লিকেশন।",
-        "tech": [
-          "Next.js",
-          "OpenAI API",
-          "Tailwind",
-          "PostgreSQL"
-        ]
+        "tech": ["Next.js", "OpenAI API", "Tailwind", "PostgreSQL"]
       },
       {
         "title": "পোর্টফোলিও সিস্টেম",
         "description": "রেসপন্সিভ ডিজাইন, অ্যানিমেশন এবং পরিচ্ছন্ন টাইপোগ্রাফিসহ একটি ব্যক্তিগত পোর্টফোলিও ওয়েবসাইট।",
-        "tech": [
-          "Next.js",
-          "Framer Motion",
-          "Tailwind"
-        ]
+        "tech": ["Next.js", "Framer Motion", "Tailwind"]
       }
     ]
   },
@@ -123,35 +95,21 @@
         "company": "Tech Company",
         "period": "২০২৫ — বর্তমান",
         "description": "Next.js, TypeScript এবং আধুনিক ব্যাকএন্ড প্রযুক্তি ব্যবহার করে ওয়েব অ্যাপ্লিকেশন তৈরি করছি। পাশাপাশি পারফরম্যান্স ও ডেভেলপার এক্সপেরিয়েন্স উন্নত করার কাজ করছি।",
-        "tech": [
-          "Next.js",
-          "TypeScript",
-          "PostgreSQL",
-          "Docker"
-        ]
+        "tech": ["Next.js", "TypeScript", "PostgreSQL", "Docker"]
       },
       {
         "role": "ওপেন সোর্স কন্ট্রিবিউটর",
         "company": "GitHub",
         "period": "২০২৪ — বর্তমান",
         "description": "বিভিন্ন ওপেন সোর্স প্রজেক্টে অবদান রেখেছি, ডকুমেন্টেশন উন্নত করেছি এবং ইস্যু সমাধানে কাজ করেছি।",
-        "tech": [
-          "Git",
-          "Open Source",
-          "CI/CD",
-          "Node.js"
-        ]
+        "tech": ["Git", "Open Source", "CI/CD", "Node.js"]
       },
       {
         "role": "কম্পিটিটিভ প্রোগ্রামিং মেন্টর",
         "company": "Programming Community",
         "period": "২০২৩ — বর্তমান",
         "description": "অ্যালগরিদম, ডেটা স্ট্রাকচার এবং কনটেস্ট প্রস্তুতি নিয়ে নতুন প্রোগ্রামারদের সহায়তা করেছি।",
-        "tech": [
-          "Algorithms",
-          "Data Structures",
-          "Codeforces"
-        ]
+        "tech": ["Algorithms", "Data Structures", "Codeforces"]
       }
     ]
   },
@@ -272,12 +230,7 @@
         "title": "জুনিয়র স্কুল সার্টিফিকেট (জেএসসি)",
         "subtitle": "সাধারণ",
         "description": "জুনিয়র স্কুল শিক্ষা সফলভাবে সম্পন্ন করেছি।",
-        "subjects": [
-          "Mathematics",
-          "Science",
-          "English",
-          "Bengali"
-        ],
+        "subjects": ["Mathematics", "Science", "English", "Bengali"],
         "progress": [
           {
             "label": "পাসের বছর",

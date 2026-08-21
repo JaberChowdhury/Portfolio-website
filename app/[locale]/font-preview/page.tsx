@@ -28,11 +28,33 @@ const TypographyMetrics = dynamic(
   { loading: () => <Loader /> }
 )
 
+type TabType = "compare" | "custom" | "system" | "playground" | "analysis"
+
+function TabButton({
+  value,
+  label,
+  activeTab,
+  onSelect,
+}: {
+  value: TabType
+  label: string
+  activeTab: TabType
+  onSelect: (value: TabType) => void
+}) {
+  return (
+    <Button
+      variant={activeTab === value ? "default" : "secondary"}
+      onClick={() => onSelect(value)}
+      className="h-9 px-3 py-1.5 text-xs font-medium sm:text-sm"
+    >
+      {label}
+    </Button>
+  )
+}
+
 export default function FontPreviewPage() {
   const t = useTranslations("FontPreview")
-  const [activeTab, setActiveTab] = useState<
-    "compare" | "custom" | "system" | "playground" | "analysis"
-  >("compare")
+  const [activeTab, setActiveTab] = useState<TabType>("compare")
 
   const [fontSize, setFontSize] = useState(32)
   const [fontWeight, setFontWeight] = useState(400)
@@ -40,47 +62,35 @@ export default function FontPreviewPage() {
     "The quick brown fox jumps over the lazy dog."
   )
 
-  const TabButton = ({
-    value,
-    label,
-  }: {
-    value: typeof activeTab
-    label: string
-  }) => (
-    <Button
-      variant={activeTab === value ? "default" : "secondary"}
-      onClick={() => setActiveTab(value)}
-      className="font-medium"
-    >
-      {label}
-    </Button>
-  )
-
   return (
-    <div className="container mx-auto min-h-screen px-6 py-12">
+    <div className="container mx-auto min-h-screen max-w-7xl px-4 pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-32">
       {/* Header */}
-      <div className="mb-10">
-        <h1 className="mb-2 text-5xl font-bold tracking-tight">{t("title")}</h1>
-        <p className="text-lg text-muted-foreground">{t("description")}</p>
+      <div className="mb-8 sm:mb-10">
+        <h1 className="mb-2 text-2xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+          {t("title")}
+        </h1>
+        <p className="text-xs text-muted-foreground sm:text-sm md:text-lg">
+          {t("description")}
+        </p>
       </div>
 
       {/* Controls */}
-      <Card className="mb-10 p-6 shadow-sm">
-        <div className="grid gap-6 lg:grid-cols-3">
+      <Card className="mb-8 rounded-2xl p-4 shadow-sm sm:mb-10 sm:p-6">
+        <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
           <div className="space-y-2">
-            <label className="text-sm leading-none font-semibold tracking-tight">
+            <label className="text-xs leading-none font-semibold tracking-tight sm:text-sm">
               {t("controls.sampleText")}
             </label>
             <textarea
               value={sampleText}
               onChange={(e) => setSampleText(e.target.value)}
               rows={3}
-              className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
+              className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-xs shadow-sm placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none sm:text-sm"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="flex justify-between text-sm leading-none font-semibold tracking-tight">
+            <label className="flex justify-between text-xs leading-none font-semibold tracking-tight sm:text-sm">
               <span>{t("controls.fontSize")}</span>
               <span className="text-muted-foreground">{fontSize}px</span>
             </label>
@@ -95,13 +105,13 @@ export default function FontPreviewPage() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm leading-none font-semibold tracking-tight">
+            <label className="text-xs leading-none font-semibold tracking-tight sm:text-sm">
               {t("controls.fontWeight")}
             </label>
             <select
               value={fontWeight}
               onChange={(e) => setFontWeight(Number(e.target.value))}
-              className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background focus:ring-1 focus:ring-ring focus:outline-none"
+              className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-xs shadow-sm ring-offset-background focus:ring-1 focus:ring-ring focus:outline-none sm:text-sm"
             >
               <option value={100}>{t("weights.100")}</option>
               <option value={200}>{t("weights.200")}</option>
@@ -117,13 +127,14 @@ export default function FontPreviewPage() {
         </div>
 
         {/* Pangrams */}
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap gap-1.5 sm:mt-6 sm:gap-2">
           {pangrams.map((pangram) => (
             <Button
               key={pangram}
               variant="outline"
               size="sm"
               onClick={() => setSampleText(pangram)}
+              className="h-8 text-xs"
             >
               {t("controls.usePangram")}
             </Button>
@@ -132,12 +143,37 @@ export default function FontPreviewPage() {
       </Card>
 
       {/* Tabs */}
-      <div className="mb-8 flex flex-wrap gap-2">
-        <TabButton value="compare" label={t("tabs.compare")} />
-        <TabButton value="custom" label={t("tabs.custom")} />
-        <TabButton value="system" label={t("tabs.system")} />
-        <TabButton value="playground" label={t("tabs.playground")} />
-        <TabButton value="analysis" label={t("tabs.analysis")} />
+      <div className="mb-6 flex flex-wrap gap-1.5 sm:mb-8 sm:gap-2">
+        <TabButton
+          value="compare"
+          label={t("tabs.compare")}
+          activeTab={activeTab}
+          onSelect={setActiveTab}
+        />
+        <TabButton
+          value="custom"
+          label={t("tabs.custom")}
+          activeTab={activeTab}
+          onSelect={setActiveTab}
+        />
+        <TabButton
+          value="system"
+          label={t("tabs.system")}
+          activeTab={activeTab}
+          onSelect={setActiveTab}
+        />
+        <TabButton
+          value="playground"
+          label={t("tabs.playground")}
+          activeTab={activeTab}
+          onSelect={setActiveTab}
+        />
+        <TabButton
+          value="analysis"
+          label={t("tabs.analysis")}
+          activeTab={activeTab}
+          onSelect={setActiveTab}
+        />
       </div>
 
       {/* Dynamic Tabs Rendering */}

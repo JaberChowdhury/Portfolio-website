@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { cn } from "@/lib/utils"
+import { useMounted } from "@/hooks/use-mounted"
 
 interface MeteorsProps {
   number?: number
@@ -13,6 +14,11 @@ interface MeteorsProps {
   className?: string
 }
 
+function pseudoRandom(seed: number) {
+  const x = Math.sin(seed) * 10000
+  return x - Math.floor(x)
+}
+
 export const Meteors = ({
   number = 20,
   minDelay = 0.2,
@@ -22,29 +28,26 @@ export const Meteors = ({
   angle = 215, // Default falls down-left
   className,
 }: MeteorsProps) => {
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useMounted()
 
   const meteorStyles = React.useMemo(() => {
-    if (!mounted) return []
-    return [...new Array(number)].map(() => {
-      // If the user passes angle=45, it moves up-left. To make it fall from the top gracefully,
-      // we randomly spread them across a larger area.
+    return Array.from({ length: number }, (_, i) => {
+      const r1 = pseudoRandom(i * 4 + 1)
+      const r2 = pseudoRandom(i * 4 + 2)
+      const r3 = pseudoRandom(i * 4 + 3)
+      const r4 = pseudoRandom(i * 4 + 4)
+
       return {
         "--angle": angle + "deg",
-        top: Math.floor(Math.random() * window.innerHeight * 0.5) - 200 + "px",
-        left: Math.floor(Math.random() * window.innerWidth * 1.5) - 400 + "px",
-        animationDelay: Math.random() * (maxDelay - minDelay) + minDelay + "s",
+        top: Math.floor(r1 * 400) - 200 + "px",
+        left: Math.floor(r2 * 1400) - 200 + "px",
+        animationDelay:
+          (r3 * (maxDelay - minDelay) + minDelay).toFixed(2) + "s",
         animationDuration:
-          Math.floor(
-            Math.random() * (maxDuration - minDuration) + minDuration
-          ) + "s",
+          Math.floor(r4 * (maxDuration - minDuration) + minDuration) + "s",
       }
     })
-  }, [mounted, number, minDelay, maxDelay, minDuration, maxDuration, angle])
+  }, [number, minDelay, maxDelay, minDuration, maxDuration, angle])
 
   if (!mounted) return null
 

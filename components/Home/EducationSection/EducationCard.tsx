@@ -25,14 +25,14 @@ export function EducationCard({
   icon: Icon = GraduationCap,
 }: EducationCardProps) {
   return (
-    <Card className="group overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-rose-500/40 md:p-6">
+    <Card className="group overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-rose-500/40 hover:shadow-md md:p-6">
       <CardContent className="p-0">
         <div className="grid gap-5 lg:grid-cols-[1.3fr_0.7fr]">
           {/* Left Side: Program Overview & Coursework */}
           <div className="flex flex-col justify-between">
             <div>
               <div className="mb-3.5 flex items-start gap-3.5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400 transition-transform duration-300 group-hover:scale-105">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-600 transition-transform duration-300 group-hover:scale-105 dark:text-rose-400">
                   <Icon className="h-6 w-6" />
                 </div>
 
@@ -85,7 +85,7 @@ export function EducationCard({
                 <div className="font-mono text-base font-bold tracking-tight text-card-foreground md:text-lg">
                   {item.value}
                 </div>
-                <p className="mt-0.5 font-mono text-[10px] sm:text-[11px] text-muted-foreground">
+                <p className="mt-0.5 font-mono text-[10px] text-muted-foreground sm:text-[11px]">
                   {item.label}
                 </p>
               </div>

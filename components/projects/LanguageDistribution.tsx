@@ -55,13 +55,13 @@ export default function LanguageDistribution({
   }
 
   return (
-    <div className="w-full border border-border bg-muted/20 p-6 shadow-sm">
-      <div className="mb-6 font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
+    <div className="w-full rounded-xl border border-border bg-muted/20 p-4 shadow-sm sm:p-6">
+      <div className="mb-4 font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase sm:mb-6">
         LANGUAGES
       </div>
 
       {/* Stacked bar chart */}
-      <div className="mb-6 flex h-3 w-full overflow-hidden rounded-sm border border-border bg-muted">
+      <div className="mb-4 flex h-2.5 w-full overflow-hidden rounded-sm border border-border bg-muted sm:mb-6 sm:h-3">
         {langSorted.map((lang, idx) => (
           <motion.div
             key={lang.name}
@@ -77,7 +77,7 @@ export default function LanguageDistribution({
       </div>
 
       {/* Legend */}
-      <div className="flex flex-wrap gap-x-6 gap-y-3">
+      <div className="flex flex-wrap gap-x-4 gap-y-2 sm:gap-x-6 sm:gap-y-3">
         {langSorted.map((lang, idx) => {
           const formattedValue =
             mode === "bytes"
@@ -87,15 +87,15 @@ export default function LanguageDistribution({
               : `${lang.value} ${lang.value === 1 ? "file" : "files"}`
 
           return (
-            <div key={lang.name} className="flex items-center gap-2">
+            <div key={lang.name} className="flex items-center gap-1.5 sm:gap-2">
               <div
-                className="h-2.5 w-2.5 rounded-full"
+                className="h-2 w-2 shrink-0 rounded-full sm:h-2.5 sm:w-2.5"
                 style={{ backgroundColor: getLangColor(lang.name, idx) }}
               />
-              <span className="font-mono text-xs font-bold text-foreground">
+              <span className="font-mono text-[11px] font-bold text-foreground sm:text-xs">
                 {lang.name}
               </span>
-              <span className="font-mono text-xs text-muted-foreground">
+              <span className="font-mono text-[10px] text-muted-foreground sm:text-xs">
                 {lang.percentage.toFixed(1)}% ({formattedValue})
               </span>
             </div>

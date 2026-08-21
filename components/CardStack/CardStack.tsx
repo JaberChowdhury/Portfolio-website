@@ -99,7 +99,7 @@ export function CardStack({
               )}
 
               {/* Inner Content Area */}
-              <div className="card-stack-scroll-wrapper px-4 py-8 md:px-8 md:py-10">
+              <div className="card-stack-scroll-wrapper px-3.5 py-4 sm:px-6 sm:py-8 md:px-8 md:py-10">
                 {ContentComponent ? (
                   <ContentComponent {...injectedProps} />
                 ) : typeof section.content === "function" ? (

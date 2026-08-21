@@ -42,7 +42,7 @@ function IllustrationModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -55,10 +55,10 @@ function IllustrationModal({
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        className="relative z-10 flex w-full max-w-3xl flex-col overflow-hidden rounded-3xl border border-border/50 bg-card shadow-2xl md:flex-row"
+        className="relative z-10 flex max-h-[90dvh] w-full max-w-3xl flex-col overflow-y-auto rounded-2xl border border-border/50 bg-card shadow-2xl sm:rounded-3xl md:flex-row md:overflow-visible"
       >
         {/* Preview Area */}
-        <div className="relative flex min-h-[300px] flex-1 items-center justify-center overflow-hidden border-b border-border/50 bg-muted/30 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] p-12 md:border-r md:border-b-0 dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]">
+        <div className="relative flex min-h-[200px] flex-1 items-center justify-center overflow-hidden border-b border-border/50 bg-muted/30 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] p-6 sm:min-h-[300px] sm:p-12 md:border-r md:border-b-0 dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]">
           <div
             className="flex h-full w-full items-center justify-center transition-transform duration-200"
             style={{
@@ -66,7 +66,7 @@ function IllustrationModal({
             }}
           >
             {hasSvg ? (
-              <div className="relative h-[120px] w-[120px]">
+              <div className="relative h-[100px] w-[100px] sm:h-[120px] sm:w-[120px]">
                 <Image
                   src={svgUrl}
                   alt={item.label}
@@ -75,7 +75,7 @@ function IllustrationModal({
                 />
               </div>
             ) : (
-              <div className="text-8xl font-black text-muted-foreground/20">
+              <div className="text-6xl font-black text-muted-foreground/20 sm:text-8xl">
                 {item.label}
               </div>
             )}
@@ -83,30 +83,32 @@ function IllustrationModal({
         </div>
 
         {/* Controls Area */}
-        <div className="flex w-full flex-col gap-8 bg-card p-6 md:w-80">
+        <div className="flex w-full flex-col gap-5 bg-card p-4 sm:gap-8 sm:p-6 md:w-80">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-bold tracking-tight">
+              <h3 className="text-lg font-bold tracking-tight sm:text-xl">
                 Character <span className="text-primary">{item.label}</span>
               </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="mt-0.5 text-xs text-muted-foreground sm:mt-1 sm:text-sm">
                 ID: {item.id}
               </p>
             </div>
             <button
               onClick={onClose}
               className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              aria-label="Close dialog"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
 
-          <div className="flex-1 space-y-6">
+          <div className="flex-1 space-y-4 sm:space-y-6">
             {/* Scale Tweak */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-sm">
+            <div className="space-y-2 sm:space-y-3">
+              <div className="flex items-center justify-between text-xs sm:text-sm">
                 <label className="flex items-center gap-2 font-medium">
-                  <Maximize2 className="h-4 w-4 text-muted-foreground" /> Scale
+                  <Maximize2 className="h-3.5 w-3.5 text-muted-foreground sm:h-4 sm:w-4" />{" "}
+                  Scale
                 </label>
                 <span className="text-muted-foreground">
                   {scale.toFixed(1)}x
@@ -124,10 +126,10 @@ function IllustrationModal({
             </div>
 
             {/* Rotation Tweak */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-sm">
+            <div className="space-y-2 sm:space-y-3">
+              <div className="flex items-center justify-between text-xs sm:text-sm">
                 <label className="flex items-center gap-2 font-medium">
-                  <RotateCw className="h-4 w-4 text-muted-foreground" />{" "}
+                  <RotateCw className="h-3.5 w-3.5 text-muted-foreground sm:h-4 sm:w-4" />{" "}
                   Rotation
                 </label>
                 <span className="text-muted-foreground">{rotation}°</span>
@@ -148,7 +150,7 @@ function IllustrationModal({
           <button
             onClick={copySvg}
             disabled={!hasSvg}
-            className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-medium transition-all ${
+            className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-medium transition-all active:scale-95 sm:py-3 sm:text-sm ${
               !hasSvg
                 ? "cursor-not-allowed bg-muted text-muted-foreground"
                 : copied
@@ -185,14 +187,14 @@ function IllustrationGrid({
   availableSvgs: string[]
 }) {
   return (
-    <div className="mb-16">
+    <div className="mb-10 sm:mb-16">
       <h2
         data-cursor="text"
-        className="mb-6 text-2xl font-semibold tracking-tight"
+        className="mb-4 text-xl font-bold tracking-tight sm:mb-6 sm:text-2xl"
       >
         {title}
       </h2>
-      <div className="grid grid-cols-4 gap-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12">
+      <div className="grid grid-cols-3 gap-2 min-[400px]:grid-cols-4 sm:grid-cols-6 sm:gap-3 md:grid-cols-8 md:gap-4 lg:grid-cols-12">
         {items.map((item) => {
           const hasSvg = availableSvgs.includes(`${item.id}.svg`)
 
@@ -200,12 +202,12 @@ function IllustrationGrid({
             <Card
               key={item.id}
               onClick={() => onSelect(item)}
-              className="group cursor-pointer overflow-hidden border-border/50 bg-card/40 transition-all hover:border-primary/50 hover:bg-card/60 hover:shadow-[0_0_20px_hsl(var(--primary)/0.1)]"
+              className="group cursor-pointer overflow-hidden rounded-xl border-border/50 bg-card/40 transition-all hover:border-primary/50 hover:bg-card/60 hover:shadow-[0_0_20px_hsl(var(--primary)/0.1)] active:scale-95"
             >
-              <CardContent className="flex aspect-square flex-col items-center justify-center gap-2 p-3">
+              <CardContent className="flex aspect-square flex-col items-center justify-center gap-1.5 p-2 sm:p-3">
                 <div className="flex w-full flex-1 items-center justify-center">
                   {hasSvg ? (
-                    <div className="relative flex h-full w-full scale-125 items-center justify-center transition-transform duration-500 group-hover:scale-150">
+                    <div className="relative flex h-full w-full scale-110 items-center justify-center transition-transform duration-500 group-hover:scale-130">
                       <Image
                         src={`/illustrations/${item.id}.svg`}
                         alt={item.label}
@@ -214,12 +216,12 @@ function IllustrationGrid({
                       />
                     </div>
                   ) : (
-                    <div className="flex h-8 w-8 items-center justify-center rounded border border-dashed border-muted-foreground/30 font-mono text-xs text-muted-foreground/30 transition-colors group-hover:border-primary/50 group-hover:text-primary">
+                    <div className="flex h-7 w-7 items-center justify-center rounded border border-dashed border-muted-foreground/30 font-mono text-[10px] text-muted-foreground/30 transition-colors group-hover:border-primary/50 group-hover:text-primary sm:h-8 sm:w-8 sm:text-xs">
                       {item.label}
                     </div>
                   )}
                 </div>
-                <span className="text-[10px] font-medium text-muted-foreground uppercase">
+                <span className="text-[9px] font-medium text-muted-foreground uppercase sm:text-[10px]">
                   {item.label}
                 </span>
               </CardContent>
@@ -241,15 +243,15 @@ export default function IllustrationClient({
   )
 
   return (
-    <div className="container mx-auto min-h-screen px-4 py-20 pt-32">
-      <div className="mb-16">
+    <div className="container mx-auto min-h-screen max-w-7xl px-4 pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-32">
+      <div className="mb-10 sm:mb-16">
         <h1
           data-cursor="text"
-          className="mb-4 text-4xl font-extrabold tracking-tight lg:text-5xl"
+          className="mb-3 text-2xl font-extrabold tracking-tight sm:mb-4 sm:text-4xl lg:text-5xl"
         >
           Character Illustrations
         </h1>
-        <p className="max-w-2xl text-lg text-muted-foreground">
+        <p className="max-w-2xl text-xs text-muted-foreground sm:text-sm md:text-base">
           A collection of custom SVG illustrations for every character, number,
           and symbol.
         </p>

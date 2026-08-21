@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card"
 import type { RepoSummary } from "@/lib/github"
 import { motion } from "framer-motion"
-import { ArrowUpRight, GitFork, Star, Terminal } from "lucide-react"
+import { ArrowUpRight, Star } from "lucide-react"
 import Link from "next/link"
 
 interface ProjectCardProps {
@@ -72,12 +72,12 @@ export function ProjectCard({ repo, viewMode }: ProjectCardProps) {
           />
 
           <CardHeader
-            className={`relative z-10 w-full ${isList ? "md:w-1/3" : ""}`}
+            className={`relative z-10 w-full p-4 pb-2 sm:p-6 sm:pb-3 ${isList ? "md:w-1/3" : ""}`}
           >
             <div className="mb-2 flex items-center justify-between">
               <div className="flex items-center space-x-3 text-muted-foreground">
                 <div className="flex items-center space-x-1">
-                  <Star className="h-4 w-4" />
+                  <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   <span className="text-xs font-medium">
                     {repo.stargazers_count}
                   </span>
@@ -86,24 +86,24 @@ export function ProjectCard({ repo, viewMode }: ProjectCardProps) {
               <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-primary" />
             </div>
 
-            <CardTitle className="line-clamp-1 text-xl font-bold tracking-tight transition-colors group-hover:text-primary">
+            <CardTitle className="line-clamp-1 text-lg font-bold tracking-tight transition-colors group-hover:text-primary sm:text-xl">
               {repo.name}
             </CardTitle>
           </CardHeader>
 
           <CardContent
-            className={`relative z-10 w-full flex-grow ${isList ? "md:w-2/3 md:pt-6" : ""}`}
+            className={`relative z-10 w-full flex-grow p-4 pt-0 sm:p-6 sm:pt-0 ${isList ? "md:w-2/3 md:pt-6" : ""}`}
           >
-            <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">
+            <p className="mb-3 line-clamp-2 text-xs text-muted-foreground sm:mb-4 sm:text-sm">
               {repo.description || "No description provided."}
             </p>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {repo.topics?.slice(0, 3).map((topic) => (
                 <Badge
                   key={topic}
                   variant="secondary"
-                  className="px-1.5 py-0 font-mono text-[10px]"
+                  className="px-1.5 py-0.5 font-mono text-[9px] sm:text-[10px]"
                 >
                   {topic}
                 </Badge>
@@ -111,7 +111,7 @@ export function ProjectCard({ repo, viewMode }: ProjectCardProps) {
               {repo.topics?.length > 3 && (
                 <Badge
                   variant="secondary"
-                  className="px-1.5 py-0 font-mono text-[10px]"
+                  className="px-1.5 py-0.5 font-mono text-[9px] sm:text-[10px]"
                 >
                   +{repo.topics.length - 3}
                 </Badge>
@@ -120,19 +120,19 @@ export function ProjectCard({ repo, viewMode }: ProjectCardProps) {
           </CardContent>
 
           <CardFooter
-            className={`relative z-10 flex w-full items-center justify-between border-t border-border/50 bg-muted/20 px-6 py-4 ${isList ? "md:w-auto md:flex-col md:justify-center md:gap-2 md:border-t-0 md:border-l" : ""}`}
+            className={`relative z-10 flex w-full flex-wrap items-center justify-between gap-2 border-t border-border/50 bg-muted/20 px-4 py-3 sm:px-6 sm:py-4 ${isList ? "md:w-auto md:flex-col md:justify-center md:gap-2 md:border-t-0 md:border-l" : ""}`}
           >
             {repo.language && (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1.5 sm:space-x-2">
                 <span
-                  className={`h-2.5 w-2.5 rounded-full ${getLanguageColor(repo.language)}`}
+                  className={`h-2 w-2 rounded-full sm:h-2.5 sm:w-2.5 ${getLanguageColor(repo.language)}`}
                 />
-                <span className="text-xs font-medium text-muted-foreground">
+                <span className="text-[11px] font-medium text-muted-foreground sm:text-xs">
                   {repo.language}
                 </span>
               </div>
             )}
-            <span className="text-[10px] font-medium tracking-wider text-muted-foreground uppercase">
+            <span className="text-[9px] font-medium tracking-wider text-muted-foreground uppercase sm:text-[10px]">
               Updated {formatDate(repo.updated_at)}
             </span>
           </CardFooter>

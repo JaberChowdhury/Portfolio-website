@@ -25,12 +25,7 @@ import {
 } from "lucide-react"
 
 export type TechCategoryId =
-  | "all"
-  | "frontend"
-  | "languages"
-  | "backend"
-  | "devops"
-  | "tools"
+  "all" | "frontend" | "languages" | "backend" | "devops" | "tools"
 
 export interface TechCategory {
   id: TechCategoryId
@@ -40,12 +35,42 @@ export interface TechCategory {
 }
 
 export const TECH_CATEGORIES: TechCategory[] = [
-  { id: "all", label: "All Stack", dotColor: "bg-foreground/70", accentColor: "neutral" },
-  { id: "frontend", label: "Frontend", dotColor: "bg-sky-500", accentColor: "cyan" },
-  { id: "languages", label: "Languages", dotColor: "bg-amber-500", accentColor: "pear" },
-  { id: "backend", label: "Backend & Data", dotColor: "bg-emerald-500", accentColor: "mint" },
-  { id: "devops", label: "Cloud & DevOps", dotColor: "bg-rose-500", accentColor: "coral" },
-  { id: "tools", label: "Tools & Security", dotColor: "bg-purple-500", accentColor: "lavender" },
+  {
+    id: "all",
+    label: "All Stack",
+    dotColor: "bg-foreground/70",
+    accentColor: "neutral",
+  },
+  {
+    id: "frontend",
+    label: "Frontend",
+    dotColor: "bg-sky-500",
+    accentColor: "cyan",
+  },
+  {
+    id: "languages",
+    label: "Languages",
+    dotColor: "bg-amber-500",
+    accentColor: "pear",
+  },
+  {
+    id: "backend",
+    label: "Backend & Data",
+    dotColor: "bg-emerald-500",
+    accentColor: "mint",
+  },
+  {
+    id: "devops",
+    label: "Cloud & DevOps",
+    dotColor: "bg-rose-500",
+    accentColor: "coral",
+  },
+  {
+    id: "tools",
+    label: "Tools & Security",
+    dotColor: "bg-purple-500",
+    accentColor: "lavender",
+  },
 ]
 
 export type TechItem = {
@@ -385,4 +410,3 @@ export const TECH_STACK_DATA: TechItem[] = [
     icon: <Lock className="h-5 w-5" />,
   },
 ]
-

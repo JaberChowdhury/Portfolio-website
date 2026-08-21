@@ -16,15 +16,12 @@ import { Globe, GLOBE_CONFIG } from "../ui/globe"
 import { Meteors } from "../ui/meteors"
 import { useTranslations } from "next-intl"
 import { LanguageToggle } from "../LanguageToggle"
+import { useMounted } from "@/hooks/use-mounted"
 
 export default function Footer() {
   const t = useTranslations()
   const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useMounted()
 
   const isDark = resolvedTheme === "dark"
   const inverseThemeClass = mounted ? (isDark ? "light" : "dark") : ""
@@ -53,17 +50,17 @@ export default function Footer() {
         </h2>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-10">
         {/* CTA */}
-        <div className="relative overflow-hidden border-b border-border/40 py-24">
+        <div className="relative overflow-hidden border-b border-border/40 py-14 sm:py-18 md:py-24">
           <div className="relative z-10 max-w-4xl">
-            <p className="mb-4 text-xs tracking-[0.35em] text-muted-foreground uppercase">
+            <p className="mb-3 text-xs tracking-[0.3em] text-muted-foreground uppercase sm:tracking-[0.35em]">
               {t("Footer.finalDestination")}
             </p>
 
             <h2
               data-cursor="text"
-              className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-7xl"
+              className="text-3xl leading-[1.1] font-bold tracking-tight break-words sm:text-5xl md:text-7xl"
             >
               {t("Footer.title1")}
               <br />
@@ -71,20 +68,20 @@ export default function Footer() {
               <AnimatedGradientText
                 colorFrom="#f5f4e2"
                 colorTo="oklch(0.252 0.009 68.2)"
-                className="text-4xl leading-[1.05] font-semibold tracking-tight md:text-7xl"
+                className="text-3xl leading-[1.1] font-bold tracking-tight sm:text-5xl md:text-7xl"
               >
                 {t("Footer.title3")}
               </AnimatedGradientText>
               {t("Footer.title4")}
             </h2>
 
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:mt-6 sm:text-base md:text-lg">
               {t("Footer.description")}
             </p>
 
             <Link
               href="mailto:your@email.com"
-              className="group mt-10 inline-flex items-center rounded-full border border-border px-7 py-3 text-sm font-medium transition-all duration-300 hover:border-foreground hover:bg-foreground hover:text-background"
+              className="group mt-6 inline-flex items-center rounded-full border border-border px-5 py-2.5 text-xs font-medium transition-all duration-300 hover:border-foreground hover:bg-foreground hover:text-background active:scale-95 sm:mt-10 sm:px-7 sm:py-3 sm:text-sm"
             >
               {t("Footer.startConversation")}
               <ArrowUpRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -92,7 +89,7 @@ export default function Footer() {
           </div>
 
           {/* Background Globe, bottom right, large, cut off by overflow-hidden */}
-          <div className="pointer-events-none absolute -right-[15%] -bottom-[20%] z-0 h-[500px] w-[500px] opacity-40 md:-right-[10%] md:-bottom-[40%] md:h-[800px] md:w-[800px]">
+          <div className="pointer-events-none absolute -right-[20%] -bottom-[15%] z-0 h-[280px] w-[280px] opacity-35 sm:-right-[15%] sm:-bottom-[20%] sm:h-[500px] sm:w-[500px] md:-right-[10%] md:-bottom-[40%] md:h-[800px] md:w-[800px]">
             <Globe
               className="absolute inset-0 size-full"
               config={{
@@ -106,28 +103,28 @@ export default function Footer() {
         </div>
 
         {/* GRID */}
-        <div className="grid gap-12 py-16 md:grid-cols-3">
+        <div className="grid gap-8 py-10 sm:gap-12 sm:py-16 md:grid-cols-3">
           {/* Brand */}
           <div>
             <h3
               data-cursor="text"
-              className="text-xl font-semibold tracking-tight"
+              className="text-lg font-bold tracking-tight sm:text-xl"
             >
               {t("Footer.yourName")}
             </h3>
 
-            <p className="mt-4 max-w-sm leading-relaxed text-muted-foreground">
+            <p className="mt-3 max-w-sm text-xs leading-relaxed text-muted-foreground sm:mt-4 sm:text-sm">
               {t("Footer.bio")}
             </p>
           </div>
 
           {/* Navigation */}
           <div>
-            <h4 className="mb-5 text-sm font-medium tracking-[0.25em] text-muted-foreground uppercase">
+            <h4 className="mb-4 text-xs font-medium tracking-[0.25em] text-muted-foreground uppercase sm:mb-5 sm:text-sm">
               {t("Footer.navigation")}
             </h4>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2.5 text-xs sm:gap-3 sm:text-sm">
               {navLinks.map((item) => (
                 <Link
                   key={item.id}
@@ -139,7 +136,7 @@ export default function Footer() {
               ))}
               <Link
                 href="/dungeon"
-                className="group relative mt-2 w-fit overflow-hidden rounded-md border border-primary/30 bg-primary/5 px-3 py-1 text-sm font-medium transition-colors hover:border-primary/60 hover:bg-primary/10"
+                className="group relative mt-2 w-fit overflow-hidden rounded-md border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-medium transition-colors hover:border-primary/60 hover:bg-primary/10 sm:text-sm"
               >
                 <AnimatedGradientText
                   colorFrom="hsl(var(--destructive))"
@@ -155,14 +152,14 @@ export default function Footer() {
 
           {/* Socials */}
           <div>
-            <h4 className="mb-5 text-sm font-medium tracking-[0.25em] text-muted-foreground uppercase">
+            <h4 className="mb-4 text-xs font-medium tracking-[0.25em] text-muted-foreground uppercase sm:mb-5 sm:text-sm">
               {t("Footer.connect")}
             </h4>
 
-            <div className="space-y-4">
+            <div className="space-y-2.5 text-xs sm:space-y-4 sm:text-sm">
               <Link
                 href="/projects"
-                className="group flex items-center justify-between rounded-xl border border-border p-4 transition-all hover:border-foreground/30 hover:shadow-sm"
+                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
               >
                 <div className="flex items-center gap-3">
                   <Github className="h-4 w-4" />
@@ -174,7 +171,7 @@ export default function Footer() {
               <Link
                 href="https://linkedin.com/in/YOUR_USERNAME"
                 target="_blank"
-                className="group flex items-center justify-between rounded-xl border border-border p-4 transition-all hover:border-foreground/30 hover:shadow-sm"
+                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
               >
                 <div className="flex items-center gap-3">
                   <Linkedin className="h-4 w-4" />
@@ -186,7 +183,7 @@ export default function Footer() {
               <Link
                 href="https://codeforces.com/profile/YOUR_HANDLE"
                 target="_blank"
-                className="group flex items-center justify-between rounded-xl border border-border p-4 transition-all hover:border-foreground/30 hover:shadow-sm"
+                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
               >
                 <div className="flex items-center gap-3">
                   <Trophy className="h-4 w-4" />
@@ -197,7 +194,7 @@ export default function Footer() {
 
               <Link
                 href="mailto:your@email.com"
-                className="group flex items-center justify-between rounded-xl border border-border p-4 transition-all hover:border-foreground/30 hover:shadow-sm"
+                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
               >
                 <div className="flex items-center gap-3">
                   <Mail className="h-4 w-4" />
@@ -210,7 +207,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-border py-8 text-sm text-muted-foreground md:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-border py-6 text-center text-xs text-muted-foreground sm:py-8 sm:text-sm md:flex-row md:text-left">
           <div className="flex items-center gap-4">
             <p>
               © {new Date().getFullYear()} {t("Footer.yourName")}.{" "}
@@ -218,9 +215,9 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-end">
             <p>{t("Footer.builtWith")}</p>
-            <div className="flex items-center gap-2 border-l border-border pl-4">
+            <div className="flex items-center gap-2 border-l border-border pl-3 sm:pl-4">
               <span>{t("Footer.language")}</span>
               <LanguageToggle />
             </div>

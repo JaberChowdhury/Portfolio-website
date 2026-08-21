@@ -142,8 +142,14 @@
         "subtitle": "Computer Science & Engineering",
         "description": "Currently pursuing a four-year undergraduate degree while building expertise in software engineering, algorithms, competitive programming, and modern web technologies.",
         "subjects": [
-          "Data Structures", "Algorithms", "Discrete Mathematics", "Object Oriented Programming",
-          "Database Systems", "Operating Systems", "Computer Networks", "Software Engineering"
+          "Data Structures",
+          "Algorithms",
+          "Discrete Mathematics",
+          "Object Oriented Programming",
+          "Database Systems",
+          "Operating Systems",
+          "Computer Networks",
+          "Software Engineering"
         ],
         "progress": [
           { "label": "Current Year", "value": "2nd Year" },
@@ -156,7 +162,13 @@
         "title": "Higher Secondary Certificate (HSC)",
         "subtitle": "Science Group",
         "description": "Completed higher secondary education with a strong foundation in science and mathematics.",
-        "subjects": ["Physics", "Chemistry", "Higher Mathematics", "Biology", "ICT"],
+        "subjects": [
+          "Physics",
+          "Chemistry",
+          "Higher Mathematics",
+          "Biology",
+          "ICT"
+        ],
         "progress": [
           { "label": "Duration", "value": "2020 - 2022" },
           { "label": "Result", "value": "GPA 5.00" },
@@ -167,7 +179,13 @@
         "title": "Secondary School Certificate (SSC)",
         "subtitle": "Science Group",
         "description": "Completed secondary education, developing core analytical skills and a passion for technology.",
-        "subjects": ["Physics", "Chemistry", "Higher Mathematics", "Biology", "General Science"],
+        "subjects": [
+          "Physics",
+          "Chemistry",
+          "Higher Mathematics",
+          "Biology",
+          "General Science"
+        ],
         "progress": [
           { "label": "Duration", "value": "2018 - 2020" },
           { "label": "Classes", "value": "9th & 10th Grade" },

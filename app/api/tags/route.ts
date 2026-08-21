@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server"
-// import { getPosts } from "@/app/blog/get-posts";
-const getPosts = async (): Promise<any[]> => []
 import { fetchAllSummaries } from "@/lib/github"
+
+interface BlogPost {
+  frontMatter: {
+    tags?: string[]
+  }
+}
+
+const getPosts = async (): Promise<BlogPost[]> => []
 
 export const dynamic = "force-dynamic"
 

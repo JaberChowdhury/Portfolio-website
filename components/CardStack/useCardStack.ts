@@ -16,10 +16,15 @@ export function useCardStack({
   const [current, setCurrent] = useState(0)
 
   const currentRef = useRef(current)
-  currentRef.current = current
-
   const totalRef = useRef(total)
-  totalRef.current = total
+
+  useEffect(() => {
+    currentRef.current = current
+  }, [current])
+
+  useEffect(() => {
+    totalRef.current = total
+  }, [total])
 
   const animatingRef = useRef(false)
   const wheelLockedRef = useRef(false)
@@ -82,7 +87,7 @@ export function useCardStack({
     }
   }, [next, previous, wheelLockDuration])
 
-  // Touch listener
+  // Touch gesture listener with mobile optimization
   useEffect(() => {
     const handleTouchStart = (event: TouchEvent) => {
       if (event.touches.length > 0) {
@@ -92,18 +97,31 @@ export function useCardStack({
     }
 
     const handleTouchEnd = (event: TouchEvent) => {
-      if (event.changedTouches.length === 0) return
+      if (
+        event.changedTouches.length === 0 ||
+        animatingRef.current ||
+        wheelLockedRef.current
+      )
+        return
       const touchEndY = event.changedTouches[0].clientY
       const touchEndX = event.changedTouches[0].clientX
       const distanceY = touchStartYRef.current - touchEndY
       const distanceX = touchStartXRef.current - touchEndX
 
-      if (Math.abs(distanceY) > Math.abs(distanceX) && Math.abs(distanceY) > 30) {
+      // Ensure vertical swipe is intentional and exceeds threshold (45px)
+      if (
+        Math.abs(distanceY) > Math.abs(distanceX) * 1.2 &&
+        Math.abs(distanceY) > 45
+      ) {
+        wheelLockedRef.current = true
         if (distanceY > 0) {
           next()
         } else {
           previous()
         }
+        setTimeout(() => {
+          wheelLockedRef.current = false
+        }, wheelLockDuration)
       }
     }
 
@@ -114,7 +132,7 @@ export function useCardStack({
       window.removeEventListener("touchstart", handleTouchStart)
       window.removeEventListener("touchend", handleTouchEnd)
     }
-  }, [next, previous])
+  }, [next, previous, wheelLockDuration])
 
   // Keyboard navigation
   useEffect(() => {

@@ -83,7 +83,7 @@ export default function ProjectDetailClient({
             ...prev,
             [activeBranchName]: data.readmeHtml,
           }))
-      } catch (err) {
+      } catch {
         if (isMounted) {
           setReadmesMap((prev) => ({
             ...prev,
@@ -102,25 +102,29 @@ export default function ProjectDetailClient({
 
   if (loadingRepo || !repoInfo) {
     return (
-      <div className="container mx-auto flex min-h-screen max-w-5xl flex-col space-y-8 px-4 pt-32 pb-20">
-        <Skeleton className="h-12 w-1/3" />
-        <Skeleton className="h-[280px] w-full" />
-        <Skeleton className="h-6 w-1/2" />
-        <div className="flex gap-4">
-          <Skeleton className="h-10 w-32" />
-          <Skeleton className="h-10 w-32" />
+      <div className="container mx-auto flex min-h-screen max-w-5xl flex-col space-y-6 px-4 pt-20 pb-16 sm:space-y-8 sm:pt-24 sm:pb-20 md:pt-32">
+        <Skeleton className="h-10 w-1/2 sm:h-12 sm:w-1/3" />
+        <Skeleton className="h-[180px] w-full sm:h-[280px]" />
+        <Skeleton className="h-5 w-3/4 sm:h-6 sm:w-1/2" />
+        <div className="flex gap-3 sm:gap-4">
+          <Skeleton className="h-9 w-24 sm:h-10 sm:w-32" />
+          <Skeleton className="h-9 w-24 sm:h-10 sm:w-32" />
         </div>
-        <Skeleton className="h-64 w-full" />
+        <Skeleton className="h-48 w-full sm:h-64" />
       </div>
     )
   }
 
   if (errorRepo) {
     return (
-      <div className="container mx-auto flex min-h-screen max-w-5xl items-center justify-center px-4 pt-32 pb-20 text-center">
+      <div className="container mx-auto flex min-h-screen max-w-5xl items-center justify-center px-4 pt-20 pb-16 text-center sm:pt-24 sm:pb-20 md:pt-32">
         <div>
-          <h2 className="mb-4 text-2xl font-bold text-destructive">Error</h2>
-          <p className="text-muted-foreground">{errorRepo}</p>
+          <h2 className="mb-4 text-xl font-bold text-destructive sm:text-2xl">
+            Error
+          </h2>
+          <p className="text-sm text-muted-foreground sm:text-base">
+            {errorRepo}
+          </p>
         </div>
       </div>
     )
@@ -131,7 +135,7 @@ export default function ProjectDetailClient({
   ]
 
   return (
-    <div className="container mx-auto min-h-screen max-w-5xl px-4 pt-24 pb-20">
+    <div className="container mx-auto min-h-screen max-w-5xl px-4 pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-32">
       <ProjectHeader repoInfo={repoInfo} />
 
       <BranchSelector
@@ -149,11 +153,11 @@ export default function ProjectDetailClient({
         <BrowserPreview homepage={repoInfo.homepage} repoName={repoInfo.name} />
       )}
 
-      <div className="w-full">
-        <div className="mb-4 flex items-center font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
+      <div className="w-full overflow-hidden">
+        <div className="mb-3 flex items-center font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase sm:mb-4">
           <span className="mr-2 text-primary">~/</span> README.md
         </div>
-        <div className="rounded-md border border-border bg-card p-6 text-card-foreground shadow-sm md:p-10">
+        <div className="max-w-full overflow-x-auto rounded-xl border border-border bg-card p-4 text-card-foreground shadow-sm sm:p-6 md:p-10">
           <AnimatePresence mode="wait">
             {loadingReadme ? (
               <motion.div
@@ -161,9 +165,9 @@ export default function ProjectDetailClient({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex justify-center py-20"
+                className="flex justify-center py-12 sm:py-20"
               >
-                <Skeleton className="h-64 w-full" />
+                <Skeleton className="h-48 w-full sm:h-64" />
               </motion.div>
             ) : (
               <motion.div
@@ -171,6 +175,7 @@ export default function ProjectDetailClient({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
+                className="max-w-full overflow-x-auto"
               >
                 <ReadmeRenderer html={readmesMap[activeBranchName] || ""} />
               </motion.div>

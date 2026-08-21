@@ -17,10 +17,20 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
     pathname === "/bn/"
 
   return (
-    <div className={isHomePage ? "h-screen w-screen overflow-hidden" : "flex min-h-screen flex-col"}>
+    <div
+      className={
+        isHomePage
+          ? "h-screen w-screen overflow-hidden"
+          : "flex min-h-screen flex-col"
+      }
+    >
       {/* Hide navbar on homepage for clean card stack view */}
       {!isHomePage && <Navbar />}
-      <main className={isHomePage ? "h-screen w-screen overflow-hidden" : "mt-8 flex-1"}>
+      <main
+        className={
+          isHomePage ? "h-screen w-screen overflow-hidden" : "mt-8 flex-1"
+        }
+      >
         {children}
       </main>
       {!isHomePage && <Footer />}

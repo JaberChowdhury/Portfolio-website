@@ -19,7 +19,8 @@ interface HighlightCardProps {
 
 const ACCENT_STYLES = [
   {
-    iconBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+    iconBg:
+      "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
     hoverBorder: "hover:border-emerald-500/40",
   },
   {
@@ -27,7 +28,8 @@ const ACCENT_STYLES = [
     hoverBorder: "hover:border-sky-500/40",
   },
   {
-    iconBg: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+    iconBg:
+      "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
     hoverBorder: "hover:border-rose-500/40",
   },
 ]
@@ -40,7 +42,7 @@ export function HighlightCard({ highlight, index = 0 }: HighlightCardProps) {
     <Card
       className={`group h-full rounded-2xl border border-border/80 bg-card p-4.5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.99] ${accent.hoverBorder}`}
     >
-      <CardHeader className="p-0 space-y-2.5">
+      <CardHeader className="space-y-2.5 p-0">
         <div className="flex items-center gap-3">
           <div
             className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 ${accent.iconBg}`}
@@ -52,7 +54,7 @@ export function HighlightCard({ highlight, index = 0 }: HighlightCardProps) {
           </CardTitle>
         </div>
 
-        <CardDescription className="text-xs leading-relaxed text-muted-foreground line-clamp-2">
+        <CardDescription className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
           {highlight.description}
         </CardDescription>
       </CardHeader>

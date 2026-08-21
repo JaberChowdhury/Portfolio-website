@@ -111,10 +111,10 @@ export default function ProjectsPage() {
     })
 
   return (
-    <div className="container mx-auto min-h-screen px-4 pt-24 pb-20 md:pt-32">
+    <div className="container mx-auto min-h-screen max-w-7xl px-4 pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-32">
       {/* Header Section */}
-      <div className="mb-10 md:mb-16">
-        <div className="relative mb-6 h-[120px] w-full overflow-hidden md:h-[220px]">
+      <div className="mb-8 md:mb-16">
+        <div className="relative mb-4 h-[80px] w-full overflow-hidden sm:mb-6 sm:h-[140px] md:h-[220px]">
           <ParticleText
             text="PROJECTS"
             colorStart="hsl(var(--primary))"
@@ -126,19 +126,19 @@ export default function ProjectsPage() {
             particleSize={0.5}
           />
         </div>
-        <p className="max-w-2xl text-lg text-muted-foreground">
+        <p className="max-w-2xl text-sm text-muted-foreground sm:text-base md:text-lg">
           Explore my open-source repositories and development work.
         </p>
       </div>
 
       {isFallback && !loading && (
-        <div className="mb-8 border-l-4 border-primary bg-muted/50 p-4 font-mono text-sm text-muted-foreground">
-          // Displaying cached catalog (GitHub API rate limit hit).
+        <div className="mb-6 border-l-4 border-primary bg-muted/50 p-3 font-mono text-xs text-muted-foreground sm:mb-8 sm:p-4 sm:text-sm">
+          {"// Displaying cached catalog (GitHub API rate limit hit)."}
         </div>
       )}
 
       {/* Controls Section */}
-      <div className="mb-10 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+      <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:mb-10 sm:gap-6 lg:flex-row lg:items-center">
         <div className="relative w-full max-w-md">
           <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -146,14 +146,14 @@ export default function ProjectsPage() {
             placeholder="Search repositories..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-background pl-10"
+            className="h-10 bg-background pl-10 text-xs sm:text-sm"
           />
         </div>
 
-        <div className="flex w-full flex-col gap-4 sm:flex-row lg:w-auto">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase">
-              Sort by:
+        <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center lg:w-auto">
+          <div className="flex w-full items-center gap-2 sm:w-auto">
+            <span className="shrink-0 text-xs font-bold tracking-widest text-muted-foreground uppercase">
+              Sort:
             </span>
             <Select
               value={sortBy}
@@ -161,7 +161,7 @@ export default function ProjectsPage() {
                 if (v) setSortBy(v as "updated" | "stars" | "name")
               }}
             >
-              <SelectTrigger className="w-[160px] bg-background font-medium">
+              <SelectTrigger className="h-10 w-full bg-background text-xs font-medium sm:w-[170px] sm:text-sm">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
@@ -175,18 +175,18 @@ export default function ProjectsPage() {
           <Tabs
             value={viewMode}
             onValueChange={(v) => setViewMode(v as "grid" | "list")}
-            className="w-[160px]"
+            className="w-full sm:w-[160px]"
           >
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid h-10 w-full grid-cols-2">
               <TabsTrigger
                 value="grid"
-                className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase"
+                className="flex items-center gap-2 text-[10px] font-bold tracking-wider uppercase sm:text-xs"
               >
                 <LayoutGrid className="h-3.5 w-3.5" /> Grid
               </TabsTrigger>
               <TabsTrigger
                 value="list"
-                className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase"
+                className="flex items-center gap-2 text-[10px] font-bold tracking-wider uppercase sm:text-xs"
               >
                 <List className="h-3.5 w-3.5" /> List
               </TabsTrigger>
@@ -197,14 +197,14 @@ export default function ProjectsPage() {
 
       {/* Language Filter Tags */}
       {!loading && repos.length > 0 && (
-        <div className="scrollbar-hide mb-10 flex flex-wrap gap-2 overflow-x-auto pb-2">
+        <div className="scrollbar-hide mb-8 flex flex-wrap gap-1.5 pb-2 sm:mb-10 sm:gap-2">
           {languageList.map((lang) => {
             const isSelected = selectedLanguage === lang
             return (
               <Badge
                 key={lang}
                 variant={isSelected ? "default" : "outline"}
-                className="cursor-pointer px-3 py-1 font-mono text-xs transition-all hover:-translate-y-[1px]"
+                className="cursor-pointer px-2.5 py-1 font-mono text-[11px] transition-all hover:-translate-y-[1px] active:scale-95 sm:text-xs"
                 onClick={() => setSelectedLanguage(lang)}
               >
                 {lang === "All" ? "All Languages" : lang}
@@ -217,7 +217,7 @@ export default function ProjectsPage() {
       {/* Projects Grid/List */}
       {loading ? (
         <div
-          className={`grid gap-6 ${viewMode === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}
+          className={`grid gap-4 sm:gap-6 ${viewMode === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}
         >
           {Array.from({ length: 6 }).map((_, i) => (
             <SkeletonCard key={i} viewMode={viewMode} />
@@ -231,7 +231,7 @@ export default function ProjectsPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className={`grid gap-6 ${viewMode === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}
+            className={`grid gap-4 sm:gap-6 ${viewMode === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}
           >
             {processedRepos.map((repo) => (
               <ProjectCard key={repo.id} repo={repo} viewMode={viewMode} />
@@ -240,7 +240,7 @@ export default function ProjectsPage() {
         </AnimatePresence>
       ) : (
         <div className="py-20 text-center">
-          <p className="text-lg text-muted-foreground">
+          <p className="text-sm text-muted-foreground sm:text-base">
             No projects found matching your criteria.
           </p>
         </div>

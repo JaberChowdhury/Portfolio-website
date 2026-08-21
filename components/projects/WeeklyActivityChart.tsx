@@ -42,25 +42,25 @@ export default function WeeklyActivityChart({
   }
 
   return (
-    <div className="flex h-full flex-col border border-border bg-muted/20 p-6 shadow-sm">
-      <div className="mb-4 flex items-start justify-between">
+    <div className="flex h-full flex-col rounded-xl border border-border bg-muted/20 p-4 shadow-sm sm:p-6">
+      <div className="mb-3 flex items-start justify-between sm:mb-4">
         <div className="font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase">
           WEEKLY ACTIVITY
         </div>
-        <div className="rounded-sm bg-primary px-2 py-1 font-mono text-xs font-bold text-primary-foreground">
+        <div className="rounded-sm bg-primary px-2 py-0.5 font-mono text-[11px] font-bold text-primary-foreground sm:py-1 sm:text-xs">
           {totalCommits} commits
         </div>
       </div>
 
       <div
-        className={`mb-6 h-5 font-mono text-xs ${hoveredWeek !== null ? "font-bold text-primary" : "text-muted-foreground"}`}
+        className={`mb-4 h-5 truncate font-mono text-[11px] sm:mb-6 sm:text-xs ${hoveredWeek !== null ? "font-bold text-primary" : "text-muted-foreground"}`}
       >
         {hoveredWeek !== null
           ? `${getWeekDateRange(hoveredWeek)}: ${activity[hoveredWeek]} ${activity[hoveredWeek] === 1 ? "commit" : "commits"}`
-          : "Hover over the bars to see activity detail"}
+          : "Hover/tap bars for details"}
       </div>
 
-      <div className="relative w-full">
+      <div className="relative w-full overflow-hidden">
         <svg
           viewBox="0 0 520 100"
           width="100%"

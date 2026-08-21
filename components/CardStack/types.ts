@@ -1,12 +1,7 @@
 import { ReactNode, ComponentType } from "react"
 
 export type CardPosition =
-  | "active"
-  | "pushed-1"
-  | "pushed-2"
-  | "pushed-more"
-  | "next-1"
-  | "next-more"
+  "active" | "pushed-1" | "pushed-2" | "pushed-more" | "next-1" | "next-more"
 
 export interface SectionInjectedProps {
   index: number

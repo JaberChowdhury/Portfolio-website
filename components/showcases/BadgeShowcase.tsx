@@ -1,7 +1,7 @@
 "use client"
 
 import { Badge } from "@/components/ui/badge"
-import { Copy, Tag, Check, AlertCircle } from "lucide-react"
+import { Tag, Check, AlertCircle } from "lucide-react"
 
 const badgeConfig = {
   variant: [
@@ -16,15 +16,15 @@ const badgeConfig = {
 
 export default function BadgeShowcase() {
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 sm:space-y-12">
       <div className="flex flex-col gap-2">
         <h1
           data-cursor="text"
-          className="text-4xl font-extrabold tracking-tight lg:text-5xl"
+          className="text-2xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl"
         >
           Badge Showcase
         </h1>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-xs text-muted-foreground sm:text-sm md:text-lg">
           Explore all{" "}
           <span className="font-semibold text-foreground">
             {badgeConfig.variant.length}
@@ -33,18 +33,18 @@ export default function BadgeShowcase() {
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {badgeConfig.variant.map((variant) => (
           <div
             key={variant}
-            className="group relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm transition-all hover:shadow-md dark:bg-card/50 dark:backdrop-blur-sm"
+            className="group relative overflow-hidden rounded-2xl border bg-card p-4 shadow-sm transition-all hover:shadow-md sm:p-6 dark:bg-card/50 dark:backdrop-blur-sm"
           >
             <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
 
             <div className="relative">
               <h2
                 data-cursor="text"
-                className="mb-6 flex items-center gap-2 border-b pb-4 text-xl font-semibold tracking-tight capitalize"
+                className="mb-4 flex items-center gap-2 border-b pb-3 text-lg font-semibold tracking-tight capitalize sm:mb-6 sm:pb-4 sm:text-xl"
               >
                 <Tag className="size-5 text-primary" />
                 {variant}

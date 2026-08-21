@@ -42,14 +42,14 @@ export default function ProjectHeader({ repoInfo }: ProjectHeaderProps) {
     <div className="w-full">
       <Link
         href="/projects"
-        className="mb-10 inline-flex items-center gap-2 font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase transition-colors hover:text-primary"
+        className="mb-6 inline-flex items-center gap-2 font-mono text-xs font-bold tracking-widest text-muted-foreground uppercase transition-colors hover:text-primary active:scale-95 sm:mb-10"
       >
         <ArrowLeft className="h-4 w-4" />
         Back
       </Link>
 
-      <div className="mb-12 border-b border-border pb-8">
-        <div className="relative mb-6 h-[150px] w-full overflow-hidden md:h-[280px]">
+      <div className="mb-8 border-b border-border pb-6 sm:mb-12 sm:pb-8">
+        <div className="relative mb-4 h-[90px] w-full overflow-hidden sm:mb-6 sm:h-[150px] md:h-[280px]">
           <ParticleText
             text={repoInfo.name}
             canvasWidth={3000}
@@ -63,29 +63,29 @@ export default function ProjectHeader({ repoInfo }: ProjectHeaderProps) {
         </div>
 
         {repoInfo.description && (
-          <p className="mb-8 max-w-4xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mb-6 max-w-4xl text-sm leading-relaxed text-muted-foreground sm:mb-8 sm:text-base md:text-lg">
             {repoInfo.description}
           </p>
         )}
 
-        <div className="flex flex-wrap items-center gap-6">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-6">
           <div className="flex items-center gap-1.5 text-muted-foreground">
-            <Star className="h-4 w-4" />
-            <span className="font-mono text-xs font-bold tracking-wider">
+            <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <span className="font-mono text-[11px] font-bold tracking-wider sm:text-xs">
               Stars: {repoInfo.stargazers_count}
             </span>
           </div>
 
           <div className="flex items-center gap-1.5 text-muted-foreground">
-            <GitFork className="h-4 w-4" />
-            <span className="font-mono text-xs font-bold tracking-wider">
+            <GitFork className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+            <span className="font-mono text-[11px] font-bold tracking-wider sm:text-xs">
               Forks: {repoInfo.forks_count}
             </span>
           </div>
 
           {repoInfo.size > 0 && (
             <div className="flex items-center gap-1.5 text-muted-foreground">
-              <span className="font-mono text-xs font-bold tracking-wider">
+              <span className="font-mono text-[11px] font-bold tracking-wider sm:text-xs">
                 Size:{" "}
                 {repoInfo.size > 1024
                   ? `${(repoInfo.size / 1024).toFixed(1)} MB`
@@ -96,14 +96,14 @@ export default function ProjectHeader({ repoInfo }: ProjectHeaderProps) {
 
           {repoInfo.open_issues_count > 0 && (
             <div className="flex items-center gap-1.5 text-muted-foreground">
-              <span className="font-mono text-xs font-bold tracking-wider">
+              <span className="font-mono text-[11px] font-bold tracking-wider sm:text-xs">
                 Issues: {repoInfo.open_issues_count}
               </span>
             </div>
           )}
 
           <div className="text-muted-foreground">
-            <span className="font-mono text-xs font-bold tracking-wider">
+            <span className="font-mono text-[11px] font-bold tracking-wider sm:text-xs">
               Updated: {formatDate(repoInfo.pushed_at || repoInfo.updated_at)}
             </span>
           </div>
@@ -112,9 +112,9 @@ export default function ProjectHeader({ repoInfo }: ProjectHeaderProps) {
             href={repoInfo.html_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-primary underline transition-colors hover:text-primary/80"
+            className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-primary underline transition-colors hover:text-primary/80 sm:text-xs"
           >
-            <Code className="h-4 w-4" />
+            <Code className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             GitHub
           </a>
 
@@ -123,9 +123,9 @@ export default function ProjectHeader({ repoInfo }: ProjectHeaderProps) {
               href={repoInfo.homepage}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-primary underline transition-colors hover:text-primary/80"
+              className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-primary underline transition-colors hover:text-primary/80 sm:text-xs"
             >
-              <ExternalLink className="h-4 w-4" />
+              <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Live Demo
             </a>
           )}

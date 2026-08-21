@@ -23,10 +23,12 @@ interface AchievementCardProps {
 const ACHIEVEMENT_THEMES = [
   {
     name: "coral",
-    chipBadge: "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+    chipBadge:
+      "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
     hoverBorder: "hover:border-rose-500/40",
     hoverGlow: "hover:shadow-rose-500/10",
-    iconBg: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+    iconBg:
+      "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
     icon: Trophy,
     category: "CONTESTS",
   },
@@ -41,19 +43,23 @@ const ACHIEVEMENT_THEMES = [
   },
   {
     name: "mint",
-    chipBadge: "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+    chipBadge:
+      "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
     hoverBorder: "hover:border-emerald-500/40",
     hoverGlow: "hover:shadow-emerald-500/10",
-    iconBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+    iconBg:
+      "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
     icon: Target,
     category: "PROBLEM SOLVING",
   },
   {
     name: "pear",
-    chipBadge: "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+    chipBadge:
+      "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
     hoverBorder: "hover:border-amber-500/40",
     hoverGlow: "hover:shadow-amber-500/10",
-    iconBg: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+    iconBg:
+      "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
     icon: Award,
     category: "MINDSET",
   },
@@ -89,12 +95,12 @@ export function AchievementCard({
             </span>
           </div>
 
-          <CardHeader className="p-0 mt-1.5 space-y-0.5">
+          <CardHeader className="mt-1.5 space-y-0.5 p-0">
             <CardTitle className="text-xs font-bold text-foreground transition-colors md:text-sm">
               {achievement.title}
             </CardTitle>
 
-            <CardDescription className="line-clamp-2 text-[11px] leading-relaxed text-muted-foreground font-normal md:text-xs">
+            <CardDescription className="line-clamp-2 text-[11px] leading-relaxed font-normal text-muted-foreground md:text-xs">
               {achievement.description}
             </CardDescription>
           </CardHeader>

@@ -89,9 +89,9 @@ export default function TabsShowcase() {
               <Tabs
                 orientation="vertical"
                 defaultValue="tab1"
-                className="flex gap-6"
+                className="flex flex-col gap-4 sm:flex-row sm:gap-6"
               >
-                <TabsList className="w-48">
+                <TabsList className="w-full shrink-0 sm:w-48">
                   <TabsTrigger value="tab1">Profile</TabsTrigger>
                   <TabsTrigger value="tab2">Billing</TabsTrigger>
                   <TabsTrigger value="tab3">Notifications</TabsTrigger>

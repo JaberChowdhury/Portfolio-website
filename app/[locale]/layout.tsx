@@ -2,7 +2,6 @@ import "../globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import LayoutWrapper from "@/components/LayoutWrapper"
-import { CustomCursor } from "@/components/customCursor/custom-cursor"
 import { NextIntlClientProvider } from "next-intl"
 import {
   getMessages,
@@ -71,7 +70,7 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>
 }>) {
   const { locale } = await params
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound()
   }
 

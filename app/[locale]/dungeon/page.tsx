@@ -14,30 +14,6 @@ import Link from "next/link"
 import { useEffect } from "react"
 import { useTranslations } from "next-intl"
 
-const dungeonLinks = [
-  {
-    title: "UI Elements",
-    description: "Explore the custom Shadcn and Tailwind component library.",
-    href: "/ui",
-    icon: Component,
-    color: "text-blue-500",
-  },
-  {
-    title: "Typography",
-    description: "Preview custom fonts Marlin and ABC Favorit Mono.",
-    href: "/font-preview",
-    icon: Type,
-    color: "text-rose-500",
-  },
-  {
-    title: "Illustrations",
-    description: "Character gallery and SVG assets dictionary.",
-    href: "/illustration",
-    icon: ImageIcon,
-    color: "text-emerald-500",
-  },
-]
-
 export default function DungeonPage() {
   const t = useTranslations("Dungeon")
   useEffect(() => {
@@ -57,10 +33,10 @@ export default function DungeonPage() {
   }))
 
   return (
-    <div className="container mx-auto min-h-screen px-4 pt-24 pb-20 md:pt-32">
+    <div className="container mx-auto min-h-screen max-w-6xl px-4 pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-32">
       {/* Header Section */}
-      <div className="mb-12 md:mb-20">
-        <div className="relative mb-6 h-[100px] w-full overflow-hidden md:h-[180px]">
+      <div className="mb-8 sm:mb-12 md:mb-16">
+        <div className="relative mb-4 h-[80px] w-full overflow-hidden sm:mb-6 sm:h-[120px] md:h-[180px]">
           <ParticleText
             text={t("title")}
             colorStart="hsl(var(--destructive))"
@@ -72,13 +48,13 @@ export default function DungeonPage() {
             particleSize={0.4}
           />
         </div>
-        <p className="max-w-2xl font-mono text-lg tracking-tight text-muted-foreground">
+        <p className="max-w-2xl font-mono text-sm tracking-tight text-muted-foreground sm:text-base md:text-lg">
           {t("description")}
         </p>
       </div>
 
       {/* Grid Navigation */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
         {links.map((item, index) => {
           const Icon = item.icon
           return (
@@ -94,7 +70,7 @@ export default function DungeonPage() {
                 href={item.href}
                 className="group block h-full outline-none"
               >
-                <Card className="relative h-full overflow-hidden border border-border bg-card transition-all duration-300 group-hover:border-primary group-hover:shadow-[6px_6px_0px_0px_hsl(var(--primary))]">
+                <Card className="relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-5 transition-all duration-300 group-hover:border-primary group-hover:shadow-[6px_6px_0px_0px_hsl(var(--primary))] active:scale-[0.99] sm:p-6">
                   {/* Subtle noise pattern overlay */}
                   <div
                     className="pointer-events-none absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.05]"
@@ -104,21 +80,25 @@ export default function DungeonPage() {
                     }}
                   />
 
-                  <CardHeader className="relative z-10">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg border border-border bg-muted/50 transition-transform duration-300 group-hover:scale-110">
-                      <Icon className={`h-6 w-6 ${item.color}`} />
-                    </div>
-                    <CardTitle className="flex items-center justify-between text-xl font-bold tracking-tight transition-colors group-hover:text-primary">
-                      {item.title}
-                      <ArrowRight className="h-5 w-5 -translate-x-4 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
-                    </CardTitle>
-                  </CardHeader>
+                  <div className="relative z-10">
+                    <CardHeader className="p-0">
+                      <div className="mb-3.5 flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-muted/50 transition-transform duration-300 group-hover:scale-110 sm:mb-4 sm:h-12 sm:w-12">
+                        <Icon
+                          className={`h-5 w-5 sm:h-6 sm:w-6 ${item.color}`}
+                        />
+                      </div>
+                      <CardTitle className="flex items-center justify-between text-lg font-bold tracking-tight transition-colors group-hover:text-primary sm:text-xl">
+                        {item.title}
+                        <ArrowRight className="h-4 w-4 -translate-x-3 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 sm:h-5 sm:w-5" />
+                      </CardTitle>
+                    </CardHeader>
 
-                  <CardContent className="relative z-10">
-                    <CardDescription className="text-base text-muted-foreground">
-                      {item.description}
-                    </CardDescription>
-                  </CardContent>
+                    <CardContent className="mt-2 p-0">
+                      <CardDescription className="text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                        {item.description}
+                      </CardDescription>
+                    </CardContent>
+                  </div>
                 </Card>
               </Link>
             </motion.div>

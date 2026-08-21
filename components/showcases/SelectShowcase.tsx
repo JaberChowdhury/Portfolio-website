@@ -38,7 +38,7 @@ export default function SelectShowcase() {
             </h2>
             <div className="flex flex-col gap-6">
               <Select>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-full sm:w-[180px]">
                   <SelectValue placeholder="Select a fruit" />
                 </SelectTrigger>
                 <SelectContent>
@@ -66,7 +66,7 @@ export default function SelectShowcase() {
             </h2>
             <div className="flex flex-col gap-6">
               <Select>
-                <SelectTrigger className="w-[280px]">
+                <SelectTrigger className="w-full sm:w-[280px]">
                   <SelectValue placeholder="Select a timezone" />
                 </SelectTrigger>
                 <SelectContent>

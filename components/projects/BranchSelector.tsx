@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useMounted } from "@/hooks/use-mounted"
 
 interface BranchSelectorProps {
   repoName: string
@@ -16,11 +16,7 @@ export default function BranchSelector({
   activeBranchName,
 }: BranchSelectorProps) {
   const router = useRouter()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useMounted()
 
   const activeIndex = allBranches.findIndex(
     (b) => b.name.toLowerCase() === activeBranchName.toLowerCase()

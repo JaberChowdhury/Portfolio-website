@@ -1,7 +1,6 @@
 "use client"
 
-import React from "react"
-import { Mail, ArrowUpRight, Trophy, Sparkles } from "lucide-react"
+import { Mail, ArrowUpRight, Trophy } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { useTranslations } from "next-intl"
 
@@ -48,13 +47,15 @@ const SOCIAL_CONFIGS = [
   {
     icon: GithubIcon,
     href: "https://github.com/YOUR_USERNAME",
-    iconBg: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
+    iconBg:
+      "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
     hoverBorder: "hover:border-purple-500/40",
   },
   {
     icon: Trophy,
     href: "https://codeforces.com/profile/YOUR_HANDLE",
-    iconBg: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+    iconBg:
+      "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
     hoverBorder: "hover:border-amber-500/40",
   },
   {
@@ -66,7 +67,8 @@ const SOCIAL_CONFIGS = [
   {
     icon: Mail,
     href: "mailto:your@email.com",
-    iconBg: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+    iconBg:
+      "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
     hoverBorder: "hover:border-rose-500/40",
   },
 ]
@@ -89,11 +91,11 @@ export function ContactSection() {
       id="contact"
       className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
     >
-      <div className="relative mx-auto w-full max-w-6xl px-6 md:px-12">
+      <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-12">
         {/* Section Header */}
-        <div className="mb-6">
-          <div className="mb-2 flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold tracking-[0.25em] text-muted-foreground uppercase">
+        <div className="mb-3.5 sm:mb-6">
+          <div className="mb-1.5 flex items-center gap-2 sm:mb-2">
+            <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase sm:tracking-[0.25em]">
               <span className="h-2 w-2 rounded-full bg-amber-500" />
               07 ⁄ {t("eyebrow")}
             </span>
@@ -101,7 +103,7 @@ export function ContactSection() {
 
           <h2
             data-cursor="text"
-            className="text-3xl font-bold tracking-tight text-foreground md:text-5xl"
+            className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-5xl"
           >
             {t("title1")}{" "}
             <span className="text-amber-600 dark:text-amber-400">
@@ -112,33 +114,33 @@ export function ContactSection() {
         </div>
 
         {/* Start a Conversation Card */}
-        <Card className="mb-4 rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:border-amber-500/40 hover:shadow-md md:p-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <Card className="mb-3 rounded-xl border border-border/80 bg-card p-3.5 text-card-foreground shadow-xs transition-all duration-300 hover:border-amber-500/40 sm:mb-4 sm:rounded-2xl sm:p-5 md:p-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-emerald-700 dark:text-emerald-400 uppercase">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[11px] font-semibold tracking-wider text-emerald-700 uppercase sm:gap-2 sm:px-3 sm:py-1 sm:text-xs dark:text-emerald-400">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
                 <span>{t("available")}</span>
               </div>
-              <h3 className="mt-2.5 text-xl font-bold text-card-foreground md:text-2xl">
+              <h3 className="mt-1.5 text-base font-bold text-card-foreground sm:mt-2.5 sm:text-xl md:text-2xl">
                 {t("openTo")}
               </h3>
-              <p className="mt-1 max-w-xl text-xs text-muted-foreground md:text-sm leading-relaxed">
+              <p className="mt-0.5 max-w-xl text-xs leading-relaxed text-muted-foreground sm:mt-1 sm:text-sm">
                 {t("ifYouHave") || t("description")}
               </p>
             </div>
 
             <a
               href="mailto:your@email.com"
-              className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-foreground px-6 text-sm font-semibold text-background shadow-sm transition-all duration-300 hover:scale-105 active:scale-95"
+              className="inline-flex h-9 shrink-0 items-center justify-center gap-2 self-start rounded-full bg-foreground px-5 text-xs font-semibold text-background shadow-sm transition-all duration-300 hover:scale-105 active:scale-95 sm:h-11 sm:self-center sm:px-6 sm:text-sm"
             >
               <span>{t("sayHello")}</span>
-              <ArrowUpRight className="h-4 w-4" />
+              <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </a>
           </div>
         </Card>
 
         {/* 4 Multi-Accent Hum Social Cards */}
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:gap-4">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3 md:gap-4">
           {socials.map((social) => {
             const Icon = social.icon
             return (
@@ -147,21 +149,21 @@ export function ContactSection() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-4.5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-[0.98] ${social.hoverBorder}`}
+                className={`group flex flex-col justify-between rounded-xl border border-border/80 bg-card p-3 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] sm:rounded-2xl sm:p-4 md:p-4.5 ${social.hoverBorder}`}
               >
                 <div className="flex items-center justify-between">
                   <div
-                    className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 ${social.iconBg}`}
+                    className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105 sm:h-10 sm:w-10 sm:rounded-xl [&_svg]:h-4 [&_svg]:w-4 sm:[&_svg]:h-5 sm:[&_svg]:w-5 ${social.iconBg}`}
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-foreground" />
+                  <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground sm:h-4 sm:w-4" />
                 </div>
-                <div className="mt-3.5">
-                  <div className="text-sm font-bold text-card-foreground">
+                <div className="mt-2.5 sm:mt-3.5">
+                  <div className="text-xs font-bold text-card-foreground sm:text-sm">
                     {social.title}
                   </div>
-                  <div className="mt-0.5 text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                  <div className="mt-0.5 line-clamp-2 text-[11px] leading-relaxed text-muted-foreground sm:text-xs">
                     {social.description}
                   </div>
                 </div>
