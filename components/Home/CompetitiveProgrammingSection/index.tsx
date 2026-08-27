@@ -974,7 +974,7 @@ export function CompetitiveProgrammingSection() {
 
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/certificates/icpc-2025.jpg"
+                    src="https://drive.google.com/uc?id=1MPH7G7W5E90pciMGBCpsDr0GVBmhORhw"
                     alt="ICPC 2025 Certificate of Participation"
                     className={`max-h-[66vh] w-auto max-w-full rounded-lg object-contain shadow-md transition-opacity duration-300 xs:max-h-[70vh] sm:max-h-[72vh] ${
                       certLoaded
@@ -984,14 +984,6 @@ export function CompetitiveProgrammingSection() {
                     loading="eager"
                     decoding="async"
                     onLoad={() => setCertLoaded(true)}
-                    onError={(e) => {
-                      // Fallback to Google Drive direct URL if needed
-                      const target = e.currentTarget
-                      if (!target.src.includes("google.com")) {
-                        target.src =
-                          "https://drive.google.com/uc?id=1MPH7G7W5E90pciMGBCpsDr0GVBmhORhw"
-                      }
-                    }}
                   />
                 </div>
               </motion.div>
