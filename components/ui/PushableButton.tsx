@@ -15,10 +15,10 @@ export type PushableVariant =
   | "outline"
   | "destructive"
 
-export type PushableSize = "xs" | "sm" | "default" | "lg" | "icon" | "icon-sm" | "icon-lg"
+export type PushableSize =
+  "xs" | "sm" | "default" | "lg" | "icon" | "icon-sm" | "icon-lg"
 
-export interface PushableButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface PushableButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: PushableVariant
   size?: PushableSize
   href?: string
@@ -177,7 +177,9 @@ export const PushableButton = React.forwardRef<
         <span className={cn("pushable-shadow", shadowClassName)} />
 
         {/* Layer 2: 3D Side Edge */}
-        <span className={cn("pushable-edge", variantStyle.edgeBg, edgeClassName)} />
+        <span
+          className={cn("pushable-edge", variantStyle.edgeBg, edgeClassName)}
+        />
 
         {/* Layer 3: Interactive Front Face */}
         <span
@@ -217,11 +219,7 @@ export const PushableButton = React.forwardRef<
       <button
         ref={ref as React.Ref<HTMLButtonElement>}
         type={props.type || "button"}
-        className={cn(
-          "pushable-btn group",
-          sizeStyle.wrapperClass,
-          className
-        )}
+        className={cn("pushable-btn group", sizeStyle.wrapperClass, className)}
         {...props}
       >
         {innerContent}

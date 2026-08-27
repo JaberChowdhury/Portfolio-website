@@ -1,10 +1,4 @@
 import { ElementType } from "react"
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 
 export interface Highlight {
   title: string
@@ -19,18 +13,16 @@ interface HighlightCardProps {
 
 const ACCENT_STYLES = [
   {
-    iconBg:
-      "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-    hoverBorder: "hover:border-emerald-500/40",
+    iconBg: "bg-pear/10 text-pear border-pear/20",
+    hoverBorder: "hover:border-pear/40",
   },
   {
-    iconBg: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20",
-    hoverBorder: "hover:border-sky-500/40",
+    iconBg: "bg-cyan-accent/10 text-cyan-accent border-cyan-accent/20",
+    hoverBorder: "hover:border-cyan-accent/40",
   },
   {
-    iconBg:
-      "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
-    hoverBorder: "hover:border-rose-500/40",
+    iconBg: "bg-coral-accent/10 text-coral-accent border-coral-accent/20",
+    hoverBorder: "hover:border-coral-accent/40",
   },
 ]
 
@@ -39,25 +31,25 @@ export function HighlightCard({ highlight, index = 0 }: HighlightCardProps) {
   const accent = ACCENT_STYLES[index % ACCENT_STYLES.length]
 
   return (
-    <Card
-      className={`group h-full rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-[0.99] sm:p-5.5 ${accent.hoverBorder}`}
+    <div
+      className={`hum-card group h-full rounded-2xl border border-border/80 p-3.5 sm:p-5 md:p-5.5 ${accent.hoverBorder}`}
     >
-      <CardHeader className="space-y-3 p-0">
-        <div className="flex items-center gap-3.5">
+      <div className="space-y-2 sm:space-y-3">
+        <div className="flex items-center gap-2.5 sm:gap-3.5">
           <div
-            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12 ${accent.iconBg}`}
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11 md:h-12 md:w-12 ${accent.iconBg}`}
           >
-            <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+            <Icon className="h-4.5 w-4.5 sm:h-5 sm:w-5 md:h-6 md:w-6" />
           </div>
-          <CardTitle className="text-sm font-bold text-card-foreground sm:text-base md:text-lg">
+          <h3 className="text-xs font-bold break-words text-card-foreground sm:text-base md:text-lg">
             {highlight.title}
-          </CardTitle>
+          </h3>
         </div>
 
-        <CardDescription className="line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
+        <p className="line-clamp-2 text-[11px] leading-relaxed text-muted-foreground sm:text-xs md:text-sm">
           {highlight.description}
-        </CardDescription>
-      </CardHeader>
-    </Card>
+        </p>
+      </div>
+    </div>
   )
 }

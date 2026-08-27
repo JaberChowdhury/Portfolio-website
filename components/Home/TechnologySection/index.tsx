@@ -47,15 +47,10 @@ export function TechnologySection() {
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
-  // 6 items per slide on mobile (2x3 grid), 12 items on desktop (6x2 grid)
   const itemsPerPage = isMobile ? 6 : 12
   const totalPages = Math.ceil(TECH_STACK_DATA.length / itemsPerPage)
-
-  useEffect(() => {
-    if (currentPage >= totalPages && totalPages > 0) {
-      setCurrentPage(0)
-    }
-  }, [itemsPerPage, totalPages, currentPage])
+  const safeCurrentPage =
+    totalPages > 0 && currentPage >= totalPages ? 0 : currentPage
 
   const handlePrev = () => {
     setDirection(-1)
@@ -68,91 +63,96 @@ export function TechnologySection() {
   }
 
   const displayedTechnologies = useMemo(() => {
-    const start = currentPage * itemsPerPage
+    const start = safeCurrentPage * itemsPerPage
     return TECH_STACK_DATA.slice(start, start + itemsPerPage)
-  }, [currentPage, itemsPerPage])
+  }, [safeCurrentPage, itemsPerPage])
 
   return (
     <section
       id="technology"
       className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
     >
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-3 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
         {/* Top Header & Eyebrow */}
-        <div className="mb-3 sm:mb-5">
-          {/* Hallmark Eyebrow with Pear Amber Dot */}
-          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/80 px-3 py-1 text-xs shadow-2xs transition-all duration-300 hover:border-amber-500/40 sm:mb-2.5 sm:px-3.5 sm:py-1.5">
-            <span className="h-2 w-2 rounded-full bg-amber-500" />
-            <span className="font-mono text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase sm:text-sm sm:tracking-[0.25em]">
-              02 ⁄ {t("eyebrow")}
-            </span>
+        <div className="mb-2.5 sm:mb-5">
+          {/* Hum Eyebrow with Pear Dot */}
+          <div className="mb-1.5 inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-card/80 px-2.5 py-0.5 text-[10px] shadow-2xs transition-all duration-300 hover:border-[var(--color-pear)]/40 min-[380px]:px-3 min-[380px]:py-1 min-[380px]:text-xs sm:mb-2.5 sm:gap-2 sm:px-3.5 sm:py-1.5">
+            <span className="hum-dot hum-dot--pear" />
+            <span className="hum-eyebrow">02 ⁄ {t("eyebrow")}</span>
           </div>
 
-          <div className="flex flex-col justify-between gap-2 md:flex-row md:items-end">
+          <div className="flex flex-col justify-between gap-1.5 min-[380px]:gap-2 md:flex-row md:items-end">
             <div>
               <h2
                 data-cursor="text"
-                className="marlin-font text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl"
+                className="text-2xl font-extrabold tracking-tight text-foreground min-[380px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
               >
-                {t("title1")}{" "}
-                <span className="text-amber-600 dark:text-amber-400">
-                  {t("title2")}
-                </span>
+                {t("title1")} <span className="text-pear">{t("title2")}</span>
               </h2>
-              <p className="mt-1.5 max-w-2xl text-xs leading-relaxed font-normal text-muted-foreground sm:text-sm md:text-base">
+              <p className="mt-1 max-w-2xl text-[11px] leading-relaxed font-normal text-muted-foreground min-[380px]:text-xs sm:mt-1.5 sm:text-sm md:text-base">
                 {t("description")}
               </p>
             </div>
 
-            {/* Slider Counter Badge */}
-            <div className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/80 px-3 py-1 text-card-foreground shadow-2xs">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+            {/* Slider Counter Badge — hum-eyebrow style */}
+            <div className="flex flex-wrap items-center gap-1.5 font-mono text-[11px] text-muted-foreground min-[380px]:gap-2 sm:text-xs">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/80 px-2.5 py-0.5 text-card-foreground shadow-2xs min-[380px]:px-3 min-[380px]:py-1">
+                <span className="hum-dot hum-dot--pear !h-1.5 !w-1.5" />
                 <span className="font-bold text-foreground">
-                  {currentPage + 1}
+                  {safeCurrentPage + 1}
                 </span>{" "}
                 / <span>{totalPages}</span>
               </span>
-              <span className="hidden sm:inline">
+              <span className="hum-eyebrow text-[10px] sm:text-xs">
                 ({TECH_STACK_DATA.length} Tools Total)
               </span>
             </div>
           </div>
         </div>
 
-        {/* 6x2 (Desktop) / 2x4 (Mobile) Grid Slider Container with Non-Overlapping Flanking Buttons */}
-        <div className="relative px-7 sm:px-12 md:px-14 lg:px-16">
-          {/* Left Slider Arrow Button */}
+        {/* Grid Slider Container */}
+        <div className="relative px-6 min-[400px]:px-7 sm:px-12 md:px-14 lg:px-16">
+          {/* Left Slider Arrow */}
           <button
             type="button"
             onClick={handlePrev}
             aria-label="Previous technologies"
-            className="group absolute top-1/2 left-0 z-30 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/90 bg-card/95 text-foreground shadow-md backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-amber-500/60 hover:bg-card hover:text-amber-500 hover:shadow-lg active:scale-95 sm:left-1 sm:h-11 sm:w-11 md:left-2 md:h-12 md:w-12"
+            className="group absolute top-1/2 left-0 z-30 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/60 bg-secondary text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1/2 hover:scale-105 hover:border-[var(--color-pear)]/50 hover:bg-secondary hover:text-pear hover:shadow-md active:scale-95 min-[400px]:h-9 min-[400px]:w-9 sm:left-1 sm:h-11 sm:w-11 md:left-2 md:h-12 md:w-12"
           >
-            <ChevronLeft className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+            <ChevronLeft className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-0.5 min-[400px]:h-4 min-[400px]:w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
           </button>
 
-          {/* Right Slider Arrow Button */}
+          {/* Right Slider Arrow */}
           <button
             type="button"
             onClick={handleNext}
             aria-label="Next technologies"
-            className="group absolute top-1/2 right-0 z-30 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/90 bg-card/95 text-foreground shadow-md backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-amber-500/60 hover:bg-card hover:text-amber-500 hover:shadow-lg active:scale-95 sm:right-1 sm:h-11 sm:w-11 md:right-2 md:h-12 md:w-12"
+            className="group absolute top-1/2 right-0 z-30 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/60 bg-secondary text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1/2 hover:scale-105 hover:border-[var(--color-pear)]/50 hover:bg-secondary hover:text-pear hover:shadow-md active:scale-95 min-[400px]:h-9 min-[400px]:w-9 sm:right-1 sm:h-11 sm:w-11 md:right-2 md:h-12 md:w-12"
           >
-            <ChevronRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+            <ChevronRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 min-[400px]:h-4 min-[400px]:w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
           </button>
 
-          {/* Animated 2x3 (Mobile) / 6x2 (Desktop) Grid */}
-          <div className="min-h-[310px] overflow-hidden sm:min-h-[380px] md:min-h-[420px]">
+          {/* Animated Grid with touch swipe */}
+          <div className="-mx-1 -my-2.5 min-h-[340px] px-1 py-2.5 min-[380px]:min-h-[370px] sm:min-h-[380px] md:min-h-[420px]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
-                key={`${currentPage}-${isMobile}`}
+                key={`${safeCurrentPage}-${isMobile}`}
                 custom={direction}
                 variants={slideVariants}
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 md:gap-4.5 lg:grid-cols-6"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.15}
+                onDragEnd={(_e, info) => {
+                  if (info.offset.x < -40 || info.velocity.x < -300) {
+                    handleNext()
+                  } else if (info.offset.x > 40 || info.velocity.x > 300) {
+                    handlePrev()
+                  }
+                }}
+                className="grid cursor-grab touch-pan-y grid-cols-2 gap-2 rounded-2xl active:cursor-grabbing min-[380px]:gap-2.5 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 md:gap-4.5 lg:grid-cols-6"
               >
                 {displayedTechnologies.map((tech: TechItem) => {
                   const cardBrandStyle = {
@@ -166,17 +166,13 @@ export function TechnologySection() {
                     <div
                       key={tech.id}
                       data-cursor="cover"
-                      className="uiverse-card h-32 p-2.5 sm:h-44 sm:p-3.5 md:h-48"
+                      className="uiverse-card h-26 p-2 min-[380px]:h-28 min-[380px]:p-2.5 min-[420px]:h-32 sm:h-44 sm:p-3.5 md:h-48"
                       style={cardBrandStyle}
                     >
-                      {/* Concentric Circle Container: Overlay & Icon Circle Perfectly Coincident */}
                       <div className="uiverse-circle-wrap">
-                        {/* Expanding Circular Background Overlay */}
                         <div className="uiverse-overlay" />
-
-                        {/* Animated Outer & Inner Circle with Icon */}
                         <div
-                          className={`uiverse-circle [&_svg]:h-5 [&_svg]:w-5 sm:[&_svg]:h-8 sm:[&_svg]:w-8 ${
+                          className={`uiverse-circle [&_svg]:h-4.5 [&_svg]:w-4.5 min-[380px]:[&_svg]:h-5 min-[380px]:[&_svg]:w-5 sm:[&_svg]:h-8 sm:[&_svg]:w-8 ${
                             tech.id === "javascript"
                               ? "[&_svg]:text-amber-950"
                               : "[&_svg]:text-white"
@@ -186,11 +182,10 @@ export function TechnologySection() {
                         </div>
                       </div>
 
-                      {/* Technology Label & Category */}
-                      <p className="uiverse-label text-xs font-bold sm:text-sm md:text-base">
+                      <p className="uiverse-label max-w-full truncate text-[11px] font-bold min-[380px]:text-xs sm:text-sm md:text-base">
                         {tech.label}
                       </p>
-                      <span className="uiverse-sublabel text-[9px] font-medium sm:text-xs">
+                      <span className="uiverse-sublabel max-w-full truncate text-[8.5px] font-medium min-[380px]:text-[9px] sm:text-xs">
                         {tech.categoryLabel}
                       </span>
                     </div>
@@ -201,21 +196,21 @@ export function TechnologySection() {
           </div>
         </div>
 
-        {/* Pagination Indicator Dots */}
-        <div className="mt-3 flex items-center justify-center gap-2 sm:mt-4">
+        {/* Pagination Indicator Dots — pear active */}
+        <div className="mt-2.5 flex items-center justify-center gap-1.5 min-[380px]:gap-2 sm:mt-4">
           {Array.from({ length: totalPages }).map((_, idx) => (
             <button
               key={idx}
               type="button"
               onClick={() => {
-                setDirection(idx > currentPage ? 1 : -1)
+                setDirection(idx > safeCurrentPage ? 1 : -1)
                 setCurrentPage(idx)
               }}
               aria-label={`Go to slide ${idx + 1}`}
-              className={`h-2 cursor-pointer rounded-full transition-all duration-300 ${
-                currentPage === idx
-                  ? "w-8 bg-amber-500 shadow-xs"
-                  : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+              className={`h-1.5 cursor-pointer rounded-full transition-all duration-300 min-[380px]:h-2 ${
+                safeCurrentPage === idx
+                  ? "w-6 bg-[var(--color-pear)] shadow-xs min-[380px]:w-8"
+                  : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60 min-[380px]:w-2"
               }`}
             />
           ))}

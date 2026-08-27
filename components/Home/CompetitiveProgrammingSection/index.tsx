@@ -6,29 +6,20 @@ import {
   Target,
   Trophy,
   Terminal,
-  ExternalLink,
   Brain,
-  CheckCircle2,
-  Flame,
   Sparkles,
   X,
-  Layers,
   ArrowUpRight,
-  Code2,
-  ChevronRight,
   Calendar,
+  Award,
+  Loader2,
 } from "lucide-react"
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card"
+
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { useTranslations } from "next-intl"
 import { AnimatePresence, motion } from "framer-motion"
-import { StatCard, type Stat } from "./StatCard"
+import { useMounted } from "@/hooks/use-mounted"
+import { StatCard } from "./StatCard"
 
 export type CPModalType = "platforms" | "icpc" | "mindset" | null
 
@@ -39,19 +30,34 @@ export interface HighlightItem {
 
 export function CompetitiveProgrammingSection() {
   const t = useTranslations("CompetitiveProgramming")
-  const [mounted, setMounted] = useState(false)
+  const mounted = useMounted()
   const [activeModal, setActiveModal] = useState<CPModalType>(null)
+  const [showCertificate, setShowCertificate] = useState(false)
+  const [certLoaded, setCertLoaded] = useState(false)
+  const [hubIdx, setHubIdx] = useState(0)
+  const [hubDirection, setHubDirection] = useState(0)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const handleHubNext = () => {
+    setHubDirection(1)
+    setHubIdx((prev) => (prev + 1) % 3)
+  }
 
-  // Close on ESC key & prevent background scrolling when open
+  const handleHubPrev = () => {
+    setHubDirection(-1)
+    setHubIdx((prev) => (prev === 0 ? 2 : prev - 1))
+  }
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActiveModal(null)
+      if (e.key === "Escape") {
+        if (showCertificate) {
+          setShowCertificate(false)
+        } else {
+          setActiveModal(null)
+        }
+      }
     }
-    if (activeModal !== null) {
+    if (activeModal !== null || showCertificate) {
       document.body.style.overflow = "hidden"
       window.addEventListener("keydown", handleKeyDown)
     } else {
@@ -61,17 +67,18 @@ export function CompetitiveProgrammingSection() {
       document.body.style.overflow = ""
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [activeModal])
-
-  const rawStats = t.raw("stats") as Stat[]
-  const statIcons = [Terminal, Target, Trophy, Brain]
-  const stats = rawStats.map((stat, i) => ({
-    ...stat,
-    icon: statIcons[i] || Brain,
-  }))
+  }, [activeModal, showCertificate])
 
   const highlights = (t.raw("highlights") as HighlightItem[]) || []
-  const highlightIcons = [Brain, CheckCircle2, Flame]
+  const highlightIcons = [Brain, Sparkles, Trophy]
+
+  const statIcons = [Terminal, Target, Sparkles, Trophy]
+  const statsData = (t.raw("stats") as { label: string; value: string }[]) || [
+    { label: "Codeforces Solved", value: "229" },
+    { label: "Beecrowd Solved", value: "130" },
+    { label: "Total Solved", value: "359" },
+    { label: "Contest", value: "ICPC 2025" },
+  ]
 
   const cfTopics = (t.raw("platforms.codeforces.topics") as string[]) || [
     "Greedy",
@@ -108,534 +115,890 @@ export function CompetitiveProgrammingSection() {
     >
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
         {/* Section Header */}
-        <div className="mb-4 max-w-3xl sm:mb-6">
-          {/* Hallmark Eyebrow Badge */}
-          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/80 px-3.5 py-1.5 text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase shadow-2xs sm:mb-3 sm:px-4 sm:py-2 sm:text-sm sm:tracking-[0.25em]">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-rose-500" />
-            <span>04 ⁄ {t("eyebrow")}</span>
+        <div className="mb-3 max-w-3xl sm:mb-5 md:mb-6">
+          {/* Hum Eyebrow with Coral Dot & Mobile Swipe Indicator */}
+          <div className="mb-2 flex items-center justify-between gap-2 sm:mb-2.5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/80 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-muted-foreground uppercase shadow-2xs">
+              <span className="hum-dot hum-dot--coral" />
+              <span>04 ⁄ {t("eyebrow")}</span>
+            </div>
+            <div className="flex items-center gap-1 rounded-full border border-border/60 bg-card/60 px-2 py-0.5 font-mono text-[10px] font-medium text-muted-foreground md:hidden">
+              <span className="animate-pulse">←</span>
+              <span>Swipe</span>
+              <span className="animate-pulse">→</span>
+            </div>
           </div>
 
           {/* Grand Main Title */}
           <h2
             data-cursor="text"
-            className="marlin-font text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl"
+            className="marlin-font text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
           >
-            {t("title1")}{" "}
-            <span className="text-rose-600 dark:text-rose-400">
-              {t("title2")}
-            </span>{" "}
+            {t("title1")} <span className="hl-coral">{t("title2")}</span>{" "}
             <span className="font-normal text-muted-foreground">
               {t("title3")}
             </span>
           </h2>
 
           {/* Subtitle Description */}
-          <p className="mt-2 max-w-2xl text-xs leading-relaxed font-normal text-muted-foreground sm:mt-3 sm:text-sm md:text-base">
+          <p className="mt-1 max-w-2xl text-xs leading-relaxed font-normal text-muted-foreground sm:mt-2 sm:text-sm md:text-base">
             {t("description")}
           </p>
         </div>
 
-        {/* 3 Focused Interactive Modal Hub Cards */}
-        <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-3 sm:gap-4 md:gap-5">
-          {/* Card 1: Platforms Hub (Codeforces 229 + Beecrowd 130 = 359 Solved) */}
-          <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:border-amber-500/50 hover:shadow-md sm:p-6">
+        {/* Hub Cards: Desktop 3-Column Grid */}
+        <div className="hidden md:grid md:grid-cols-3 md:gap-4">
+          {/* Card 1: Platforms Hub — Pear accent */}
+          <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground transition-all duration-300 hover:border-[#d4a017]/50 sm:p-5 md:p-6">
             <div>
-              <div className="flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400">
-                  <Terminal className="h-5 w-5" />
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#d4a017]/30 bg-[#d4a017]/10 text-[#d4a017] sm:h-9 sm:w-9 md:h-10 md:w-10">
+                  <Terminal className="h-4 w-4 sm:h-4.5 sm:w-4.5 md:h-5 md:w-5" />
                 </div>
-                <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 font-mono text-[9px] font-bold text-amber-700 sm:text-[10px] dark:text-amber-300">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500" />
+                <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#d4a017]/25 bg-[#d4a017]/10 px-2 py-0.5 text-[9px] font-bold text-[#b8860b] sm:text-[10px] dark:text-[#e8b82a]">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#d4a017]" />
                   359 SOLVED
                 </span>
               </div>
 
-              <div className="mt-3 font-mono text-xl font-black text-foreground sm:text-2xl">
-                Codeforces & Beecrowd
+              <div className="mt-2.5 font-mono text-lg font-black text-foreground sm:mt-3 sm:text-xl md:text-2xl">
+                Codeforces &amp; Beecrowd
               </div>
               <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-                229 on Codeforces • 130 on Beecrowd with verified algorithmic topics.
+                229 on Codeforces • 130 on Beecrowd with verified algorithmic
+                topics.
               </p>
             </div>
 
-            <div className="mt-5 pt-2">
-              <Button
-                variant="amber"
-                size="sm"
+            <div className="mt-4 pt-1 sm:mt-5 sm:pt-2">
+              <button
+                type="button"
                 onClick={() => setActiveModal("platforms")}
-                className="w-full rounded-full"
-                frontClassName="rounded-full"
+                className="hum-btn w-full"
               >
-                <span className="flex items-center justify-center gap-1.5 py-2.5 font-mono text-xs font-bold">
+                <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold sm:py-2.5 sm:text-sm">
                   <span>View Platforms (359)</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className="hum-arrow h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </span>
-              </Button>
+              </button>
             </div>
           </div>
 
-          {/* Card 2: ICPC 2025 Contest Hub */}
-          <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:border-rose-500/50 hover:shadow-md sm:p-6">
+          {/* Card 2: ICPC 2025 — Coral accent */}
+          <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground transition-all duration-300 hover:border-[#e05d44]/50 sm:p-5 md:p-6">
             <div>
-              <div className="flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400">
-                  <Trophy className="h-5 w-5" />
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#e05d44]/30 bg-[#e05d44]/10 text-[#e05d44] sm:h-9 sm:w-9 md:h-10 md:w-10">
+                  <Trophy className="h-4 w-4 sm:h-4.5 sm:w-4.5 md:h-5 md:w-5" />
                 </div>
-                <span className="inline-flex items-center gap-1 rounded-full border border-rose-500/25 bg-rose-500/10 px-2 py-0.5 font-mono text-[9px] font-bold text-rose-700 sm:text-[10px] dark:text-rose-300">
-                  <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
+                <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#e05d44]/25 bg-[#e05d44]/10 px-2 py-0.5 text-[9px] font-bold text-[#c04a35] sm:text-[10px] dark:text-[#f07058]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#e05d44]" />
                   DEC 2025
                 </span>
               </div>
 
-              <div className="mt-3 font-mono text-xl font-black text-foreground sm:text-2xl">
+              <div className="mt-2.5 font-mono text-lg font-black text-foreground sm:mt-3 sm:text-xl md:text-2xl">
                 ICPC 2025 Regional
               </div>
               <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-                Official attendance in competitive programming team championship.
+                Official attendance in competitive programming team
+                championship.
               </p>
             </div>
 
-            <div className="mt-5 pt-2">
-              <Button
-                variant="rose"
-                size="sm"
+            <div className="mt-4 pt-1 sm:mt-5 sm:pt-2">
+              <button
+                type="button"
                 onClick={() => setActiveModal("icpc")}
-                className="w-full rounded-full"
-                frontClassName="rounded-full"
+                className="hum-btn hum-btn--coral w-full"
               >
-                <span className="flex items-center justify-center gap-1.5 py-2.5 font-mono text-xs font-bold">
-                  <span>View ICPC '25 Honors</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold sm:py-2.5 sm:text-sm">
+                  <span>View ICPC &apos;25 Honors</span>
+                  <ArrowUpRight className="hum-arrow h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </span>
-              </Button>
+              </button>
             </div>
           </div>
 
-          {/* Card 3: Algorithmic Mindset & Strengths Hub */}
-          <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:border-emerald-500/50 hover:shadow-md sm:p-6">
+          {/* Card 3: Algorithmic Mindset — Mint accent */}
+          <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground transition-all duration-300 hover:border-[#3dab6e]/50 sm:p-5 md:p-6">
             <div>
-              <div className="flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                  <Brain className="h-5 w-5" />
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#3dab6e]/30 bg-[#3dab6e]/10 text-[#3dab6e] sm:h-9 sm:w-9 md:h-10 md:w-10">
+                  <Brain className="h-4 w-4 sm:h-4.5 sm:w-4.5 md:h-5 md:w-5" />
                 </div>
-                <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 font-mono text-[9px] font-bold text-emerald-700 sm:text-[10px] dark:text-emerald-300">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#3dab6e]/25 bg-[#3dab6e]/10 px-2 py-0.5 text-[9px] font-bold text-[#2d8a56] sm:text-[10px] dark:text-[#5cc88a]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#3dab6e]" />
                   METHODOLOGY
                 </span>
               </div>
 
-              <div className="mt-3 font-mono text-xl font-black text-foreground sm:text-2xl">
+              <div className="mt-2.5 font-mono text-lg font-black text-foreground sm:mt-3 sm:text-xl md:text-2xl">
                 Algorithmic Logic
               </div>
               <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-                Problem deconstruction, performance complexity, and practice philosophy.
+                Problem deconstruction, performance complexity, and practice
+                philosophy.
               </p>
             </div>
 
-            <div className="mt-5 pt-2">
-              <Button
-                variant="emerald"
-                size="sm"
+            <div className="mt-4 pt-1 sm:mt-5 sm:pt-2">
+              <button
+                type="button"
                 onClick={() => setActiveModal("mindset")}
-                className="w-full rounded-full"
-                frontClassName="rounded-full"
+                className="hum-btn hum-btn--mint w-full"
               >
-                <span className="flex items-center justify-center gap-1.5 py-2.5 font-mono text-xs font-bold">
+                <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold sm:py-2.5 sm:text-sm">
                   <span>View Methodology</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className="hum-arrow h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </span>
-              </Button>
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Hub Cards: Mobile Framer Motion Swipe Slider */}
+        <div className="md:hidden">
+          <div className="relative overflow-hidden py-1">
+            <AnimatePresence mode="wait" custom={hubDirection}>
+              <motion.div
+                key={hubIdx}
+                custom={hubDirection}
+                variants={{
+                  enter: (dir: number) => ({
+                    x: dir > 0 ? 45 : -45,
+                    opacity: 0,
+                    scale: 0.97,
+                  }),
+                  center: {
+                    x: 0,
+                    opacity: 1,
+                    scale: 1,
+                    transition: { duration: 0.28, ease: "easeOut" },
+                  },
+                  exit: (dir: number) => ({
+                    x: dir > 0 ? -45 : 45,
+                    opacity: 0,
+                    scale: 0.97,
+                    transition: { duration: 0.2, ease: "easeIn" },
+                  }),
+                }}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.18}
+                onDragEnd={(_e, info) => {
+                  if (info.offset.x < -35 || info.velocity.x < -250) {
+                    handleHubNext()
+                  } else if (info.offset.x > 35 || info.velocity.x > 250) {
+                    handleHubPrev()
+                  }
+                }}
+                className="w-full cursor-grab touch-pan-y active:cursor-grabbing"
+              >
+                {hubIdx === 0 && (
+                  <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs">
+                    <div>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#d4a017]/30 bg-[#d4a017]/10 text-[#d4a017]">
+                          <Terminal className="h-4 w-4" />
+                        </div>
+                        <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#d4a017]/25 bg-[#d4a017]/10 px-2 py-0.5 text-[9px] font-bold text-[#b8860b] dark:text-[#e8b82a]">
+                          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#d4a017]" />
+                          359 SOLVED
+                        </span>
+                      </div>
+                      <div className="mt-2 font-mono text-base font-black text-foreground">
+                        Codeforces &amp; Beecrowd
+                      </div>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        229 on Codeforces • 130 on Beecrowd with verified
+                        algorithmic topics.
+                      </p>
+                    </div>
+                    <div className="mt-3.5 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => setActiveModal("platforms")}
+                        className="hum-btn w-full"
+                      >
+                        <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold">
+                          <span>View Platforms (359)</span>
+                          <ArrowUpRight className="hum-arrow h-3.5 w-3.5" />
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {hubIdx === 1 && (
+                  <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs">
+                    <div>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#e05d44]/30 bg-[#e05d44]/10 text-[#e05d44]">
+                          <Trophy className="h-4 w-4" />
+                        </div>
+                        <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#e05d44]/25 bg-[#e05d44]/10 px-2 py-0.5 text-[9px] font-bold text-[#c04a35] dark:text-[#f07058]">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#e05d44]" />
+                          DEC 2025
+                        </span>
+                      </div>
+                      <div className="mt-2 font-mono text-base font-black text-foreground">
+                        ICPC 2025 Regional
+                      </div>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        Official attendance in competitive programming team
+                        championship.
+                      </p>
+                    </div>
+                    <div className="mt-3.5 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => setActiveModal("icpc")}
+                        className="hum-btn hum-btn--coral w-full"
+                      >
+                        <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold">
+                          <span>View ICPC &apos;25 Honors</span>
+                          <ArrowUpRight className="hum-arrow h-3.5 w-3.5" />
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {hubIdx === 2 && (
+                  <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs">
+                    <div>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#3dab6e]/30 bg-[#3dab6e]/10 text-[#3dab6e]">
+                          <Brain className="h-4 w-4" />
+                        </div>
+                        <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#3dab6e]/25 bg-[#3dab6e]/10 px-2 py-0.5 text-[9px] font-bold text-[#2d8a56] dark:text-[#5cc88a]">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#3dab6e]" />
+                          METHODOLOGY
+                        </span>
+                      </div>
+                      <div className="mt-2 font-mono text-base font-black text-foreground">
+                        Algorithmic Logic
+                      </div>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        Problem deconstruction, performance complexity, and
+                        practice philosophy.
+                      </p>
+                    </div>
+                    <div className="mt-3.5 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => setActiveModal("mindset")}
+                        className="hum-btn hum-btn--mint w-full"
+                      >
+                        <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold">
+                          <span>View Methodology</span>
+                          <ArrowUpRight className="hum-arrow h-3.5 w-3.5" />
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="mt-2 flex items-center justify-center gap-1.5">
+            {[0, 1, 2].map((idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => {
+                  setHubDirection(idx > hubIdx ? 1 : -1)
+                  setHubIdx(idx)
+                }}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  idx === hubIdx
+                    ? "w-6 bg-[var(--color-coral)]"
+                    : "w-1.5 bg-muted-foreground/30"
+                }`}
+                aria-label={`Go to hub card ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Stats Row Below Hub Cards */}
+        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3 md:mt-5">
+          {statsData.map((stat, idx) => (
+            <StatCard
+              key={stat.label}
+              stat={{
+                label: stat.label,
+                value: stat.value,
+                icon: statIcons[idx] || Sparkles,
+              }}
+              index={idx}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* Interactive In-Details Modal System with 3 Focused Views (Portaled to document.body ONLY when open) */}
-      {mounted && activeModal !== null && createPortal(
-        <AnimatePresence>
-          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-4 md:p-6">
-            {/* Backdrop Blur Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActiveModal(null)}
-              className="absolute inset-0 bg-background/80 backdrop-blur-md"
-            />
+      {/* Modal System */}
+      {mounted &&
+        activeModal !== null &&
+        createPortal(
+          <AnimatePresence>
+            <div className="fixed inset-0 z-[99999] flex items-center justify-center p-2.5 sm:p-4 md:p-6">
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setActiveModal(null)}
+                className="absolute inset-0 bg-background/80 backdrop-blur-md"
+              />
 
-            {/* Modal Dialog Container */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 16 }}
-              transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
-              className="relative z-10 flex max-h-[88vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-border/90 bg-card text-card-foreground shadow-2xl"
-            >
-              {/* Modal Top Bar: Segmented 3-Tab Navigator & Close Button */}
-              <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-border/80 px-4 py-3 sm:px-6 sm:py-4">
-                {/* 3 Focused Segmented Pills */}
-                <div className="flex items-center gap-1.5 rounded-full border border-border/80 bg-secondary/50 p-1">
+              {/* Modal Dialog */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 16 }}
+                transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
+                className="relative z-10 flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-border/90 bg-card text-card-foreground shadow-2xl sm:max-h-[85vh] sm:rounded-3xl"
+              >
+                {/* Modal Top Bar */}
+                <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border/80 px-3 py-2.5 sm:px-6 sm:py-4">
+                  {/* Segmented Tabs — Hallmark Hum buttons */}
+                  <div className="flex max-w-[calc(100%-2.5rem)] scrollbar-none flex-nowrap items-center gap-1 overflow-x-auto rounded-full border border-border/80 bg-secondary/50 p-0.5 py-1 sm:max-w-none sm:gap-1.5 sm:p-1">
+                    <button
+                      type="button"
+                      onClick={() => setActiveModal("platforms")}
+                      className={`shrink-0 cursor-pointer rounded-full px-2.5 py-1 font-mono text-[11px] font-bold transition-all duration-200 sm:px-3.5 sm:py-1.5 sm:text-xs ${
+                        activeModal === "platforms"
+                          ? "bg-[var(--color-pear)] text-[#1c1d19] shadow-xs"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      💻 Platforms (359)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveModal("icpc")}
+                      className={`shrink-0 cursor-pointer rounded-full px-2.5 py-1 font-mono text-[11px] font-bold transition-all duration-200 sm:px-3.5 sm:py-1.5 sm:text-xs ${
+                        activeModal === "icpc"
+                          ? "bg-[var(--color-coral)] text-white shadow-xs"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      🏆 ICPC 2025
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveModal("mindset")}
+                      className={`shrink-0 cursor-pointer rounded-full px-2.5 py-1 font-mono text-[11px] font-bold transition-all duration-200 sm:px-3.5 sm:py-1.5 sm:text-xs ${
+                        activeModal === "mindset"
+                          ? "bg-[var(--color-mint)] text-[#1c1d19] shadow-xs"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      🧠 Mindset
+                    </button>
+                  </div>
+
                   <button
                     type="button"
-                    onClick={() => setActiveModal("platforms")}
-                    className={`cursor-pointer rounded-full px-3 py-1 text-xs font-bold transition-all duration-200 ${
-                      activeModal === "platforms"
-                        ? "bg-amber-500 text-amber-950 shadow-xs"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
+                    onClick={() => setActiveModal(null)}
+                    aria-label="Close modal"
+                    className="flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border/80 bg-secondary/50 text-muted-foreground transition-all duration-200 hover:scale-105 hover:bg-secondary hover:text-foreground sm:h-8 sm:w-8 md:h-9 md:w-9"
                   >
-                    💻 Platforms (359)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveModal("icpc")}
-                    className={`cursor-pointer rounded-full px-3 py-1 text-xs font-bold transition-all duration-200 ${
-                      activeModal === "icpc"
-                        ? "bg-rose-600 text-white shadow-xs"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    🏆 ICPC 2025
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveModal("mindset")}
-                    className={`cursor-pointer rounded-full px-3 py-1 text-xs font-bold transition-all duration-200 ${
-                      activeModal === "mindset"
-                        ? "bg-emerald-600 text-white shadow-xs"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    🧠 Mindset
+                    <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </button>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => setActiveModal(null)}
-                  aria-label="Close modal"
-                  className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-border/80 bg-secondary/50 text-muted-foreground transition-all duration-200 hover:scale-105 hover:bg-secondary hover:text-foreground sm:h-9 sm:w-9"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
+                {/* Modal Content */}
+                <div className="flex-1 overflow-y-auto overscroll-contain p-3.5 sm:p-6 md:p-7">
+                  {/* ─── PLATFORMS VIEW ─── */}
+                  {activeModal === "platforms" && (
+                    <motion.div
+                      key="platforms"
+                      initial={{ opacity: 0, x: -15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 15 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className="mb-3 flex flex-col gap-2 sm:mb-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                          <h3 className="text-base font-bold text-foreground sm:text-lg md:text-xl">
+                            Competitive Programming Platforms
+                          </h3>
+                          <p className="text-[11px] text-muted-foreground sm:text-xs md:text-sm">
+                            Verified solve count across Codeforces and Beecrowd
+                            online judges.
+                          </p>
+                        </div>
+                        <span className="shrink-0 self-start rounded-full border border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 px-2.5 py-0.5 font-mono text-[11px] font-bold text-[var(--color-pear-deep)] sm:self-auto sm:px-3 sm:py-1 sm:text-xs dark:text-[var(--color-pear)]">
+                          359 Total Solved
+                        </span>
+                      </div>
 
-              {/* Modal Content Viewport */}
-              <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-7">
-                {/* ─────────────────────────────────────────────────────────────
-                    MODAL VIEW 1: PLATFORMS (Codeforces & Beecrowd Breakdown)
-                   ───────────────────────────────────────────────────────────── */}
-                {activeModal === "platforms" && (
-                  <motion.div
-                    key="platforms"
-                    initial={{ opacity: 0, x: -15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 15 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {/* Header Summary */}
-                    <div className="mb-4 flex items-center justify-between">
-                      <div>
-                        <h3 className="text-lg font-bold text-foreground sm:text-xl">
-                          Competitive Programming Platforms
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                        {/* Codeforces */}
+                        <div
+                          data-cursor="cover"
+                          className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-3.5 text-card-foreground transition-all duration-300 hover:border-[var(--color-pear)]/50 sm:p-5"
+                        >
+                          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--color-pear)] via-[var(--color-coral)] to-[var(--color-pear)]" />
+                          <div>
+                            <div className="flex items-start justify-between gap-2 sm:gap-3">
+                              <div className="flex items-center gap-2.5 sm:gap-3">
+                                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] sm:h-10 sm:w-10 dark:text-[var(--color-pear)]">
+                                  <Terminal className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
+                                </div>
+                                <div>
+                                  <div className="flex items-center gap-1.5">
+                                    <span className="mono-label text-[9px] font-bold uppercase sm:text-[10px]">
+                                      {t("platforms.codeforces.eyebrow")}
+                                    </span>
+                                    <span className="mono-label py-0.2 inline-flex items-center gap-1 rounded-full border border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 px-1.5 text-[8px] font-bold text-[var(--color-mint)]">
+                                      <span className="h-1 w-1 animate-pulse rounded-full bg-[var(--color-mint)]" />
+                                      ACTIVE
+                                    </span>
+                                  </div>
+                                  <h4 className="text-sm font-bold text-foreground sm:text-base">
+                                    {t("platforms.codeforces.name")}
+                                  </h4>
+                                </div>
+                              </div>
+                              <span className="shrink-0 rounded-full border border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 px-2 py-0.5 font-mono text-[11px] font-bold text-[var(--color-pear-deep)] sm:px-2.5 sm:text-xs dark:text-[var(--color-pear)]">
+                                229 Solved
+                              </span>
+                            </div>
+
+                            <p className="mt-2.5 text-[11px] leading-relaxed text-muted-foreground sm:text-xs">
+                              {t("platforms.codeforces.description")}
+                            </p>
+
+                            <div className="mt-2.5 flex flex-wrap gap-1 sm:mt-3">
+                              {cfTopics.map((topic) => (
+                                <Badge
+                                  key={topic}
+                                  variant="secondary"
+                                  className="rounded-full border border-border/60 bg-secondary/50 px-2 py-0.5 font-mono text-[9px] font-medium text-muted-foreground sm:px-2.5 sm:text-[10px]"
+                                >
+                                  {topic}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="mt-3 border-t border-border/80 pt-2.5 sm:mt-4 sm:pt-3">
+                            <a
+                              href="https://codeforces.com/profile/jaber02"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hum-btn w-full !py-2 sm:!py-2.5"
+                            >
+                              <span className="flex items-center justify-center gap-1.5 font-mono text-xs font-bold">
+                                <span>
+                                  {t("platforms.codeforces.viewProfile")}
+                                </span>
+                                <ArrowUpRight className="hum-arrow h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+
+                        {/* Beecrowd */}
+                        <div
+                          data-cursor="cover"
+                          className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-3.5 text-card-foreground transition-all duration-300 hover:border-[var(--color-cyan)]/50 sm:p-5"
+                        >
+                          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--color-cyan)] via-[var(--color-mint)] to-[var(--color-cyan)]" />
+                          <div>
+                            <div className="flex items-start justify-between gap-2 sm:gap-3">
+                              <div className="flex items-center gap-2.5 sm:gap-3">
+                                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[var(--color-cyan)]/30 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] sm:h-10 sm:w-10 dark:text-[var(--color-cyan)]">
+                                  <Target className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
+                                </div>
+                                <div>
+                                  <div className="flex items-center gap-1.5">
+                                    <span className="mono-label text-[9px] font-bold uppercase sm:text-[10px]">
+                                      {t("platforms.beecrowd.eyebrow")}
+                                    </span>
+                                    <span className="mono-label py-0.2 inline-flex items-center gap-1 rounded-full border border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 px-1.5 text-[8px] font-bold text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]">
+                                      <span className="h-1 w-1 animate-pulse rounded-full bg-[var(--color-cyan)]" />
+                                      ACTIVE
+                                    </span>
+                                  </div>
+                                  <h4 className="text-sm font-bold text-foreground sm:text-base">
+                                    {t("platforms.beecrowd.name")}
+                                  </h4>
+                                </div>
+                              </div>
+                              <span className="shrink-0 rounded-full border border-[var(--color-cyan)]/30 bg-[var(--color-cyan)]/10 px-2 py-0.5 font-mono text-[11px] font-bold text-[var(--color-cyan-deep)] sm:px-2.5 sm:text-xs dark:text-[var(--color-cyan)]">
+                                130 Solved
+                              </span>
+                            </div>
+
+                            <p className="mt-2.5 text-[11px] leading-relaxed text-muted-foreground sm:text-xs">
+                              {t("platforms.beecrowd.description")}
+                            </p>
+
+                            <div className="mt-2.5 flex flex-wrap gap-1 sm:mt-3">
+                              {beeTopics.map((topic) => (
+                                <Badge
+                                  key={topic}
+                                  variant="secondary"
+                                  className="rounded-full border border-border/60 bg-secondary/50 px-2 py-0.5 font-mono text-[9px] font-medium text-muted-foreground sm:px-2.5 sm:text-[10px]"
+                                >
+                                  {topic}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="mt-3 border-t border-border/80 pt-2.5 sm:mt-4 sm:pt-3">
+                            <a
+                              href="https://judge.beecrowd.com"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hum-btn hum-btn--cyan w-full !py-2 sm:!py-2.5"
+                            >
+                              <span className="flex items-center justify-center gap-1.5 font-mono text-xs font-bold">
+                                <span>
+                                  {t("platforms.beecrowd.viewProfile")}
+                                </span>
+                                <ArrowUpRight className="hum-arrow h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* ─── ICPC VIEW ─── */}
+                  {activeModal === "icpc" && (
+                    <motion.div
+                      key="icpc"
+                      initial={{ opacity: 0, x: -15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 15 }}
+                      transition={{ duration: 0.2 }}
+                      className="space-y-3.5 sm:space-y-4.5"
+                    >
+                      {/* Top Header Card — Hallmark Coral Ribbon */}
+                      <div
+                        data-cursor="cover"
+                        className="hum-card group relative overflow-hidden rounded-2xl border border-[var(--color-coral)]/30 bg-gradient-to-br from-[var(--color-coral)]/15 via-card to-card p-4 text-card-foreground shadow-xs sm:p-5 md:p-6"
+                      >
+                        <div
+                          className="absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r from-[var(--color-coral)] via-[var(--color-coral-light)] to-[var(--color-coral)]"
+                          aria-hidden="true"
+                        />
+
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                          <div className="flex items-center gap-3 sm:gap-3.5">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--color-coral)]/30 bg-[var(--color-coral)]/20 text-[var(--color-coral-deep)] transition-transform duration-300 group-hover:scale-105 sm:h-13 sm:w-13 sm:rounded-2xl md:h-14 md:w-14 dark:text-[var(--color-coral)]">
+                              <Trophy className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
+                            </div>
+                            <div>
+                              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                                <span className="mono-label text-[9px] font-bold tracking-widest uppercase sm:text-[10px]">
+                                  {t("icpc.eyebrow")}
+                                </span>
+                                <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[var(--color-coral)]/30 bg-[var(--color-coral)]/10 px-2 py-0.5 text-[9px] font-bold text-[var(--color-coral-deep)] sm:text-[10px] dark:text-[var(--color-coral)]">
+                                  <Calendar className="h-3 w-3" />
+                                  {t("icpc.date")}
+                                </span>
+                              </div>
+                              <h4 className="mt-0.5 text-base font-bold text-foreground sm:text-lg md:text-xl">
+                                {t("icpc.title")}
+                              </h4>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-wrap items-center gap-1 sm:gap-1.5">
+                            {icpcBadges.map((badge) => (
+                              <Badge
+                                key={badge}
+                                variant="secondary"
+                                className="rounded-full border border-[var(--color-coral)]/25 bg-[var(--color-coral)]/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-[var(--color-coral-deep)] sm:px-3 sm:py-1 sm:text-xs dark:text-[var(--color-coral)]"
+                              >
+                                {badge}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        <p className="mt-3 text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                          {t("icpc.description")}
+                        </p>
+
+                        {/* Certificate Action & Verification Row */}
+                        <div className="mt-4 flex flex-wrap items-center justify-between gap-2.5 border-t border-border/70 pt-3 sm:mt-5 sm:pt-4">
+                          <div className="flex items-center gap-2">
+                            <span className="hum-dot hum-dot--coral animate-pulse" />
+                            <span className="mono-label text-[10px] text-muted-foreground sm:text-xs">
+                              Regional Attendance Verified
+                            </span>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => setShowCertificate(true)}
+                            className="hum-btn hum-btn--coral !min-h-[36px] !px-3.5 !py-1.5 !font-mono !text-xs !font-bold"
+                          >
+                            <Award className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                            <span>View Certificate</span>
+                            <ArrowUpRight className="hum-arrow h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Organized Contest Intelligence Metrics Grid */}
+                      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+                        <div className="hum-card rounded-xl border border-border/70 bg-card/70 p-2.5 text-center sm:p-3.5">
+                          <span className="mono-label text-[9px] text-muted-foreground uppercase sm:text-[10px]">
+                            Team Dynamics
+                          </span>
+                          <div className="mt-1 font-mono text-xs font-bold text-foreground sm:text-sm md:text-base">
+                            3 Members • 1 PC
+                          </div>
+                          <p className="mt-0.5 font-mono text-[9px] text-muted-foreground">
+                            High-pressure pairing
+                          </p>
+                        </div>
+
+                        <div className="hum-card rounded-xl border border-border/70 bg-card/70 p-2.5 text-center sm:p-3.5">
+                          <span className="mono-label text-[9px] text-muted-foreground uppercase sm:text-[10px]">
+                            Duration
+                          </span>
+                          <div className="mt-1 font-mono text-xs font-bold text-foreground sm:text-sm md:text-base">
+                            5 Continuous Hours
+                          </div>
+                          <p className="mt-0.5 font-mono text-[9px] text-muted-foreground">
+                            Onsite Regional Final
+                          </p>
+                        </div>
+
+                        <div className="hum-card rounded-xl border border-border/70 bg-card/70 p-2.5 text-center sm:p-3.5">
+                          <span className="mono-label text-[9px] text-muted-foreground uppercase sm:text-[10px]">
+                            Stack &amp; Tooling
+                          </span>
+                          <div className="mt-1 font-mono text-xs font-bold text-foreground sm:text-sm md:text-base">
+                            C++20 / STL
+                          </div>
+                          <p className="mt-0.5 font-mono text-[9px] text-muted-foreground">
+                            Fast I/O &amp; Memory opt
+                          </p>
+                        </div>
+
+                        <div className="hum-card rounded-xl border border-border/70 bg-card/70 p-2.5 text-center sm:p-3.5">
+                          <span className="mono-label text-[9px] text-muted-foreground uppercase sm:text-[10px]">
+                            Problem Domains
+                          </span>
+                          <div className="mt-1 font-mono text-xs font-bold text-foreground sm:text-sm md:text-base">
+                            Math, Graphs &amp; DP
+                          </div>
+                          <p className="mt-0.5 font-mono text-[9px] text-muted-foreground">
+                            Complex constraints
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* ─── MINDSET VIEW ─── */}
+                  {activeModal === "mindset" && (
+                    <motion.div
+                      key="mindset"
+                      initial={{ opacity: 0, x: -15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 15 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div className="mb-3 sm:mb-4">
+                        <h3 className="text-base font-bold text-foreground sm:text-lg md:text-xl">
+                          Algorithmic Philosophy &amp; Strengths
                         </h3>
-                        <p className="text-xs text-muted-foreground sm:text-sm">
-                          Verified solve count across Codeforces and Beecrowd online judges.
+                        <p className="text-[11px] text-muted-foreground sm:text-xs md:text-sm">
+                          Core habits, analytical thinking, and disciplined
+                          problem deconstruction.
                         </p>
                       </div>
-                      <span className="shrink-0 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 font-mono text-xs font-bold text-amber-700 dark:text-amber-300">
-                        359 Total Solved
+
+                      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3 sm:gap-3.5">
+                        {highlights.map((item, idx) => {
+                          const Icon = highlightIcons[idx] || Sparkles
+                          const accentStyles = [
+                            {
+                              border:
+                                "border-[var(--color-mint)]/30 hover:border-[var(--color-mint)]/50",
+                              iconBg:
+                                "bg-[var(--color-mint)]/10 text-[var(--color-mint)] border-[var(--color-mint)]/20",
+                              ribbon: "bg-[var(--color-mint)]",
+                            },
+                            {
+                              border:
+                                "border-[var(--color-cyan)]/30 hover:border-[var(--color-cyan)]/50",
+                              iconBg:
+                                "bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)] border-[var(--color-cyan)]/20",
+                              ribbon: "bg-[var(--color-cyan)]",
+                            },
+                            {
+                              border:
+                                "border-[var(--color-pear)]/30 hover:border-[var(--color-pear)]/50",
+                              iconBg:
+                                "bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)] border-[var(--color-pear)]/20",
+                              ribbon: "bg-[var(--color-pear)]",
+                            },
+                          ][idx % 3]
+
+                          return (
+                            <div
+                              key={item.title}
+                              data-cursor="cover"
+                              className={`hum-card group relative overflow-hidden rounded-2xl border bg-card p-3.5 text-card-foreground sm:p-4.5 ${accentStyles.border}`}
+                            >
+                              <div
+                                className={`absolute inset-x-0 top-0 h-1 ${accentStyles.ribbon} opacity-70 transition-opacity duration-300 group-hover:opacity-100`}
+                                aria-hidden="true"
+                              />
+                              <div className="flex items-start gap-3">
+                                <div
+                                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 sm:h-10 sm:w-10 ${accentStyles.iconBg}`}
+                                >
+                                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                  <div>
+                                    <h4 className="text-xs font-bold text-card-foreground sm:text-sm">
+                                      {item.title}
+                                    </h4>
+                                    <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground sm:mt-1.5 sm:text-xs">
+                                      {item.description}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+              </motion.div>
+            </div>
+          </AnimatePresence>,
+          document.body
+        )}
+
+      {/* ICPC Certificate Image Viewer Modal */}
+      {mounted &&
+        showCertificate &&
+        createPortal(
+          <AnimatePresence>
+            <div className="fixed inset-0 z-[100000] flex items-center justify-center p-2.5 sm:p-4 md:p-6">
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setShowCertificate(false)}
+                className="absolute inset-0 bg-background/85 backdrop-blur-md"
+              />
+
+              {/* Certificate Image Dialog */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.94, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.94, y: 15 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="relative z-10 flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-[var(--color-coral)]/40 bg-card p-3 text-card-foreground shadow-2xl sm:rounded-3xl sm:p-5"
+              >
+                {/* Header with Title & Close Button */}
+                <div className="mb-2 flex items-center justify-between gap-2 border-b border-border/70 pb-2 sm:mb-3.5 sm:pb-3">
+                  <div className="flex min-w-0 items-center gap-2">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-[var(--color-coral)]/30 bg-[var(--color-coral)]/15 text-[var(--color-coral-deep)] sm:h-8 sm:w-8 sm:rounded-xl dark:text-[var(--color-coral)]">
+                      <Award className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="truncate text-xs font-bold text-foreground xs:text-sm sm:text-base md:text-lg">
+                        ICPC 2025 Regional Certificate
+                      </h3>
+                      <p className="hidden truncate font-mono text-[10px] text-muted-foreground xs:block sm:text-xs">
+                        Official Contest Attendance &amp; Participation Honor
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex shrink-0 items-center gap-1.5">
+                    <a
+                      href="https://drive.google.com/file/d/1MPH7G7W5E90pciMGBCpsDr0GVBmhORhw/view?usp=sharing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hum-btn hum-btn--outline !min-h-[28px] !px-2 !py-1 !font-mono !text-[9px] sm:!min-h-[32px] sm:!px-2.5 sm:!text-xs"
+                      title="Open in Google Drive"
+                    >
+                      <span className="hidden xs:inline">Drive Link</span>
+                      <span className="xs:hidden">Drive</span>
+                      <ArrowUpRight className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setShowCertificate(false)}
+                      className="flex h-7 w-7 items-center justify-center rounded-lg border border-border/80 bg-secondary/80 text-muted-foreground transition-all hover:border-destructive/40 hover:bg-destructive/15 hover:text-destructive active:scale-95 sm:h-8 sm:w-8 sm:rounded-xl"
+                      aria-label="Close Certificate Viewer"
+                    >
+                      <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Certificate Image Frame */}
+                <div className="relative flex max-h-[68vh] min-h-[180px] w-full items-center justify-center overflow-auto rounded-xl border border-border/60 bg-muted/30 p-1 xs:max-h-[72vh] sm:max-h-[75vh] sm:p-2">
+                  {/* Loading Skeleton / Spinner */}
+                  {!certLoaded && (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-card/60 backdrop-blur-xs sm:gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--color-coral)]/30 bg-[var(--color-coral)]/10 text-[var(--color-coral)] sm:h-10 sm:w-10 sm:rounded-xl">
+                        <Loader2 className="h-4 w-4 animate-spin sm:h-5 sm:w-5" />
+                      </div>
+                      <span className="mono-label animate-pulse text-[10px] text-muted-foreground sm:text-xs">
+                        Loading Certificate...
                       </span>
                     </div>
+                  )}
 
-                    {/* 2 Platform Cards */}
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      {/* Codeforces */}
-                      <Card className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:border-amber-500/40">
-                        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-500 via-rose-500 to-amber-500" />
-                        <div>
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="flex items-center gap-3">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400">
-                                <Terminal className="h-5 w-5" />
-                              </div>
-                              <div>
-                                <div className="flex items-center gap-1.5">
-                                  <span className="font-mono text-[10px] font-bold text-muted-foreground uppercase">
-                                    {t("platforms.codeforces.eyebrow")}
-                                  </span>
-                                  <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-1.5 py-0.2 font-mono text-[8px] font-bold text-emerald-700 dark:text-emerald-300">
-                                    <span className="h-1 w-1 animate-pulse rounded-full bg-emerald-500" />
-                                    ACTIVE
-                                  </span>
-                                </div>
-                                <h4 className="text-base font-bold text-foreground">
-                                  {t("platforms.codeforces.name")}
-                                </h4>
-                              </div>
-                            </div>
-                            <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-amber-700 dark:text-amber-300">
-                              229 Solved
-                            </span>
-                          </div>
-
-                          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-                            {t("platforms.codeforces.description")}
-                          </p>
-
-                          <div className="mt-3 flex flex-wrap gap-1">
-                            {cfTopics.map((topic) => (
-                              <Badge
-                                key={topic}
-                                variant="secondary"
-                                className="rounded-full border border-border/60 bg-secondary/50 px-2.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground"
-                              >
-                                {topic}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="mt-4 border-t border-border/80 pt-3">
-                          <Button
-                            variant="amber"
-                            size="sm"
-                            href="https://codeforces.com/profile/YOUR_HANDLE"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full rounded-full"
-                            frontClassName="rounded-full"
-                          >
-                            <span className="py-2.5">
-                              {t("platforms.codeforces.viewProfile")}
-                            </span>
-                            <ExternalLink className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
-                      </Card>
-
-                      {/* Beecrowd */}
-                      <Card className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:border-sky-500/40">
-                        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-sky-500 via-emerald-500 to-sky-500" />
-                        <div>
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="flex items-center gap-3">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-600 dark:text-sky-400">
-                                <Target className="h-5 w-5" />
-                              </div>
-                              <div>
-                                <div className="flex items-center gap-1.5">
-                                  <span className="font-mono text-[10px] font-bold text-muted-foreground uppercase">
-                                    {t("platforms.beecrowd.eyebrow")}
-                                  </span>
-                                  <span className="inline-flex items-center gap-1 rounded-full border border-sky-500/25 bg-sky-500/10 px-1.5 py-0.2 font-mono text-[8px] font-bold text-sky-700 dark:text-sky-300">
-                                    <span className="h-1 w-1 animate-pulse rounded-full bg-sky-500" />
-                                    ACTIVE
-                                  </span>
-                                </div>
-                                <h4 className="text-base font-bold text-foreground">
-                                  {t("platforms.beecrowd.name")}
-                                </h4>
-                              </div>
-                            </div>
-                            <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-sky-700 dark:text-sky-300">
-                              130 Solved
-                            </span>
-                          </div>
-
-                          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-                            {t("platforms.beecrowd.description")}
-                          </p>
-
-                          <div className="mt-3 flex flex-wrap gap-1">
-                            {beeTopics.map((topic) => (
-                              <Badge
-                                key={topic}
-                                variant="secondary"
-                                className="rounded-full border border-border/60 bg-secondary/50 px-2.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground"
-                              >
-                                {topic}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="mt-4 border-t border-border/80 pt-3">
-                          <Button
-                            variant="sky"
-                            size="sm"
-                            href="https://judge.beecrowd.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full rounded-full"
-                            frontClassName="rounded-full"
-                          >
-                            <span className="py-2.5">
-                              {t("platforms.beecrowd.viewProfile")}
-                            </span>
-                            <ExternalLink className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
-                      </Card>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* ─────────────────────────────────────────────────────────────
-                    MODAL VIEW 2: ICPC 2025 REGIONAL CONTEST
-                   ───────────────────────────────────────────────────────────── */}
-                {activeModal === "icpc" && (
-                  <motion.div
-                    key="icpc"
-                    initial={{ opacity: 0, x: -15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 15 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="mb-4">
-                      <h3 className="text-lg font-bold text-foreground sm:text-xl">
-                        ICPC 2025 Contest Participation
-                      </h3>
-                      <p className="text-xs text-muted-foreground sm:text-sm">
-                        International Collegiate Programming Contest (Regional Attendance).
-                      </p>
-                    </div>
-
-                    {/* Grand Trophy Card */}
-                    <Card className="overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/15 via-card to-card p-5 text-card-foreground shadow-sm sm:p-7">
-                      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                        <div className="flex items-center gap-3.5">
-                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-amber-500/30 bg-amber-500/20 text-amber-600 sm:h-14 sm:w-14 dark:text-amber-400">
-                            <Trophy className="h-6 w-6 sm:h-7 sm:w-7" />
-                          </div>
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <span className="font-mono text-xs font-bold tracking-widest text-amber-700 uppercase dark:text-amber-300">
-                                {t("icpc.eyebrow")}
-                              </span>
-                              <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-amber-700 dark:text-amber-300">
-                                <Calendar className="h-3 w-3" />
-                                {t("icpc.date")}
-                              </span>
-                            </div>
-                            <h4 className="text-base font-bold text-foreground sm:text-lg md:text-xl">
-                              {t("icpc.title")}
-                            </h4>
-                          </div>
-                        </div>
-
-                        {/* Badges */}
-                        <div className="flex flex-wrap items-center gap-1.5">
-                          {icpcBadges.map((badge) => (
-                            <Badge
-                              key={badge}
-                              variant="secondary"
-                              className="rounded-full border border-amber-500/25 bg-amber-500/10 px-3 py-1 font-mono text-xs font-semibold text-amber-800 dark:text-amber-200"
-                            >
-                              {badge}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-
-                      <p className="mt-4 text-xs leading-relaxed text-muted-foreground sm:text-sm">
-                        {t("icpc.description")}
-                      </p>
-
-                      <div className="mt-5 grid grid-cols-2 gap-3 border-t border-border/70 pt-4 sm:grid-cols-4">
-                        <div className="rounded-xl border border-border/60 bg-card/60 p-3 text-center">
-                          <div className="font-mono text-xs text-muted-foreground">Team Size</div>
-                          <div className="mt-1 font-mono text-base font-bold text-foreground">3 Members</div>
-                        </div>
-                        <div className="rounded-xl border border-border/60 bg-card/60 p-3 text-center">
-                          <div className="font-mono text-xs text-muted-foreground">Contest Length</div>
-                          <div className="mt-1 font-mono text-base font-bold text-foreground">5 Hours</div>
-                        </div>
-                        <div className="rounded-xl border border-border/60 bg-card/60 p-3 text-center">
-                          <div className="font-mono text-xs text-muted-foreground">Focus</div>
-                          <div className="mt-1 font-mono text-base font-bold text-foreground">DSA & Logic</div>
-                        </div>
-                        <div className="rounded-xl border border-border/60 bg-card/60 p-3 text-center">
-                          <div className="font-mono text-xs text-muted-foreground">Language</div>
-                          <div className="mt-1 font-mono text-base font-bold text-foreground">C++ / STL</div>
-                        </div>
-                      </div>
-                    </Card>
-                  </motion.div>
-                )}
-
-                {/* ─────────────────────────────────────────────────────────────
-                    MODAL VIEW 3: ALGORITHMIC MINDSET & PHILOSOPHY
-                   ───────────────────────────────────────────────────────────── */}
-                {activeModal === "mindset" && (
-                  <motion.div
-                    key="mindset"
-                    initial={{ opacity: 0, x: -15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 15 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="mb-4">
-                      <h3 className="text-lg font-bold text-foreground sm:text-xl">
-                        Algorithmic Philosophy & Strengths
-                      </h3>
-                      <p className="text-xs text-muted-foreground sm:text-sm">
-                        Core habits, analytical thinking, and disciplined problem deconstruction.
-                      </p>
-                    </div>
-
-                    <div className="grid gap-3.5 sm:grid-cols-3">
-                      {highlights.map((item, idx) => {
-                        const Icon = highlightIcons[idx] || Sparkles
-                        const accentStyles = [
-                          {
-                            border: "border-emerald-500/30 hover:border-emerald-500/50",
-                            iconBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-                          },
-                          {
-                            border: "border-sky-500/30 hover:border-sky-500/50",
-                            iconBg: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20",
-                          },
-                          {
-                            border: "border-amber-500/30 hover:border-amber-500/50",
-                            iconBg: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-                          },
-                        ][idx % 3]
-
-                        return (
-                          <Card
-                            key={item.title}
-                            className={`group rounded-2xl border bg-card p-4.5 text-card-foreground shadow-2xs transition-all duration-300 ${accentStyles.border}`}
-                          >
-                            <div className="flex items-start gap-3">
-                              <div
-                                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 ${accentStyles.iconBg}`}
-                              >
-                                <Icon className="h-5 w-5" />
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <CardHeader className="p-0">
-                                  <CardTitle className="text-sm font-bold text-card-foreground">
-                                    {item.title}
-                                  </CardTitle>
-                                  <CardDescription className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                                    {item.description}
-                                  </CardDescription>
-                                </CardHeader>
-                              </div>
-                            </div>
-                          </Card>
-                        )
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-            </motion.div>
-          </div>
-        </AnimatePresence>,
-        document.body
-      )}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/certificates/icpc-2025.jpg"
+                    alt="ICPC 2025 Certificate of Participation"
+                    className={`max-h-[66vh] w-auto max-w-full rounded-lg object-contain shadow-md transition-opacity duration-300 xs:max-h-[70vh] sm:max-h-[72vh] ${
+                      certLoaded
+                        ? "scale-100 opacity-100"
+                        : "scale-98 opacity-0"
+                    }`}
+                    loading="eager"
+                    decoding="async"
+                    onLoad={() => setCertLoaded(true)}
+                    onError={(e) => {
+                      // Fallback to Google Drive direct URL if needed
+                      const target = e.currentTarget
+                      if (!target.src.includes("google.com")) {
+                        target.src =
+                          "https://drive.google.com/uc?id=1MPH7G7W5E90pciMGBCpsDr0GVBmhORhw"
+                      }
+                    }}
+                  />
+                </div>
+              </motion.div>
+            </div>
+          </AnimatePresence>,
+          document.body
+        )}
     </section>
   )
 }

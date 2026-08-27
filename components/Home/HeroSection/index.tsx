@@ -1,7 +1,7 @@
 "use client"
 
+import { useState } from "react"
 import { useTranslations } from "next-intl"
-import { Button } from "@/components/ui/button"
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -12,130 +12,183 @@ import {
 
 export function Hero() {
   const t = useTranslations("Hero")
+  const [nameHovered, setNameHovered] = useState(false)
 
   return (
     <section
       id="home"
       className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
     >
-      {/* Ambient Spotlight / Shadow blurs behind section commented out to prevent rendering glitches
+      {/* Animated gradient mesh background */}
       <div
-        className="pointer-events-none absolute top-0 left-0 h-[450px] w-[450px] rounded-full bg-amber-500/[0.04] blur-[120px] transition-transform duration-100 ease-out"
+        aria-hidden="true"
         style={{
-          transform: `translate(${mouse.x - 225}px, ${mouse.y - 225}px)`,
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          overflow: "hidden",
         }}
-      />
-      <div
-        className="pointer-events-none absolute top-0 left-0 h-[380px] w-[380px] rounded-full bg-sky-500/[0.03] blur-[100px] transition-transform duration-150 ease-out"
-        style={{
-          transform: `translate(${mouse.x - 190}px, ${mouse.y - 190}px)`,
-        }}
-      />
-      */}
+      >
+        {/* Pear blob — top-right quadrant */}
+        <div
+          style={{
+            position: "absolute",
+            top: "5%",
+            right: "8%",
+            width: "300px",
+            height: "300px",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(212,160,23,0.12) 0%, transparent 70%)",
+            filter: "blur(40px)",
+          }}
+        />
+        {/* Cyan blob — bottom-left quadrant */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "10%",
+            left: "4%",
+            width: "250px",
+            height: "250px",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(46,139,192,0.10) 0%, transparent 70%)",
+            filter: "blur(40px)",
+          }}
+        />
+        {/* Mint blob — top-left */}
+        <div
+          style={{
+            position: "absolute",
+            top: "8%",
+            left: "6%",
+            width: "200px",
+            height: "200px",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(61,171,110,0.08) 0%, transparent 70%)",
+            filter: "blur(40px)",
+          }}
+        />
+      </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-360">
-        {/* Hallmark Hum Eyebrow with Pulsing Mint Dot */}
-        <div className="mb-3.5 inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/90 px-3.5 py-1.5 shadow-2xs transition-all duration-300 hover:border-emerald-500/40 sm:mb-6 sm:px-4 sm:py-2">
+        {/* Eyebrow badge — mono label with mint pulse dot */}
+        <div className="hum-reveal mb-3.5 inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/90 px-3.5 py-1.5 shadow-2xs transition-all duration-300 hover:border-[var(--color-mint)]/40 sm:mb-6 sm:px-4 sm:py-2">
           <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500 sm:h-2.5 sm:w-2.5" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-mint)] opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-mint)] sm:h-2.5 sm:w-2.5" />
           </span>
-          <span className="font-mono text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase sm:text-sm sm:tracking-[0.25em]">
-            01 ⁄ {t("available")}
-          </span>
+          <span className="mono-label">01 ⁄ {t("available")}</span>
         </div>
 
-        {/* Editorial Confident Rounded Sans Display Typography */}
-        <div className="flex flex-wrap items-center">
-          <h1 className="marlin-font preserve-design text-5xl leading-none font-black tracking-tight text-foreground uppercase sm:text-7xl md:text-9xl lg:text-[10rem] 2xl:text-[11.5rem]">
-            <span
-              data-cursor="cover"
-              className="preserve-design hero-title inline-block"
-            >
-              JABER
-            </span>
+        {/* Display name — Plus Jakarta Sans */}
+        <div
+          className="hum-reveal flex flex-wrap items-center"
+          style={{ animationDelay: "80ms" }}
+        >
+          <h1
+            data-cursor="cover"
+            className="preserve-design hero-title inline-block text-4xl leading-none font-black tracking-tight text-foreground uppercase xs:text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] 2xl:text-[11.5rem]"
+            style={{
+              textShadow: nameHovered
+                ? "2px 4px 12px rgba(212,160,23,0.25)"
+                : "none",
+              transition: "text-shadow 300ms ease",
+            }}
+            onMouseEnter={() => setNameHovered(true)}
+            onMouseLeave={() => setNameHovered(false)}
+          >
+            JABER
           </h1>
 
-          {/* Hallmark Hum Interactive Pill Badge */}
-          <div className="ml-3 inline-flex -translate-y-1 items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 font-mono text-xs font-semibold tracking-normal text-amber-700 shadow-2xs transition-all duration-300 hover:scale-105 hover:border-amber-500/50 sm:ml-6 sm:-translate-y-3 sm:px-4 sm:py-1.5 sm:text-sm md:text-base dark:text-amber-300">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-amber-500" />
+          {/* Full Stack pill — pear accent */}
+          <div className="ml-2 inline-flex -translate-y-0.5 items-center gap-1.5 rounded-full border border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-normal text-[var(--color-pear-deep)] shadow-2xs transition-all duration-300 hover:scale-105 hover:border-[var(--color-pear)]/50 sm:ml-6 sm:-translate-y-3 sm:px-4 sm:py-1.5 sm:text-sm md:text-base dark:text-[var(--color-pear)]">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-pear)] sm:h-2 sm:w-2" />
             <span>Full Stack</span>
           </div>
         </div>
 
-        {/* Subtitle Name in Clean Muted Typography */}
+        {/* Subtitle */}
         <h2
           data-cursor="text"
-          className="marlin-font preserve-design mt-1.5 text-xl font-bold tracking-[0.14em] text-muted-foreground uppercase sm:mt-3 sm:text-3xl sm:tracking-[0.18em] md:text-4xl lg:text-5xl 2xl:text-6xl"
+          className="preserve-design mt-1.5 text-lg font-bold tracking-[0.12em] text-muted-foreground uppercase sm:mt-3 sm:text-2xl sm:tracking-[0.14em] md:text-4xl lg:text-5xl 2xl:text-6xl"
         >
           HOSSAIN CHOWDHURY
         </h2>
 
-        {/* Bio / Description with Crisp Readability */}
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed font-normal text-muted-foreground sm:mt-5 sm:text-base md:text-lg lg:text-xl">
-          {t("description")}
-        </p>
+        {/* Glassmorphism bio card — wraps bio + role pills */}
+        <div
+          className="hum-reveal mt-3 space-y-2.5 rounded-2xl border border-border/50 bg-card/40 p-3 backdrop-blur-sm sm:mt-5 sm:space-y-4 sm:p-4 md:p-5"
+          style={{ animationDelay: "160ms" }}
+        >
+          {/* Bio */}
+          <p className="max-w-3xl text-xs leading-relaxed font-normal text-muted-foreground sm:text-sm md:text-base lg:text-lg">
+            {t("description")}
+          </p>
 
-        {/* Hallmark Multi-Accent Role Pills (Pear, Cyan, Mint) */}
-        <div className="mt-5 flex flex-wrap items-center gap-2 sm:mt-7 sm:gap-3">
-          {/* Tag 1: Primary Pear */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1.5 font-mono text-xs font-medium tracking-wide text-amber-800 shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-500/50 active:scale-[0.98] sm:px-4.5 sm:py-2 sm:text-sm dark:text-amber-200">
-            <span className="h-2 w-2 rounded-full bg-amber-500" />
-            <span>{t("tag1")}</span>
-          </div>
+          {/* Multi-accent role pills: pear, cyan, mint */}
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-3">
+            {/* Tag 1: Pear */}
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 px-2.5 py-1 font-mono text-[11px] font-medium tracking-wide text-[var(--color-pear-deep)] shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-pear)]/50 active:scale-[0.98] sm:gap-2 sm:px-4.5 sm:py-2 sm:text-sm dark:text-[var(--color-pear)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-pear)] sm:h-2 sm:w-2" />
+              <span>{t("tag1")}</span>
+            </div>
 
-          {/* Tag 2: Sky Cyan */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-3.5 py-1.5 font-mono text-xs font-medium tracking-wide text-sky-800 shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-500/50 active:scale-[0.98] sm:px-4.5 sm:py-2 sm:text-sm dark:text-sky-200">
-            <span className="h-2 w-2 rounded-full bg-sky-500" />
-            <span>{t("tag2")}</span>
-          </div>
+            {/* Tag 2: Cyan */}
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-cyan)]/30 bg-[var(--color-cyan)]/10 px-2.5 py-1 font-mono text-[11px] font-medium tracking-wide text-[var(--color-cyan-deep)] shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-cyan)]/50 active:scale-[0.98] sm:gap-2 sm:px-4.5 sm:py-2 sm:text-sm dark:text-[var(--color-cyan)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-cyan)] sm:h-2 sm:w-2" />
+              <span>{t("tag2")}</span>
+            </div>
 
-          {/* Tag 3: Mint Green */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 font-mono text-xs font-medium tracking-wide text-emerald-800 shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/50 active:scale-[0.98] sm:px-4.5 sm:py-2 sm:text-sm dark:text-emerald-200">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            <span>{t("tag3")}</span>
+            {/* Tag 3: Mint */}
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-mint)]/30 bg-[var(--color-mint)]/10 px-2.5 py-1 font-mono text-[11px] font-medium tracking-wide text-[var(--color-mint)] shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-mint)]/50 active:scale-[0.98] sm:gap-2 sm:px-4.5 sm:py-2 sm:text-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-mint)] sm:h-2 sm:w-2" />
+              <span>{t("tag3")}</span>
+            </div>
           </div>
         </div>
 
-        {/* Action Buttons & Tactile Feature Badges */}
-        <div className="mt-6 flex flex-col gap-4 border-t-2 border-dashed border-border/80 pt-4 sm:mt-9 sm:flex-row sm:items-center sm:justify-between sm:pt-6">
-          {/* Tactile Action Buttons */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-            <Button
-              variant="default"
+        {/* Action buttons & feature chips */}
+        <div
+          className="hum-reveal mt-4 flex flex-col gap-3.5 border-t-2 border-dashed border-border/80 pt-3.5 sm:mt-9 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:pt-6"
+          style={{ animationDelay: "320ms" }}
+        >
+          {/* CTA buttons — hum-btn system */}
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3.5">
+            <a
               href="#projects"
-              className="rounded-full"
-              frontClassName="rounded-full"
+              className="hum-btn min-h-[40px] px-4 py-2 text-xs sm:min-h-[44px] sm:px-5 sm:py-2.5 sm:text-sm"
             >
-              <span className="py-3">Explore Work</span>
-              <ArrowDownRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5 sm:h-4.5 sm:w-4.5" />
-            </Button>
+              <span>Explore Work</span>
+              <ArrowDownRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:translate-y-0.5 sm:h-4.5 sm:w-4.5" />
+            </a>
 
-            <Button
-              variant="outline"
+            <a
               href="#contact"
-              className="rounded-full"
-              frontClassName="rounded-full"
+              className="hum-btn hum-btn--soft min-h-[40px] px-4 py-2 text-xs sm:min-h-[44px] sm:px-5 sm:py-2.5 sm:text-sm"
             >
-              <span className="py-3">Get in Touch</span>
-              <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground sm:h-4.5 sm:w-4.5" />
-            </Button>
+              <span>Get in Touch</span>
+              <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-4.5 sm:w-4.5" />
+            </a>
           </div>
 
-          {/* Micro Highlight Chips */}
+          {/* Micro highlight chips — multi-accent icons */}
           <div className="hidden items-center gap-4 font-mono text-xs text-muted-foreground md:text-sm lg:flex">
             <div className="flex items-center gap-2">
-              <Zap className="h-4 w-4 text-sky-500" />
+              <Zap className="h-4 w-4 text-[var(--color-cyan)]" />
               <span>Performant UI</span>
             </div>
             <span className="text-border">⁄</span>
             <div className="flex items-center gap-2">
-              <Brain className="h-4 w-4 text-amber-500" />
+              <Brain className="h-4 w-4 text-[var(--color-pear)]" />
               <span>ICPC &apos;25 • 359 Solved</span>
             </div>
             <span className="text-border">⁄</span>
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-emerald-500" />
+              <Sparkles className="h-4 w-4 text-[var(--color-mint)]" />
               <span>Modern Stack</span>
             </div>
           </div>

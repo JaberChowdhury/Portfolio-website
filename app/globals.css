@@ -74,8 +74,12 @@
 }
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
+  --breakpoint-xs: 30rem;
+  --font-heading: "Plus Jakarta Sans", var(--font-sans);
+  --font-sans: "Plus Jakarta Sans", var(--font-sans);
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: var(--font-display), "Playfair Display", serif;
+  --font-syne: var(--font-syne), "Syne", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -107,6 +111,14 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
+  --color-pear: var(--color-pear);
+  --color-pear-light: var(--color-pear-light);
+  --color-cyan-accent: var(--color-cyan);
+  --color-cyan-light: var(--color-cyan-light);
+  --color-coral-accent: var(--color-coral);
+  --color-coral-light: var(--color-coral-light);
+  --color-mint-accent: var(--color-mint);
+  --color-lavender-accent: var(--color-lavender);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -114,6 +126,8 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --font-heading: "Plus Jakarta Sans", var(--font-sans);
+  --font-sans: "Plus Jakarta Sans", var(--font-sans);
   /* --font-heading: "Marlin Soft", var(--font-sans);
   --font-sans: "Marlin Soft", var(--font-sans); */
   --animate-gradient: gradient 8s linear infinite;
@@ -144,150 +158,196 @@
 }
 
 :root {
-  /* Hallmark Hum Theme - Light mode by default */
-  --background: #f7f5f0;
-  --foreground: #1a1b18;
-  --card: #ffffff;
-  --card-foreground: #1a1b18;
-  --popover: #ffffff;
-  --popover-foreground: #1a1b18;
+  /* Hallmark Hum Theme — Multi-Accent Cream */
+  /* Paper: warm cream, slight pear-yellow pull */
+  --background: #f7f3e8;
+  --foreground: #1c1d19;
 
-  --primary: #c85a32;
-  --primary-foreground: #ffffff;
+  /* Card: cream-white, never pure white */
+  --card: #faf8f2;
+  --card-foreground: #1c1d19;
+  --popover: #faf8f2;
+  --popover-foreground: #1c1d19;
 
-  --secondary: #eeeae0;
-  --secondary-foreground: #1a1b18;
-  --muted: #ece7dc;
-  --muted-foreground: #6b6c66;
-  --accent: #e5dfd2;
-  --accent-foreground: #1a1b18;
+  /* Primary: pear-yellow (the canonical Hum accent) */
+  --primary: #d4a017;
+  --primary-foreground: #1c1d19;
+
+  /* Secondary: warm beige */
+  --secondary: #f0eadc;
+  --secondary-foreground: #1c1d19;
+
+  /* Muted: soft sage */
+  --muted: #e8e3d5;
+  --muted-foreground: #6b6c62;
+
+  /* Accent: pear-yellow at surface level */
+  --accent: #f5e6a3;
+  --accent-foreground: #1c1d19;
+
+  /* Multi-accent palette — Hum's signature */
+  --color-pear: #d4a017;
+  --color-pear-light: #f5e6a3;
+  --color-pear-deep: #b8890f;
+  --color-cyan: #2e8bc0;
+  --color-cyan-light: #b3daef;
+  --color-cyan-deep: #1a6f9a;
+  --color-coral: #e05d44;
+  --color-coral-light: #f4b1a3;
+  --color-coral-deep: #c04530;
+  --color-mint: #3dab6e;
+  --color-mint-light: #b8e8cc;
+  --color-lavender: #8b6fbf;
+  --color-lavender-light: #d4c4ef;
 
   --destructive: #d32f2f;
-  --border: rgba(26, 27, 24, 0.12);
-  --input: rgba(26, 27, 24, 0.15);
-  --ring: #c85a32;
+  --border: rgba(28, 29, 25, 0.1);
+  --input: rgba(28, 29, 25, 0.14);
+  --ring: #d4a017;
 
-  /* Cozy earth-toned charts */
-  --chart-1: #c85a32;
-  --chart-2: #2a7b62;
-  --chart-3: #d99b26;
-  --chart-4: #4361ee;
-  --chart-5: #8338ec;
+  /* Charts */
+  --chart-1: #d4a017;
+  --chart-2: #2e8bc0;
+  --chart-3: #e05d44;
+  --chart-4: #3dab6e;
+  --chart-5: #8b6fbf;
 
-  --radius: 0.625rem;
+  /* Radii — Hum is the rounded theme */
+  --radius: 0.75rem;
+  --radius-card: 20px;
+  --radius-pill: 999px;
+  --radius-input: 12px;
 
-  /* Sidebar matching the clean structural layout */
-  --sidebar: #eeeae0;
-  --sidebar-foreground: #1a1b18;
-  --sidebar-primary: #c85a32;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e5dfd2;
-  --sidebar-accent-foreground: #1a1b18;
-  --sidebar-border: rgba(26, 27, 24, 0.12);
-  --sidebar-ring: #c85a32;
+  /* Sidebar */
+  --sidebar: #f0eadc;
+  --sidebar-foreground: #1c1d19;
+  --sidebar-primary: #d4a017;
+  --sidebar-primary-foreground: #1c1d19;
+  --sidebar-accent: #f5e6a3;
+  --sidebar-accent-foreground: #1c1d19;
+  --sidebar-border: rgba(28, 29, 25, 0.1);
+  --sidebar-ring: #d4a017;
 
-  /* Card Stack Background Sequence for Hallmark Hum Theme */
-  --card-bg-home: #f7f5f0;
-  --card-bg-skills: #f2efe8;
-  --card-bg-projects: #ede8dd;
-  --card-bg-competitions: #f4f0e6;
-  --card-bg-experience: #edf3ee;
-  --card-bg-education: #f5eff1;
-  --card-bg-contact: #f7efe6;
-  --card-bg-footer: #eae5d9;
+  /* Card Stack Background Sequence — Hum multi-accent bands */
+  --card-bg-home: #f7f3e8;
+  --card-bg-skills: #f0eadc;
+  --card-bg-projects: #eef4f8;
+  --card-bg-competitions: #fdf0ec;
+  --card-bg-experience: #edf6f0;
+  --card-bg-education: #f3eef8;
+  --card-bg-contact: #faf4e6;
+  --card-bg-footer: #dfd9c8;
 }
 
 .dark {
-  /* Hallmark Hum Theme - Dark mode */
-  --background: #141513;
-  --foreground: #f4f3ee;
-  --card: #1c1d1a;
-  --card-foreground: #f4f3ee;
-  --popover: #1c1d1a;
-  --popover-foreground: #f4f3ee;
+  /* Hallmark Hum Theme — Dark Mode */
+  --background: #131411;
+  --foreground: #f0eddf;
 
-  --primary: #e07a52;
-  --primary-foreground: #141513;
+  --card: #1a1b18;
+  --card-foreground: #f0eddf;
+  --popover: #1a1b18;
+  --popover-foreground: #f0eddf;
 
-  --secondary: #242621;
-  --secondary-foreground: #f4f3ee;
-  --muted: #242621;
-  --muted-foreground: #9a9b93;
-  --accent: #2c2e28;
-  --accent-foreground: #f4f3ee;
+  /* Primary: pear-yellow, brighter in dark */
+  --primary: #e8b82a;
+  --primary-foreground: #131411;
+
+  --secondary: #222320;
+  --secondary-foreground: #f0eddf;
+
+  --muted: #222320;
+  --muted-foreground: #9a9b91;
+
+  --accent: #2a2c24;
+  --accent-foreground: #f0eddf;
+
+  /* Multi-accent palette — dark mode */
+  --color-pear: #e8b82a;
+  --color-pear-light: #3d3520;
+  --color-pear-deep: #f0c940;
+  --color-cyan: #5ab4e0;
+  --color-cyan-light: #1e3040;
+  --color-cyan-deep: #7cc8ed;
+  --color-coral: #f07058;
+  --color-coral-light: #3d2220;
+  --color-coral-deep: #f49080;
+  --color-mint: #5cc88a;
+  --color-mint-light: #1e3028;
+  --color-lavender: #a88ed8;
+  --color-lavender-light: #2a2240;
 
   --destructive: #e57373;
-  --border: rgba(244, 243, 238, 0.12);
-  --input: rgba(244, 243, 238, 0.15);
-  --ring: #e07a52;
+  --border: rgba(240, 237, 223, 0.1);
+  --input: rgba(240, 237, 223, 0.14);
+  --ring: #e8b82a;
 
-  /* High contrast earth charts for dark mode visibility */
-  --chart-1: #e07a52;
-  --chart-2: #38b000;
-  --chart-3: #ffb703;
-  --chart-4: #4cc9f0;
-  --chart-5: #b5179e;
+  /* Charts — dark mode high contrast */
+  --chart-1: #e8b82a;
+  --chart-2: #5ab4e0;
+  --chart-3: #f07058;
+  --chart-4: #5cc88a;
+  --chart-5: #a88ed8;
 
-  /* Card Stack Background Sequence for Dark Mode */
-  --card-bg-home: #141513;
+  /* Card Stack Background Sequence — dark multi-accent */
+  --card-bg-home: #131411;
   --card-bg-skills: #181916;
-  --card-bg-projects: #171816;
-  --card-bg-competitions: #1a1a17;
-  --card-bg-experience: #141916;
-  --card-bg-education: #1a1617;
-  --card-bg-contact: #1a1714;
-  --card-bg-footer: #161715;
+  --card-bg-projects: #151819;
+  --card-bg-competitions: #1a1615;
+  --card-bg-experience: #131816;
+  --card-bg-education: #18161b;
+  --card-bg-contact: #1a1813;
+  --card-bg-footer: #0c0d0a;
 
-  --sidebar: #1c1d1a;
-  --sidebar-foreground: #f4f3ee;
-  --sidebar-primary: #e07a52;
-  --sidebar-primary-foreground: #141513;
-  --sidebar-accent: #2c2e28;
-  --sidebar-accent-foreground: #f4f3ee;
-  --sidebar-border: rgba(244, 243, 238, 0.12);
-  --sidebar-ring: #e07a52;
+  --sidebar: #1a1b18;
+  --sidebar-foreground: #f0eddf;
+  --sidebar-primary: #e8b82a;
+  --sidebar-primary-foreground: #131411;
+  --sidebar-accent: #2a2c24;
+  --sidebar-accent-foreground: #f0eddf;
+  --sidebar-border: rgba(240, 237, 223, 0.1);
+  --sidebar-ring: #e8b82a;
 }
 
 .light {
-  /* Hallmark Hum Theme - Light mode */
-  --background: #f7f5f0;
-  --foreground: #1a1b18;
-  --card: #ffffff;
-  --card-foreground: #1a1b18;
-  --popover: #ffffff;
-  --popover-foreground: #1a1b18;
+  /* Hallmark Hum Theme — Light mode */
+  --background: #f7f3e8;
+  --foreground: #1c1d19;
+  --card: #faf8f2;
+  --card-foreground: #1c1d19;
+  --popover: #faf8f2;
+  --popover-foreground: #1c1d19;
 
-  --primary: #c85a32;
-  --primary-foreground: #ffffff;
+  --primary: #d4a017;
+  --primary-foreground: #1c1d19;
 
-  --secondary: #eeeae0;
-  --secondary-foreground: #1a1b18;
-  --muted: #ece7dc;
-  --muted-foreground: #6b6c66;
-  --accent: #e5dfd2;
-  --accent-foreground: #1a1b18;
+  --secondary: #f0eadc;
+  --secondary-foreground: #1c1d19;
+  --muted: #e8e3d5;
+  --muted-foreground: #6b6c62;
+  --accent: #f5e6a3;
+  --accent-foreground: #1c1d19;
 
   --destructive: #d32f2f;
-  --border: rgba(26, 27, 24, 0.12);
-  --input: rgba(26, 27, 24, 0.15);
-  --ring: #c85a32;
+  --border: rgba(28, 29, 25, 0.1);
+  --input: rgba(28, 29, 25, 0.14);
+  --ring: #d4a017;
 
-  /* Cozy earth-toned charts */
-  --chart-1: #c85a32;
-  --chart-2: #2a7b62;
-  --chart-3: #d99b26;
-  --chart-4: #4361ee;
-  --chart-5: #8338ec;
+  --chart-1: #d4a017;
+  --chart-2: #2e8bc0;
+  --chart-3: #e05d44;
+  --chart-4: #3dab6e;
+  --chart-5: #8b6fbf;
 
-  /* Sidebar matching the clean structural layout */
-  --sidebar: #eeeae0;
-  --sidebar-foreground: #1a1b18;
-  --sidebar-primary: #c85a32;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #e5dfd2;
-  --sidebar-accent-foreground: #1a1b18;
-  --sidebar-border: rgba(26, 27, 24, 0.12);
-  --sidebar-ring: #c85a32;
+  /* Sidebar */
+  --sidebar: #f0eadc;
+  --sidebar-foreground: #1c1d19;
+  --sidebar-primary: #d4a017;
+  --sidebar-primary-foreground: #1c1d19;
+  --sidebar-accent: #f5e6a3;
+  --sidebar-accent-foreground: #1c1d19;
+  --sidebar-border: rgba(28, 29, 25, 0.1);
+  --sidebar-ring: #d4a017;
 }
 
 @layer base {
@@ -307,12 +367,17 @@
 
   body {
     @apply bg-background text-foreground;
-    font-weight: 700;
-    line-height: 0.94;
-    letter-spacing: -0.045em;
+    font-family: "Plus Jakarta Sans", var(--font-sans), system-ui, sans-serif;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings:
+      "ss01" on,
+      "cv11" on;
+    font-variant-numeric: tabular-nums;
   }
 
   html {
@@ -375,12 +440,12 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  border-radius: 28px;
   transform-origin: 50% 35%;
   transition:
     transform 480ms cubic-bezier(0.16, 1, 0.3, 1),
     opacity 420ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-radius 480ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 480ms cubic-bezier(0.16, 1, 0.3, 1);
+    visibility 480ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -389,13 +454,13 @@
   background-color: var(--card);
   color: var(--card-foreground);
   border-top: 1px solid var(--border);
+  contain: layout paint;
 }
 
 .card-stack-item.active {
   transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
   opacity: 1;
-  border-radius: 0px;
-  /* box-shadow: 0 0 0 rgba(0, 0, 0, 0); */
+  visibility: visible;
   pointer-events: auto;
   z-index: 20;
 }
@@ -403,10 +468,7 @@
 .card-stack-item.pushed-1 {
   transform: translate3d(0, -28px, -50px) scale(0.92) rotateX(0deg);
   opacity: 0.95;
-  border-radius: 28px;
-  /* box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.15),
-    0 0 0 1px var(--border); */
+  visibility: visible;
   pointer-events: none;
   z-index: 15;
 }
@@ -414,10 +476,7 @@
 .card-stack-item.pushed-2 {
   transform: translate3d(0, -52px, -100px) scale(0.84);
   opacity: 0.8;
-  border-radius: 32px;
-  /* box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.2),
-    0 0 0 1px var(--border); */
+  visibility: visible;
   pointer-events: none;
   z-index: 10;
 }
@@ -425,7 +484,7 @@
 .card-stack-item.pushed-more {
   transform: translate3d(0, -75px, -150px) scale(0.76);
   opacity: 0;
-  border-radius: 36px;
+  visibility: hidden;
   pointer-events: none;
   z-index: 5;
 }
@@ -433,10 +492,7 @@
 .card-stack-item.next-1 {
   transform: translate3d(0, 100%, 0) scale(1);
   opacity: 1;
-  border-radius: 32px 32px 0 0;
-  /* box-shadow:
-    0 -30px 80px rgba(0, 0, 0, 0.15),
-    0 -1px 0 var(--border); */
+  visibility: visible;
   pointer-events: none;
   z-index: 25;
 }
@@ -444,6 +500,7 @@
 .card-stack-item.next-more {
   transform: translate3d(0, 110%, 0) scale(1);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   z-index: 24;
 }
@@ -478,12 +535,29 @@
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
-  scroll-behavior: smooth;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
   z-index: 2;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Horizontal scrollable carousel containers inside sections */
+.horizontal-scroll-container {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+  display: none;
 }
 
 @media (min-height: 720px) and (min-width: 768px) {
@@ -868,5 +942,296 @@
   }
   .uiverse-sublabel {
     font-size: 9px;
+  }
+}
+
+/* ==========================================================================
+   HALLMARK HUM THEME — Signature Moves
+   ========================================================================== */
+
+/* --- Hum Button System: push (solid edge + cast shadow) --- */
+.hum-btn {
+  --btn-face: var(--color-pear);
+  --btn-ink: var(--foreground);
+  --btn-edge: var(--color-pear-deep);
+  --btn-cast: oklch(76% 0.18 95 / 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.75rem 1.35rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--btn-ink);
+  background: var(--btn-face);
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+  box-shadow:
+    0 4px 0 0 var(--btn-edge),
+    0 6px 12px -3px var(--btn-cast);
+  transform: translateY(0);
+  transition:
+    transform 140ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    box-shadow 140ms cubic-bezier(0.2, 0.7, 0.3, 1),
+    background-color 160ms;
+  text-decoration: none;
+}
+.hum-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 0 0 var(--btn-edge),
+    0 12px 22px -4px var(--btn-cast);
+}
+.hum-btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 0 var(--btn-edge),
+    0 2px 6px -2px var(--btn-cast);
+  transition-duration: 70ms;
+}
+.hum-btn:focus-visible {
+  outline: 3px solid color-mix(in oklch, var(--btn-edge) 70%, var(--ring));
+  outline-offset: 3px;
+}
+.hum-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+  box-shadow: 0 4px 0 0 var(--btn-edge);
+}
+/* Soft variant: flat lift, no colour edge */
+.hum-btn--soft {
+  --btn-face: var(--secondary);
+  --btn-ink: var(--foreground);
+  --btn-edge: transparent;
+  --btn-cast: oklch(20% 0.012 250 / 0.08);
+  box-shadow: 0 2px 8px -2px oklch(20% 0.012 250 / 0.1);
+}
+.hum-btn--soft:hover {
+  box-shadow: 0 4px 14px -3px oklch(20% 0.012 250 / 0.14);
+}
+/* Outline variant: hairline + accent fill sweeps up */
+.hum-btn--outline {
+  --btn-face: transparent;
+  --btn-ink: var(--foreground);
+  --btn-edge: transparent;
+  --btn-cast: transparent;
+  border: 1.5px solid var(--border);
+  box-shadow: none;
+}
+.hum-btn--outline:hover {
+  border-color: var(--color-pear);
+  background: oklch(86% 0.18 95 / 0.08);
+}
+/* Colour modifiers */
+.hum-btn--cyan {
+  --btn-face: var(--color-cyan);
+  --btn-edge: var(--color-cyan-deep);
+  --btn-cast: oklch(66% 0.18 235 / 0.4);
+}
+.hum-btn--coral {
+  --btn-face: var(--color-coral);
+  --btn-edge: var(--color-coral-deep);
+  --btn-cast: oklch(68% 0.24 18 / 0.4);
+  color: #fff;
+}
+.hum-btn--mint {
+  --btn-face: var(--color-mint);
+  --btn-edge: #2d8a56;
+  --btn-cast: oklch(80% 0.16 150 / 0.35);
+  color: #fff;
+}
+.hum-btn--lav {
+  --btn-face: var(--color-lavender);
+  --btn-edge: #6b50a0;
+  --btn-cast: oklch(74% 0.16 305 / 0.35);
+  color: #fff;
+}
+.hum-btn--ink {
+  --btn-face: var(--foreground);
+  --btn-edge: #000;
+  --btn-cast: oklch(20% 0.012 250 / 0.3);
+  color: var(--background);
+}
+/* Arrow slide on hover */
+.hum-btn .hum-arrow {
+  transition: transform 200ms;
+  display: inline-block;
+}
+.hum-btn:hover .hum-arrow {
+  transform: translateX(3px);
+}
+
+/* --- Hum Card: lift + tint deepen on hover --- */
+.hum-card {
+  background: var(--card);
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 28px -12px oklch(20% 0.012 250 / 0.1);
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 220ms;
+}
+.hum-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -14px oklch(20% 0.012 250 / 0.16);
+}
+
+/* --- Eyebrow / Mono label --- */
+.hum-eyebrow,
+.mono-label {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  opacity: 0.8;
+}
+
+/* --- Highlight / em underline --- */
+.em-hum,
+em,
+.hl {
+  color: inherit;
+  background-image: linear-gradient(var(--hl, oklch(86% 0.18 95 / 0.5)) 0 0);
+  background-repeat: no-repeat;
+  background-size: 100% 0.3em;
+  background-position: 0 82%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-bottom: 0.02em;
+  font-style: normal;
+}
+.hl-cyan {
+  --hl: oklch(66% 0.18 235 / 0.45);
+}
+.hl-coral {
+  --hl: oklch(68% 0.24 18 / 0.4);
+}
+.hl-mint {
+  --hl: oklch(80% 0.16 150 / 0.4);
+}
+
+/* --- Star-burst micro-celebration --- */
+.star-burst {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 47%,
+      var(--color-coral) 47% 53%,
+      transparent 53%
+    ),
+    linear-gradient(
+      0deg,
+      transparent 47%,
+      var(--color-coral) 47% 53%,
+      transparent 53%
+    );
+  animation: star-burst 420ms ease-out forwards;
+  pointer-events: none;
+}
+@keyframes star-burst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1.2) rotate(35deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.4) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* --- Accent dot pulse --- */
+.hum-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.hum-dot--pear {
+  background: var(--color-pear);
+}
+.hum-dot--cyan {
+  background: var(--color-cyan);
+}
+.hum-dot--coral {
+  background: var(--color-coral);
+}
+.hum-dot--mint {
+  background: var(--color-mint);
+}
+.hum-dot--lavender {
+  background: var(--color-lavender);
+}
+
+/* --- Multi-accent section bands --- */
+.hum-band-pear {
+  background-color: oklch(96% 0.016 95);
+}
+.hum-band-cyan {
+  background-color: oklch(96% 0.012 235);
+}
+.hum-band-coral {
+  background-color: oklch(96% 0.016 18);
+}
+.hum-band-mint {
+  background-color: oklch(96% 0.012 150);
+}
+.dark .hum-band-pear {
+  background-color: oklch(18% 0.012 95);
+}
+.dark .hum-band-cyan {
+  background-color: oklch(18% 0.012 235);
+}
+.dark .hum-band-coral {
+  background-color: oklch(18% 0.012 18);
+}
+.dark .hum-band-mint {
+  background-color: oklch(18% 0.012 150);
+}
+
+/* --- Section heading reveal --- */
+@keyframes hum-reveal {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.hum-reveal {
+  animation: hum-reveal 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* --- Prefers reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .hum-btn,
+  .hum-card {
+    transition: none;
+  }
+  .hum-btn:hover,
+  .hum-card:hover {
+    transform: none;
+  }
+  .star-burst {
+    animation: none;
+  }
+  .hum-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

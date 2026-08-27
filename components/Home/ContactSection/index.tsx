@@ -1,9 +1,9 @@
 "use client"
 
+import React, { useState } from "react"
 import { Mail, ArrowUpRight, Trophy } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { useTranslations } from "next-intl"
+import { AnimatePresence, motion } from "framer-motion"
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -39,7 +39,7 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
     >
       <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
       <rect width="4" height="12" x="2" y="9" />
-      <circle cx="4" cy="4" r="2" />
+      <circle cx="4" r="2" />
     </svg>
   )
 }
@@ -47,103 +47,198 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
 const SOCIAL_CONFIGS = [
   {
     icon: GithubIcon,
-    href: "https://github.com/YOUR_USERNAME",
+    href: "https://github.com/JaberChowdhury",
+    accentColor: "lavender",
     iconBg:
-      "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
-    hoverBorder: "hover:border-purple-500/40",
+      "bg-[var(--color-lavender)]/10 text-[var(--color-lavender)] border-[var(--color-lavender)]/25",
+    hoverBorder: "hover:border-[var(--color-lavender)]/50",
+    ribbon:
+      "from-[var(--color-lavender)]/80 via-[var(--color-lavender-light)] to-[var(--color-lavender)]",
+    dot: "hum-dot hum-dot--lavender",
+    badgeText: "CODE & REPOS",
+    badgeStyle:
+      "border-[var(--color-lavender)]/30 bg-[var(--color-lavender)]/10 text-[var(--color-lavender)]",
   },
   {
     icon: Trophy,
-    href: "https://codeforces.com/profile/YOUR_HANDLE",
+    href: "https://codeforces.com/profile/jaber02",
+    accentColor: "pear",
     iconBg:
-      "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-    hoverBorder: "hover:border-amber-500/40",
+      "bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)] border-[var(--color-pear)]/25",
+    hoverBorder: "hover:border-[var(--color-pear)]/50",
+    ribbon:
+      "from-[var(--color-pear)]/80 via-[var(--color-pear-light)] to-[var(--color-pear)]",
+    dot: "hum-dot hum-dot--pear",
+    badgeText: "359 SOLVED",
+    badgeStyle:
+      "border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
   },
   {
     icon: LinkedinIcon,
-    href: "https://linkedin.com/in/YOUR_USERNAME",
-    iconBg: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20",
-    hoverBorder: "hover:border-sky-500/40",
+    href: "https://www.linkedin.com/in/md-jaber-hossain-chowdhury-543335252/",
+    accentColor: "cyan",
+    iconBg:
+      "bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)] border-[var(--color-cyan)]/25",
+    hoverBorder: "hover:border-[var(--color-cyan)]/50",
+    ribbon:
+      "from-[var(--color-cyan)]/80 via-[var(--color-cyan-light)] to-[var(--color-cyan)]",
+    dot: "hum-dot hum-dot--cyan",
+    badgeText: "CONNECT",
+    badgeStyle:
+      "border-[var(--color-cyan)]/30 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
   },
   {
     icon: Mail,
-    href: "mailto:your@email.com",
+    href: "mailto:jaberhc2002@gmail.com",
+    accentColor: "coral",
     iconBg:
-      "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
-    hoverBorder: "hover:border-rose-500/40",
+      "bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)] border-[var(--color-coral)]/25",
+    hoverBorder: "hover:border-[var(--color-coral)]/50",
+    ribbon:
+      "from-[var(--color-coral)]/80 via-[var(--color-coral-light)] to-[var(--color-coral)]",
+    dot: "hum-dot hum-dot--coral",
+    badgeText: "INBOX",
+    badgeStyle:
+      "border-[var(--color-coral)]/30 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
   },
 ]
 
 export function ContactSection() {
   const t = useTranslations("Contact")
+  const [socialIdx, setSocialIdx] = useState(0)
+  const [socialDirection, setSocialDirection] = useState(0)
+
+  const handleSocialNext = () => {
+    setSocialDirection(1)
+    setSocialIdx((prev) => (prev + 1) % 4)
+  }
+
+  const handleSocialPrev = () => {
+    setSocialDirection(-1)
+    setSocialIdx((prev) => (prev === 0 ? 3 : prev - 1))
+  }
 
   const rawSocials = t.raw("socials") as {
     title: string
     description: string
   }[]
 
-  const socials = rawSocials.map((social, i) => ({
-    ...social,
-    ...SOCIAL_CONFIGS[i % SOCIAL_CONFIGS.length],
-  }))
+  const socials = React.useMemo(() => {
+    return (rawSocials || []).map((social, i) => ({
+      ...social,
+      ...SOCIAL_CONFIGS[i % SOCIAL_CONFIGS.length],
+    }))
+  }, [rawSocials])
 
   return (
     <section
       id="contact"
       className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
     >
+      {/* Decorative ambient blobs */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "-15%",
+          right: "5%",
+          width: "45vw",
+          height: "45vw",
+          maxWidth: "500px",
+          maxHeight: "500px",
+          background:
+            "radial-gradient(circle, rgba(212,160,23,0.09) 0%, transparent 70%)",
+          filter: "blur(60px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          bottom: "-10%",
+          left: "5%",
+          width: "40vw",
+          height: "40vw",
+          maxWidth: "450px",
+          maxHeight: "450px",
+          background:
+            "radial-gradient(circle, rgba(61,171,110,0.07) 0%, transparent 70%)",
+          filter: "blur(60px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
         {/* Section Header */}
-        <div className="mb-4 sm:mb-7">
-          <div className="mb-2 flex items-center gap-2 sm:mb-2.5">
-            <span className="inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase sm:text-sm sm:tracking-[0.25em]">
-              <span className="h-2 w-2 rounded-full bg-amber-500" />
+        <div className="mb-3 max-w-3xl sm:mb-5 md:mb-6">
+          <div className="mb-1.5 flex items-center justify-between gap-2 sm:mb-2.5">
+            <span className="hum-eyebrow inline-flex items-center gap-2">
+              <span className="hum-dot hum-dot--pear" />
               07 ⁄ {t("eyebrow")}
             </span>
+            <div className="flex items-center gap-1 rounded-full border border-border/60 bg-card/60 px-2 py-0.5 font-mono text-[10px] font-medium text-muted-foreground sm:hidden">
+              <span className="animate-pulse">←</span>
+              <span>Swipe Socials</span>
+              <span className="animate-pulse">→</span>
+            </div>
           </div>
 
           <h2
             data-cursor="text"
-            className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl"
+            className="text-2xl font-black tracking-tight text-foreground xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
           >
-            {t("title1")}{" "}
-            <span className="text-amber-600 dark:text-amber-400">
-              {t("title2")}
-            </span>{" "}
+            {t("title1")} <span className="em-hum">{t("title2")}</span>
             {t("title3")}
           </h2>
+
+          <p className="mt-1 max-w-2xl text-xs leading-relaxed font-normal text-muted-foreground sm:mt-2 sm:text-sm md:text-base">
+            {t("description")}
+          </p>
         </div>
 
-        {/* Start a Conversation Card */}
-        <Card className="mb-4 rounded-xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs transition-all duration-300 hover:border-amber-500/40 sm:mb-5 sm:rounded-2xl sm:p-6 md:p-7">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-emerald-700 uppercase sm:text-sm dark:text-emerald-400">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+        {/* Start a Conversation Hub Card */}
+        <div
+          data-cursor="cover"
+          className="hum-card group relative mb-3.5 overflow-hidden rounded-2xl border border-border/80 bg-card p-3.5 transition-all duration-300 hover:border-[var(--color-pear)]/50 sm:mb-5 sm:p-6 md:p-7"
+        >
+          {/* Top accent ribbon */}
+          <div
+            className="absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r from-[var(--color-pear)] via-[var(--color-pear-light)] to-[var(--color-mint)] opacity-90 transition-opacity duration-300 group-hover:opacity-100 sm:h-1.5"
+            aria-hidden="true"
+          />
+
+          <div className="flex flex-col gap-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            <div className="space-y-1.5 sm:space-y-2">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-mint)]/30 bg-[var(--color-mint)]/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider text-[var(--color-mint)] uppercase sm:px-3 sm:py-1 sm:text-xs">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-mint)] sm:h-2 sm:w-2" />
                 <span>{t("available")}</span>
               </div>
-              <h3 className="mt-2 text-lg font-bold text-card-foreground sm:mt-3 sm:text-2xl md:text-3xl">
+              <h3 className="text-base font-bold text-card-foreground xs:text-lg sm:text-2xl md:text-3xl">
                 {t("openTo")}
               </h3>
-              <p className="mt-1 max-w-2xl text-xs leading-relaxed text-muted-foreground sm:mt-1.5 sm:text-sm md:text-base">
-                {t("ifYouHave") || t("description")}
+              <p className="max-w-2xl text-xs leading-relaxed text-muted-foreground sm:text-sm md:text-base">
+                {t("ifYouHave")}
               </p>
             </div>
 
-            <Button
-              variant="amber"
-              size="lg"
-              href="mailto:your@email.com"
-              className="self-start sm:self-center"
-            >
-              <span>{t("sayHello")}</span>
-              <ArrowUpRight className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
-            </Button>
+            {/* Canonical Hum Push Button */}
+            <div className="w-full shrink-0 self-stretch sm:w-auto sm:self-center">
+              <a
+                href="mailto:jaberhc2002@gmail.com"
+                className="hum-btn min-h-[44px] w-full justify-center !px-4 !py-2.5 font-mono text-xs font-bold sm:w-auto sm:!px-5 sm:!py-3 sm:text-sm"
+              >
+                <span>{t("sayHello")}</span>
+                <ArrowUpRight className="hum-arrow h-4 w-4 shrink-0 sm:h-4.5 sm:w-4.5" />
+              </a>
+            </div>
           </div>
-        </Card>
+        </div>
 
-        {/* 4 Multi-Accent Hum Social Cards */}
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-3.5 md:gap-5">
+        {/* 4 Multi-Accent Hum Social Cards: Desktop Grid */}
+        <div className="hidden sm:grid sm:grid-cols-2 sm:gap-3.5 md:grid-cols-4 md:gap-5">
           {socials.map((social) => {
             const Icon = social.icon
             return (
@@ -152,27 +247,148 @@ export function ContactSection() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex flex-col justify-between rounded-xl border border-border/80 bg-card p-3.5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 active:scale-[0.98] sm:rounded-2xl sm:p-4.5 md:p-5.5 ${social.hoverBorder}`}
+                data-cursor="cover"
+                className={`hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-3.5 transition-all duration-300 hover:-translate-y-1 sm:p-4.5 md:p-5.5 ${social.hoverBorder}`}
               >
-                <div className="flex items-center justify-between">
+                {/* Top ribbon per card accent */}
+                <div
+                  className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${social.ribbon} opacity-75 transition-opacity duration-300 group-hover:opacity-100`}
+                  aria-hidden="true"
+                />
+
+                <div className="flex items-center justify-between gap-2">
                   <div
-                    className={`flex h-9 w-9 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11 sm:rounded-xl [&_svg]:h-4.5 [&_svg]:w-4.5 sm:[&_svg]:h-5.5 sm:[&_svg]:w-5.5 ${social.iconBg}`}
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10 md:h-11 md:w-11 ${social.iconBg}`}
                   >
-                    <Icon className="h-4.5 w-4.5 sm:h-5.5 sm:w-5.5" />
+                    <Icon className="h-4.5 w-4.5 sm:h-5 sm:w-5 md:h-5.5 md:w-5.5" />
                   </div>
-                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground sm:h-4.5 sm:w-4.5" />
+                  <span
+                    className={`mono-label max-w-[120px] shrink-0 truncate rounded-full border px-2 py-0.5 text-[8px] font-bold tracking-wider sm:text-[9px] ${social.badgeStyle}`}
+                  >
+                    {social.badgeText}
+                  </span>
                 </div>
-                <div className="mt-3 sm:mt-4">
-                  <div className="text-sm font-bold text-card-foreground sm:text-base">
-                    {social.title}
+
+                <div className="mt-3 sm:mt-3.5 md:mt-4">
+                  <div className="flex items-center justify-between gap-1.5">
+                    <h4 className="text-xs font-bold text-card-foreground sm:text-sm md:text-base">
+                      {social.title}
+                    </h4>
+                    <ArrowUpRight className="hum-arrow h-3.5 w-3.5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-4 sm:w-4" />
                   </div>
-                  <div className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                  <p className="mt-0.5 truncate font-mono text-[9px] text-muted-foreground sm:text-[10px] md:text-xs">
                     {social.description}
-                  </div>
+                  </p>
                 </div>
               </a>
             )
           })}
+        </div>
+
+        {/* 4 Social Cards: Mobile Framer Motion Swipe Slider */}
+        <div className="sm:hidden">
+          <div className="relative overflow-hidden py-1">
+            <AnimatePresence mode="wait" custom={socialDirection}>
+              <motion.div
+                key={socialIdx}
+                custom={socialDirection}
+                variants={{
+                  enter: (dir: number) => ({
+                    x: dir > 0 ? 40 : -40,
+                    opacity: 0,
+                    scale: 0.97,
+                  }),
+                  center: {
+                    x: 0,
+                    opacity: 1,
+                    scale: 1,
+                    transition: { duration: 0.28, ease: "easeOut" },
+                  },
+                  exit: (dir: number) => ({
+                    x: dir > 0 ? -40 : 40,
+                    opacity: 0,
+                    scale: 0.97,
+                    transition: { duration: 0.2, ease: "easeIn" },
+                  }),
+                }}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.18}
+                onDragEnd={(_e, info) => {
+                  if (info.offset.x < -35 || info.velocity.x < -250) {
+                    handleSocialNext()
+                  } else if (info.offset.x > 35 || info.velocity.x > 250) {
+                    handleSocialPrev()
+                  }
+                }}
+                className="w-full cursor-grab touch-pan-y active:cursor-grabbing"
+              >
+                {(() => {
+                  const social = socials[socialIdx]
+                  const Icon = social.icon
+                  return (
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 shadow-xs ${social.hoverBorder}`}
+                    >
+                      <div
+                        className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${social.ribbon}`}
+                        aria-hidden="true"
+                      />
+                      <div className="flex items-center justify-between gap-2">
+                        <div
+                          className={`flex h-10 w-10 items-center justify-center rounded-xl border ${social.iconBg}`}
+                        >
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <span
+                          className={`mono-label rounded-full border px-2.5 py-0.5 text-[9px] font-bold tracking-wider ${social.badgeStyle}`}
+                        >
+                          {social.badgeText}
+                        </span>
+                      </div>
+                      <div className="mt-3">
+                        <div className="flex items-center justify-between gap-1.5">
+                          <h4 className="text-sm font-bold text-card-foreground">
+                            {social.title}
+                          </h4>
+                          <ArrowUpRight className="hum-arrow h-4 w-4 text-muted-foreground" />
+                        </div>
+                        <p className="mt-0.5 font-mono text-[10px] text-muted-foreground">
+                          {social.description}
+                        </p>
+                      </div>
+                    </a>
+                  )
+                })()}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="mt-2 flex items-center justify-center gap-1.5">
+            {socials.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => {
+                  setSocialDirection(idx > socialIdx ? 1 : -1)
+                  setSocialIdx(idx)
+                }}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  idx === socialIdx
+                    ? "w-6 bg-[var(--color-pear)]"
+                    : "w-1.5 bg-muted-foreground/30"
+                }`}
+                aria-label={`Go to social card ${idx + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

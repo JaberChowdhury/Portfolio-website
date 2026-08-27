@@ -265,7 +265,15 @@
         "name": "Codeforces",
         "solved": "২২৯টি সমাধান",
         "description": "অ্যালগরিদম ফান্ডামেন্টালস, গ্রিডি লজিক, বাইনারি সার্চ এবং গণিতভিত্তিক সমস্যা অনুশীলন।",
-        "topics": ["Greedy", "Math", "Binary Search", "Implementation", "Two Pointers", "Sorting", "Brute Force"],
+        "topics": [
+          "Greedy",
+          "Math",
+          "Binary Search",
+          "Implementation",
+          "Two Pointers",
+          "Sorting",
+          "Brute Force"
+        ],
         "viewProfile": "প্রোফাইল দেখুন"
       },
       "beecrowd": {
@@ -273,7 +281,15 @@
         "name": "Beecrowd",
         "solved": "১৩০টি সমাধান",
         "description": "কম্পিউটেশনাল লজিক, স্ট্রিং প্রসেসিং এবং নির্ভুল গাণিতিক সমস্যা সমাধান।",
-        "topics": ["Strings", "Math", "Ad-Hoc", "Data Structures", "Recursion", "Conditionals", "Arrays"],
+        "topics": [
+          "Strings",
+          "Math",
+          "Ad-Hoc",
+          "Data Structures",
+          "Recursion",
+          "Conditionals",
+          "Arrays"
+        ],
         "viewProfile": "প্রোফাইল দেখুন"
       }
     },
@@ -282,7 +298,13 @@
       "title": "আইসিপিসি রিজিওনাল প্রতিযোগী",
       "date": "ডিসেম্বর ২০২৫",
       "description": "ডিসেম্বর ২০২৫-এ ইন্টারন্যাশনাল কলেজিয়েট প্রোগ্রামিং কনটেস্টে (ICPC) অংশগ্রহণ করেছি, যেখানে দলগতভাবে জটিল অ্যালগরিদমিক সমস্যা সমাধান করেছি।",
-      "badges": ["ICPC 2025", "ডিসেম্বর ২০২৫", "টিম কনটেস্ট", "অ্যালগরিদম", "ডেটা স্ট্রাকচার"]
+      "badges": [
+        "ICPC 2025",
+        "ডিসেম্বর ২০২৫",
+        "টিম কনটেস্ট",
+        "অ্যালগরিদম",
+        "ডেটা স্ট্রাকচার"
+      ]
     },
     "stats": [
       {

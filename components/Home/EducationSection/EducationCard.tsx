@@ -1,6 +1,4 @@
 import { GraduationCap, type LucideIcon } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
 
 export interface ProgressItem {
   label: string
@@ -25,74 +23,81 @@ export function EducationCard({
   icon: Icon = GraduationCap,
 }: EducationCardProps) {
   return (
-    <Card className="group overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-rose-500/40 hover:shadow-md md:p-6">
-      <CardContent className="p-0">
-        <div className="grid gap-5 lg:grid-cols-[1.3fr_0.7fr]">
-          {/* Left Side: Program Overview & Coursework */}
-          <div className="flex flex-col justify-between">
-            <div>
-              <div className="mb-3.5 flex items-start gap-3.5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-600 transition-transform duration-300 group-hover:scale-105 dark:text-rose-400">
-                  <Icon className="h-6 w-6" />
-                </div>
-
-                <div>
-                  <h3
-                    data-cursor="text"
-                    className="text-lg font-bold text-card-foreground md:text-xl"
-                  >
-                    {title}
-                  </h3>
-                  <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground md:text-sm">
-                    <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
-                    {subtitle}
-                  </p>
-                </div>
+    <div className="hum-card group overflow-hidden rounded-2xl border border-border/80 p-4 sm:p-5 md:p-6">
+      <div className="grid gap-4 sm:gap-5 lg:grid-cols-[1.3fr_0.7fr]">
+        {/* Left Side: Program Overview & Coursework */}
+        <div className="flex flex-col justify-between">
+          <div>
+            <div className="mb-3 flex items-start gap-3 sm:mb-3.5 sm:gap-3.5">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-lavender-accent/20 bg-lavender-accent/10 text-lavender-accent transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11">
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
 
-              <p className="text-xs leading-relaxed text-muted-foreground md:text-sm">
-                {description}
-              </p>
+              <div className="min-w-0 flex-1">
+                <h3
+                  data-cursor="text"
+                  className="text-base font-bold break-words text-card-foreground sm:text-lg md:text-xl"
+                >
+                  {title}
+                </h3>
+                <p className="flex flex-wrap items-center gap-1.5 text-xs font-medium text-muted-foreground md:text-sm">
+                  <span className="hum-dot hum-dot--lavender shrink-0" />
+                  <span className="break-words">{subtitle}</span>
+                </p>
+              </div>
             </div>
 
-            {subjects.length > 0 && (
-              <div className="mt-4 border-t border-border/70 pt-3">
-                <div className="mb-2 font-mono text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
-                  Core Coursework
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {subjects.map((subject) => (
-                    <Badge
-                      key={subject}
-                      variant="secondary"
-                      className="rounded-full border border-border/60 bg-secondary/50 px-2.5 py-0.5 font-mono text-[11px] font-medium text-muted-foreground transition-all duration-200 hover:scale-105 hover:bg-secondary hover:text-foreground"
-                    >
-                      {subject}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            )}
+            <p className="text-xs leading-relaxed text-muted-foreground md:text-sm">
+              {description}
+            </p>
           </div>
 
-          {/* Right Side: Progress Metric Chips */}
-          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-2">
-            {progress.map((item) => (
+          {subjects.length > 0 && (
+            <div className="mt-3.5 border-t border-border/70 pt-3 sm:mt-4">
+              <div className="mono-label mb-2 text-[10px] sm:text-xs">
+                Core Coursework
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {subjects.map((subject) => (
+                  <span
+                    key={subject}
+                    className="inline-flex items-center rounded-full border border-lavender-accent/20 bg-lavender-accent/8 px-2.5 py-0.5 font-mono text-[11px] font-medium text-lavender-accent transition-all duration-200 hover:scale-105 hover:bg-lavender-accent/15 sm:text-xs"
+                  >
+                    {subject}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right Side: Progress Metric Chips */}
+        <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+          {progress.map((item, i) => {
+            const bandClass =
+              i % 4 === 0
+                ? "hum-band-pear"
+                : i % 4 === 1
+                  ? "hum-band-cyan"
+                  : i % 4 === 2
+                    ? "hum-band-coral"
+                    : "hum-band-mint"
+            return (
               <div
                 key={item.label}
-                className="flex flex-col justify-center rounded-xl border border-border/70 bg-secondary/40 p-3 transition-colors hover:bg-secondary/60"
+                className={`flex flex-col justify-center rounded-xl border border-border/40 p-2.5 transition-colors sm:rounded-2xl sm:p-3 ${bandClass}`}
               >
-                <div className="font-mono text-base font-bold tracking-tight text-card-foreground md:text-lg">
+                <div className="font-mono text-xs font-bold tracking-tight break-words text-card-foreground sm:text-base md:text-lg">
                   {item.value}
                 </div>
-                <p className="mt-0.5 font-mono text-[10px] text-muted-foreground sm:text-[11px]">
+                <p className="mt-0.5 font-mono text-[10px] break-words text-muted-foreground sm:text-[11px]">
                   {item.label}
                 </p>
               </div>
-            ))}
-          </div>
+            )
+          })}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }

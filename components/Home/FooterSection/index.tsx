@@ -3,7 +3,6 @@
 import * as React from "react"
 import { Link } from "@/i18n/routing"
 import { Mail, ArrowUpRight, Trophy, Globe2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { navLinks } from "@/components/Navbar"
 import { useTranslations } from "next-intl"
 import { LanguageToggle } from "@/components/LanguageToggle"
@@ -55,157 +54,348 @@ export function FooterSection() {
       id="footer"
       className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
     >
-      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
-        {/* Top CTA Banner */}
-        <div className="mb-4 flex flex-col justify-between gap-4 rounded-xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs transition-all duration-300 hover:border-purple-500/40 sm:mb-5 sm:flex-row sm:items-center sm:gap-5 sm:rounded-2xl sm:p-6 md:p-7">
-          <div>
-            <div className="mb-1.5 flex items-center gap-2 sm:mb-2">
-              <span className="inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase sm:text-sm sm:tracking-[0.25em]">
-                <span className="h-2 w-2 rounded-full bg-purple-500" />
-                08 ⁄ {t("Footer.finalDestination")}
-              </span>
-            </div>
-            <h2
-              data-cursor="text"
-              className="text-2xl font-bold tracking-tight text-card-foreground sm:text-3xl md:text-4xl"
-            >
-              {t("Footer.title1")} {t("Footer.title2")}{" "}
-              <span className="text-purple-600 dark:text-purple-400">
-                {t("Footer.title3")}
-              </span>{" "}
-              {t("Footer.title4")}
-            </h2>
-            <p className="mt-1 max-w-2xl text-xs leading-relaxed text-muted-foreground sm:mt-1.5 sm:text-sm md:text-base">
-              {t("Footer.description")}
-            </p>
-          </div>
+      {/* Decorative lavender blob */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          bottom: "-10%",
+          left: "10%",
+          width: "35vw",
+          height: "35vw",
+          maxWidth: "400px",
+          maxHeight: "400px",
+          background:
+            "radial-gradient(circle, rgba(139,111,191,0.07) 0%, transparent 70%)",
+          filter: "blur(50px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
 
-          <Button
-            variant="purple"
-            size="lg"
-            href="mailto:your@email.com"
-            className="self-start sm:self-center"
-          >
-            <span>{t("Footer.startConversation")}</span>
-            <ArrowUpRight className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
-          </Button>
-        </div>
-
-        {/* 3-Column Info Grid */}
-        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4.5 md:grid-cols-3 md:gap-6">
-          {/* Brand / Bio */}
-          <div className="flex flex-col justify-between rounded-xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs transition-all duration-300 hover:border-border sm:rounded-2xl sm:p-5 md:p-6">
-            <div>
-              <h3 className="text-base font-bold text-card-foreground sm:text-lg md:text-xl">
-                {t("Footer.yourName")}
-              </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground sm:mt-2 sm:text-sm md:text-base">
-                {t("Footer.bio")}
-              </p>
-            </div>
-            <div className="mt-4 flex items-center gap-2 border-t border-border/70 pt-3 text-xs text-muted-foreground sm:mt-5 sm:pt-3.5 sm:text-sm">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-              <Globe2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-              <span>Available for remote & freelance</span>
-            </div>
-          </div>
-
-          {/* Quick Navigation */}
-          <div className="rounded-xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs transition-all duration-300 hover:border-border sm:rounded-2xl sm:p-5 md:p-6">
-            <h4 className="mb-2.5 font-mono text-xs font-semibold tracking-wider text-muted-foreground uppercase sm:mb-3.5 sm:text-sm">
-              {t("Footer.navigation")}
-            </h4>
-            <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
-              {navLinks.map((item) => (
-                <Link
-                  key={item.id}
-                  href={item.href}
-                  className="font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline"
+      <div className="relative mx-auto w-full max-w-7xl px-3.5 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
+        {/* ==================================================================== */}
+        {/* MOBILE VIEW (Below md:) — Ultra-compact, clean, ~60% viewport fit    */}
+        {/* ==================================================================== */}
+        <div className="flex flex-col gap-2.5 md:hidden">
+          {/* Compact Top CTA Header */}
+          <div className="hum-card group relative overflow-hidden rounded-xl border border-border/80 bg-card p-3 text-card-foreground shadow-xs">
+            <div
+              className="absolute inset-x-0 top-0 h-1 rounded-t-xl bg-gradient-to-r from-[var(--color-pear)]/60 via-[var(--color-pear)] to-[var(--color-pear)]/60"
+              aria-hidden="true"
+            />
+            <div className="flex items-center justify-between gap-2.5">
+              <div className="min-w-0 flex-1">
+                <div className="mb-0.5 flex items-center gap-1.5">
+                  <span className="mono-label text-[9px]">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-lavender)]" />{" "}
+                    08 ⁄ {t("Footer.finalDestination")}
+                  </span>
+                </div>
+                <h2
+                  data-cursor="text"
+                  className="truncate text-sm font-bold tracking-tight text-card-foreground xs:text-base"
                 >
-                  {t(`Navigation.${item.id}`)}
-                </Link>
-              ))}
-              <Link
-                href="/#skills"
-                className="font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline"
-              >
-                {t("Navigation.skills") || "Tech Stack"}
-              </Link>
-            </div>
-          </div>
-
-          {/* Connect & Socials */}
-          <div className="rounded-xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs transition-all duration-300 hover:border-border sm:col-span-2 sm:rounded-2xl sm:p-5 md:col-span-1 md:p-6">
-            <h4 className="mb-2.5 font-mono text-xs font-semibold tracking-wider text-muted-foreground uppercase sm:mb-3.5 sm:text-sm">
-              {t("Footer.connect")}
-            </h4>
-            <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
-              <a
-                href="https://github.com/JaberChowdhury"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between rounded-lg border border-border/70 bg-secondary/50 p-2.5 text-xs font-medium text-card-foreground transition-all duration-200 hover:border-purple-500/30 hover:bg-secondary sm:rounded-xl sm:text-sm"
-              >
-                <span className="flex items-center gap-2">
-                  <GithubIcon className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-                  GitHub
-                </span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
-              </a>
-
-              <a
-                href="https://linkedin.com/in/JaberChowdhury"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between rounded-lg border border-border/70 bg-secondary/50 p-2.5 text-xs font-medium text-card-foreground transition-all duration-200 hover:border-sky-500/30 hover:bg-secondary sm:rounded-xl sm:text-sm"
-              >
-                <span className="flex items-center gap-2">
-                  <LinkedinIcon className="h-4 w-4 text-sky-600 dark:text-sky-400" />
-                  LinkedIn
-                </span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
-              </a>
-
-              <a
-                href="https://codeforces.com/profile/YOUR_HANDLE"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between rounded-lg border border-border/70 bg-secondary/50 p-2.5 text-xs font-medium text-card-foreground transition-all duration-200 hover:border-amber-500/30 hover:bg-secondary sm:rounded-xl sm:text-sm"
-              >
-                <span className="flex items-center gap-2">
-                  <Trophy className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-                  Codeforces
-                </span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
-              </a>
-
+                  {t("Footer.title1")} {t("Footer.title2")}{" "}
+                  <span className="text-[var(--color-pear)]">
+                    {t("Footer.title3")}
+                  </span>
+                </h2>
+              </div>
               <a
                 href="mailto:your@email.com"
-                className="group flex items-center justify-between rounded-lg border border-border/70 bg-secondary/50 p-2.5 text-xs font-medium text-card-foreground transition-all duration-200 hover:border-rose-500/30 hover:bg-secondary sm:rounded-xl sm:text-sm"
+                className="hum-btn hum-btn--lav !min-h-[34px] shrink-0 !px-3 !py-1.5 !font-mono !text-[11px] !font-bold"
               >
-                <span className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-rose-600 dark:text-rose-400" />
-                  Email
-                </span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
+                <span>{t("Footer.startConversation")}</span>
+                <ArrowUpRight className="hum-arrow h-3.5 w-3.5 shrink-0" />
               </a>
+            </div>
+          </div>
+
+          {/* Compact 2-Column Grid: Bio & Nav | Connect Icons */}
+          <div className="grid grid-cols-2 gap-2">
+            {/* Quick Navigation & Brand Pill */}
+            <div
+              data-cursor="cover"
+              className="hum-card flex flex-col justify-between rounded-xl border border-border/80 bg-card p-2.5 text-card-foreground"
+            >
+              <div>
+                <h4 className="mono-label mb-1.5 text-[9px] tracking-wider text-muted-foreground uppercase">
+                  {t("Footer.navigation")}
+                </h4>
+                <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px]">
+                  {navLinks.map((item) => (
+                    <Link
+                      key={item.id}
+                      href={item.href}
+                      className="truncate font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline"
+                    >
+                      {t(`Navigation.${item.id}`)}
+                    </Link>
+                  ))}
+                  <Link
+                    href="/#skills"
+                    className="truncate font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline"
+                  >
+                    {t("Navigation.skills") || "Tech Stack"}
+                  </Link>
+                </div>
+              </div>
+
+              <div className="mt-2 flex items-center gap-1.5 border-t border-border/60 pt-1.5 text-[10px] text-muted-foreground">
+                <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-[var(--color-mint)]" />
+                <Globe2 className="h-3 w-3 shrink-0 text-[var(--color-mint)]" />
+                <span className="truncate">Available for hire</span>
+              </div>
+            </div>
+
+            {/* Compact Connect / Socials (Icon Grid with label) */}
+            <div className="hum-card flex flex-col justify-between rounded-xl border border-border/80 bg-card p-2.5 text-card-foreground">
+              <h4 className="mono-label mb-1.5 text-[9px] tracking-wider text-muted-foreground uppercase">
+                {t("Footer.connect")}
+              </h4>
+              <div className="grid grid-cols-2 gap-1.5">
+                {/* GitHub */}
+                <a
+                  href="https://github.com/JaberChowdhury"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub Profile"
+                  className="group flex min-h-[32px] items-center justify-between rounded-lg border border-border/70 bg-secondary/50 px-2 py-1 text-[11px] font-medium text-card-foreground transition-all duration-200 hover:border-[var(--color-lavender)]/30 hover:bg-[var(--color-lavender)]/10"
+                >
+                  <span className="flex items-center gap-1.5 truncate">
+                    <GithubIcon className="h-3.5 w-3.5 shrink-0 text-[var(--color-lavender)]" />
+                    <span className="truncate">GitHub</span>
+                  </span>
+                  <ArrowUpRight className="hum-arrow h-3 w-3 shrink-0 text-muted-foreground opacity-60 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+                </a>
+
+                {/* LinkedIn */}
+                <a
+                  href="https://www.linkedin.com/in/md-jaber-hossain-chowdhury-543335252/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn Profile"
+                  className="group flex min-h-[32px] items-center justify-between rounded-lg border border-border/70 bg-secondary/50 px-2 py-1 text-[11px] font-medium text-card-foreground transition-all duration-200 hover:border-[var(--color-cyan)]/30 hover:bg-[var(--color-cyan)]/10"
+                >
+                  <span className="flex items-center gap-1.5 truncate">
+                    <LinkedinIcon className="h-3.5 w-3.5 shrink-0 text-[var(--color-cyan)]" />
+                    <span className="truncate">LinkedIn</span>
+                  </span>
+                  <ArrowUpRight className="hum-arrow h-3 w-3 shrink-0 text-muted-foreground opacity-60 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+                </a>
+
+                {/* Codeforces */}
+                <a
+                  href="https://codeforces.com/profile/jaber02"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Codeforces Profile"
+                  className="group flex min-h-[32px] items-center justify-between rounded-lg border border-border/70 bg-secondary/50 px-2 py-1 text-[11px] font-medium text-card-foreground transition-all duration-200 hover:border-[var(--color-pear)]/30 hover:bg-[var(--color-pear)]/10"
+                >
+                  <span className="flex items-center gap-1.5 truncate">
+                    <Trophy className="h-3.5 w-3.5 shrink-0 text-[var(--color-pear)]" />
+                    <span className="truncate">CP</span>
+                  </span>
+                  <ArrowUpRight className="hum-arrow h-3 w-3 shrink-0 text-muted-foreground opacity-60 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+                </a>
+
+                {/* Email */}
+                <a
+                  href="mailto:jaberhc2002@gmail.com"
+                  aria-label="Send Email"
+                  className="group flex min-h-[32px] items-center justify-between rounded-lg border border-border/70 bg-secondary/50 px-2 py-1 text-[11px] font-medium text-card-foreground transition-all duration-200 hover:border-[var(--color-coral)]/30 hover:bg-[var(--color-coral)]/10"
+                >
+                  <span className="flex items-center gap-1.5 truncate">
+                    <Mail className="h-3.5 w-3.5 shrink-0 text-[var(--color-coral)]" />
+                    <span className="truncate">Email</span>
+                  </span>
+                  <ArrowUpRight className="hum-arrow h-3 w-3 shrink-0 text-muted-foreground opacity-60 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Compact Bottom Bar */}
+          <div className="flex items-center justify-between border-t border-border/60 pt-2 text-[10px]">
+            <p className="mono-label truncate text-[9.5px]">
+              © {new Date().getFullYear()} {t("Footer.yourName")}
+            </p>
+            <div className="flex shrink-0 items-center gap-2">
+              <LanguageToggle />
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-4 flex flex-col items-center justify-between gap-3 border-t border-border/70 pt-3 text-xs text-muted-foreground sm:mt-5 sm:flex-row sm:pt-4">
-          <p className="font-mono text-xs sm:text-sm">
-            © {new Date().getFullYear()} {t("Footer.yourName")}.{" "}
-            {t("Footer.rights")}.
-          </p>
+        {/* ==================================================================== */}
+        {/* DESKTOP VIEW (md: and up) — Preserved full 3-column Hallmark cards   */}
+        {/* ==================================================================== */}
+        <div className="hidden md:block">
+          {/* Top CTA Banner — hum-card styling with pear accent */}
+          <div className="hum-card group relative mb-5 flex flex-row items-center justify-between gap-5 overflow-hidden rounded-3xl border border-border/80 bg-card p-6 text-card-foreground shadow-xs transition-all duration-300 hover:border-[var(--color-pear)]/40 md:p-7">
+            <div
+              className="absolute inset-x-0 top-0 h-1.5 rounded-t-2xl bg-gradient-to-r from-[var(--color-pear)]/60 via-[var(--color-pear)] to-[var(--color-pear)]/60"
+              aria-hidden="true"
+            />
+            <div>
+              <div className="mb-2 flex items-center gap-1.5">
+                <span className="mono-label text-xs">
+                  <span className="inline-block h-2 w-2 rounded-full bg-[var(--color-lavender)]" />{" "}
+                  08 ⁄ {t("Footer.finalDestination")}
+                </span>
+              </div>
+              <h2
+                data-cursor="text"
+                className="text-2xl font-bold tracking-tight text-card-foreground sm:text-3xl md:text-4xl"
+              >
+                {t("Footer.title1")} {t("Footer.title2")}{" "}
+                <span className="text-[var(--color-pear)]">
+                  {t("Footer.title3")}
+                </span>{" "}
+                {t("Footer.title4")}
+              </h2>
+              <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                {t("Footer.description")}
+              </p>
+            </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-xs sm:text-sm">
-              {t("Footer.builtWith")}
-            </span>
-            <div className="flex items-center gap-2 border-l border-border/70 pl-3">
-              <LanguageToggle />
+            <a
+              href="mailto:jaberhc2002@gmail.com"
+              className="hum-btn hum-btn--lav shrink-0 justify-center self-center !px-5 !py-3 !font-mono !text-sm !font-bold"
+            >
+              <span>{t("Footer.startConversation")}</span>
+              <ArrowUpRight className="hum-arrow h-4.5 w-4.5 shrink-0" />
+            </a>
+          </div>
+
+          {/* 3-Column Info Grid */}
+          <div className="grid grid-cols-3 gap-6">
+            {/* Brand / Bio */}
+            <div
+              data-cursor="cover"
+              className="hum-card flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-6 text-card-foreground"
+            >
+              <div>
+                <h3 className="text-xl font-bold text-card-foreground">
+                  {t("Footer.yourName")}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {t("Footer.bio")}
+                </p>
+              </div>
+              <div className="mt-5 flex items-center gap-2 border-t border-border/70 pt-3.5 text-xs text-muted-foreground md:text-sm">
+                <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-[var(--color-mint)]" />
+                <Globe2 className="h-4 w-4 shrink-0 text-[var(--color-mint)]" />
+                <span className="truncate">
+                  Available for remote & freelance
+                </span>
+              </div>
+            </div>
+
+            {/* Quick Navigation */}
+            <div
+              data-cursor="cover"
+              className="hum-card rounded-2xl border border-border/80 bg-card p-6 text-card-foreground"
+            >
+              <h4 className="mono-label mb-3.5 text-xs">
+                {t("Footer.navigation")}
+              </h4>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                {navLinks.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    className="py-0.5 font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline"
+                  >
+                    {t(`Navigation.${item.id}`)}
+                  </Link>
+                ))}
+                <Link
+                  href="/#skills"
+                  className="py-0.5 font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline"
+                >
+                  {t("Navigation.skills") || "Tech Stack"}
+                </Link>
+              </div>
+            </div>
+
+            {/* Connect & Socials — multi-accent system */}
+            <div className="hum-card rounded-2xl border border-border/80 bg-card p-6 text-card-foreground">
+              <h4 className="mono-label mb-3.5 text-xs">
+                {t("Footer.connect")}
+              </h4>
+              <div className="grid grid-cols-1 gap-2.5">
+                {/* GitHub — lavender */}
+                <a
+                  href="https://github.com/JaberChowdhury"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex min-h-[40px] items-center justify-between rounded-xl border border-border/70 bg-secondary/50 p-2.5 text-sm font-medium text-card-foreground transition-all duration-200 hover:border-[var(--color-lavender)]/30 hover:bg-[var(--color-lavender)]/10"
+                >
+                  <span className="flex items-center gap-2 truncate">
+                    <GithubIcon className="h-4 w-4 shrink-0 text-[var(--color-lavender)]" />
+                    <span className="truncate">GitHub</span>
+                  </span>
+                  <ArrowUpRight className="hum-arrow h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
+                </a>
+
+                {/* LinkedIn — cyan */}
+                <a
+                  href="https://www.linkedin.com/in/md-jaber-hossain-chowdhury-543335252/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex min-h-[40px] items-center justify-between rounded-xl border border-border/70 bg-secondary/50 p-2.5 text-sm font-medium text-card-foreground transition-all duration-200 hover:border-[var(--color-cyan)]/30 hover:bg-[var(--color-cyan)]/10"
+                >
+                  <span className="flex items-center gap-2 truncate">
+                    <LinkedinIcon className="h-4 w-4 shrink-0 text-[var(--color-cyan)]" />
+                    <span className="truncate">LinkedIn</span>
+                  </span>
+                  <ArrowUpRight className="hum-arrow h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
+                </a>
+
+                {/* Codeforces — pear */}
+                <a
+                  href="https://codeforces.com/profile/jaber02"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex min-h-[40px] items-center justify-between rounded-xl border border-border/70 bg-secondary/50 p-2.5 text-sm font-medium text-card-foreground transition-all duration-200 hover:border-[var(--color-pear)]/30 hover:bg-[var(--color-pear)]/10"
+                >
+                  <span className="flex items-center gap-2 truncate">
+                    <Trophy className="h-4 w-4 shrink-0 text-[var(--color-pear)]" />
+                    <span className="truncate">Codeforces</span>
+                  </span>
+                  <ArrowUpRight className="hum-arrow h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
+                </a>
+
+                {/* Email — coral */}
+                <a
+                  href="mailto:jaberhc2002@gmail.com"
+                  className="group flex min-h-[40px] items-center justify-between rounded-xl border border-border/70 bg-secondary/50 p-2.5 text-sm font-medium text-card-foreground transition-all duration-200 hover:border-[var(--color-coral)]/30 hover:bg-[var(--color-coral)]/10"
+                >
+                  <span className="flex items-center gap-2 truncate">
+                    <Mail className="h-4 w-4 shrink-0 text-[var(--color-coral)]" />
+                    <span className="truncate">Email</span>
+                  </span>
+                  <ArrowUpRight className="hum-arrow h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Bar — hum-eyebrow labels */}
+          <div className="mt-5 flex flex-row items-center justify-between border-t border-border/70 pt-4 text-left">
+            <p className="mono-label text-xs">
+              © {new Date().getFullYear()} {t("Footer.yourName")}.{" "}
+              {t("Footer.rights")}.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <span className="mono-label text-xs">
+                {t("Footer.builtWith")}
+              </span>
+              <div className="flex items-center gap-2 border-l border-border/70 pl-3">
+                <LanguageToggle />
+              </div>
             </div>
           </div>
         </div>

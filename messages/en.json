@@ -223,7 +223,15 @@
         "name": "Codeforces",
         "solved": "229 Solved",
         "description": "Practicing problems focusing on algorithmic fundamentals, greedy logic, binary search, and mathematical problem solving.",
-        "topics": ["Greedy", "Math", "Binary Search", "Implementation", "Two Pointers", "Sorting", "Brute Force"],
+        "topics": [
+          "Greedy",
+          "Math",
+          "Binary Search",
+          "Implementation",
+          "Two Pointers",
+          "Sorting",
+          "Brute Force"
+        ],
         "viewProfile": "View Profile"
       },
       "beecrowd": {
@@ -231,7 +239,15 @@
         "name": "Beecrowd",
         "solved": "130 Solved",
         "description": "Solving algorithmic challenges with emphasis on computational logic, string processing, and precise arithmetic.",
-        "topics": ["Strings", "Math", "Ad-Hoc", "Data Structures", "Recursion", "Conditionals", "Arrays"],
+        "topics": [
+          "Strings",
+          "Math",
+          "Ad-Hoc",
+          "Data Structures",
+          "Recursion",
+          "Conditionals",
+          "Arrays"
+        ],
         "viewProfile": "View Profile"
       }
     },
@@ -240,7 +256,13 @@
       "title": "ICPC Regional Contestant",
       "date": "December 2025",
       "description": "Participated in the International Collegiate Programming Contest (ICPC) in December 2025, solving competitive algorithmic challenges with high-pressure team collaboration.",
-      "badges": ["ICPC 2025", "Dec 2025", "Team Contest", "Algorithms", "Data Structures"]
+      "badges": [
+        "ICPC 2025",
+        "Dec 2025",
+        "Team Contest",
+        "Algorithms",
+        "Data Structures"
+      ]
     },
     "stats": [
       { "label": "Codeforces Solved", "value": "229" },

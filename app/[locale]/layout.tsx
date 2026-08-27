@@ -11,6 +11,40 @@ import {
 import { routing } from "@/i18n/routing"
 import { notFound } from "next/navigation"
 import NextTopLoader from "nextjs-toploader"
+import {
+  Plus_Jakarta_Sans,
+  JetBrains_Mono,
+  Playfair_Display,
+  Syne,
+} from "next/font/google"
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sans",
+  display: "swap",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+  display: "swap",
+})
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["700", "800", "900"],
+  variable: "--font-display",
+  display: "swap",
+})
+
+const syne = Syne({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-syne",
+  display: "swap",
+})
 
 export async function generateMetadata({
   params,
@@ -83,6 +117,10 @@ export default async function RootLayout({
       suppressHydrationWarning
       className={cn(
         "antialiased",
+        plusJakartaSans.variable,
+        jetbrainsMono.variable,
+        playfairDisplay.variable,
+        syne.variable,
         locale === "bn" ? "sohid-font" : "marlin-font"
       )}
     >

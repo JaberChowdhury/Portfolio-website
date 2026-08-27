@@ -80,7 +80,7 @@ export default function Footer() {
             </p>
 
             <Link
-              href="mailto:your@email.com"
+              href="mailto:jaberhc2002@gmail.com"
               className="group mt-6 inline-flex items-center rounded-full border border-border px-5 py-2.5 text-xs font-medium transition-all duration-300 hover:border-foreground hover:bg-foreground hover:text-background active:scale-95 sm:mt-10 sm:px-7 sm:py-3 sm:text-sm"
             >
               {t("Footer.startConversation")}
@@ -162,7 +162,7 @@ export default function Footer() {
               </Link>
 
               <Link
-                href="https://linkedin.com/in/YOUR_USERNAME"
+                href="https://www.linkedin.com/in/md-jaber-hossain-chowdhury-543335252/"
                 target="_blank"
                 className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
               >
@@ -174,7 +174,7 @@ export default function Footer() {
               </Link>
 
               <Link
-                href="https://codeforces.com/profile/YOUR_HANDLE"
+                href="https://codeforces.com/profile/jaber02"
                 target="_blank"
                 className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
               >
@@ -186,7 +186,7 @@ export default function Footer() {
               </Link>
 
               <Link
-                href="mailto:your@email.com"
+                href="mailto:jaberhc2002@gmail.com"
                 className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
               >
                 <div className="flex items-center gap-3">

@@ -67,18 +67,18 @@ export function StatCard({ stat, index = 0 }: StatCardProps) {
   return (
     <div
       data-cursor="cover"
-      className={`group relative flex flex-col justify-between rounded-xl border border-border/80 bg-card p-2.5 text-card-foreground shadow-2xs transition-all duration-300 hover:-translate-y-0.5 sm:p-3 ${theme.hoverBorder}`}
+      className={`group relative flex flex-col justify-between rounded-xl border border-border/80 bg-card p-2 text-card-foreground shadow-2xs transition-all duration-300 hover:-translate-y-0.5 sm:p-2.5 md:p-3 ${theme.hoverBorder}`}
     >
       {/* Card Top: Glyph Container + Micro-tag */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-1">
         <div
-          className={`flex h-7 w-7 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105 sm:h-8 sm:w-8 ${theme.glyphBg}`}
+          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105 sm:h-7 sm:w-7 md:h-8 md:w-8 ${theme.glyphBg}`}
         >
-          <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+          <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
         </div>
 
         <span
-          className={`rounded-full border px-1.5 py-0.5 font-mono text-[8px] font-bold tracking-wider uppercase sm:px-2 sm:text-[9px] ${theme.microBadge}`}
+          className={`truncate rounded-full border px-1.5 py-0.5 font-mono text-[7.5px] font-bold tracking-wider uppercase sm:px-2 sm:text-[8.5px] md:text-[9px] ${theme.microBadge}`}
         >
           {theme.tag}
         </span>
@@ -88,12 +88,12 @@ export function StatCard({ stat, index = 0 }: StatCardProps) {
       <div className="mt-1.5 sm:mt-2">
         <div
           data-cursor="text"
-          className="tnum font-mono text-lg font-bold tracking-tight text-foreground sm:text-xl md:text-2xl"
+          className="tnum truncate font-mono text-base font-bold tracking-tight text-foreground sm:text-lg md:text-xl lg:text-2xl"
         >
           {stat.value}
         </div>
 
-        <div className="mt-0.5 text-[11px] font-medium tracking-wide text-muted-foreground sm:text-xs">
+        <div className="mt-0.5 truncate text-[10px] font-medium tracking-wide text-muted-foreground sm:text-[11px] md:text-xs">
           {stat.label}
         </div>
       </div>

@@ -60,13 +60,14 @@ export function useCardStack({
     }
   }, [goTo])
 
-  // Wheel listener: Guaranteed smooth & glitch-free
+  // Wheel listener: Inertia-protected and glitch-free
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault()
 
       if (wheelLockedRef.current || animatingRef.current) return
-      if (Math.abs(event.deltaY) < 6) return
+      // Ignore sub-pixel jitter or small trackpad scrolls
+      if (Math.abs(event.deltaY) < 18) return
 
       wheelLockedRef.current = true
 
@@ -76,16 +77,20 @@ export function useCardStack({
         previous()
       }
 
-      setTimeout(() => {
-        wheelLockedRef.current = false
-      }, wheelLockDuration)
+      // Keep locked until animation completes + extra buffer to consume trackpad momentum
+      setTimeout(
+        () => {
+          wheelLockedRef.current = false
+        },
+        Math.max(wheelLockDuration, transitionDuration + 60)
+      )
     }
 
     window.addEventListener("wheel", handleWheel, { passive: false })
     return () => {
       window.removeEventListener("wheel", handleWheel)
     }
-  }, [next, previous, wheelLockDuration])
+  }, [next, previous, wheelLockDuration, transitionDuration])
 
   // Touch gesture listener with mobile optimization
   useEffect(() => {
@@ -103,14 +108,29 @@ export function useCardStack({
         wheelLockedRef.current
       )
         return
+
+      // If touch originated or happened inside a horizontal scroll container, do not flip section cards if horizontal swipe occurred
+      const target = event.target as HTMLElement | null
+      const isInsideHorizontalScroll = target?.closest(
+        ".horizontal-scroll-container"
+      )
+
       const touchEndY = event.changedTouches[0].clientY
       const touchEndX = event.changedTouches[0].clientX
       const distanceY = touchStartYRef.current - touchEndY
       const distanceX = touchStartXRef.current - touchEndX
 
+      // If user was swiping horizontally inside a scrollable carousel, skip section transition
+      if (
+        isInsideHorizontalScroll &&
+        Math.abs(distanceX) > Math.abs(distanceY) * 0.8
+      ) {
+        return
+      }
+
       // Ensure vertical swipe is intentional and exceeds threshold (45px)
       if (
-        Math.abs(distanceY) > Math.abs(distanceX) * 1.2 &&
+        Math.abs(distanceY) > Math.abs(distanceX) * 1.3 &&
         Math.abs(distanceY) > 45
       ) {
         wheelLockedRef.current = true

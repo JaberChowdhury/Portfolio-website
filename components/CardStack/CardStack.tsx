@@ -59,7 +59,8 @@ export function CardStack({
       const hash = window.location.hash.replace("#", "")
       if (!hash) return
       const targetIndex = sections.findIndex(
-        (s) => s.id === hash || String(s.id).toLowerCase() === hash.toLowerCase()
+        (s) =>
+          s.id === hash || String(s.id).toLowerCase() === hash.toLowerCase()
       )
       if (targetIndex !== -1 && targetIndex !== current) {
         goTo(targetIndex)
@@ -74,7 +75,9 @@ export function CardStack({
 
     // Intercept in-page anchor clicks across Navbar, Hero, Footer, etc.
     const onDocumentClick = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest("a, button[data-section-target]")
+      const target = (e.target as HTMLElement).closest(
+        "a, button[data-section-target]"
+      )
       if (!target) return
 
       let targetId = ""
@@ -94,7 +97,9 @@ export function CardStack({
 
       if (targetId) {
         const targetIndex = sections.findIndex(
-          (s) => s.id === targetId || String(s.id).toLowerCase() === targetId.toLowerCase()
+          (s) =>
+            s.id === targetId ||
+            String(s.id).toLowerCase() === targetId.toLowerCase()
         )
         if (targetIndex !== -1) {
           e.preventDefault()
@@ -136,6 +141,9 @@ export function CardStack({
             mouseOffset,
           }
 
+          // DOM Optimization: Only mount heavy subcomponents for cards in immediate view proximity (active, previous 1, next 1)
+          // Cards further away keep their section wrapper & background for seamless stack animation without holding 1000+ DOM nodes
+          const isProximate = Math.abs(index - current) <= 1
           const ContentComponent = section.Component
 
           return (
@@ -153,20 +161,21 @@ export function CardStack({
               {/* Depth Shade overlay */}
               <div className="card-stack-shade" />
 
-              {/* Decorative Subtle Pattern - stable render to prevent paint reflow */}
+              {/* Decorative Subtle Pattern */}
               {section.showGrid !== false && (
                 <div className="card-stack-grid" aria-hidden="true" />
               )}
 
-              {/* Inner Content Area */}
+              {/* Inner Content Area — rendered when proximate to active view */}
               <div className="card-stack-scroll-wrapper px-3.5 py-4 sm:px-6 sm:py-8 md:px-8 md:py-10">
-                {ContentComponent ? (
-                  <ContentComponent {...injectedProps} />
-                ) : typeof section.content === "function" ? (
-                  section.content(injectedProps)
-                ) : (
-                  section.content
-                )}
+                {isProximate &&
+                  (ContentComponent ? (
+                    <ContentComponent {...injectedProps} />
+                  ) : typeof section.content === "function" ? (
+                    section.content(injectedProps)
+                  ) : (
+                    section.content
+                  ))}
               </div>
             </section>
           )

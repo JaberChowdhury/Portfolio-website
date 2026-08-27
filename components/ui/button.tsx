@@ -1,11 +1,11 @@
 "use client"
 
 import React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 export const buttonVariants = cva(
-  "pushable-btn select-none outline-none disabled:pointer-events-none disabled:opacity-50",
+  "pushable-btn outline-none select-none disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -56,17 +56,9 @@ export type ButtonVariant =
   | "link"
 
 export type ButtonSize =
-  | "default"
-  | "xs"
-  | "sm"
-  | "lg"
-  | "icon"
-  | "icon-xs"
-  | "icon-sm"
-  | "icon-lg"
+  "default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
   size?: ButtonSize
   href?: string
@@ -280,11 +272,7 @@ export const Button = React.forwardRef<
           href={href}
           target={target}
           rel={rel}
-          className={cn(
-            "pushable-btn group",
-            sLayer.wrapperClass,
-            className
-          )}
+          className={cn("pushable-btn group", sLayer.wrapperClass, className)}
         >
           {innerContent}
         </a>
@@ -295,11 +283,7 @@ export const Button = React.forwardRef<
       <button
         ref={ref as React.Ref<HTMLButtonElement>}
         type={props.type || "button"}
-        className={cn(
-          "pushable-btn group",
-          sLayer.wrapperClass,
-          className
-        )}
+        className={cn("pushable-btn group", sLayer.wrapperClass, className)}
         {...props}
       >
         {innerContent}

@@ -1,20 +1,15 @@
 "use client"
 
 import React from "react"
+import Image from "next/image"
 import { ExternalLink, GitPullRequestClosed, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 
 export interface Project {
   title: string
   description: string
   tech: string[]
+  image?: string
   live?: string
   github?: string
 }
@@ -28,82 +23,83 @@ interface ProjectCardProps {
 const CARD_ACCENTS = [
   {
     name: "cyan",
-    topGradient: "from-sky-500/90 via-sky-400 to-cyan-400",
+    topGradient:
+      "from-[var(--color-cyan)] via-[var(--color-cyan-light)] to-[var(--color-cyan)]",
     indexBadge:
-      "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
-    hoverBorder: "hover:border-sky-500/40",
-    liveBtnHover:
-      "hover:bg-sky-500/15 hover:border-sky-500/35 hover:text-sky-700 dark:hover:text-sky-300",
-    dot: "bg-sky-500",
+      "border-[var(--color-cyan)]/30 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
+    hoverBorder: "hover:border-[var(--color-cyan)]/50",
+    dot: "bg-[var(--color-cyan)]",
+    btnClass: "hum-btn hum-btn--cyan",
   },
   {
     name: "pear",
-    topGradient: "from-amber-500/90 via-amber-400 to-yellow-400",
+    topGradient:
+      "from-[var(--color-pear)] via-[var(--color-pear-light)] to-[var(--color-pear)]",
     indexBadge:
-      "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-    hoverBorder: "hover:border-amber-500/40",
-    liveBtnHover:
-      "hover:bg-amber-500/15 hover:border-amber-500/35 hover:text-amber-700 dark:hover:text-amber-300",
-    dot: "bg-amber-500",
+      "border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
+    hoverBorder: "hover:border-[var(--color-pear)]/50",
+    dot: "bg-[var(--color-pear)]",
+    btnClass: "hum-btn",
   },
   {
     name: "mint",
-    topGradient: "from-emerald-500/90 via-emerald-400 to-teal-400",
+    topGradient:
+      "from-[var(--color-mint)] via-[var(--color-mint-light)] to-[var(--color-mint)]",
     indexBadge:
-      "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
-    hoverBorder: "hover:border-emerald-500/40",
-    liveBtnHover:
-      "hover:bg-emerald-500/15 hover:border-emerald-500/35 hover:text-emerald-700 dark:hover:text-emerald-300",
-    dot: "bg-emerald-500",
+      "border-[var(--color-mint)]/30 bg-[var(--color-mint)]/10 text-[var(--color-mint)]",
+    hoverBorder: "hover:border-[var(--color-mint)]/50",
+    dot: "bg-[var(--color-mint)]",
+    btnClass: "hum-btn hum-btn--mint",
   },
   {
     name: "coral",
-    topGradient: "from-rose-500/90 via-rose-400 to-orange-400",
+    topGradient:
+      "from-[var(--color-coral)] via-[var(--color-coral-light)] to-[var(--color-coral)]",
     indexBadge:
-      "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
-    hoverBorder: "hover:border-rose-500/40",
-    liveBtnHover:
-      "hover:bg-rose-500/15 hover:border-rose-500/35 hover:text-rose-700 dark:hover:text-rose-300",
-    dot: "bg-rose-500",
+      "border-[var(--color-coral)]/30 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
+    hoverBorder: "hover:border-[var(--color-coral)]/50",
+    dot: "bg-[var(--color-coral)]",
+    btnClass: "hum-btn hum-btn--coral",
   },
   {
-    name: "lilac",
-    topGradient: "from-purple-500/90 via-purple-400 to-pink-400",
+    name: "lavender",
+    topGradient:
+      "from-[var(--color-lavender)] via-[var(--color-lavender-light)] to-[var(--color-lavender)]",
     indexBadge:
-      "border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300",
-    hoverBorder: "hover:border-purple-500/40",
-    liveBtnHover:
-      "hover:bg-purple-500/15 hover:border-purple-500/35 hover:text-purple-700 dark:hover:text-purple-300",
-    dot: "bg-purple-500",
+      "border-[var(--color-lavender)]/30 bg-[var(--color-lavender)]/10 text-[var(--color-lavender)]",
+    hoverBorder: "hover:border-[var(--color-lavender)]/50",
+    dot: "bg-[var(--color-lavender)]",
+    btnClass: "hum-btn hum-btn--lav",
   },
 ]
 
 // Hum Multi-Accent Tech Tag Badges
 const TECH_TAG_STYLES: Record<string, string> = {
-  "Next.js":
-    "border-slate-500/20 bg-slate-500/10 text-foreground dark:text-slate-200",
-  TypeScript: "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+  "Next.js": "border-border bg-secondary/80 text-foreground",
+  TypeScript:
+    "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
   Prisma:
-    "border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300",
+    "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender)]",
   Stripe:
-    "border-indigo-500/25 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300",
+    "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender)]",
   "OpenAI API":
-    "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+    "border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 text-[var(--color-mint)]",
   Tailwind:
-    "border-cyan-500/25 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
+    "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
   PostgreSQL:
-    "border-blue-500/25 bg-blue-500/10 text-blue-700 dark:text-blue-300",
+    "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
   "Framer Motion":
-    "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
-  Docker: "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+    "border-[var(--color-coral)]/25 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
+  Docker:
+    "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
 }
 
 const FALLBACK_TAG_STYLES = [
-  "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-  "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
-  "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
-  "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
-  "border-purple-500/25 bg-purple-500/10 text-purple-700 dark:text-purple-300",
+  "border-[var(--color-pear)]/25 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
+  "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
+  "border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 text-[var(--color-mint)]",
+  "border-[var(--color-coral)]/25 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
+  "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender)]",
 ]
 
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
@@ -111,44 +107,59 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const formattedIndex = String(index + 1).padStart(2, "0")
 
   return (
-    <Card
+    <div
       data-cursor="cover"
-      className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xs ${accent.hoverBorder} sm:p-6 md:p-7`}
+      className={`hum-card group relative flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-card p-3.5 text-card-foreground shadow-xs transition-all duration-300 ${accent.hoverBorder} xs:p-4 sm:p-5 md:p-6 lg:p-7`}
     >
       {/* Top Accent Color Highlight Ribbon */}
       <div
-        className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${accent.topGradient} opacity-90 transition-opacity duration-300 group-hover:opacity-100`}
+        className={`absolute inset-x-0 top-0 h-1.5 rounded-t-2xl bg-gradient-to-r ${accent.topGradient} opacity-90 transition-opacity duration-300 group-hover:opacity-100`}
       />
 
       <div className="relative pt-1.5">
         {/* Card Header Micro-meta (Index + Category Tag) */}
-        <div className="mb-3 flex items-center justify-between">
+        <div className="mb-2.5 flex items-center justify-between sm:mb-3">
           <div
-            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-0.5 font-mono text-xs font-semibold tracking-widest uppercase ${accent.indexBadge}`}
+            className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-mono text-[10px] font-semibold tracking-widest uppercase sm:gap-1.5 sm:px-3 sm:text-xs ${accent.indexBadge}`}
           >
-            <span className={`h-2 w-2 rounded-full ${accent.dot}`} />
+            <span
+              className={`h-1.5 w-1.5 rounded-full sm:h-2 sm:w-2 ${accent.dot}`}
+            />
             <span>#{formattedIndex}</span>
           </div>
 
-          <div className="flex items-center gap-1.5 font-mono text-xs font-medium tracking-wider text-muted-foreground/80 uppercase">
-            <Sparkles className="h-3.5 w-3.5 text-muted-foreground/60" />
+          <div className="flex items-center gap-1 font-mono text-[10px] font-medium tracking-wider text-muted-foreground/80 uppercase sm:gap-1.5 sm:text-xs">
+            <Sparkles className="h-3 w-3 text-muted-foreground/60 sm:h-3.5 sm:w-3.5" />
             <span>FEATURED</span>
           </div>
         </div>
 
-        {/* Title and Description */}
-        <CardHeader className="space-y-2 p-0">
-          <CardTitle className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-            {project.title}
-          </CardTitle>
+        {/* Optional Responsive Image Preview Container */}
+        {project.image && (
+          <div className="relative mb-3 h-36 w-full overflow-hidden rounded-xl border border-border/60 bg-muted/30 xs:h-40 sm:h-48 md:h-52">
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+        )}
 
-          <CardDescription className="line-clamp-2 text-xs leading-relaxed font-normal text-muted-foreground sm:text-sm md:text-base">
+        {/* Title and Description */}
+        <div className="space-y-1 sm:space-y-1.5 md:space-y-2">
+          <h3 className="text-sm font-bold tracking-tight text-foreground sm:text-base md:text-lg">
+            {project.title}
+          </h3>
+
+          <p className="line-clamp-2 text-xs leading-relaxed font-normal text-muted-foreground sm:text-sm">
             {project.description}
-          </CardDescription>
-        </CardHeader>
+          </p>
+        </div>
 
         {/* Hallmark Multi-Accent Tech Badges */}
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-1.5 sm:mt-4 sm:gap-2">
           {project.tech.slice(0, 4).map((tech, idx) => {
             const tagStyle =
               TECH_TAG_STYLES[tech] ||
@@ -158,55 +169,43 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               <Badge
                 key={idx}
                 variant="secondary"
-                className={`rounded-md border px-2.5 py-1 font-mono text-xs font-medium tracking-wide transition-colors ${tagStyle}`}
+                className={`rounded-md border px-2 py-0.5 font-mono text-[9px] font-medium tracking-wide transition-all duration-200 hover:scale-105 sm:text-xs ${tagStyle}`}
               >
                 {tech}
               </Badge>
             )
           })}
           {project.tech.length > 4 && (
-            <span className="self-center font-mono text-xs font-medium text-muted-foreground">
+            <span className="self-center font-mono text-[9px] font-medium text-muted-foreground sm:text-xs">
               +{project.tech.length - 4}
             </span>
           )}
         </div>
       </div>
 
-      {/* Tactile Live & Code Action Buttons */}
-      <div className="mt-5 flex items-center gap-2.5 border-t border-border/80 pt-4">
-        <Button
-          variant={
-            accent.name === "cyan"
-              ? "sky"
-              : accent.name === "pear"
-                ? "amber"
-                : accent.name === "mint"
-                  ? "emerald"
-                  : "rose"
-          }
-          size="sm"
+      {/* Tactile Hum Action Push Buttons */}
+      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border/80 pt-3 sm:mt-5 sm:gap-3 sm:pt-4">
+        <a
           href={project.live || "https://github.com"}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1"
+          className={`${accent.btnClass} min-w-[100px] flex-1 !px-3 !py-2 !text-xs sm:!text-sm`}
         >
-          <span className="py-2">Live Demo</span>
-          <ExternalLink className="h-3.5 w-3.5" />
-        </Button>
+          <span>Live Demo</span>
+          <ExternalLink className="hum-arrow h-3.5 w-3.5 shrink-0" />
+        </a>
 
-        <Button
-          variant="secondary"
-          size="sm"
+        <a
           href={project.github || "https://github.com"}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1"
+          className="hum-btn hum-btn--soft min-w-[100px] flex-1 !px-3 !py-2 !text-xs sm:!text-sm"
         >
-          <GitPullRequestClosed className="h-3.5 w-3.5" />
-          <span className="py-2">Source</span>
-        </Button>
+          <GitPullRequestClosed className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+          <span>Source</span>
+        </a>
       </div>
-    </Card>
+    </div>
   )
 }
 
