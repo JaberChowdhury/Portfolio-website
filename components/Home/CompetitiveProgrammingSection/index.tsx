@@ -974,7 +974,7 @@ export function CompetitiveProgrammingSection() {
 
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="https://drive.google.com/uc?id=1MPH7G7W5E90pciMGBCpsDr0GVBmhORhw"
+                    src="https://drive.usercontent.google.com/download?id=1MPH7G7W5E90pciMGBCpsDr0GVBmhORhw&authuser=0"
                     alt="ICPC 2025 Certificate of Participation"
                     className={`max-h-[66vh] w-auto max-w-full rounded-lg object-contain shadow-md transition-opacity duration-300 xs:max-h-[70vh] sm:max-h-[72vh] ${
                       certLoaded
