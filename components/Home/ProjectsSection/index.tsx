@@ -130,7 +130,7 @@ export function ProjectsSection() {
               className="hum-btn hum-btn--outline group !border-[var(--color-cyan)]/30 !px-3 !py-1.5 !text-xs !text-foreground hover:!border-[var(--color-cyan)] hover:!bg-[var(--color-cyan-light)]/10 sm:!px-4 sm:!py-2 sm:!text-sm"
             >
               <Sparkles className="h-3.5 w-3.5 text-[var(--color-cyan)] sm:h-4 sm:w-4" />
-              <span>Explore All Projects</span>
+              <span>{t("exploreAllProjects")}</span>
               <ArrowRight className="h-3.5 w-3.5 text-[var(--color-cyan)] transition-transform duration-300 group-hover:translate-x-1 sm:h-4 sm:w-4" />
             </a>
           </div>

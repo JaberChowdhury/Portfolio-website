@@ -4,6 +4,7 @@ import React from "react"
 import Image from "next/image"
 import { ExternalLink, GitPullRequestClosed, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { useTranslations } from "next-intl"
 
 export interface Project {
   title: string
@@ -103,6 +104,7 @@ const FALLBACK_TAG_STYLES = [
 ]
 
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+  const t = useTranslations("Projects")
   const accent = CARD_ACCENTS[index % CARD_ACCENTS.length]
   const formattedIndex = String(index + 1).padStart(2, "0")
 
@@ -153,7 +155,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             {project.title}
           </h3>
 
-          <p className="line-clamp-2 text-xs leading-relaxed font-normal text-muted-foreground sm:text-sm">
+          <p className="line-clamp-3 text-xs leading-relaxed font-normal text-muted-foreground sm:text-sm">
             {project.description}
           </p>
         </div>
@@ -191,7 +193,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           rel="noopener noreferrer"
           className={`${accent.btnClass} min-w-[100px] flex-1 !px-3 !py-2 !text-xs sm:!text-sm`}
         >
-          <span>Live Demo</span>
+          <span>{t("liveDemo")}</span>
           <ExternalLink className="hum-arrow h-3.5 w-3.5 shrink-0" />
         </a>
 
@@ -202,7 +204,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           className="hum-btn hum-btn--soft min-w-[100px] flex-1 !px-3 !py-2 !text-xs sm:!text-sm"
         >
           <GitPullRequestClosed className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-          <span>Source</span>
+          <span>{t("source")}</span>
         </a>
       </div>
     </div>

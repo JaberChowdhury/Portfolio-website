@@ -75,7 +75,7 @@ export function ExperienceSection() {
         </div>
 
         {/* Experience Cards: Desktop Grid */}
-        <div className="hidden md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-3">
+        <div className="hidden md:grid md:grid-cols-2 md:gap-5">
           {experiences.map((exp, idx) => (
             <div key={exp.role} className="h-full">
               <ExperienceCard experience={exp} index={idx} />
@@ -158,19 +158,19 @@ export function ExperienceSection() {
           <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-2.5 py-1 sm:px-3 sm:py-1">
             <span className="hum-dot hum-dot--mint" />
             <span className="font-mono text-muted-foreground">
-              Open to work
+              {t("openToWork")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-2.5 py-1 sm:px-3 sm:py-1">
             <span className="hum-dot hum-dot--cyan" />
             <span className="font-mono text-muted-foreground">
-              Collaborative team player
+              {t("teamPlayer")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-2.5 py-1 sm:px-3 sm:py-1">
             <span className="hum-dot hum-dot--pear" />
             <span className="font-mono text-muted-foreground">
-              Remote-friendly
+              {t("remoteFriendly")}
             </span>
           </div>
         </div>

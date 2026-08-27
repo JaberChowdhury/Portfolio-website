@@ -157,16 +157,15 @@ export function CompetitiveProgrammingSection() {
                 </div>
                 <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#d4a017]/25 bg-[#d4a017]/10 px-2 py-0.5 text-[9px] font-bold text-[#b8860b] sm:text-[10px] dark:text-[#e8b82a]">
                   <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#d4a017]" />
-                  359 SOLVED
+                  {t("cards.platformsTag")}
                 </span>
               </div>
 
               <div className="mt-2.5 font-mono text-lg font-black text-foreground sm:mt-3 sm:text-xl md:text-2xl">
-                Codeforces &amp; Beecrowd
+                {t("cards.platformsTitle")}
               </div>
               <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-                229 on Codeforces • 130 on Beecrowd with verified algorithmic
-                topics.
+                {t("cards.platformsDesc")}
               </p>
             </div>
 
@@ -177,7 +176,7 @@ export function CompetitiveProgrammingSection() {
                 className="hum-btn w-full"
               >
                 <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold sm:py-2.5 sm:text-sm">
-                  <span>View Platforms (359)</span>
+                  <span>{t("cards.platformsBtn")}</span>
                   <ArrowUpRight className="hum-arrow h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </span>
               </button>
@@ -193,16 +192,15 @@ export function CompetitiveProgrammingSection() {
                 </div>
                 <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#e05d44]/25 bg-[#e05d44]/10 px-2 py-0.5 text-[9px] font-bold text-[#c04a35] sm:text-[10px] dark:text-[#f07058]">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#e05d44]" />
-                  DEC 2025
+                  {t("cards.icpcTag")}
                 </span>
               </div>
 
               <div className="mt-2.5 font-mono text-lg font-black text-foreground sm:mt-3 sm:text-xl md:text-2xl">
-                ICPC 2025 Regional
+                {t("cards.icpcTitle")}
               </div>
               <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-                Official attendance in competitive programming team
-                championship.
+                {t("cards.icpcDesc")}
               </p>
             </div>
 
@@ -213,7 +211,7 @@ export function CompetitiveProgrammingSection() {
                 className="hum-btn hum-btn--coral w-full"
               >
                 <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold sm:py-2.5 sm:text-sm">
-                  <span>View ICPC &apos;25 Honors</span>
+                  <span>{t("cards.icpcBtn")}</span>
                   <ArrowUpRight className="hum-arrow h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </span>
               </button>
@@ -229,16 +227,15 @@ export function CompetitiveProgrammingSection() {
                 </div>
                 <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#3dab6e]/25 bg-[#3dab6e]/10 px-2 py-0.5 text-[9px] font-bold text-[#2d8a56] sm:text-[10px] dark:text-[#5cc88a]">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#3dab6e]" />
-                  METHODOLOGY
+                  {t("cards.mindsetTag")}
                 </span>
               </div>
 
               <div className="mt-2.5 font-mono text-lg font-black text-foreground sm:mt-3 sm:text-xl md:text-2xl">
-                Algorithmic Logic
+                {t("cards.mindsetTitle")}
               </div>
               <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-                Problem deconstruction, performance complexity, and practice
-                philosophy.
+                {t("cards.mindsetDesc")}
               </p>
             </div>
 
@@ -249,7 +246,7 @@ export function CompetitiveProgrammingSection() {
                 className="hum-btn hum-btn--mint w-full"
               >
                 <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold sm:py-2.5 sm:text-sm">
-                  <span>View Methodology</span>
+                  <span>{t("cards.mindsetBtn")}</span>
                   <ArrowUpRight className="hum-arrow h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </span>
               </button>
@@ -307,15 +304,14 @@ export function CompetitiveProgrammingSection() {
                         </div>
                         <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#d4a017]/25 bg-[#d4a017]/10 px-2 py-0.5 text-[9px] font-bold text-[#b8860b] dark:text-[#e8b82a]">
                           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#d4a017]" />
-                          359 SOLVED
+                          {t("cards.platformsTag")}
                         </span>
                       </div>
                       <div className="mt-2 font-mono text-base font-black text-foreground">
-                        Codeforces &amp; Beecrowd
+                        {t("cards.platformsTitle")}
                       </div>
                       <p className="mt-1 text-xs text-muted-foreground">
-                        229 on Codeforces • 130 on Beecrowd with verified
-                        algorithmic topics.
+                        {t("cards.platformsDesc")}
                       </p>
                     </div>
                     <div className="mt-3.5 pt-1">
@@ -325,7 +321,7 @@ export function CompetitiveProgrammingSection() {
                         className="hum-btn w-full"
                       >
                         <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold">
-                          <span>View Platforms (359)</span>
+                          <span>{t("cards.platformsBtn")}</span>
                           <ArrowUpRight className="hum-arrow h-3.5 w-3.5" />
                         </span>
                       </button>
@@ -342,15 +338,14 @@ export function CompetitiveProgrammingSection() {
                         </div>
                         <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#e05d44]/25 bg-[#e05d44]/10 px-2 py-0.5 text-[9px] font-bold text-[#c04a35] dark:text-[#f07058]">
                           <span className="h-1.5 w-1.5 rounded-full bg-[#e05d44]" />
-                          DEC 2025
+                          {t("cards.icpcTag")}
                         </span>
                       </div>
                       <div className="mt-2 font-mono text-base font-black text-foreground">
-                        ICPC 2025 Regional
+                        {t("cards.icpcTitle")}
                       </div>
                       <p className="mt-1 text-xs text-muted-foreground">
-                        Official attendance in competitive programming team
-                        championship.
+                        {t("cards.icpcDesc")}
                       </p>
                     </div>
                     <div className="mt-3.5 pt-1">
@@ -360,7 +355,7 @@ export function CompetitiveProgrammingSection() {
                         className="hum-btn hum-btn--coral w-full"
                       >
                         <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold">
-                          <span>View ICPC &apos;25 Honors</span>
+                          <span>{t("cards.icpcBtn")}</span>
                           <ArrowUpRight className="hum-arrow h-3.5 w-3.5" />
                         </span>
                       </button>
@@ -377,15 +372,14 @@ export function CompetitiveProgrammingSection() {
                         </div>
                         <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#3dab6e]/25 bg-[#3dab6e]/10 px-2 py-0.5 text-[9px] font-bold text-[#2d8a56] dark:text-[#5cc88a]">
                           <span className="h-1.5 w-1.5 rounded-full bg-[#3dab6e]" />
-                          METHODOLOGY
+                          {t("cards.mindsetTag")}
                         </span>
                       </div>
                       <div className="mt-2 font-mono text-base font-black text-foreground">
-                        Algorithmic Logic
+                        {t("cards.mindsetTitle")}
                       </div>
                       <p className="mt-1 text-xs text-muted-foreground">
-                        Problem deconstruction, performance complexity, and
-                        practice philosophy.
+                        {t("cards.mindsetDesc")}
                       </p>
                     </div>
                     <div className="mt-3.5 pt-1">
@@ -395,7 +389,7 @@ export function CompetitiveProgrammingSection() {
                         className="hum-btn hum-btn--mint w-full"
                       >
                         <span className="flex items-center justify-center gap-1.5 py-2 font-mono text-xs font-bold">
-                          <span>View Methodology</span>
+                          <span>{t("cards.mindsetBtn")}</span>
                           <ArrowUpRight className="hum-arrow h-3.5 w-3.5" />
                         </span>
                       </button>
@@ -479,7 +473,7 @@ export function CompetitiveProgrammingSection() {
                           : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
-                      💻 Platforms (359)
+                      {t("modals.tabs.platforms")}
                     </button>
                     <button
                       type="button"
@@ -490,7 +484,7 @@ export function CompetitiveProgrammingSection() {
                           : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
-                      🏆 ICPC 2025
+                      {t("modals.tabs.icpc")}
                     </button>
                     <button
                       type="button"
@@ -501,7 +495,7 @@ export function CompetitiveProgrammingSection() {
                           : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
-                      🧠 Mindset
+                      {t("modals.tabs.mindset")}
                     </button>
                   </div>
 
@@ -529,15 +523,14 @@ export function CompetitiveProgrammingSection() {
                       <div className="mb-3 flex flex-col gap-2 sm:mb-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
                           <h3 className="text-base font-bold text-foreground sm:text-lg md:text-xl">
-                            Competitive Programming Platforms
+                            {t("modals.platformsHeading")}
                           </h3>
                           <p className="text-[11px] text-muted-foreground sm:text-xs md:text-sm">
-                            Verified solve count across Codeforces and Beecrowd
-                            online judges.
+                            {t("modals.platformsSubheading")}
                           </p>
                         </div>
                         <span className="shrink-0 self-start rounded-full border border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 px-2.5 py-0.5 font-mono text-[11px] font-bold text-[var(--color-pear-deep)] sm:self-auto sm:px-3 sm:py-1 sm:text-xs dark:text-[var(--color-pear)]">
-                          359 Total Solved
+                          {t("modals.totalSolvedBadge")}
                         </span>
                       </div>
 
@@ -740,7 +733,7 @@ export function CompetitiveProgrammingSection() {
                           <div className="flex items-center gap-2">
                             <span className="hum-dot hum-dot--coral animate-pulse" />
                             <span className="mono-label text-[10px] text-muted-foreground sm:text-xs">
-                              Regional Attendance Verified
+                              {t("modals.attendanceVerified")}
                             </span>
                           </div>
 
@@ -750,7 +743,7 @@ export function CompetitiveProgrammingSection() {
                             className="hum-btn hum-btn--coral !min-h-[36px] !px-3.5 !py-1.5 !font-mono !text-xs !font-bold"
                           >
                             <Award className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                            <span>View Certificate</span>
+                            <span>{t("modals.viewCertificate")}</span>
                             <ArrowUpRight className="hum-arrow h-3.5 w-3.5" />
                           </button>
                         </div>
@@ -760,49 +753,49 @@ export function CompetitiveProgrammingSection() {
                       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
                         <div className="hum-card rounded-xl border border-border/70 bg-card/70 p-2.5 text-center sm:p-3.5">
                           <span className="mono-label text-[9px] text-muted-foreground uppercase sm:text-[10px]">
-                            Team Dynamics
+                            {t("modals.metrics.teamDynamics")}
                           </span>
                           <div className="mt-1 font-mono text-xs font-bold text-foreground sm:text-sm md:text-base">
-                            3 Members • 1 PC
+                            {t("modals.metrics.teamDynamicsVal")}
                           </div>
                           <p className="mt-0.5 font-mono text-[9px] text-muted-foreground">
-                            High-pressure pairing
+                            {t("modals.metrics.teamDynamicsDesc")}
                           </p>
                         </div>
 
                         <div className="hum-card rounded-xl border border-border/70 bg-card/70 p-2.5 text-center sm:p-3.5">
                           <span className="mono-label text-[9px] text-muted-foreground uppercase sm:text-[10px]">
-                            Duration
+                            {t("modals.metrics.duration")}
                           </span>
                           <div className="mt-1 font-mono text-xs font-bold text-foreground sm:text-sm md:text-base">
-                            5 Continuous Hours
+                            {t("modals.metrics.durationVal")}
                           </div>
                           <p className="mt-0.5 font-mono text-[9px] text-muted-foreground">
-                            Onsite Regional Final
+                            {t("modals.metrics.durationDesc")}
                           </p>
                         </div>
 
                         <div className="hum-card rounded-xl border border-border/70 bg-card/70 p-2.5 text-center sm:p-3.5">
                           <span className="mono-label text-[9px] text-muted-foreground uppercase sm:text-[10px]">
-                            Stack &amp; Tooling
+                            {t("modals.metrics.stack")}
                           </span>
                           <div className="mt-1 font-mono text-xs font-bold text-foreground sm:text-sm md:text-base">
-                            C++20 / STL
+                            {t("modals.metrics.stackVal")}
                           </div>
                           <p className="mt-0.5 font-mono text-[9px] text-muted-foreground">
-                            Fast I/O &amp; Memory opt
+                            {t("modals.metrics.stackDesc")}
                           </p>
                         </div>
 
                         <div className="hum-card rounded-xl border border-border/70 bg-card/70 p-2.5 text-center sm:p-3.5">
                           <span className="mono-label text-[9px] text-muted-foreground uppercase sm:text-[10px]">
-                            Problem Domains
+                            {t("modals.metrics.domains")}
                           </span>
                           <div className="mt-1 font-mono text-xs font-bold text-foreground sm:text-sm md:text-base">
-                            Math, Graphs &amp; DP
+                            {t("modals.metrics.domainsVal")}
                           </div>
                           <p className="mt-0.5 font-mono text-[9px] text-muted-foreground">
-                            Complex constraints
+                            {t("modals.metrics.domainsDesc")}
                           </p>
                         </div>
                       </div>
@@ -820,11 +813,10 @@ export function CompetitiveProgrammingSection() {
                     >
                       <div className="mb-3 sm:mb-4">
                         <h3 className="text-base font-bold text-foreground sm:text-lg md:text-xl">
-                          Algorithmic Philosophy &amp; Strengths
+                          {t("modals.mindsetHeading")}
                         </h3>
                         <p className="text-[11px] text-muted-foreground sm:text-xs md:text-sm">
-                          Core habits, analytical thinking, and disciplined
-                          problem deconstruction.
+                          {t("modals.mindsetSubheading")}
                         </p>
                       </div>
 
@@ -927,10 +919,10 @@ export function CompetitiveProgrammingSection() {
                     </div>
                     <div className="min-w-0">
                       <h3 className="truncate text-xs font-bold text-foreground xs:text-sm sm:text-base md:text-lg">
-                        ICPC 2025 Regional Certificate
+                        {t("modals.certTitle")}
                       </h3>
                       <p className="hidden truncate font-mono text-[10px] text-muted-foreground xs:block sm:text-xs">
-                        Official Contest Attendance &amp; Participation Honor
+                        {t("modals.certSubtitle")}
                       </p>
                     </div>
                   </div>
@@ -943,7 +935,9 @@ export function CompetitiveProgrammingSection() {
                       className="hum-btn hum-btn--outline !min-h-[28px] !px-2 !py-1 !font-mono !text-[9px] sm:!min-h-[32px] sm:!px-2.5 sm:!text-xs"
                       title="Open in Google Drive"
                     >
-                      <span className="hidden xs:inline">Drive Link</span>
+                      <span className="hidden xs:inline">
+                        {t("modals.driveLink")}
+                      </span>
                       <span className="xs:hidden">Drive</span>
                       <ArrowUpRight className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                     </a>
@@ -967,7 +961,7 @@ export function CompetitiveProgrammingSection() {
                         <Loader2 className="h-4 w-4 animate-spin sm:h-5 sm:w-5" />
                       </div>
                       <span className="mono-label animate-pulse text-[10px] text-muted-foreground sm:text-xs">
-                        Loading Certificate...
+                        {t("modals.loadingCert")}
                       </span>
                     </div>
                   )}

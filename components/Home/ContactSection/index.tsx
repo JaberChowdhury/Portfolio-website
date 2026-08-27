@@ -69,7 +69,7 @@ const SOCIAL_CONFIGS = [
     ribbon:
       "from-[var(--color-pear)]/80 via-[var(--color-pear-light)] to-[var(--color-pear)]",
     dot: "hum-dot hum-dot--pear",
-    badgeText: "359 SOLVED",
+    badgeText: "229 SOLVED",
     badgeStyle:
       "border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
   },

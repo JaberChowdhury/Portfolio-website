@@ -10,6 +10,7 @@ import CompetitiveProgrammingSection from "@/components/Home/CompetitiveProgramm
 import ExperienceSection from "@/components/Home/ExperienceSection"
 import EducationSection from "@/components/Home/EducationSection"
 import ContactSection from "@/components/Home/ContactSection"
+import LearningSection from "@/components/Home/LearningSection"
 import FooterSection from "@/components/Home/FooterSection"
 
 export function HomeStack() {
@@ -72,6 +73,14 @@ export function HomeStack() {
         className: "text-foreground",
         showGrid: true,
         Component: ContactSection,
+      },
+      {
+        id: "learning",
+        navLabel: tNav("learning") || "Learning",
+        backgroundColor: "var(--card-bg-learning)",
+        className: "text-foreground",
+        showGrid: true,
+        Component: LearningSection,
       },
       {
         id: "footer",

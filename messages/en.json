@@ -5,7 +5,8 @@
     "programming": "Programming",
     "experience": "Experience",
     "education": "Education",
-    "contact": "Contact"
+    "contact": "Contact",
+    "learning": "Learning"
   },
   "Navbar": {
     "letsTalk": "Let's Talk"
@@ -24,6 +25,7 @@
     "bio": "Full Stack Engineer, Competitive Programmer, and builder of performant digital systems.",
     "navigation": "Navigation",
     "connect": "Connect",
+    "availableForRemote": "Available for remote & freelance",
     "builtWith": "Built with Next.js, TypeScript, Tailwind CSS & Framer Motion.",
     "dungeon": "Dungeon"
   },
@@ -36,7 +38,12 @@
     "description": "Frontend and Backend programmer crafting immersive digital experiences through modern web technologies, thoughtful systems design, and interactions that feel effortless.",
     "tag1": "Frontend Developer",
     "tag2": "UI Architect",
-    "tag3": "Motion Enthusiast"
+    "tag3": "Motion Enthusiast",
+    "exploreWork": "Explore Work",
+    "getInTouch": "Get in Touch",
+    "performantUi": "Performant UI",
+    "icpcSolved": "ICPC '25 • 359 Solved",
+    "modernStack": "Modern Stack"
   },
   "Metadata": {
     "title": "Jaber Chowdhury - Full Stack Developer",
@@ -48,36 +55,30 @@
     "title2": "digital systems",
     "title3": "that feel alive.",
     "description": "A curated set of engineering-focused projects emphasizing performance, scalable architecture, and refined UI motion design.",
+    "exploreAllProjects": "Explore All Projects",
+    "liveDemo": "Live Demo",
+    "source": "Source",
     "items": [
       {
-        "title": "E-Commerce Platform",
-        "description": "A production-ready commerce system with seamless checkout flows, authentication, and scalable backend architecture.",
-        "tech": ["Next.js", "TypeScript", "Prisma", "Stripe"]
+        "title": "Wallmod — Ricer Edition",
+        "description": "A high-performance GPU-accelerated desktop wallpaper manager, image processor, and 3D LUT color-grading suite built with Rust, GPUI, and multithreaded Rayon pipelines.",
+        "tech": ["Rust", "GPUI", "Rayon", "Tokio", "Wayland"],
+        "github": "https://github.com/JaberChowdhury/wallmod",
+        "live": "https://github.com/JaberChowdhury/wallmod"
       },
       {
-        "title": "AI Chat Interface",
-        "description": "Realtime streaming AI chat experience with persistent memory, modern UI state handling, and smooth transitions.",
-        "tech": ["Next.js", "OpenAI API", "Tailwind", "PostgreSQL"]
+        "title": "AnonGo — Anonymous Social Platform",
+        "description": "A gamified anonymous real-time social platform with native WebSockets, instant Redis matchmaking queue, digital economy, and cross-platform live Supabase synchronization.",
+        "tech": ["Next.js", "Bun", "Elysia.js", "Redis", "Supabase", "WebSockets"],
+        "github": "https://github.com/JaberChowdhury",
+        "live": "https://anongo.vercel.app"
       },
       {
-        "title": "Portfolio System",
-        "description": "A motion-driven personal portfolio with layered typography, micro-interactions, and responsive design system.",
-        "tech": ["Next.js", "Framer Motion", "Tailwind"]
-      },
-      {
-        "title": "E-Commerce Platform",
-        "description": "A production-ready commerce system with seamless checkout flows, authentication, and scalable backend architecture.",
-        "tech": ["Next.js", "TypeScript", "Prisma", "Stripe"]
-      },
-      {
-        "title": "AI Chat Interface",
-        "description": "Realtime streaming AI chat experience with persistent memory, modern UI state handling, and smooth transitions.",
-        "tech": ["Next.js", "OpenAI API", "Tailwind", "PostgreSQL"]
-      },
-      {
-        "title": "Portfolio System",
-        "description": "A motion-driven personal portfolio with layered typography, micro-interactions, and responsive design system.",
-        "tech": ["Next.js", "Framer Motion", "Tailwind"]
+        "title": "BU QB PRO — University Question Bank",
+        "description": "An advanced, high-speed question bank platform designed for university students to streamline exam preparation with fast search, subject categorization, and dark mode.",
+        "tech": ["Next.js", "React", "Tailwind CSS", "Supabase", "PostgreSQL"],
+        "github": "https://github.com/JaberChowdhury",
+        "live": "https://buqbpro.vercel.app"
       }
     ]
   },
@@ -86,15 +87,11 @@
     "title1": "Building products,",
     "title2": "contributing to ",
     "title3": "engineering communities",
-    "description": "A timeline of internships, engineering experiences, open-source contributions, and technical leadership roles.",
+    "description": "A timeline of engineering experiences, open-source contributions, and technical leadership roles.",
+    "openToWork": "Open to work",
+    "teamPlayer": "Collaborative team player",
+    "remoteFriendly": "Remote-friendly",
     "items": [
-      {
-        "role": "Software Engineer Intern",
-        "company": "Tech Company",
-        "period": "2025 — Present",
-        "description": "Building scalable web applications using Next.js, TypeScript, and modern backend infrastructure. Focused on performance optimization and developer experience.",
-        "tech": ["Next.js", "TypeScript", "PostgreSQL", "Docker"]
-      },
       {
         "role": "Open Source Contributor",
         "company": "GitHub",
@@ -283,7 +280,54 @@
         "title": "Consistent Practice",
         "description": "Continuous problem solving across Codeforces (229) and Beecrowd (130) to maintain sharp reasoning skills."
       }
-    ]
+    ],
+    "cards": {
+      "platformsTag": "359 SOLVED",
+      "platformsTitle": "Codeforces & Beecrowd",
+      "platformsDesc": "229 on Codeforces • 130 on Beecrowd with verified algorithmic topics.",
+      "platformsBtn": "View Platforms (359)",
+      "icpcTag": "DEC 2025",
+      "icpcTitle": "ICPC 2025 Regional",
+      "icpcDesc": "Official attendance in competitive programming team championship.",
+      "icpcBtn": "View ICPC '25 Honors",
+      "mindsetTag": "METHODOLOGY",
+      "mindsetTitle": "Algorithmic Logic",
+      "mindsetDesc": "Problem deconstruction, performance complexity, and practice philosophy.",
+      "mindsetBtn": "View Methodology"
+    },
+    "modals": {
+      "tabs": {
+        "platforms": "💻 Platforms (359)",
+        "icpc": "🏆 ICPC 2025",
+        "mindset": "🧠 Mindset"
+      },
+      "platformsHeading": "Competitive Programming Platforms",
+      "platformsSubheading": "Verified solve count across Codeforces and Beecrowd online judges.",
+      "totalSolvedBadge": "359 Total Solved",
+      "activeBadge": "ACTIVE",
+      "attendanceVerified": "Regional Attendance Verified",
+      "viewCertificate": "View Certificate",
+      "mindsetHeading": "Algorithmic Philosophy & Strengths",
+      "mindsetSubheading": "Core habits, analytical thinking, and disciplined problem deconstruction.",
+      "certTitle": "ICPC 2025 Regional Certificate",
+      "certSubtitle": "Official Contest Attendance & Participation Honor",
+      "driveLink": "Drive Link",
+      "loadingCert": "Loading Certificate...",
+      "metrics": {
+        "teamDynamics": "Team Dynamics",
+        "teamDynamicsVal": "3 Members • 1 PC",
+        "teamDynamicsDesc": "High-pressure pairing",
+        "duration": "Duration",
+        "durationVal": "5 Continuous Hours",
+        "durationDesc": "Onsite Regional Final",
+        "stack": "Stack & Tooling",
+        "stackVal": "C++20 / STL",
+        "stackDesc": "Fast I/O & Memory opt",
+        "domains": "Problem Domains",
+        "domainsVal": "Math, Graphs & DP",
+        "domainsDesc": "Complex constraints"
+      }
+    }
   },
   "Contact": {
     "eyebrow": "Get In Touch",
@@ -313,6 +357,49 @@
         "description": "Reach out for opportunities, collaboration, or discussion."
       }
     ]
+  },
+  "Learning": {
+    "eyebrow": "Current Learning & Exploration",
+    "title1": "Deepening mastery in ",
+    "title2": "Systems & Data Architecture",
+    "title3": ".",
+    "description": "Actively expanding technical horizons into low-level systems programming, memory safety, and high-concurrency relational data architectures.",
+    "activeFocus": "Active Exploration",
+    "viewRepository": "View Repository",
+    "rust": {
+      "name": "Rust Language & Systems",
+      "eyebrow": "Systems & Concurrency",
+      "status": "In Progress",
+      "description": "Mastering ownership semantics, lifetimes, memory safety without garbage collection, multithreaded async concurrency with Tokio, and CLI tools/games engineering.",
+      "topics": [
+        "Ownership & Lifetimes",
+        "Async Tokio Runtime",
+        "Memory Safety",
+        "Pattern Matching",
+        "Rayon Multithreading",
+        "Systems Programming"
+      ],
+      "metric": "Daily Exploration",
+      "repo": "https://github.com/JaberChowdhury/rust_programming"
+    },
+    "postgres": {
+      "name": "PostgreSQL & Database Internals",
+      "eyebrow": "Data Architecture",
+      "status": "In Progress",
+      "description": "Deep-diving into relational data modeling, query optimization, indexing strategies (B-Tree, GIN), connection pooling, ACID transactions, and Row Level Security (RLS).",
+      "topics": [
+        "Query Optimization",
+        "Indexing & EXPLAIN ANALYZE",
+        "ACID Transactions",
+        "Row Level Security (RLS)",
+        "Connection Pooling",
+        "Schema Design"
+      ],
+      "metric": "Architectural Mastery",
+      "repo": "https://github.com/JaberChowdhury"
+    },
+    "whyThisMatters": "Why This Matters",
+    "philosophy": "Combining low-latency memory-safe systems with rock-solid relational persistence to build resilient, ultra-scalable software foundations."
   },
   "UI": {
     "title": "Design System",

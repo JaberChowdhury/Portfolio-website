@@ -16,6 +16,7 @@ import { Globe, GLOBE_CONFIG } from "../ui/globe"
 import { Meteors } from "../ui/meteors"
 import { useTranslations } from "next-intl"
 import { LanguageToggle } from "../LanguageToggle"
+import { ThemeToggle } from "../ThemeToggle"
 import { useMounted } from "@/hooks/use-mounted"
 
 export default function Footer() {
@@ -210,8 +211,8 @@ export default function Footer() {
 
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-end">
             <p>{t("Footer.builtWith")}</p>
-            <div className="flex items-center gap-2 border-l border-border pl-3 sm:pl-4">
-              <span>{t("Footer.language")}</span>
+            <div className="flex items-center gap-2.5 border-l border-border pl-3 sm:pl-4">
+              <ThemeToggle />
               <LanguageToggle />
             </div>
           </div>

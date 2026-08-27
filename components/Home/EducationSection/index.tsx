@@ -126,7 +126,7 @@ export function EducationSection() {
                   )}
                 </div>
 
-                <div className="mt-4 border-t border-border/70 pt-3.5 sm:mt-5 sm:pt-4">
+                <div className="mt-4 hidden border-t border-border/70 pt-3.5 sm:mt-5 sm:block sm:pt-4">
                   <div className="mono-label mb-2 text-[10px] sm:mb-2.5 sm:text-xs">
                     Core Coursework
                   </div>

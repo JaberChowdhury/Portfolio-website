@@ -8,6 +8,7 @@ import { Playwrite_AR_Guides } from "next/font/google"
 import { ArrowRight } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { LanguageToggle } from "../LanguageToggle"
+import { ThemeToggle } from "../ThemeToggle"
 
 const playwrite_AR_Guides = Playwrite_AR_Guides({
   weight: "400",
@@ -22,6 +23,7 @@ export const navLinks = [
   { id: "experience", href: "#experience" },
   { id: "education", href: "#education" },
   { id: "contact", href: "#contact" },
+  { id: "learning", href: "#learning" },
 ]
 
 export const Navbar = () => {
@@ -58,8 +60,9 @@ export const Navbar = () => {
         </div>
 
         {/* Right Side: CTA Button & Mobile Toggle */}
-        <div className="flex items-center gap-2.5 sm:gap-3.5">
-          <div className="hidden md:flex">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="hidden items-center gap-2 md:flex">
+            <ThemeToggle />
             <LanguageToggle />
           </div>
           <Button
@@ -107,31 +110,42 @@ export const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Fullscreen Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="border-b border-border/60 bg-background/95 shadow-xl backdrop-blur-lg md:hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed inset-0 top-[60px] z-50 flex h-[calc(100dvh-60px)] flex-col justify-between overflow-y-auto bg-background/98 px-6 py-8 shadow-2xl backdrop-blur-xl md:hidden"
           >
-            <div className="flex flex-col items-center gap-3.5 px-6 py-6">
-              {navLinks.map((link) => (
-                <a
+            <div className="my-auto flex flex-col items-center justify-center gap-6">
+              {navLinks.map((link, idx) => (
+                <motion.a
                   key={link.id}
                   href={link.href}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 * idx, duration: 0.25 }}
                   onClick={() => setIsOpen(false)}
-                  className="font-mono text-base font-bold tracking-wider text-muted-foreground uppercase transition-colors hover:text-foreground active:scale-95"
+                  className="font-mono text-xl font-bold tracking-wider text-muted-foreground uppercase transition-all duration-200 hover:scale-105 hover:text-foreground active:scale-95"
                 >
                   {t(`Navigation.${link.id}`)}
-                </a>
+                </motion.a>
               ))}
-              <div className="mt-2 flex w-full max-w-xs justify-center pt-2">
-                <LanguageToggle />
-              </div>
             </div>
+
+            {/* Theme & Language Switchers at bottom */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.35, duration: 0.25 }}
+              className="flex w-full items-center justify-center gap-3 border-t border-border/60 pt-5 pb-2"
+            >
+              <ThemeToggle />
+              <LanguageToggle />
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -236,6 +236,7 @@
   --card-bg-experience: #edf6f0;
   --card-bg-education: #f3eef8;
   --card-bg-contact: #faf4e6;
+  --card-bg-learning: #f1f7f5;
   --card-bg-footer: #dfd9c8;
 }
 
@@ -297,6 +298,7 @@
   --card-bg-experience: #131816;
   --card-bg-education: #18161b;
   --card-bg-contact: #1a1813;
+  --card-bg-learning: #141918;
   --card-bg-footer: #0c0d0a;
 
   --sidebar: #1a1b18;

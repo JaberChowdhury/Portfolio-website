@@ -125,7 +125,7 @@ export function Hero() {
           style={{ animationDelay: "160ms" }}
         >
           {/* Bio */}
-          <p className="max-w-3xl text-xs leading-relaxed font-normal text-muted-foreground sm:text-sm md:text-base lg:text-lg">
+          <p className="max-w-3xl text-xs leading-relaxed font-normal break-words whitespace-normal text-muted-foreground sm:text-sm md:text-base lg:text-lg">
             {t("description")}
           </p>
 
@@ -162,7 +162,7 @@ export function Hero() {
               href="#projects"
               className="hum-btn min-h-[40px] px-4 py-2 text-xs sm:min-h-[44px] sm:px-5 sm:py-2.5 sm:text-sm"
             >
-              <span>Explore Work</span>
+              <span>{t("exploreWork")}</span>
               <ArrowDownRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:translate-y-0.5 sm:h-4.5 sm:w-4.5" />
             </a>
 
@@ -170,7 +170,7 @@ export function Hero() {
               href="#contact"
               className="hum-btn hum-btn--soft min-h-[40px] px-4 py-2 text-xs sm:min-h-[44px] sm:px-5 sm:py-2.5 sm:text-sm"
             >
-              <span>Get in Touch</span>
+              <span>{t("getInTouch")}</span>
               <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-4.5 sm:w-4.5" />
             </a>
           </div>
@@ -179,17 +179,17 @@ export function Hero() {
           <div className="hidden items-center gap-4 font-mono text-xs text-muted-foreground md:text-sm lg:flex">
             <div className="flex items-center gap-2">
               <Zap className="h-4 w-4 text-[var(--color-cyan)]" />
-              <span>Performant UI</span>
+              <span>{t("performantUi")}</span>
             </div>
             <span className="text-border">⁄</span>
             <div className="flex items-center gap-2">
               <Brain className="h-4 w-4 text-[var(--color-pear)]" />
-              <span>ICPC &apos;25 • 359 Solved</span>
+              <span>{t("icpcSolved")}</span>
             </div>
             <span className="text-border">⁄</span>
             <div className="flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-[var(--color-mint)]" />
-              <span>Modern Stack</span>
+              <span>{t("modernStack")}</span>
             </div>
           </div>
         </div>
