@@ -24,7 +24,7 @@ const STAT_THEMES = [
     microBadge:
       "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
     dot: "bg-amber-500",
-    tag: "RATING",
+    tag: "CODEFORCES",
   },
   {
     name: "cyan",
@@ -34,7 +34,7 @@ const STAT_THEMES = [
     microBadge:
       "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
     dot: "bg-sky-500",
-    tag: "SOLVED",
+    tag: "BEECROWD",
   },
   {
     name: "mint",
@@ -45,7 +45,7 @@ const STAT_THEMES = [
     microBadge:
       "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
     dot: "bg-emerald-500",
-    tag: "RATED",
+    tag: "TOTAL",
   },
   {
     name: "coral",
@@ -56,7 +56,7 @@ const STAT_THEMES = [
     microBadge:
       "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
     dot: "bg-rose-500",
-    tag: "LEVEL",
+    tag: "CONTEST",
   },
 ]
 
@@ -67,12 +67,12 @@ export function StatCard({ stat, index = 0 }: StatCardProps) {
   return (
     <div
       data-cursor="cover"
-      className={`group relative flex flex-col justify-between rounded-xl border border-border/80 bg-card p-2.5 text-card-foreground shadow-2xs transition-all duration-300 hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5 ${theme.hoverBorder}`}
+      className={`group relative flex flex-col justify-between rounded-xl border border-border/80 bg-card p-2.5 text-card-foreground shadow-2xs transition-all duration-300 hover:-translate-y-0.5 sm:p-3 ${theme.hoverBorder}`}
     >
       {/* Card Top: Glyph Container + Micro-tag */}
       <div className="flex items-center justify-between">
         <div
-          className={`flex h-7 w-7 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105 sm:h-8 sm:w-8 sm:rounded-xl ${theme.glyphBg}`}
+          className={`flex h-7 w-7 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105 sm:h-8 sm:w-8 ${theme.glyphBg}`}
         >
           <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
         </div>
@@ -85,7 +85,7 @@ export function StatCard({ stat, index = 0 }: StatCardProps) {
       </div>
 
       {/* Card Body: Numeric Display + Label */}
-      <div className="mt-2 sm:mt-3">
+      <div className="mt-1.5 sm:mt-2">
         <div
           data-cursor="text"
           className="tnum font-mono text-lg font-bold tracking-tight text-foreground sm:text-xl md:text-2xl"
@@ -93,7 +93,7 @@ export function StatCard({ stat, index = 0 }: StatCardProps) {
           {stat.value}
         </div>
 
-        <div className="mt-0.5 text-[10px] font-medium tracking-wide text-muted-foreground sm:text-[11px]">
+        <div className="mt-0.5 text-[11px] font-medium tracking-wide text-muted-foreground sm:text-xs">
           {stat.label}
         </div>
       </div>

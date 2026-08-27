@@ -1,40 +1,16 @@
 "use client"
 
 import React, { useMemo } from "react"
-import dynamic from "next/dynamic"
 import { useTranslations } from "next-intl"
 import { CardStack, SectionConfig } from "@/components/CardStack"
 import HeroSection from "@/components/Home/HeroSection"
-
-// Below-the-fold sections
-const TechnologySection = dynamic(
-  () => import("@/components/Home/TechnologySection"),
-  { ssr: false }
-)
-const ProjectsSection = dynamic(
-  () => import("@/components/Home/ProjectsSection"),
-  { ssr: false }
-)
-const CompetitiveProgrammingSection = dynamic(
-  () => import("@/components/Home/CompetitiveProgrammingSection"),
-  { ssr: false }
-)
-const ExperienceSection = dynamic(
-  () => import("@/components/Home/ExperienceSection"),
-  { ssr: false }
-)
-const EducationSection = dynamic(
-  () => import("@/components/Home/EducationSection"),
-  { ssr: false }
-)
-const ContactSection = dynamic(
-  () => import("@/components/Home/ContactSection"),
-  { ssr: false }
-)
-const FooterSection = dynamic(
-  () => import("@/components/Home/FooterSection"),
-  { ssr: false }
-)
+import TechnologySection from "@/components/Home/TechnologySection"
+import ProjectsSection from "@/components/Home/ProjectsSection"
+import CompetitiveProgrammingSection from "@/components/Home/CompetitiveProgrammingSection"
+import ExperienceSection from "@/components/Home/ExperienceSection"
+import EducationSection from "@/components/Home/EducationSection"
+import ContactSection from "@/components/Home/ContactSection"
+import FooterSection from "@/components/Home/FooterSection"
 
 export function HomeStack() {
   const tNav = useTranslations("Navigation")
@@ -47,7 +23,7 @@ export function HomeStack() {
         backgroundColor: "var(--card-bg-home)",
         className: "text-foreground",
         showGrid: true,
-        Component: () => <HeroSection />,
+        Component: HeroSection,
       },
       {
         id: "skills",
@@ -55,7 +31,7 @@ export function HomeStack() {
         backgroundColor: "var(--card-bg-skills)",
         className: "text-foreground",
         showGrid: true,
-        Component: () => <TechnologySection />,
+        Component: TechnologySection,
       },
       {
         id: "projects",
@@ -63,7 +39,7 @@ export function HomeStack() {
         backgroundColor: "var(--card-bg-projects)",
         className: "text-foreground",
         showGrid: true,
-        Component: () => <ProjectsSection />,
+        Component: ProjectsSection,
       },
       {
         id: "programming",
@@ -71,7 +47,7 @@ export function HomeStack() {
         backgroundColor: "var(--card-bg-competitions)",
         className: "text-foreground",
         showGrid: true,
-        Component: () => <CompetitiveProgrammingSection />,
+        Component: CompetitiveProgrammingSection,
       },
       {
         id: "experience",
@@ -79,7 +55,7 @@ export function HomeStack() {
         backgroundColor: "var(--card-bg-experience)",
         className: "text-foreground",
         showGrid: true,
-        Component: () => <ExperienceSection />,
+        Component: ExperienceSection,
       },
       {
         id: "education",
@@ -87,7 +63,7 @@ export function HomeStack() {
         backgroundColor: "var(--card-bg-education)",
         className: "text-foreground",
         showGrid: true,
-        Component: () => <EducationSection />,
+        Component: EducationSection,
       },
       {
         id: "contact",
@@ -95,7 +71,7 @@ export function HomeStack() {
         backgroundColor: "var(--card-bg-contact)",
         className: "text-foreground",
         showGrid: true,
-        Component: () => <ContactSection />,
+        Component: ContactSection,
       },
       {
         id: "footer",
@@ -103,7 +79,7 @@ export function HomeStack() {
         backgroundColor: "var(--card-bg-footer)",
         className: "text-foreground",
         showGrid: true,
-        Component: () => <FooterSection />,
+        Component: FooterSection,
       },
     ],
     [tNav]

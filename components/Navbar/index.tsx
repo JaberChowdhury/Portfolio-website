@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Link } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 import { Black_Ops_One, Playwrite_AR_Guides } from "next/font/google"
@@ -22,149 +22,142 @@ const playwrite_AR_Guides = Playwrite_AR_Guides({
 })
 
 export const navLinks = [
-  { id: "projects", href: "/#projects" },
-  { id: "programming", href: "/#programming" },
-  { id: "education", href: "/#education" },
-  { id: "experience", href: "/#experience" },
-  { id: "contact", href: "/#contact" },
+  { id: "skills", href: "#skills" },
+  { id: "projects", href: "#projects" },
+  { id: "programming", href: "#programming" },
+  { id: "experience", href: "#experience" },
+  { id: "education", href: "#education" },
+  { id: "contact", href: "#contact" },
 ]
 
-const Navbar = () => {
+export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const t = useTranslations()
 
   return (
-    <>
-      <div className="_relative fixed top-0 z-50 w-full bg-background/90 backdrop-blur-xs">
-        {/* Main Navbar Container */}
-        <nav className="relative z-50 mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 sm:py-6 md:px-12 md:py-8">
-          {/* Left Side: Logo/Brand */}
-          <Link href="/" className="flex items-center gap-2">
-            {/* Custom geometric logo icon to mimic Arc's style */}
-            <div
-              className={`flex items-center justify-center rounded-lg bg-primary px-3 py-1.5 text-2xl font-black text-background ${black_ops_one.className} block md:hidden`}
-            >
-              JABER
-            </div>
-            <span
-              className={`preserve-design font-sans text-3xl font-bold tracking-tight text-foreground sm:text-4xl ${playwrite_AR_Guides.className} hidden md:block`}
-            >
-              Jaber.dev
-            </span>
-          </Link>
-
-          {/* Center: Navigation Links (Desktop) */}
-          <div className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.id}
-                href={link.href}
-                className={cn(
-                  buttonVariants({ variant: "ghost" }),
-                  "font-sans text-sm font-medium text-foreground opacity-80 transition-opacity hover:opacity-100"
-                )}
-              >
-                {t(`Navigation.${link.id}`)}
-              </Link>
-            ))}
+    <header className="fixed top-0 left-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
+      {/* Main Navbar Container */}
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6 sm:py-3 md:px-10 md:py-3.5">
+        {/* Left Side: Logo/Brand */}
+        <a href="#home" className="flex items-center gap-2">
+          {/* Custom geometric logo icon to mimic Arc's style */}
+          <div
+            className={`flex items-center justify-center rounded-lg bg-primary px-2.5 py-1 text-xl font-black text-background ${black_ops_one.className} block md:hidden`}
+          >
+            JABER
           </div>
+          <span
+            className={`preserve-design font-sans text-2xl font-bold tracking-tight text-foreground sm:text-3xl ${playwrite_AR_Guides.className} hidden md:block`}
+          >
+            Jaber.dev
+          </span>
+        </a>
 
-          {/* Right Side: CTA Button & Mobile Toggle */}
-          <div className="flex items-center gap-3 sm:gap-4">
-            <LanguageToggle />
-            <Link
-              href="/#contact"
+        {/* Center: Navigation Links (Desktop) */}
+        <div className="hidden items-center gap-1 lg:gap-2 md:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.id}
+              href={link.href}
               className={cn(
-                buttonVariants({ variant: "default" }),
-                "hidden rounded-full bg-primary px-5 py-2 font-sans text-xs font-semibold tracking-wide text-primary-foreground shadow-sm hover:opacity-90 md:flex"
+                buttonVariants({ variant: "ghost" }),
+                "font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground transition-all hover:text-foreground hover:bg-secondary/60 rounded-full px-3.5 py-1.5"
               )}
             >
-              {t("Navbar.letsTalk")}{" "}
-              <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-            </Link>
+              {t(`Navigation.${link.id}`)}
+            </a>
+          ))}
+        </div>
 
-            {/* Mobile Hamburger Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="flex h-10 min-h-[40px] w-10 min-w-[40px] flex-col items-center justify-center gap-1.5 rounded-lg border border-border/40 bg-card/50 focus:outline-none md:hidden"
-              aria-label="Toggle Mobile Menu"
-            >
+        {/* Right Side: CTA Button & Mobile Toggle */}
+        <div className="flex items-center gap-2.5 sm:gap-3.5">
+          <LanguageToggle />
+          <Button
+            variant="rose"
+            size="sm"
+            href="#contact"
+            className="hidden md:inline-flex rounded-full"
+            frontClassName="rounded-full"
+          >
+            <span className="py-2 flex items-center gap-1.5 font-mono text-xs font-bold">
+              <span>{t("Navbar.letsTalk")}</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </span>
+          </Button>
+
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex h-9 w-9 items-center justify-center gap-1.5 rounded-lg border border-border/40 bg-card/60 focus:outline-none md:hidden"
+            aria-label="Toggle Mobile Menu"
+          >
+            <div className="flex flex-col items-center justify-center gap-1">
               <motion.div
                 animate={{
                   rotate: isOpen ? 45 : 0,
-                  y: isOpen ? 8 : 0,
+                  y: isOpen ? 5 : 0,
                 }}
-                className="h-0.5 w-5 rounded-full bg-foreground"
+                className="h-0.5 w-4.5 rounded-full bg-foreground"
               />
               <motion.div
                 animate={{
                   opacity: isOpen ? 0 : 1,
                 }}
-                className="h-0.5 w-5 rounded-full bg-foreground"
+                className="h-0.5 w-4.5 rounded-full bg-foreground"
               />
               <motion.div
                 animate={{
                   rotate: isOpen ? -45 : 0,
-                  y: isOpen ? -8 : 0,
+                  y: isOpen ? -5 : 0,
                 }}
-                className="h-0.5 w-5 rounded-full bg-foreground"
+                className="h-0.5 w-4.5 rounded-full bg-foreground"
               />
-            </button>
-          </div>
-        </nav>
+            </div>
+          </button>
+        </div>
+      </nav>
 
-        {/* Mobile Menu Overlay */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "calc(100dvh - 100%)" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="absolute top-full left-0 z-40 max-h-[calc(100dvh-4rem)] w-full overflow-y-auto border-b border-border bg-background/98 shadow-xl backdrop-blur-md md:hidden"
-            >
-              <div className="flex flex-col items-center gap-6 px-6 pt-8 pb-16">
-                {navLinks.map((link, i) => (
-                  <motion.div
-                    key={link.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ delay: i * 0.08, duration: 0.3 }}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="text-xl font-bold tracking-tight text-foreground transition-colors hover:text-primary active:scale-95"
-                    >
-                      {t(`Navigation.${link.id}`)}
-                    </Link>
-                  </motion.div>
-                ))}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ delay: navLinks.length * 0.08, duration: 0.3 }}
-                  className="mt-4 w-full max-w-xs"
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="border-b border-border/60 bg-background/95 shadow-xl backdrop-blur-lg md:hidden"
+          >
+            <div className="flex flex-col items-center gap-3.5 px-6 py-6">
+              {navLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="font-mono text-base font-bold tracking-wider text-muted-foreground uppercase transition-colors hover:text-foreground active:scale-95"
                 >
-                  <Link
-                    href="/#contact"
-                    onClick={() => setIsOpen(false)}
-                    className={cn(
-                      buttonVariants({ variant: "default" }),
-                      "flex w-full justify-center rounded-full bg-primary py-5 text-center font-sans text-base font-semibold tracking-wide text-primary-foreground shadow-sm hover:opacity-90 active:scale-95"
-                    )}
-                  >
-                    {t("Navbar.letsTalk")} →
-                  </Link>
-                </motion.div>
+                  {t(`Navigation.${link.id}`)}
+                </a>
+              ))}
+              <div className="mt-2 w-full max-w-xs pt-2">
+                <Button
+                  variant="rose"
+                  size="default"
+                  href="#contact"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full rounded-full"
+                  frontClassName="rounded-full"
+                >
+                  <span className="py-2.5 flex items-center justify-center gap-2 font-mono text-sm font-bold">
+                    <span>{t("Navbar.letsTalk")}</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </Button>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   )
 }
 

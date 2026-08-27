@@ -1,13 +1,11 @@
 {
   "Navigation": {
+    "skills": "Skills",
     "projects": "Projects",
     "programming": "Programming",
-    "education": "Education",
     "experience": "Experience",
-    "contact": "Contact",
-    "dungeon": "Dungeon",
-    "ui": "Design System",
-    "fontPreview": "Typography"
+    "education": "Education",
+    "contact": "Contact"
   },
   "Navbar": {
     "letsTalk": "Let's Talk"
@@ -214,43 +212,54 @@
     "backgroundText": "TECH STACK"
   },
   "CompetitiveProgramming": {
-    "eyebrow": "Competitive Programming",
-    "title1": "Solving ",
-    "title2": "algorithmic challenges",
-    "title3": "with speed and precision.",
-    "description": "Competitive programming sharpened my analytical thinking, optimization mindset, and ability to solve complex problems under pressure.",
-    "codeforces": {
-      "eyebrow": "Primary Platform",
-      "name": "Codeforces",
-      "description": "Active competitive programmer focused on algorithms, data structures, optimization, and contest problem solving.",
-      "viewProfile": "View Profile"
+    "eyebrow": "Problem Solving",
+    "title1": "Algorithmic ",
+    "title2": "problem solving",
+    "title3": "& continuous practice.",
+    "description": "Practicing data structures and computational problem solving across Codeforces and Beecrowd to build solid analytical thinking and coding discipline.",
+    "platforms": {
+      "codeforces": {
+        "eyebrow": "Primary Platform",
+        "name": "Codeforces",
+        "solved": "229 Solved",
+        "description": "Practicing problems focusing on algorithmic fundamentals, greedy logic, binary search, and mathematical problem solving.",
+        "topics": ["Greedy", "Math", "Binary Search", "Implementation", "Two Pointers", "Sorting", "Brute Force"],
+        "viewProfile": "View Profile"
+      },
+      "beecrowd": {
+        "eyebrow": "Structured Judge",
+        "name": "Beecrowd",
+        "solved": "130 Solved",
+        "description": "Solving algorithmic challenges with emphasis on computational logic, string processing, and precise arithmetic.",
+        "topics": ["Strings", "Math", "Ad-Hoc", "Data Structures", "Recursion", "Conditionals", "Arrays"],
+        "viewProfile": "View Profile"
+      }
     },
-    "graph": {
-      "title": "Rating Progression",
-      "description": "Growth trajectory across competitive programming contests."
-    },
-    "toolbox": {
-      "title": "Algorithm Toolbox",
-      "description": "Core concepts frequently used during contests and advanced problem solving."
+    "icpc": {
+      "eyebrow": "Contest Participation",
+      "title": "ICPC Regional Contestant",
+      "date": "December 2025",
+      "description": "Participated in the International Collegiate Programming Contest (ICPC) in December 2025, solving competitive algorithmic challenges with high-pressure team collaboration.",
+      "badges": ["ICPC 2025", "Dec 2025", "Team Contest", "Algorithms", "Data Structures"]
     },
     "stats": [
-      { "label": "Codeforces Rating", "value": "1700+" },
-      { "label": "Problems Solved", "value": "1500+" },
-      { "label": "Contests", "value": "80+" },
-      { "label": "DSA Expertise", "value": "Advanced" }
+      { "label": "Codeforces Solved", "value": "229" },
+      { "label": "Beecrowd Solved", "value": "130" },
+      { "label": "Total Solved", "value": "359" },
+      { "label": "Contest", "value": "ICPC 2025" }
     ],
-    "achievements": [
+    "highlights": [
       {
-        "title": "Contest Experience",
-        "description": "Regular participation in rated contests with strong emphasis on speed, optimization, and problem decomposition."
+        "title": "ICPC 2025 Contestant",
+        "description": "Participated in the International Collegiate Programming Contest (ICPC) in December 2025, demonstrating competitive algorithmic stamina."
       },
       {
-        "title": "Advanced Problem Solving",
-        "description": "Comfortable solving medium-to-hard algorithmic challenges involving graphs, DP, data structures, and mathematics."
+        "title": "Analytical Logic",
+        "description": "Decomposing complex problems into structured sub-problems and translating mathematical concepts into efficient code."
       },
       {
-        "title": "Competitive Mindset",
-        "description": "Developed analytical thinking, debugging skills, and performance-focused solutions under strict time constraints."
+        "title": "Consistent Practice",
+        "description": "Continuous problem solving across Codeforces (229) and Beecrowd (130) to maintain sharp reasoning skills."
       }
     ]
   },

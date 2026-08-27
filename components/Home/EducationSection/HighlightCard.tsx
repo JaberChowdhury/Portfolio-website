@@ -40,21 +40,21 @@ export function HighlightCard({ highlight, index = 0 }: HighlightCardProps) {
 
   return (
     <Card
-      className={`group h-full rounded-2xl border border-border/80 bg-card p-4.5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.99] ${accent.hoverBorder}`}
+      className={`group h-full rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:scale-[0.99] sm:p-5.5 ${accent.hoverBorder}`}
     >
-      <CardHeader className="space-y-2.5 p-0">
-        <div className="flex items-center gap-3">
+      <CardHeader className="space-y-3 p-0">
+        <div className="flex items-center gap-3.5">
           <div
-            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 ${accent.iconBg}`}
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12 ${accent.iconBg}`}
           >
-            <Icon className="h-5 w-5" />
+            <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
-          <CardTitle className="text-sm font-bold text-card-foreground">
+          <CardTitle className="text-sm font-bold text-card-foreground sm:text-base md:text-lg">
             {highlight.title}
           </CardTitle>
         </div>
 
-        <CardDescription className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+        <CardDescription className="line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
           {highlight.description}
         </CardDescription>
       </CardHeader>

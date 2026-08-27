@@ -3,7 +3,7 @@ import { MetadataRoute } from "next"
 const BASE_URL = "https://jaber.dev"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/dungeon", "/font-preview", "/ui", "/illustration"]
+  const routes = [""]
 
   const sitemapData: MetadataRoute.Sitemap = []
 

@@ -30,7 +30,7 @@ const ACHIEVEMENT_THEMES = [
     iconBg:
       "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
     icon: Trophy,
-    category: "CONTESTS",
+    category: "CODEFORCES",
   },
   {
     name: "cyan",
@@ -38,8 +38,8 @@ const ACHIEVEMENT_THEMES = [
     hoverBorder: "hover:border-sky-500/40",
     hoverGlow: "hover:shadow-sky-500/10",
     iconBg: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20",
-    icon: Zap,
-    category: "ALGORITHMS",
+    icon: Target,
+    category: "BEECROWD",
   },
   {
     name: "mint",
@@ -49,7 +49,7 @@ const ACHIEVEMENT_THEMES = [
     hoverGlow: "hover:shadow-emerald-500/10",
     iconBg:
       "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-    icon: Target,
+    icon: Zap,
     category: "PROBLEM SOLVING",
   },
   {
@@ -61,7 +61,7 @@ const ACHIEVEMENT_THEMES = [
     iconBg:
       "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
     icon: Award,
-    category: "MINDSET",
+    category: "DISCIPLINE",
   },
 ]
 
@@ -75,32 +75,32 @@ export function AchievementCard({
   return (
     <Card
       data-cursor="cover"
-      className={`group relative flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-3.5 text-card-foreground shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${theme.hoverBorder} ${theme.hoverGlow}`}
+      className={`group relative flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-4 text-card-foreground shadow-2xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${theme.hoverBorder} ${theme.hoverGlow} sm:p-5`}
     >
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-3.5">
         {/* Glyph Container */}
         <div
-          className={`flex h-8.5 w-8.5 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 ${theme.iconBg}`}
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11 ${theme.iconBg}`}
         >
-          <Icon className="h-4 w-4" />
+          <Icon className="h-5 w-5" />
         </div>
 
         {/* Content & Chip */}
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <span
-              className={`rounded-full border px-2 py-0.5 font-mono text-[9px] font-bold tracking-wider uppercase ${theme.chipBadge}`}
+              className={`rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-bold tracking-wider uppercase sm:text-xs ${theme.chipBadge}`}
             >
               {theme.category}
             </span>
           </div>
 
-          <CardHeader className="mt-1.5 space-y-0.5 p-0">
-            <CardTitle className="text-xs font-bold text-foreground transition-colors md:text-sm">
+          <CardHeader className="mt-2 space-y-1 p-0">
+            <CardTitle className="text-sm font-bold text-foreground transition-colors sm:text-base md:text-lg">
               {achievement.title}
             </CardTitle>
 
-            <CardDescription className="line-clamp-2 text-[11px] leading-relaxed font-normal text-muted-foreground md:text-xs">
+            <CardDescription className="line-clamp-2 text-xs leading-relaxed font-normal text-muted-foreground sm:text-sm">
               {achievement.description}
             </CardDescription>
           </CardHeader>

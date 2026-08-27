@@ -53,6 +53,66 @@ export function CardStack({
     wheelLockDuration,
   })
 
+  // Smooth Section Navigation via Hash & Link Click Interception
+  useEffect(() => {
+    const navigateToHash = () => {
+      const hash = window.location.hash.replace("#", "")
+      if (!hash) return
+      const targetIndex = sections.findIndex(
+        (s) => s.id === hash || String(s.id).toLowerCase() === hash.toLowerCase()
+      )
+      if (targetIndex !== -1 && targetIndex !== current) {
+        goTo(targetIndex)
+      }
+    }
+
+    // Check hash on initial load
+    navigateToHash()
+
+    const onHashChange = () => navigateToHash()
+    window.addEventListener("hashchange", onHashChange)
+
+    // Intercept in-page anchor clicks across Navbar, Hero, Footer, etc.
+    const onDocumentClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest("a, button[data-section-target]")
+      if (!target) return
+
+      let targetId = ""
+      if (target.hasAttribute("data-section-target")) {
+        targetId = target.getAttribute("data-section-target") || ""
+      } else {
+        const href = target.getAttribute("href")
+        if (!href) return
+        if (href.startsWith("#")) {
+          targetId = href.slice(1)
+        } else if (href.includes("/#")) {
+          targetId = href.split("/#")[1]
+        } else if (href.includes("#")) {
+          targetId = href.split("#")[1]
+        }
+      }
+
+      if (targetId) {
+        const targetIndex = sections.findIndex(
+          (s) => s.id === targetId || String(s.id).toLowerCase() === targetId.toLowerCase()
+        )
+        if (targetIndex !== -1) {
+          e.preventDefault()
+          e.stopPropagation()
+          goTo(targetIndex)
+          window.history.pushState(null, "", `#${targetId}`)
+        }
+      }
+    }
+
+    document.addEventListener("click", onDocumentClick, true)
+
+    return () => {
+      window.removeEventListener("hashchange", onHashChange)
+      document.removeEventListener("click", onDocumentClick, true)
+    }
+  }, [sections, current, goTo])
+
   const currentFormatted = String(current + 1).padStart(2, "0")
   const totalFormatted = String(total).padStart(2, "0")
 
@@ -93,9 +153,9 @@ export function CardStack({
               {/* Depth Shade overlay */}
               <div className="card-stack-shade" />
 
-              {/* Decorative Subtle Grid */}
+              {/* Decorative Subtle Pattern - stable render to prevent paint reflow */}
               {section.showGrid !== false && (
-                <div className="card-stack-grid"></div>
+                <div className="card-stack-grid" aria-hidden="true" />
               )}
 
               {/* Inner Content Area */}

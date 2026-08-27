@@ -3,6 +3,7 @@
 import React from "react"
 import { ExternalLink, GitPullRequestClosed, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardDescription,
@@ -112,42 +113,42 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   return (
     <Card
       data-cursor="cover"
-      className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4.5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xs ${accent.hoverBorder} md:p-5`}
+      className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-5 text-card-foreground shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xs ${accent.hoverBorder} sm:p-6 md:p-7`}
     >
       {/* Top Accent Color Highlight Ribbon */}
       <div
-        className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${accent.topGradient} opacity-90 transition-opacity duration-300 group-hover:opacity-100`}
+        className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${accent.topGradient} opacity-90 transition-opacity duration-300 group-hover:opacity-100`}
       />
 
-      <div className="relative pt-1">
+      <div className="relative pt-1.5">
         {/* Card Header Micro-meta (Index + Category Tag) */}
-        <div className="mb-2.5 flex items-center justify-between">
+        <div className="mb-3 flex items-center justify-between">
           <div
-            className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-widest uppercase ${accent.indexBadge}`}
+            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-0.5 font-mono text-xs font-semibold tracking-widest uppercase ${accent.indexBadge}`}
           >
-            <span className={`h-1.5 w-1.5 rounded-full ${accent.dot}`} />
+            <span className={`h-2 w-2 rounded-full ${accent.dot}`} />
             <span>#{formattedIndex}</span>
           </div>
 
-          <div className="flex items-center gap-1 font-mono text-[10px] font-medium tracking-wider text-muted-foreground/80 uppercase">
-            <Sparkles className="h-3 w-3 text-muted-foreground/60" />
+          <div className="flex items-center gap-1.5 font-mono text-xs font-medium tracking-wider text-muted-foreground/80 uppercase">
+            <Sparkles className="h-3.5 w-3.5 text-muted-foreground/60" />
             <span>FEATURED</span>
           </div>
         </div>
 
         {/* Title and Description */}
-        <CardHeader className="space-y-1.5 p-0">
-          <CardTitle className="text-lg font-bold tracking-tight text-foreground md:text-xl">
+        <CardHeader className="space-y-2 p-0">
+          <CardTitle className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
             {project.title}
           </CardTitle>
 
-          <CardDescription className="line-clamp-2 text-xs leading-relaxed font-normal text-muted-foreground md:text-sm">
+          <CardDescription className="line-clamp-2 text-xs leading-relaxed font-normal text-muted-foreground sm:text-sm md:text-base">
             {project.description}
           </CardDescription>
         </CardHeader>
 
         {/* Hallmark Multi-Accent Tech Badges */}
-        <div className="mt-3.5 flex flex-wrap gap-1.5">
+        <div className="mt-4 flex flex-wrap gap-2">
           {project.tech.slice(0, 4).map((tech, idx) => {
             const tagStyle =
               TECH_TAG_STYLES[tech] ||
@@ -157,14 +158,14 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               <Badge
                 key={idx}
                 variant="secondary"
-                className={`rounded-md border px-2 py-0.5 font-mono text-[10px] font-medium tracking-wide transition-colors ${tagStyle}`}
+                className={`rounded-md border px-2.5 py-1 font-mono text-xs font-medium tracking-wide transition-colors ${tagStyle}`}
               >
                 {tech}
               </Badge>
             )
           })}
           {project.tech.length > 4 && (
-            <span className="self-center font-mono text-[10px] font-medium text-muted-foreground">
+            <span className="self-center font-mono text-xs font-medium text-muted-foreground">
               +{project.tech.length - 4}
             </span>
           )}
@@ -172,26 +173,38 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       </div>
 
       {/* Tactile Live & Code Action Buttons */}
-      <div className="mt-4 flex items-center gap-2 border-t border-border/80 pt-3.5">
-        <a
+      <div className="mt-5 flex items-center gap-2.5 border-t border-border/80 pt-4">
+        <Button
+          variant={
+            accent.name === "cyan"
+              ? "sky"
+              : accent.name === "pear"
+                ? "amber"
+                : accent.name === "mint"
+                  ? "emerald"
+                  : "rose"
+          }
+          size="sm"
           href={project.live || "https://github.com"}
           target="_blank"
           rel="noopener noreferrer"
-          className={`flex h-8.5 flex-1 items-center justify-center gap-1.5 rounded-xl border border-border/90 bg-secondary/80 text-xs font-semibold text-foreground shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xs active:scale-95 ${accent.liveBtnHover}`}
+          className="flex-1"
         >
-          <span>Live Demo</span>
-          <ExternalLink className="h-3 w-3 text-muted-foreground transition-colors group-hover:text-foreground" />
-        </a>
+          <span className="py-2">Live Demo</span>
+          <ExternalLink className="h-3.5 w-3.5" />
+        </Button>
 
-        <a
+        <Button
+          variant="secondary"
+          size="sm"
           href={project.github || "https://github.com"}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-8.5 flex-1 items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/60 text-xs font-semibold text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-border hover:bg-secondary/70 hover:text-foreground active:scale-95"
+          className="flex-1"
         >
           <GitPullRequestClosed className="h-3.5 w-3.5" />
-          <span>Source</span>
-        </a>
+          <span className="py-2">Source</span>
+        </Button>
       </div>
     </Card>
   )

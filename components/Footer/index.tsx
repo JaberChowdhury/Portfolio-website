@@ -135,17 +135,10 @@ export default function Footer() {
                 </Link>
               ))}
               <Link
-                href="/dungeon"
-                className="group relative mt-2 w-fit overflow-hidden rounded-md border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-medium transition-colors hover:border-primary/60 hover:bg-primary/10 sm:text-sm"
+                href="/#skills"
+                className="w-fit text-muted-foreground transition-colors hover:text-foreground"
               >
-                <AnimatedGradientText
-                  colorFrom="hsl(var(--destructive))"
-                  colorTo="hsl(var(--primary))"
-                  className="bg-clip-text text-transparent transition-all group-hover:opacity-80"
-                >
-                  {t("Footer.dungeon")}
-                </AnimatedGradientText>
-                <div className="absolute inset-0 z-[-1] animate-[pulse_2s_ease-in-out_infinite] rounded-md bg-primary/10 blur-md"></div>
+                {t("Navigation.skills") || "Tech Stack"}
               </Link>
             </div>
           </div>
