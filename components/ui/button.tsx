@@ -16,6 +16,11 @@ export const buttonVariants = cva(
         sky: "",
         emerald: "",
         purple: "",
+        coral: "",
+        pear: "",
+        cyan: "",
+        mint: "",
+        lavender: "",
         secondary: "",
         outline: "",
         ghost:
@@ -49,6 +54,11 @@ export type ButtonVariant =
   | "sky"
   | "emerald"
   | "purple"
+  | "coral"
+  | "pear"
+  | "cyan"
+  | "mint"
+  | "lavender"
   | "secondary"
   | "outline"
   | "ghost"
@@ -56,9 +66,17 @@ export type ButtonVariant =
   | "link"
 
 export type ButtonSize =
-  "default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"
+  | "default"
+  | "xs"
+  | "sm"
+  | "lg"
+  | "icon"
+  | "icon-xs"
+  | "icon-sm"
+  | "icon-lg"
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
   size?: ButtonSize
   href?: string
@@ -87,45 +105,80 @@ const VARIANT_LAYERS: Record<
   },
   primary: {
     edgeBg:
-      "bg-gradient-to-r from-[hsl(340deg_100%_18%)] via-[hsl(340deg_100%_30%)] to-[hsl(340deg_100%_18%)]",
-    frontBg: "bg-rose-600 dark:bg-rose-500",
+      "bg-gradient-to-r from-[var(--color-coral-deep)] via-[var(--color-coral)] to-[var(--color-coral-deep)]",
+    frontBg: "bg-[var(--color-coral)]",
     frontText: "text-white font-semibold",
-    frontBorder: "border border-rose-400/40",
+    frontBorder: "border border-[var(--color-coral-light)]/40",
   },
   rose: {
     edgeBg:
-      "bg-gradient-to-r from-[hsl(340deg_100%_18%)] via-[hsl(340deg_100%_30%)] to-[hsl(340deg_100%_18%)]",
-    frontBg: "bg-rose-600 dark:bg-rose-500",
+      "bg-gradient-to-r from-[var(--color-coral-deep)] via-[var(--color-coral)] to-[var(--color-coral-deep)]",
+    frontBg: "bg-[var(--color-coral)]",
     frontText: "text-white font-semibold",
-    frontBorder: "border border-rose-400/40",
+    frontBorder: "border border-[var(--color-coral-light)]/40",
+  },
+  coral: {
+    edgeBg:
+      "bg-gradient-to-r from-[var(--color-coral-deep)] via-[var(--color-coral)] to-[var(--color-coral-deep)]",
+    frontBg: "bg-[var(--color-coral)]",
+    frontText: "text-white font-semibold",
+    frontBorder: "border border-[var(--color-coral-light)]/40",
   },
   amber: {
     edgeBg:
-      "bg-gradient-to-r from-[hsl(35deg_100%_20%)] via-[hsl(38deg_100%_34%)] to-[hsl(35deg_100%_20%)]",
-    frontBg: "bg-amber-500",
+      "bg-gradient-to-r from-[var(--color-pear-deep)] via-[var(--color-pear)] to-[var(--color-pear-deep)]",
+    frontBg: "bg-[var(--color-pear)]",
     frontText: "text-zinc-950 font-bold",
-    frontBorder: "border border-amber-300/60",
+    frontBorder: "border border-[var(--color-pear-light)]/60",
+  },
+  pear: {
+    edgeBg:
+      "bg-gradient-to-r from-[var(--color-pear-deep)] via-[var(--color-pear)] to-[var(--color-pear-deep)]",
+    frontBg: "bg-[var(--color-pear)]",
+    frontText: "text-zinc-950 font-bold",
+    frontBorder: "border border-[var(--color-pear-light)]/60",
   },
   sky: {
     edgeBg:
-      "bg-gradient-to-r from-[hsl(200deg_100%_18%)] via-[hsl(200deg_100%_30%)] to-[hsl(200deg_100%_18%)]",
-    frontBg: "bg-sky-600 dark:bg-sky-500",
+      "bg-gradient-to-r from-[var(--color-cyan-deep)] via-[var(--color-cyan)] to-[var(--color-cyan-deep)]",
+    frontBg: "bg-[var(--color-cyan)]",
     frontText: "text-white font-semibold",
-    frontBorder: "border border-sky-400/40",
+    frontBorder: "border border-[var(--color-cyan-light)]/40",
+  },
+  cyan: {
+    edgeBg:
+      "bg-gradient-to-r from-[var(--color-cyan-deep)] via-[var(--color-cyan)] to-[var(--color-cyan-deep)]",
+    frontBg: "bg-[var(--color-cyan)]",
+    frontText: "text-white font-semibold",
+    frontBorder: "border border-[var(--color-cyan-light)]/40",
   },
   emerald: {
     edgeBg:
-      "bg-gradient-to-r from-[hsl(155deg_100%_15%)] via-[hsl(155deg_100%_26%)] to-[hsl(155deg_100%_15%)]",
-    frontBg: "bg-emerald-600 dark:bg-emerald-500",
+      "bg-gradient-to-r from-[var(--color-mint-deep)] via-[var(--color-mint)] to-[var(--color-mint-deep)]",
+    frontBg: "bg-[var(--color-mint)]",
     frontText: "text-white font-semibold",
-    frontBorder: "border border-emerald-400/40",
+    frontBorder: "border border-[var(--color-mint-light)]/40",
+  },
+  mint: {
+    edgeBg:
+      "bg-gradient-to-r from-[var(--color-mint-deep)] via-[var(--color-mint)] to-[var(--color-mint-deep)]",
+    frontBg: "bg-[var(--color-mint)]",
+    frontText: "text-white font-semibold",
+    frontBorder: "border border-[var(--color-mint-light)]/40",
   },
   purple: {
     edgeBg:
-      "bg-gradient-to-r from-[hsl(270deg_100%_20%)] via-[hsl(270deg_100%_34%)] to-[hsl(270deg_100%_20%)]",
-    frontBg: "bg-purple-600 dark:bg-purple-500",
+      "bg-gradient-to-r from-[var(--color-lavender-deep)] via-[var(--color-lavender)] to-[var(--color-lavender-deep)]",
+    frontBg: "bg-[var(--color-lavender)]",
     frontText: "text-white font-semibold",
-    frontBorder: "border border-purple-400/40",
+    frontBorder: "border border-[var(--color-lavender-light)]/40",
+  },
+  lavender: {
+    edgeBg:
+      "bg-gradient-to-r from-[var(--color-lavender-deep)] via-[var(--color-lavender)] to-[var(--color-lavender-deep)]",
+    frontBg: "bg-[var(--color-lavender)]",
+    frontText: "text-white font-semibold",
+    frontBorder: "border border-[var(--color-lavender-light)]/40",
   },
   secondary: {
     edgeBg:
@@ -143,8 +196,8 @@ const VARIANT_LAYERS: Record<
   },
   destructive: {
     edgeBg:
-      "bg-gradient-to-r from-[hsl(0deg_100%_18%)] via-[hsl(0deg_100%_30%)] to-[hsl(0deg_100%_18%)]",
-    frontBg: "bg-red-600 dark:bg-red-500",
+      "bg-gradient-to-r from-red-900 via-red-800 to-red-900 dark:from-red-950 dark:via-red-900 dark:to-red-950",
+    frontBg: "bg-[var(--destructive)]",
     frontText: "text-white font-semibold",
     frontBorder: "border border-red-400/40",
   },

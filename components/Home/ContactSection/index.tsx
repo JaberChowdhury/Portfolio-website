@@ -147,7 +147,7 @@ export function ContactSection() {
           maxWidth: "500px",
           maxHeight: "500px",
           background:
-            "radial-gradient(circle, rgba(212,160,23,0.09) 0%, transparent 70%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-pear) 9%, transparent) 0%, transparent 70%)",
           filter: "blur(60px)",
           pointerEvents: "none",
           zIndex: 0,
@@ -164,7 +164,7 @@ export function ContactSection() {
           maxWidth: "450px",
           maxHeight: "450px",
           background:
-            "radial-gradient(circle, rgba(61,171,110,0.07) 0%, transparent 70%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-mint) 7%, transparent) 0%, transparent 70%)",
           filter: "blur(60px)",
           pointerEvents: "none",
           zIndex: 0,

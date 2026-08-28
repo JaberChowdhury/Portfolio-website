@@ -17,45 +17,46 @@ interface StatCardProps {
 const STAT_THEMES = [
   {
     name: "pear",
-    accentText: "text-amber-700 dark:text-amber-300",
+    accentText: "text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
     glyphBg:
-      "bg-amber-500/10 border-amber-500/25 text-amber-600 dark:text-amber-400",
-    hoverBorder: "hover:border-amber-500/40",
+      "bg-[var(--color-pear)]/10 border-[var(--color-pear)]/25 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
+    hoverBorder: "hover:border-[var(--color-pear)]/40",
     microBadge:
-      "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-    dot: "bg-amber-500",
+      "border-[var(--color-pear)]/25 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
+    dot: "bg-[var(--color-pear)]",
     tag: "CODEFORCES",
   },
   {
     name: "cyan",
-    accentText: "text-sky-700 dark:text-sky-300",
-    glyphBg: "bg-sky-500/10 border-sky-500/25 text-sky-600 dark:text-sky-400",
-    hoverBorder: "hover:border-sky-500/40",
+    accentText: "text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
+    glyphBg:
+      "bg-[var(--color-cyan)]/10 border-[var(--color-cyan)]/25 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
+    hoverBorder: "hover:border-[var(--color-cyan)]/40",
     microBadge:
-      "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
-    dot: "bg-sky-500",
+      "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
+    dot: "bg-[var(--color-cyan)]",
     tag: "BEECROWD",
   },
   {
     name: "mint",
-    accentText: "text-emerald-700 dark:text-emerald-300",
+    accentText: "text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
     glyphBg:
-      "bg-emerald-500/10 border-emerald-500/25 text-emerald-600 dark:text-emerald-400",
-    hoverBorder: "hover:border-emerald-500/40",
+      "bg-[var(--color-mint)]/10 border-[var(--color-mint)]/25 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
+    hoverBorder: "hover:border-[var(--color-mint)]/40",
     microBadge:
-      "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
-    dot: "bg-emerald-500",
+      "border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
+    dot: "bg-[var(--color-mint)]",
     tag: "TOTAL",
   },
   {
     name: "coral",
-    accentText: "text-rose-700 dark:text-rose-300",
+    accentText: "text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
     glyphBg:
-      "bg-rose-500/10 border-rose-500/25 text-rose-600 dark:text-rose-400",
-    hoverBorder: "hover:border-rose-500/40",
+      "bg-[var(--color-coral)]/10 border-[var(--color-coral)]/25 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
+    hoverBorder: "hover:border-[var(--color-coral)]/40",
     microBadge:
-      "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
-    dot: "bg-rose-500",
+      "border-[var(--color-coral)]/25 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
+    dot: "bg-[var(--color-coral)]",
     tag: "CONTEST",
   },
 ]

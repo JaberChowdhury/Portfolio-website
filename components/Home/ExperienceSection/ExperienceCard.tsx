@@ -23,28 +23,37 @@ interface ExperienceCardProps {
 
 const ACCENT_STYLES = [
   {
-    iconBg: "bg-[#3dab6e]/10 text-[#3dab6e] border-[#3dab6e]/20",
-    hoverBorder: "hover:border-[#3dab6e]/40",
-    pillHover: "hover:border-[#3dab6e]/30 hover:text-[#3dab6e]",
+    iconBg:
+      "bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)] border-[var(--color-mint)]/20",
+    hoverBorder: "hover:border-[var(--color-mint)]/40",
+    pillHover:
+      "hover:border-[var(--color-mint)]/30 hover:text-[var(--color-mint-deep)] dark:hover:text-[var(--color-mint)]",
     dot: "hum-dot hum-dot--mint",
     icon: Briefcase,
-    ribbon: "from-[#3dab6e]/80 via-[#3dab6e] to-[#3dab6e]/80",
+    ribbon:
+      "from-[var(--color-mint)]/80 via-[var(--color-mint)] to-[var(--color-mint)]/80",
   },
   {
-    iconBg: "bg-[#2e8bc0]/10 text-[#2e8bc0] border-[#2e8bc0]/20",
-    hoverBorder: "hover:border-[#2e8bc0]/40",
-    pillHover: "hover:border-[#2e8bc0]/30 hover:text-[#2e8bc0]",
+    iconBg:
+      "bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)] border-[var(--color-cyan)]/20",
+    hoverBorder: "hover:border-[var(--color-cyan)]/40",
+    pillHover:
+      "hover:border-[var(--color-cyan)]/30 hover:text-[var(--color-cyan-deep)] dark:hover:text-[var(--color-cyan)]",
     dot: "hum-dot hum-dot--cyan",
     icon: GitPullRequest,
-    ribbon: "from-[#2e8bc0]/80 via-[#2e8bc0] to-[#2e8bc0]/80",
+    ribbon:
+      "from-[var(--color-cyan)]/80 via-[var(--color-cyan)] to-[var(--color-cyan)]/80",
   },
   {
-    iconBg: "bg-[#d4a017]/10 text-[#d4a017] border-[#d4a017]/20",
-    hoverBorder: "hover:border-[#d4a017]/40",
-    pillHover: "hover:border-[#d4a017]/30 hover:text-[#d4a017]",
+    iconBg:
+      "bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)] border-[var(--color-pear)]/20",
+    hoverBorder: "hover:border-[var(--color-pear)]/40",
+    pillHover:
+      "hover:border-[var(--color-pear)]/30 hover:text-[var(--color-pear-deep)] dark:hover:text-[var(--color-pear)]",
     dot: "hum-dot hum-dot--pear",
     icon: Award,
-    ribbon: "from-[#d4a017]/80 via-[#d4a017] to-[#d4a017]/80",
+    ribbon:
+      "from-[var(--color-pear)]/80 via-[var(--color-pear)] to-[var(--color-pear)]/80",
   },
 ]
 

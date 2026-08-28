@@ -113,12 +113,33 @@
   --color-background: var(--background);
   --color-pear: var(--color-pear);
   --color-pear-light: var(--color-pear-light);
-  --color-cyan-accent: var(--color-cyan);
+  --color-pear-deep: var(--color-pear-deep);
+  --color-pear-foreground: var(--color-pear-foreground);
+
+  --color-cyan: var(--color-cyan);
   --color-cyan-light: var(--color-cyan-light);
-  --color-coral-accent: var(--color-coral);
+  --color-cyan-deep: var(--color-cyan-deep);
+  --color-cyan-foreground: var(--color-cyan-foreground);
+  --color-cyan-accent: var(--color-cyan);
+
+  --color-coral: var(--color-coral);
   --color-coral-light: var(--color-coral-light);
+  --color-coral-deep: var(--color-coral-deep);
+  --color-coral-foreground: var(--color-coral-foreground);
+  --color-coral-accent: var(--color-coral);
+
+  --color-mint: var(--color-mint);
+  --color-mint-light: var(--color-mint-light);
+  --color-mint-deep: var(--color-mint-deep);
+  --color-mint-foreground: var(--color-mint-foreground);
   --color-mint-accent: var(--color-mint);
+
+  --color-lavender: var(--color-lavender);
+  --color-lavender-light: var(--color-lavender-light);
+  --color-lavender-deep: var(--color-lavender-deep);
+  --color-lavender-foreground: var(--color-lavender-foreground);
   --color-lavender-accent: var(--color-lavender);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -126,10 +147,6 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  --font-heading: "Plus Jakarta Sans", var(--font-sans);
-  --font-sans: "Plus Jakarta Sans", var(--font-sans);
-  /* --font-heading: "Marlin Soft", var(--font-sans);
-  --font-sans: "Marlin Soft", var(--font-sans); */
   --animate-gradient: gradient 8s linear infinite;
 
   @keyframes gradient {
@@ -185,20 +202,31 @@
   --accent: #f5e6a3;
   --accent-foreground: #1c1d19;
 
-  /* Multi-accent palette — Hum's signature */
+  /* Multi-accent Expressive Palette (Light Mode) */
   --color-pear: #d4a017;
   --color-pear-light: #f5e6a3;
-  --color-pear-deep: #b8890f;
+  --color-pear-deep: #946800;
+  --color-pear-foreground: #1c1d19;
+
   --color-cyan: #2e8bc0;
   --color-cyan-light: #b3daef;
-  --color-cyan-deep: #1a6f9a;
+  --color-cyan-deep: #16648e;
+  --color-cyan-foreground: #ffffff;
+
   --color-coral: #e05d44;
   --color-coral-light: #f4b1a3;
-  --color-coral-deep: #c04530;
+  --color-coral-deep: #ab3420;
+  --color-coral-foreground: #ffffff;
+
   --color-mint: #3dab6e;
   --color-mint-light: #b8e8cc;
+  --color-mint-deep: #1e7044;
+  --color-mint-foreground: #ffffff;
+
   --color-lavender: #8b6fbf;
   --color-lavender-light: #d4c4ef;
+  --color-lavender-deep: #5e438c;
+  --color-lavender-foreground: #ffffff;
 
   --destructive: #d32f2f;
   --border: rgba(28, 29, 25, 0.1);
@@ -263,20 +291,31 @@
   --accent: #2a2c24;
   --accent-foreground: #f0eddf;
 
-  /* Multi-accent palette — dark mode */
+  /* Multi-accent Expressive Palette (Dark Mode) */
   --color-pear: #e8b82a;
   --color-pear-light: #3d3520;
-  --color-pear-deep: #f0c940;
+  --color-pear-deep: #f5d460;
+  --color-pear-foreground: #131411;
+
   --color-cyan: #5ab4e0;
   --color-cyan-light: #1e3040;
   --color-cyan-deep: #7cc8ed;
+  --color-cyan-foreground: #0c1924;
+
   --color-coral: #f07058;
   --color-coral-light: #3d2220;
   --color-coral-deep: #f49080;
+  --color-coral-foreground: #24110e;
+
   --color-mint: #5cc88a;
   --color-mint-light: #1e3028;
+  --color-mint-deep: #7de0a6;
+  --color-mint-foreground: #0e2016;
+
   --color-lavender: #a88ed8;
   --color-lavender-light: #2a2240;
+  --color-lavender-deep: #c4b0ec;
+  --color-lavender-foreground: #1a1228;
 
   --destructive: #e57373;
   --border: rgba(240, 237, 223, 0.1);
@@ -330,6 +369,32 @@
   --accent: #f5e6a3;
   --accent-foreground: #1c1d19;
 
+  /* Multi-accent Expressive Palette (Light Mode) */
+  --color-pear: #d4a017;
+  --color-pear-light: #f5e6a3;
+  --color-pear-deep: #946800;
+  --color-pear-foreground: #1c1d19;
+
+  --color-cyan: #2e8bc0;
+  --color-cyan-light: #b3daef;
+  --color-cyan-deep: #16648e;
+  --color-cyan-foreground: #ffffff;
+
+  --color-coral: #e05d44;
+  --color-coral-light: #f4b1a3;
+  --color-coral-deep: #ab3420;
+  --color-coral-foreground: #ffffff;
+
+  --color-mint: #3dab6e;
+  --color-mint-light: #b8e8cc;
+  --color-mint-deep: #1e7044;
+  --color-mint-foreground: #ffffff;
+
+  --color-lavender: #8b6fbf;
+  --color-lavender-light: #d4c4ef;
+  --color-lavender-deep: #5e438c;
+  --color-lavender-foreground: #ffffff;
+
   --destructive: #d32f2f;
   --border: rgba(28, 29, 25, 0.1);
   --input: rgba(28, 29, 25, 0.14);
@@ -340,6 +405,17 @@
   --chart-3: #e05d44;
   --chart-4: #3dab6e;
   --chart-5: #8b6fbf;
+
+  /* Card Stack Background Sequence — Hum multi-accent bands */
+  --card-bg-home: #f7f3e8;
+  --card-bg-skills: #f0eadc;
+  --card-bg-projects: #eef4f8;
+  --card-bg-competitions: #fdf0ec;
+  --card-bg-experience: #edf6f0;
+  --card-bg-education: #f3eef8;
+  --card-bg-contact: #faf4e6;
+  --card-bg-learning: #f1f7f5;
+  --card-bg-footer: #dfd9c8;
 
   /* Sidebar */
   --sidebar: #f0eadc;
@@ -891,41 +967,41 @@
 /* Specific Theme Variant Classes */
 .uiverse-card.theme-languages,
 .uiverse-card.theme-education {
-  --bg-color: #ffd861;
-  --bg-color-light: #ffeeba;
-  --text-color-hover: #451a03;
-  --box-shadow-color: rgba(255, 216, 97, 0.48);
+  --bg-color: var(--color-pear);
+  --bg-color-light: var(--color-pear-light);
+  --text-color-hover: var(--color-pear-foreground);
+  --box-shadow-color: color-mix(in srgb, var(--color-pear) 48%, transparent);
 }
 
 .uiverse-card.theme-backend,
 .uiverse-card.theme-credentialing {
-  --bg-color: #b8f9d3;
-  --bg-color-light: #e2fced;
-  --text-color-hover: #064e3b;
-  --box-shadow-color: rgba(184, 249, 211, 0.48);
+  --bg-color: var(--color-mint);
+  --bg-color-light: var(--color-mint-light);
+  --text-color-hover: var(--color-mint-foreground);
+  --box-shadow-color: color-mix(in srgb, var(--color-mint) 48%, transparent);
 }
 
 .uiverse-card.theme-tools,
 .uiverse-card.theme-wallet {
-  --bg-color: #ceb2fc;
-  --bg-color-light: #f0e7ff;
-  --text-color-hover: #3b0764;
-  --box-shadow-color: rgba(206, 178, 252, 0.48);
+  --bg-color: var(--color-lavender);
+  --bg-color-light: var(--color-lavender-light);
+  --text-color-hover: var(--color-lavender-foreground);
+  --box-shadow-color: color-mix(in srgb, var(--color-lavender) 48%, transparent);
 }
 
 .uiverse-card.theme-frontend,
 .uiverse-card.theme-human-resources {
-  --bg-color: #dce9ff;
-  --bg-color-light: #f1f7ff;
-  --text-color-hover: #1e3a8a;
-  --box-shadow-color: rgba(220, 233, 255, 0.48);
+  --bg-color: var(--color-cyan);
+  --bg-color-light: var(--color-cyan-light);
+  --text-color-hover: var(--color-cyan-foreground);
+  --box-shadow-color: color-mix(in srgb, var(--color-cyan) 48%, transparent);
 }
 
 .uiverse-card.theme-devops {
-  --bg-color: #fecdd3;
-  --bg-color-light: #ffe4e6;
-  --text-color-hover: #881337;
-  --box-shadow-color: rgba(254, 205, 211, 0.48);
+  --bg-color: var(--color-coral);
+  --bg-color-light: var(--color-coral-light);
+  --text-color-hover: var(--color-coral-foreground);
+  --box-shadow-color: color-mix(in srgb, var(--color-coral) 48%, transparent);
 }
 
 @media (max-width: 640px) {
@@ -1033,25 +1109,30 @@
 .hum-btn--cyan {
   --btn-face: var(--color-cyan);
   --btn-edge: var(--color-cyan-deep);
+  --btn-ink: var(--color-cyan-foreground);
   --btn-cast: oklch(66% 0.18 235 / 0.4);
+  color: var(--btn-ink);
 }
 .hum-btn--coral {
   --btn-face: var(--color-coral);
   --btn-edge: var(--color-coral-deep);
+  --btn-ink: var(--color-coral-foreground);
   --btn-cast: oklch(68% 0.24 18 / 0.4);
-  color: #fff;
+  color: var(--btn-ink);
 }
 .hum-btn--mint {
   --btn-face: var(--color-mint);
-  --btn-edge: #2d8a56;
+  --btn-edge: var(--color-mint-deep);
+  --btn-ink: var(--color-mint-foreground);
   --btn-cast: oklch(80% 0.16 150 / 0.35);
-  color: #fff;
+  color: var(--btn-ink);
 }
 .hum-btn--lav {
   --btn-face: var(--color-lavender);
-  --btn-edge: #6b50a0;
+  --btn-edge: var(--color-lavender-deep);
+  --btn-ink: var(--color-lavender-foreground);
   --btn-cast: oklch(74% 0.16 305 / 0.35);
-  color: #fff;
+  color: var(--btn-ink);
 }
 .hum-btn--ink {
   --btn-face: var(--foreground);

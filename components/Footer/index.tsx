@@ -38,7 +38,7 @@ export default function Footer() {
 
       {/* Themed glow (adapts automatically in dark/light) */}
       <div className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute top-0 left-1/2 h-[400px] w-[900px] -translate-x-1/2 rounded-full bg-primary/5 blur-[140px]" />
+        <div className="absolute top-0 left-1/2 h-[400px] w-[900px] -translate-x-1/2 rounded-full bg-[var(--color-pear)]/5 blur-[140px]" />
       </div>
 
       {/* Watermark (low contrast, theme-aware) */}
@@ -67,8 +67,8 @@ export default function Footer() {
               <br />
               {t("Footer.title2")}
               <AnimatedGradientText
-                colorFrom="#f5f4e2"
-                colorTo="oklch(0.252 0.009 68.2)"
+                colorFrom="var(--color-pear)"
+                colorTo="var(--color-coral)"
                 className="text-3xl leading-[1.1] font-bold tracking-tight sm:text-5xl md:text-7xl"
               >
                 {t("Footer.title3")}
@@ -82,7 +82,7 @@ export default function Footer() {
 
             <Link
               href="mailto:jaberhc2002@gmail.com"
-              className="group mt-6 inline-flex items-center rounded-full border border-border px-5 py-2.5 text-xs font-medium transition-all duration-300 hover:border-foreground hover:bg-foreground hover:text-background active:scale-95 sm:mt-10 sm:px-7 sm:py-3 sm:text-sm"
+              className="group mt-6 inline-flex items-center rounded-full border border-[var(--color-lavender)]/40 bg-[var(--color-lavender)]/10 px-5 py-2.5 text-xs font-semibold text-[var(--color-lavender)] transition-all duration-300 hover:border-[var(--color-lavender)] hover:bg-[var(--color-lavender)] hover:text-white active:scale-95 sm:mt-10 sm:px-7 sm:py-3 sm:text-sm"
             >
               {t("Footer.startConversation")}
               <ArrowUpRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -152,12 +152,14 @@ export default function Footer() {
 
             <div className="space-y-2.5 text-xs sm:space-y-4 sm:text-sm">
               <Link
-                href="/projects"
-                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
+                href="https://github.com/JaberChowdhury"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-[var(--color-lavender)]/50 hover:bg-[var(--color-lavender)]/10 hover:shadow-sm sm:p-4"
               >
                 <div className="flex items-center gap-3">
-                  <Github className="h-4 w-4" />
-                  GitHub
+                  <Github className="h-4 w-4 text-[var(--color-lavender)]" />
+                  <span>GitHub</span>
                 </div>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>
@@ -165,11 +167,11 @@ export default function Footer() {
               <Link
                 href="https://www.linkedin.com/in/md-jaber-hossain-chowdhury-543335252/"
                 target="_blank"
-                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
+                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-[var(--color-cyan)]/50 hover:bg-[var(--color-cyan)]/10 hover:shadow-sm sm:p-4"
               >
                 <div className="flex items-center gap-3">
-                  <Linkedin className="h-4 w-4" />
-                  LinkedIn
+                  <Linkedin className="h-4 w-4 text-[var(--color-cyan)]" />
+                  <span>LinkedIn</span>
                 </div>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>
@@ -177,22 +179,22 @@ export default function Footer() {
               <Link
                 href="https://codeforces.com/profile/jaber02"
                 target="_blank"
-                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
+                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-[var(--color-pear)]/50 hover:bg-[var(--color-pear)]/10 hover:shadow-sm sm:p-4"
               >
                 <div className="flex items-center gap-3">
-                  <Trophy className="h-4 w-4" />
-                  Codeforces
+                  <Trophy className="h-4 w-4 text-[var(--color-pear)]" />
+                  <span>Codeforces</span>
                 </div>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>
 
               <Link
                 href="mailto:jaberhc2002@gmail.com"
-                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-foreground/30 hover:shadow-sm sm:p-4"
+                className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-[var(--color-coral)]/50 hover:bg-[var(--color-coral)]/10 hover:shadow-sm sm:p-4"
               >
                 <div className="flex items-center gap-3">
-                  <Mail className="h-4 w-4" />
-                  Email
+                  <Mail className="h-4 w-4 text-[var(--color-coral)]" />
+                  <span>Email</span>
                 </div>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>

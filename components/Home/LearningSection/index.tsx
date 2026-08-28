@@ -49,7 +49,7 @@ export function LearningSection() {
           height: "350px",
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(224,93,68,0.08) 0%, transparent 70%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-coral) 8%, transparent) 0%, transparent 70%)",
           filter: "blur(60px)",
           pointerEvents: "none",
           zIndex: 0,
@@ -65,7 +65,7 @@ export function LearningSection() {
           height: "320px",
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(46,139,192,0.08) 0%, transparent 70%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-cyan) 8%, transparent) 0%, transparent 70%)",
           filter: "blur(60px)",
           pointerEvents: "none",
           zIndex: 0,

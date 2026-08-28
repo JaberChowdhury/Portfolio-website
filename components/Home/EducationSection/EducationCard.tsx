@@ -29,7 +29,7 @@ export function EducationCard({
         <div className="flex flex-col justify-between">
           <div>
             <div className="mb-3 flex items-start gap-3 sm:mb-3.5 sm:gap-3.5">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-lavender-accent/20 bg-lavender-accent/10 text-lavender-accent transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[var(--color-lavender)]/20 bg-[var(--color-lavender)]/10 text-[var(--color-lavender-deep)] transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11 dark:text-[var(--color-lavender)]">
                 <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
 
@@ -61,7 +61,7 @@ export function EducationCard({
                 {subjects.map((subject) => (
                   <span
                     key={subject}
-                    className="inline-flex items-center rounded-full border border-lavender-accent/20 bg-lavender-accent/8 px-2.5 py-0.5 font-mono text-[11px] font-medium text-lavender-accent transition-all duration-200 hover:scale-105 hover:bg-lavender-accent/15 sm:text-xs"
+                    className="inline-flex items-center rounded-full border border-[var(--color-lavender)]/20 bg-[var(--color-lavender)]/8 px-2.5 py-0.5 font-mono text-[11px] font-medium text-[var(--color-lavender-deep)] transition-all duration-200 hover:scale-105 hover:bg-[var(--color-lavender)]/15 sm:text-xs dark:text-[var(--color-lavender)]"
                   >
                     {subject}
                   </span>

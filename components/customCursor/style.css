@@ -19,7 +19,7 @@ body[data-cursor-state="text"] #cursor-outline {
   width: 4px !important;
   height: 32px !important;
   border-radius: 2px !important;
-  background-color: hsl(var(--foreground)) !important;
+  background-color: var(--foreground) !important;
   border-color: transparent !important;
 }
 body[data-cursor-state="text"] #cursor-dot {
@@ -28,9 +28,9 @@ body[data-cursor-state="text"] #cursor-dot {
 
 /* 3. Component Cover State Morphing */
 body[data-cursor-state="cover"] #cursor-outline {
-  /* Subtle overlay using shadcn's foreground variable */
-  background-color: hsl(var(--foreground) / 0.1) !important;
-  border-color: hsl(var(--foreground) / 0.2) !important;
+  /* Subtle overlay using foreground variable */
+  background-color: color-mix(in srgb, var(--foreground) 10%, transparent) !important;
+  border-color: color-mix(in srgb, var(--foreground) 20%, transparent) !important;
 }
 body[data-cursor-state="cover"] #cursor-dot {
   opacity: 0 !important;

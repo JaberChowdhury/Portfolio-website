@@ -40,7 +40,7 @@ export function Hero() {
             height: "300px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(212,160,23,0.12) 0%, transparent 70%)",
+              "radial-gradient(circle, color-mix(in srgb, var(--color-pear) 12%, transparent) 0%, transparent 70%)",
             filter: "blur(40px)",
           }}
         />
@@ -54,7 +54,7 @@ export function Hero() {
             height: "250px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(46,139,192,0.10) 0%, transparent 70%)",
+              "radial-gradient(circle, color-mix(in srgb, var(--color-cyan) 10%, transparent) 0%, transparent 70%)",
             filter: "blur(40px)",
           }}
         />
@@ -68,7 +68,7 @@ export function Hero() {
             height: "200px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(61,171,110,0.08) 0%, transparent 70%)",
+              "radial-gradient(circle, color-mix(in srgb, var(--color-mint) 8%, transparent) 0%, transparent 70%)",
             filter: "blur(40px)",
           }}
         />
@@ -94,7 +94,7 @@ export function Hero() {
             className="preserve-design hero-title inline-block text-4xl leading-none font-black tracking-tight text-foreground uppercase xs:text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] 2xl:text-[11.5rem]"
             style={{
               textShadow: nameHovered
-                ? "2px 4px 12px rgba(212,160,23,0.25)"
+                ? "2px 4px 12px color-mix(in srgb, var(--color-pear) 25%, transparent)"
                 : "none",
               transition: "text-shadow 300ms ease",
             }}

@@ -81,7 +81,7 @@ export const Navbar = () => {
           {/* Mobile Hamburger Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex h-9 w-9 items-center justify-center gap-1.5 rounded-lg border border-border/40 bg-card/60 focus:outline-none md:hidden"
+            className="flex h-9 w-9 items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/80 text-foreground shadow-xs transition-colors hover:border-[var(--color-pear)]/50 focus:outline-none md:hidden"
             aria-label="Toggle Mobile Menu"
           >
             <div className="flex flex-col items-center justify-center gap-1">
@@ -118,22 +118,43 @@ export const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 top-[60px] z-50 flex h-[calc(100dvh-60px)] flex-col justify-between overflow-y-auto bg-background/98 px-6 py-8 shadow-2xl backdrop-blur-xl md:hidden"
+            className="fixed inset-0 top-[60px] z-50 flex h-[calc(100dvh-60px)] flex-col justify-between overflow-y-auto border-t border-border/60 bg-background/98 px-6 py-8 shadow-2xl backdrop-blur-xl md:hidden"
           >
-            <div className="my-auto flex flex-col items-center justify-center gap-6">
+            <div className="my-auto flex flex-col items-center justify-center gap-5">
               {navLinks.map((link, idx) => (
                 <motion.a
                   key={link.id}
                   href={link.href}
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 * idx, duration: 0.25 }}
+                  transition={{ delay: 0.04 * idx, duration: 0.25 }}
                   onClick={() => setIsOpen(false)}
-                  className="font-mono text-xl font-bold tracking-wider text-muted-foreground uppercase transition-all duration-200 hover:scale-105 hover:text-foreground active:scale-95"
+                  className="font-mono text-lg font-bold tracking-wider text-muted-foreground uppercase transition-all duration-200 hover:scale-105 hover:text-foreground active:scale-95"
                 >
                   {t(`Navigation.${link.id}`)}
                 </motion.a>
               ))}
+
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.04 * navLinks.length, duration: 0.25 }}
+                className="mt-2"
+              >
+                <Button
+                  variant="rose"
+                  size="default"
+                  href="#contact"
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-full"
+                  frontClassName="rounded-full"
+                >
+                  <span className="flex items-center gap-1.5 py-2 font-mono text-xs font-bold">
+                    <span>{t("Navbar.letsTalk")}</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </span>
+                </Button>
+              </motion.div>
             </div>
 
             {/* Theme & Language Switchers at bottom */}

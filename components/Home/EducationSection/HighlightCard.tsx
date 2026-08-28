@@ -13,16 +13,19 @@ interface HighlightCardProps {
 
 const ACCENT_STYLES = [
   {
-    iconBg: "bg-pear/10 text-pear border-pear/20",
-    hoverBorder: "hover:border-pear/40",
+    iconBg:
+      "bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)] border-[var(--color-pear)]/20",
+    hoverBorder: "hover:border-[var(--color-pear)]/40",
   },
   {
-    iconBg: "bg-cyan-accent/10 text-cyan-accent border-cyan-accent/20",
-    hoverBorder: "hover:border-cyan-accent/40",
+    iconBg:
+      "bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)] border-[var(--color-cyan)]/20",
+    hoverBorder: "hover:border-[var(--color-cyan)]/40",
   },
   {
-    iconBg: "bg-coral-accent/10 text-coral-accent border-coral-accent/20",
-    hoverBorder: "hover:border-coral-accent/40",
+    iconBg:
+      "bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)] border-[var(--color-coral)]/20",
+    hoverBorder: "hover:border-[var(--color-coral)]/40",
   },
 ]
 

@@ -149,14 +149,14 @@ export function CompetitiveProgrammingSection() {
         {/* Hub Cards: Desktop 3-Column Grid */}
         <div className="hidden md:grid md:grid-cols-3 md:gap-4">
           {/* Card 1: Platforms Hub — Pear accent */}
-          <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground transition-all duration-300 hover:border-[#d4a017]/50 sm:p-5 md:p-6">
+          <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground transition-all duration-300 hover:border-[var(--color-pear)]/50 sm:p-5 md:p-6">
             <div>
               <div className="flex items-center justify-between gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#d4a017]/30 bg-[#d4a017]/10 text-[#d4a017] sm:h-9 sm:w-9 md:h-10 md:w-10">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)] sm:h-9 sm:w-9 md:h-10 md:w-10">
                   <Terminal className="h-4 w-4 sm:h-4.5 sm:w-4.5 md:h-5 md:w-5" />
                 </div>
-                <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#d4a017]/25 bg-[#d4a017]/10 px-2 py-0.5 text-[9px] font-bold text-[#b8860b] sm:text-[10px] dark:text-[#e8b82a]">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#d4a017]" />
+                <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[var(--color-pear)]/25 bg-[var(--color-pear)]/10 px-2 py-0.5 text-[9px] font-bold text-[var(--color-pear-deep)] sm:text-[10px] dark:text-[var(--color-pear)]">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-pear)]" />
                   {t("cards.platformsTag")}
                 </span>
               </div>
@@ -184,14 +184,14 @@ export function CompetitiveProgrammingSection() {
           </div>
 
           {/* Card 2: ICPC 2025 — Coral accent */}
-          <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground transition-all duration-300 hover:border-[#e05d44]/50 sm:p-5 md:p-6">
+          <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground transition-all duration-300 hover:border-[var(--color-coral)]/50 sm:p-5 md:p-6">
             <div>
               <div className="flex items-center justify-between gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#e05d44]/30 bg-[#e05d44]/10 text-[#e05d44] sm:h-9 sm:w-9 md:h-10 md:w-10">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--color-coral)]/30 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)] sm:h-9 sm:w-9 md:h-10 md:w-10">
                   <Trophy className="h-4 w-4 sm:h-4.5 sm:w-4.5 md:h-5 md:w-5" />
                 </div>
-                <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#e05d44]/25 bg-[#e05d44]/10 px-2 py-0.5 text-[9px] font-bold text-[#c04a35] sm:text-[10px] dark:text-[#f07058]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#e05d44]" />
+                <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[var(--color-coral)]/25 bg-[var(--color-coral)]/10 px-2 py-0.5 text-[9px] font-bold text-[var(--color-coral-deep)] sm:text-[10px] dark:text-[var(--color-coral)]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-coral)]" />
                   {t("cards.icpcTag")}
                 </span>
               </div>
@@ -219,14 +219,14 @@ export function CompetitiveProgrammingSection() {
           </div>
 
           {/* Card 3: Algorithmic Mindset — Mint accent */}
-          <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground transition-all duration-300 hover:border-[#3dab6e]/50 sm:p-5 md:p-6">
+          <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground transition-all duration-300 hover:border-[var(--color-mint)]/50 sm:p-5 md:p-6">
             <div>
               <div className="flex items-center justify-between gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#3dab6e]/30 bg-[#3dab6e]/10 text-[#3dab6e] sm:h-9 sm:w-9 md:h-10 md:w-10">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--color-mint)]/30 bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)] sm:h-9 sm:w-9 md:h-10 md:w-10">
                   <Brain className="h-4 w-4 sm:h-4.5 sm:w-4.5 md:h-5 md:w-5" />
                 </div>
-                <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#3dab6e]/25 bg-[#3dab6e]/10 px-2 py-0.5 text-[9px] font-bold text-[#2d8a56] sm:text-[10px] dark:text-[#5cc88a]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#3dab6e]" />
+                <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 px-2 py-0.5 text-[9px] font-bold text-[var(--color-mint-deep)] sm:text-[10px] dark:text-[var(--color-mint)]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-mint)]" />
                   {t("cards.mindsetTag")}
                 </span>
               </div>
@@ -299,11 +299,11 @@ export function CompetitiveProgrammingSection() {
                   <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs">
                     <div>
                       <div className="flex items-center justify-between gap-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#d4a017]/30 bg-[#d4a017]/10 text-[#d4a017]">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]">
                           <Terminal className="h-4 w-4" />
                         </div>
-                        <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#d4a017]/25 bg-[#d4a017]/10 px-2 py-0.5 text-[9px] font-bold text-[#b8860b] dark:text-[#e8b82a]">
-                          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#d4a017]" />
+                        <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[var(--color-pear)]/25 bg-[var(--color-pear)]/10 px-2 py-0.5 text-[9px] font-bold text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]">
+                          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-pear)]" />
                           {t("cards.platformsTag")}
                         </span>
                       </div>
@@ -333,11 +333,11 @@ export function CompetitiveProgrammingSection() {
                   <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs">
                     <div>
                       <div className="flex items-center justify-between gap-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#e05d44]/30 bg-[#e05d44]/10 text-[#e05d44]">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--color-coral)]/30 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]">
                           <Trophy className="h-4 w-4" />
                         </div>
-                        <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#e05d44]/25 bg-[#e05d44]/10 px-2 py-0.5 text-[9px] font-bold text-[#c04a35] dark:text-[#f07058]">
-                          <span className="h-1.5 w-1.5 rounded-full bg-[#e05d44]" />
+                        <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[var(--color-coral)]/25 bg-[var(--color-coral)]/10 px-2 py-0.5 text-[9px] font-bold text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-coral)]" />
                           {t("cards.icpcTag")}
                         </span>
                       </div>
@@ -367,11 +367,11 @@ export function CompetitiveProgrammingSection() {
                   <div className="hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 text-card-foreground shadow-xs">
                     <div>
                       <div className="flex items-center justify-between gap-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#3dab6e]/30 bg-[#3dab6e]/10 text-[#3dab6e]">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--color-mint)]/30 bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]">
                           <Brain className="h-4 w-4" />
                         </div>
-                        <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[#3dab6e]/25 bg-[#3dab6e]/10 px-2 py-0.5 text-[9px] font-bold text-[#2d8a56] dark:text-[#5cc88a]">
-                          <span className="h-1.5 w-1.5 rounded-full bg-[#3dab6e]" />
+                        <span className="mono-label inline-flex items-center gap-1 rounded-full border border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 px-2 py-0.5 text-[9px] font-bold text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-mint)]" />
                           {t("cards.mindsetTag")}
                         </span>
                       </div>
@@ -469,7 +469,7 @@ export function CompetitiveProgrammingSection() {
                       onClick={() => setActiveModal("platforms")}
                       className={`shrink-0 cursor-pointer rounded-full px-2.5 py-1 font-mono text-[11px] font-bold transition-all duration-200 sm:px-3.5 sm:py-1.5 sm:text-xs ${
                         activeModal === "platforms"
-                          ? "bg-[var(--color-pear)] text-[#1c1d19] shadow-xs"
+                          ? "bg-[var(--color-pear)] text-zinc-950 shadow-xs"
                           : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
@@ -491,7 +491,7 @@ export function CompetitiveProgrammingSection() {
                       onClick={() => setActiveModal("mindset")}
                       className={`shrink-0 cursor-pointer rounded-full px-2.5 py-1 font-mono text-[11px] font-bold transition-all duration-200 sm:px-3.5 sm:py-1.5 sm:text-xs ${
                         activeModal === "mindset"
-                          ? "bg-[var(--color-mint)] text-[#1c1d19] shadow-xs"
+                          ? "bg-[var(--color-mint)] text-zinc-950 shadow-xs"
                           : "text-muted-foreground hover:text-foreground"
                       }`}
                     >

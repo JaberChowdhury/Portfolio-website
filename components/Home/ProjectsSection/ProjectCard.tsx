@@ -47,7 +47,7 @@ const CARD_ACCENTS = [
     topGradient:
       "from-[var(--color-mint)] via-[var(--color-mint-light)] to-[var(--color-mint)]",
     indexBadge:
-      "border-[var(--color-mint)]/30 bg-[var(--color-mint)]/10 text-[var(--color-mint)]",
+      "border-[var(--color-mint)]/30 bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
     hoverBorder: "hover:border-[var(--color-mint)]/50",
     dot: "bg-[var(--color-mint)]",
     btnClass: "hum-btn hum-btn--mint",
@@ -67,7 +67,7 @@ const CARD_ACCENTS = [
     topGradient:
       "from-[var(--color-lavender)] via-[var(--color-lavender-light)] to-[var(--color-lavender)]",
     indexBadge:
-      "border-[var(--color-lavender)]/30 bg-[var(--color-lavender)]/10 text-[var(--color-lavender)]",
+      "border-[var(--color-lavender)]/30 bg-[var(--color-lavender)]/10 text-[var(--color-lavender-deep)] dark:text-[var(--color-lavender)]",
     hoverBorder: "hover:border-[var(--color-lavender)]/50",
     dot: "bg-[var(--color-lavender)]",
     btnClass: "hum-btn hum-btn--lav",
@@ -80,11 +80,11 @@ const TECH_TAG_STYLES: Record<string, string> = {
   TypeScript:
     "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
   Prisma:
-    "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender)]",
+    "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender-deep)] dark:text-[var(--color-lavender)]",
   Stripe:
-    "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender)]",
+    "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender-deep)] dark:text-[var(--color-lavender)]",
   "OpenAI API":
-    "border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 text-[var(--color-mint)]",
+    "border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
   Tailwind:
     "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
   PostgreSQL:
@@ -98,9 +98,9 @@ const TECH_TAG_STYLES: Record<string, string> = {
 const FALLBACK_TAG_STYLES = [
   "border-[var(--color-pear)]/25 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
   "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
-  "border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 text-[var(--color-mint)]",
+  "border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
   "border-[var(--color-coral)]/25 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
-  "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender)]",
+  "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender-deep)] dark:text-[var(--color-lavender)]",
 ]
 
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {

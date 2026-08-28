@@ -37,7 +37,7 @@ export function ExperienceSection() {
           maxWidth: "500px",
           maxHeight: "500px",
           background:
-            "radial-gradient(circle, rgba(61,171,110,0.08) 0%, transparent 70%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-mint) 8%, transparent) 0%, transparent 70%)",
           filter: "blur(70px)",
           pointerEvents: "none",
           zIndex: 0,

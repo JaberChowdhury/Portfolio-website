@@ -17,7 +17,7 @@ import {
   SiKubernetes,
   SiGooglecloud,
   SiLinux,
-  SiUbuntu,
+  SiDebian,
   SiVercel,
   SiNginx,
   SiGithub,
@@ -84,7 +84,12 @@ export const OpenCodeIcon = ({ className }: { className?: string }) => (
 )
 
 export type TechCategoryId =
-  "all" | "frontend" | "languages" | "backend" | "devops" | "tools"
+  | "all"
+  | "frontend"
+  | "languages"
+  | "backend"
+  | "devops"
+  | "tools"
 
 export interface TechCategory {
   id: TechCategoryId
@@ -103,34 +108,36 @@ export const TECH_CATEGORIES: TechCategory[] = [
   {
     id: "frontend",
     label: "Frontend",
-    dotColor: "bg-sky-500",
+    dotColor: "bg-[var(--color-cyan)]",
     accentColor: "cyan",
   },
   {
     id: "languages",
     label: "Languages",
-    dotColor: "bg-amber-500",
+    dotColor: "bg-[var(--color-pear)]",
     accentColor: "pear",
   },
   {
     id: "backend",
     label: "Backend & Data",
-    dotColor: "bg-emerald-500",
+    dotColor: "bg-[var(--color-mint)]",
     accentColor: "mint",
   },
   {
     id: "devops",
     label: "Cloud & DevOps",
-    dotColor: "bg-rose-500",
+    dotColor: "bg-[var(--color-coral)]",
     accentColor: "coral",
   },
   {
     id: "tools",
     label: "AI, Agents & Tools",
-    dotColor: "bg-purple-500",
+    dotColor: "bg-[var(--color-lavender)]",
     accentColor: "lavender",
   },
 ]
+
+export type TechCategoryName = "frontend" | "languages" | "backend" | "devops" | "tools"
 
 export type TechItem = {
   id: string
@@ -138,7 +145,7 @@ export type TechItem = {
   bg: string
   text: string
   icon: React.ReactNode
-  category: "frontend" | "languages" | "backend" | "devops" | "tools"
+  category: TechCategoryName
   categoryLabel: string
   accentDot: string
   accentBorder: string
@@ -146,27 +153,63 @@ export type TechItem = {
   tag: string
   brandColor: string
   brandLight: string
+  brandDeep: string
   textHover: string
   shadowColor: string
+  isDarkIcon?: boolean
+}
+
+/**
+ * Material Expressive Brand Color Generator Helper
+ * Transforms actual tech brand colors into calibrated Material 3 Expressive tones:
+ * - brandColor: Vibrant, balanced Material 3 primary accent
+ * - brandLight: Soft tonal container background (88-94% lightness)
+ * - brandDeep: High-contrast deep tone for crisp text in light mode
+ * - shadowColor: Subtle ambient glow
+ */
+function createMaterialExpressiveBrand({
+  brandColor,
+  brandLight,
+  brandDeep,
+  isDarkIcon = false,
+  textHover = "#FFFFFF",
+}: {
+  brandColor: string
+  brandLight: string
+  brandDeep: string
+  isDarkIcon?: boolean
+  textHover?: string
+}) {
+  return {
+    brandColor,
+    brandLight,
+    brandDeep,
+    bg: `color-mix(in srgb, ${brandColor} 12%, transparent)`,
+    text: `text-[${brandDeep}] dark:text-[${brandColor}]`,
+    accentDot: `bg-[${brandColor}]`,
+    accentBorder: `hover:border-[${brandColor}]/50`,
+    accentGlow: `color-mix(in srgb, ${brandColor} 20%, transparent)`,
+    shadowColor: `color-mix(in srgb, ${brandColor} 42%, transparent)`,
+    textHover: isDarkIcon ? "#1c1d19" : textHover,
+    isDarkIcon,
+  }
 }
 
 export const TECH_STACK_DATA: TechItem[] = [
-  // 1. Frontend
+  // ==========================================================================
+  // 1. FRONTEND
+  // ==========================================================================
   {
     id: "react",
     label: "React",
     category: "frontend",
     categoryLabel: "UI Library",
-    bg: "bg-[#087EA4]/10",
-    text: "text-[#087EA4] dark:text-[#61DAFB]",
-    accentDot: "bg-[#087EA4]",
-    accentBorder: "hover:border-[#087EA4]/50",
-    accentGlow: "",
     tag: "Core",
-    brandColor: "#087EA4",
-    brandLight: "#DDF4FC",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(8, 126, 164, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#0284c7", // React Expressive Azure
+      brandLight: "#e0f2fe", // Soft Sky Container
+      brandDeep: "#0369a1", // Deep Azure Text
+    }),
     icon: <SiReact className="h-6 w-6" />,
   },
   {
@@ -174,16 +217,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Next.js",
     category: "frontend",
     categoryLabel: "Framework",
-    bg: "bg-[#0070F3]/10",
-    text: "text-[#0070F3]",
-    accentDot: "bg-[#0070F3]",
-    accentBorder: "hover:border-[#0070F3]/50",
-    accentGlow: "",
     tag: "Production",
-    brandColor: "#0070F3",
-    brandLight: "#DCE9F8",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(0, 112, 243, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#0f172a", // Next.js Expressive Obsidian
+      brandLight: "#e2e8f0", // Soft Slate Container
+      brandDeep: "#0f172a", // Deep Slate Text
+    }),
     icon: <SiNextdotjs className="h-6 w-6" />,
   },
   {
@@ -191,16 +230,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Tailwind CSS",
     category: "frontend",
     categoryLabel: "Styling",
-    bg: "bg-[#06B6D4]/10",
-    text: "text-[#06B6D4]",
-    accentDot: "bg-[#06B6D4]",
-    accentBorder: "hover:border-[#06B6D4]/50",
-    accentGlow: "",
     tag: "Design",
-    brandColor: "#06B6D4",
-    brandLight: "#CFFAFE",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(6, 182, 212, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#0891b2", // Tailwind Expressive Cyan
+      brandLight: "#cffafe", // Soft Cyan Container
+      brandDeep: "#0e7490", // Deep Cyan Text
+    }),
     icon: <SiTailwindcss className="h-6 w-6" />,
   },
   {
@@ -208,16 +243,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "TypeScript",
     category: "frontend",
     categoryLabel: "Typed JS",
-    bg: "bg-[#3178C6]/10",
-    text: "text-[#3178C6]",
-    accentDot: "bg-[#3178C6]",
-    accentBorder: "hover:border-[#3178C6]/50",
-    accentGlow: "",
     tag: "Type-Safe",
-    brandColor: "#3178C6",
-    brandLight: "#DCE9F8",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(49, 120, 198, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#2563eb", // TypeScript Expressive Royal Blue
+      brandLight: "#dbeafe", // Soft Blue Container
+      brandDeep: "#1e40af", // Deep Blue Text
+    }),
     icon: <SiTypescript className="h-6 w-6" />,
   },
   {
@@ -225,35 +256,31 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "JavaScript",
     category: "frontend",
     categoryLabel: "Web Core",
-    bg: "bg-[#F7DF1E]/10",
-    text: "text-[#D97706] dark:text-[#F7DF1E]",
-    accentDot: "bg-[#F7DF1E]",
-    accentBorder: "hover:border-[#F7DF1E]/50",
-    accentGlow: "",
     tag: "Modern ES+",
-    brandColor: "#F7DF1E",
-    brandLight: "#FEF9D2",
-    textHover: "#451A03",
-    shadowColor: "rgba(247, 223, 30, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#eab308", // JS Expressive Warm Amber
+      brandLight: "#fef9c3", // Soft Amber Container
+      brandDeep: "#854d0e", // Deep Amber Text (WCAG AAA)
+      isDarkIcon: true,
+      textHover: "#451a03",
+    }),
     icon: <SiJavascript className="h-6 w-6" />,
   },
 
-  // 2. Languages
+  // ==========================================================================
+  // 2. LANGUAGES
+  // ==========================================================================
   {
     id: "rust",
     label: "Rust",
     category: "languages",
     categoryLabel: "Memory Safe",
-    bg: "bg-[#CE422B]/10",
-    text: "text-[#CE422B]",
-    accentDot: "bg-[#CE422B]",
-    accentBorder: "hover:border-[#CE422B]/50",
-    accentGlow: "",
     tag: "Performance",
-    brandColor: "#CE422B",
-    brandLight: "#FCE8DF",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(206, 66, 43, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#c2410c", // Rust Expressive Terracotta
+      brandLight: "#ffedd5", // Soft Warm Container
+      brandDeep: "#9a3412", // Deep Terracotta Text
+    }),
     icon: <SiRust className="h-6 w-6" />,
   },
   {
@@ -261,16 +288,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "C++",
     category: "languages",
     categoryLabel: "Competitive & Systems",
-    bg: "bg-[#00599C]/10",
-    text: "text-[#00599C]",
-    accentDot: "bg-[#00599C]",
-    accentBorder: "hover:border-[#00599C]/50",
-    accentGlow: "",
     tag: "High Perf",
-    brandColor: "#00599C",
-    brandLight: "#D6E8F7",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(0, 89, 156, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#1d4ed8", // C++ Expressive Cobalt
+      brandLight: "#dbeafe", // Soft Cobalt Container
+      brandDeep: "#1e3a8a", // Deep Cobalt Text
+    }),
     icon: <SiCplusplus className="h-6 w-6" />,
   },
   {
@@ -278,16 +301,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "C",
     category: "languages",
     categoryLabel: "Low-Level Core",
-    bg: "bg-[#00599C]/10",
-    text: "text-[#00599C]",
-    accentDot: "bg-[#00599C]",
-    accentBorder: "hover:border-[#00599C]/50",
-    accentGlow: "",
     tag: "Kernel / OS",
-    brandColor: "#00599C",
-    brandLight: "#D6E8F7",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(0, 89, 156, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#3b82f6", // C Expressive Steel Blue
+      brandLight: "#eff6ff", // Soft Steel Container
+      brandDeep: "#1d4ed8", // Deep Steel Text
+    }),
     icon: <SiC className="h-6 w-6" />,
   },
   {
@@ -295,35 +314,29 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Python",
     category: "languages",
     categoryLabel: "Scripting & DSA",
-    bg: "bg-[#3776AB]/10",
-    text: "text-[#3776AB]",
-    accentDot: "bg-[#3776AB]",
-    accentBorder: "hover:border-[#3776AB]/50",
-    accentGlow: "",
     tag: "Algorithms",
-    brandColor: "#3776AB",
-    brandLight: "#D7E7F5",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(55, 118, 171, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#0284c7", // Python Expressive Ocean Blue
+      brandLight: "#e0f2fe", // Soft Blue Container
+      brandDeep: "#0369a1", // Deep Ocean Text
+    }),
     icon: <SiPython className="h-6 w-6" />,
   },
 
-  // 3. Backend & Data
+  // ==========================================================================
+  // 3. BACKEND & DATA
+  // ==========================================================================
   {
     id: "node",
     label: "Node.js",
     category: "backend",
     categoryLabel: "Runtime",
-    bg: "bg-[#5FA04E]/10",
-    text: "text-[#5FA04E]",
-    accentDot: "bg-[#5FA04E]",
-    accentBorder: "hover:border-[#5FA04E]/50",
-    accentGlow: "",
     tag: "Backend",
-    brandColor: "#5FA04E",
-    brandLight: "#D9EED3",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(95, 160, 78, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#16a34a", // Node Expressive Emerald
+      brandLight: "#dcfce7", // Soft Mint Container
+      brandDeep: "#15803d", // Deep Forest Text
+    }),
     icon: <SiNodedotjs className="h-6 w-6" />,
   },
   {
@@ -331,16 +344,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "PostgreSQL",
     category: "backend",
     categoryLabel: "Relational DB",
-    bg: "bg-[#336791]/10",
-    text: "text-[#336791]",
-    accentDot: "bg-[#336791]",
-    accentBorder: "hover:border-[#336791]/50",
-    accentGlow: "",
     tag: "SQL",
-    brandColor: "#336791",
-    brandLight: "#DCE7F2",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(51, 103, 145, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#2563eb", // Postgres Expressive Elephant Blue
+      brandLight: "#dbeafe", // Soft Azure Container
+      brandDeep: "#1e3a8a", // Deep Azure Text
+    }),
     icon: <SiPostgresql className="h-6 w-6" />,
   },
   {
@@ -348,16 +357,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Redis",
     category: "backend",
     categoryLabel: "In-Memory DB",
-    bg: "bg-[#DC382D]/10",
-    text: "text-[#DC382D]",
-    accentDot: "bg-[#DC382D]",
-    accentBorder: "hover:border-[#DC382D]/50",
-    accentGlow: "",
     tag: "Cache / Queue",
-    brandColor: "#DC382D",
-    brandLight: "#FCE1DF",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(220, 56, 45, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#dc2626", // Redis Expressive Crimson
+      brandLight: "#fee2e2", // Soft Rose Container
+      brandDeep: "#991b1b", // Deep Crimson Text
+    }),
     icon: <SiRedis className="h-6 w-6" />,
   },
   {
@@ -365,16 +370,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "MongoDB",
     category: "backend",
     categoryLabel: "Document DB",
-    bg: "bg-[#13AA52]/10",
-    text: "text-[#13AA52]",
-    accentDot: "bg-[#13AA52]",
-    accentBorder: "hover:border-[#13AA52]/50",
-    accentGlow: "",
     tag: "NoSQL",
-    brandColor: "#13AA52",
-    brandLight: "#D5F2E3",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(19, 170, 82, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#15803d", // MongoDB Expressive Forest
+      brandLight: "#dcfce7", // Soft Green Container
+      brandDeep: "#166534", // Deep Green Text
+    }),
     icon: <SiMongodb className="h-6 w-6" />,
   },
   {
@@ -382,16 +383,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Supabase",
     category: "backend",
     categoryLabel: "Postgres BaaS",
-    bg: "bg-[#3ECF8E]/10",
-    text: "text-[#3ECF8E]",
-    accentDot: "bg-[#3ECF8E]",
-    accentBorder: "hover:border-[#3ECF8E]/50",
-    accentGlow: "",
     tag: "Database",
-    brandColor: "#3ECF8E",
-    brandLight: "#D8F7EA",
-    textHover: "#064E3B",
-    shadowColor: "rgba(62, 207, 142, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#059669", // Supabase Expressive Mint
+      brandLight: "#d1fae5", // Soft Mint Container
+      brandDeep: "#047857", // Deep Mint Text
+    }),
     icon: <SiSupabase className="h-6 w-6" />,
   },
   {
@@ -399,35 +396,29 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Bun.js",
     category: "backend",
     categoryLabel: "Fast Runtime",
-    bg: "bg-[#FBF0DF]/10",
-    text: "text-[#D97706] dark:text-[#FBF0DF]",
-    accentDot: "bg-[#E8A246]",
-    accentBorder: "hover:border-[#E8A246]/50",
-    accentGlow: "",
     tag: "Runtime",
-    brandColor: "#E8A246",
-    brandLight: "#FEF3C7",
-    textHover: "#451A03",
-    shadowColor: "rgba(232, 162, 70, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#e11d48", // Bun Expressive Coral Pink
+      brandLight: "#ffe4e6", // Soft Coral Container
+      brandDeep: "#be123c", // Deep Coral Text
+    }),
     icon: <SiBun className="h-6 w-6" />,
   },
 
-  // 4. Cloud & DevOps
+  // ==========================================================================
+  // 4. CLOUD & DEVOPS
+  // ==========================================================================
   {
     id: "docker",
     label: "Docker",
     category: "devops",
     categoryLabel: "Containers",
-    bg: "bg-[#2496ED]/10",
-    text: "text-[#2496ED]",
-    accentDot: "bg-[#2496ED]",
-    accentBorder: "hover:border-[#2496ED]/50",
-    accentGlow: "",
     tag: "DevOps",
-    brandColor: "#2496ED",
-    brandLight: "#D3ECFC",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(36, 150, 237, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#0284c7", // Docker Expressive Whale Blue
+      brandLight: "#e0f2fe", // Soft Blue Container
+      brandDeep: "#0369a1", // Deep Whale Text
+    }),
     icon: <SiDocker className="h-6 w-6" />,
   },
   {
@@ -435,16 +426,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Kubernetes",
     category: "devops",
     categoryLabel: "Orchestration",
-    bg: "bg-[#326CE5]/10",
-    text: "text-[#326CE5]",
-    accentDot: "bg-[#326CE5]",
-    accentBorder: "hover:border-[#326CE5]/50",
-    accentGlow: "",
     tag: "Clusters",
-    brandColor: "#326CE5",
-    brandLight: "#D6E2FA",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(50, 108, 229, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#2563eb", // K8s Expressive Helm Blue
+      brandLight: "#dbeafe", // Soft Helm Container
+      brandDeep: "#1e40af", // Deep Helm Text
+    }),
     icon: <SiKubernetes className="h-6 w-6" />,
   },
   {
@@ -452,16 +439,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Google Cloud",
     category: "devops",
     categoryLabel: "Cloud Platform",
-    bg: "bg-[#4285F4]/10",
-    text: "text-[#4285F4]",
-    accentDot: "bg-[#4285F4]",
-    accentBorder: "hover:border-[#4285F4]/50",
-    accentGlow: "",
     tag: "Infrastructure",
-    brandColor: "#4285F4",
-    brandLight: "#D9E7FD",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(66, 133, 244, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#3b82f6", // GCP Expressive Royal Blue
+      brandLight: "#eff6ff", // Soft Blue Container
+      brandDeep: "#1d4ed8", // Deep Blue Text
+    }),
     icon: <SiGooglecloud className="h-6 w-6" />,
   },
   {
@@ -469,50 +452,40 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Linux",
     category: "devops",
     categoryLabel: "OS Kernel",
-    bg: "bg-[#FCC624]/10",
-    text: "text-[#D97706] dark:text-[#FCC624]",
-    accentDot: "bg-[#FCC624]",
-    accentBorder: "hover:border-[#FCC624]/50",
-    accentGlow: "",
     tag: "System",
-    brandColor: "#FCC624",
-    brandLight: "#FEF3D3",
-    textHover: "#451A03",
-    shadowColor: "rgba(252, 198, 36, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#f59e0b", // Linux Expressive Gold
+      brandLight: "#fef3c7", // Soft Gold Container
+      brandDeep: "#92400e", // Deep Gold Text (WCAG AAA)
+      isDarkIcon: true,
+      textHover: "#451a03",
+    }),
     icon: <SiLinux className="h-6 w-6" />,
   },
   {
-    id: "ubuntu",
-    label: "Ubuntu",
+    id: "debian",
+    label: "Debian",
     category: "devops",
-    categoryLabel: "Distribution",
-    bg: "bg-[#E95420]/10",
-    text: "text-[#E95420]",
-    accentDot: "bg-[#E95420]",
-    accentBorder: "hover:border-[#E95420]/50",
-    accentGlow: "",
-    tag: "Server",
-    brandColor: "#E95420",
-    brandLight: "#FCDCD2",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(233, 84, 32, 0.45)",
-    icon: <SiUbuntu className="h-6 w-6" />,
+    categoryLabel: "Universal OS",
+    tag: "Distro",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#d70a53", // Debian Expressive Crimson Swirl
+      brandLight: "#ffe4ec", // Soft Raspberry Container
+      brandDeep: "#9f1239", // Deep Crimson Text
+    }),
+    icon: <SiDebian className="h-6 w-6" />,
   },
   {
     id: "vercel",
     label: "Vercel",
     category: "devops",
     categoryLabel: "Edge & Deploy",
-    bg: "bg-[#0070F3]/10",
-    text: "text-[#0070F3]",
-    accentDot: "bg-[#0070F3]",
-    accentBorder: "hover:border-[#0070F3]/50",
-    accentGlow: "",
     tag: "Edge",
-    brandColor: "#0070F3",
-    brandLight: "#DCE9F8",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(0, 112, 243, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#1e293b", // Vercel Expressive Slate
+      brandLight: "#f1f5f9", // Soft Slate Container
+      brandDeep: "#0f172a", // Deep Slate Text
+    }),
     icon: <SiVercel className="h-6 w-6" />,
   },
   {
@@ -520,35 +493,29 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Nginx",
     category: "devops",
     categoryLabel: "Reverse Proxy",
-    bg: "bg-[#009639]/10",
-    text: "text-[#009639]",
-    accentDot: "bg-[#009639]",
-    accentBorder: "hover:border-[#009639]/50",
-    accentGlow: "",
     tag: "Proxy",
-    brandColor: "#009639",
-    brandLight: "#CCF0DA",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(0, 150, 57, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#16a34a", // Nginx Expressive Emerald
+      brandLight: "#dcfce7", // Soft Emerald Container
+      brandDeep: "#15803d", // Deep Emerald Text
+    }),
     icon: <SiNginx className="h-6 w-6" />,
   },
 
-  // 5. Tools, AI & Agent Ecosystem
+  // ==========================================================================
+  // 5. TOOLS, AI & AGENT ECOSYSTEM
+  // ==========================================================================
   {
     id: "claude",
     label: "Claude AI",
     category: "tools",
     categoryLabel: "Anthropic LLM",
-    bg: "bg-[#D97757]/10",
-    text: "text-[#D97757]",
-    accentDot: "bg-[#D97757]",
-    accentBorder: "hover:border-[#D97757]/50",
-    accentGlow: "",
     tag: "AI Model",
-    brandColor: "#D97757",
-    brandLight: "#FBEAE4",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(217, 119, 87, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#d97757", // Claude Expressive Coral Terracotta
+      brandLight: "#ffedd5", // Soft Coral Container
+      brandDeep: "#9a3412", // Deep Coral Text
+    }),
     icon: <SiClaude className="h-6 w-6" />,
   },
   {
@@ -556,16 +523,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "ChatGPT",
     category: "tools",
     categoryLabel: "OpenAI AI",
-    bg: "bg-[#10A37F]/10",
-    text: "text-[#10A37F]",
-    accentDot: "bg-[#10A37F]",
-    accentBorder: "hover:border-[#10A37F]/50",
-    accentGlow: "",
     tag: "AI Model",
-    brandColor: "#10A37F",
-    brandLight: "#D1F2E8",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(16, 163, 127, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#059669", // ChatGPT Expressive Mint Green
+      brandLight: "#d1fae5", // Soft Mint Container
+      brandDeep: "#065f46", // Deep Mint Text
+    }),
     icon: <TbBrandOpenai className="h-6 w-6" />,
   },
   {
@@ -573,16 +536,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Codex",
     category: "tools",
     categoryLabel: "AI Synthesis",
-    bg: "bg-[#0284C7]/10",
-    text: "text-[#0284C7]",
-    accentDot: "bg-[#0284C7]",
-    accentBorder: "hover:border-[#0284C7]/50",
-    accentGlow: "",
     tag: "Code AI",
-    brandColor: "#0284C7",
-    brandLight: "#E0F2FE",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(2, 132, 199, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#0d9488", // Codex Expressive Teal
+      brandLight: "#ccfbf1", // Soft Teal Container
+      brandDeep: "#115e59", // Deep Teal Text
+    }),
     icon: <TbBrandOpenai className="h-6 w-6" />,
   },
   {
@@ -590,16 +549,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "OpenCode",
     category: "tools",
     categoryLabel: "AI Terminal",
-    bg: "bg-[#10B981]/10",
-    text: "text-[#10B981]",
-    accentDot: "bg-[#10B981]",
-    accentBorder: "hover:border-[#10B981]/50",
-    accentGlow: "",
     tag: "Open Source",
-    brandColor: "#10B981",
-    brandLight: "#D1FAE5",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(16, 185, 129, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#0284c7", // OpenCode Expressive Sky Blue
+      brandLight: "#e0f2fe", // Soft Sky Container
+      brandDeep: "#0369a1", // Deep Sky Text
+    }),
     icon: <OpenCodeIcon className="h-6 w-6" />,
   },
   {
@@ -607,16 +562,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Antigravity",
     category: "tools",
     categoryLabel: "Agentic IDE",
-    bg: "bg-[#8B5CF6]/10",
-    text: "text-[#8B5CF6]",
-    accentDot: "bg-[#8B5CF6]",
-    accentBorder: "hover:border-[#8B5CF6]/50",
-    accentGlow: "",
     tag: "AI Agents",
-    brandColor: "#8B5CF6",
-    brandLight: "#EDE9FE",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(139, 92, 246, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#9333ea", // Antigravity Expressive Violet
+      brandLight: "#f3e8ff", // Soft Violet Container
+      brandDeep: "#6b21a8", // Deep Violet Text
+    }),
     icon: <AntigravityIcon className="h-6 w-6" />,
   },
   {
@@ -624,16 +575,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "MCP",
     category: "tools",
     categoryLabel: "Model Protocol",
-    bg: "bg-[#F97316]/10",
-    text: "text-[#F97316]",
-    accentDot: "bg-[#F97316]",
-    accentBorder: "hover:border-[#F97316]/50",
-    accentGlow: "",
     tag: "Protocol",
-    brandColor: "#F97316",
-    brandLight: "#FFEDD5",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(249, 115, 22, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#f97316", // MCP Expressive Flame Orange
+      brandLight: "#ffedd5", // Soft Orange Container
+      brandDeep: "#9a3412", // Deep Flame Text
+    }),
     icon: <McpIcon className="h-6 w-6" />,
   },
   {
@@ -641,16 +588,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "GitHub",
     category: "tools",
     categoryLabel: "VCS & Git",
-    bg: "bg-[#6E5494]/10",
-    text: "text-[#6E5494] dark:text-[#A78BFA]",
-    accentDot: "bg-[#6E5494]",
-    accentBorder: "hover:border-[#6E5494]/50",
-    accentGlow: "",
     tag: "Collaboration",
-    brandColor: "#6E5494",
-    brandLight: "#EDE9FE",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(110, 84, 148, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#6e5494", // GitHub Expressive Octocat Purple
+      brandLight: "#f3e8ff", // Soft Purple Container
+      brandDeep: "#4c1d95", // Deep Purple Text
+    }),
     icon: <SiGithub className="h-6 w-6" />,
   },
   {
@@ -658,16 +601,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "GitHub Actions",
     category: "tools",
     categoryLabel: "CI / CD",
-    bg: "bg-[#2088FF]/10",
-    text: "text-[#2088FF]",
-    accentDot: "bg-[#2088FF]",
-    accentBorder: "hover:border-[#2088FF]/50",
-    accentGlow: "",
     tag: "Automations",
-    brandColor: "#2088FF",
-    brandLight: "#D2E7FF",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(32, 136, 255, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#2563eb", // Actions Expressive Pipeline Blue
+      brandLight: "#dbeafe", // Soft Blue Container
+      brandDeep: "#1e40af", // Deep Blue Text
+    }),
     icon: <SiGithubactions className="h-6 w-6" />,
   },
   {
@@ -675,16 +614,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Jenkins",
     category: "tools",
     categoryLabel: "Pipelines",
-    bg: "bg-[#D33833]/10",
-    text: "text-[#D33833]",
-    accentDot: "bg-[#D33833]",
-    accentBorder: "hover:border-[#D33833]/50",
-    accentGlow: "",
     tag: "Pipelines",
-    brandColor: "#D33833",
-    brandLight: "#F9D7D6",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(211, 56, 51, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#dc2626", // Jenkins Expressive Crimson
+      brandLight: "#fee2e2", // Soft Crimson Container
+      brandDeep: "#991b1b", // Deep Crimson Text
+    }),
     icon: <SiJenkins className="h-6 w-6" />,
   },
   {
@@ -692,16 +627,12 @@ export const TECH_STACK_DATA: TechItem[] = [
     label: "Security",
     category: "tools",
     categoryLabel: "Auth & Crypto",
-    bg: "bg-[#9333EA]/10",
-    text: "text-[#9333EA]",
-    accentDot: "bg-[#9333EA]",
-    accentBorder: "hover:border-[#9333EA]/50",
-    accentGlow: "",
     tag: "Security",
-    brandColor: "#9333EA",
-    brandLight: "#F3E8FF",
-    textHover: "#FFFFFF",
-    shadowColor: "rgba(147, 51, 234, 0.45)",
+    ...createMaterialExpressiveBrand({
+      brandColor: "#059669", // Security Expressive Shield Emerald
+      brandLight: "#d1fae5", // Soft Shield Container
+      brandDeep: "#065f46", // Deep Shield Text
+    }),
     icon: <ShieldCheck className="h-6 w-6" />,
   },
 ]

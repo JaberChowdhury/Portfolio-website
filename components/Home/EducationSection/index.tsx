@@ -42,7 +42,7 @@ export function EducationSection() {
         <div className="mb-4 sm:mb-7">
           {/* Hum Eyebrow with Lavender Dot & Mobile Swipe Indicator */}
           <div className="mb-1.5 flex items-center justify-between gap-2 sm:mb-2.5">
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/80 px-3 py-1 text-xs shadow-2xs transition-all duration-300 hover:border-lavender-accent/40">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/80 px-3 py-1 text-xs shadow-2xs transition-all duration-300 hover:border-[var(--color-lavender)]/40">
               <span className="hum-dot hum-dot--lavender" />
               <span className="hum-eyebrow">06 ⁄ {t("eyebrow")}</span>
             </div>
@@ -73,10 +73,10 @@ export function EducationSection() {
           {/* Main Degree Card (Left Column) */}
           {primaryEdu && (
             <div className="md:col-span-7">
-              <div className="hum-card group flex h-full flex-col justify-between rounded-2xl border border-border/80 p-4 transition-all duration-300 hover:border-lavender-accent/40 sm:p-6 md:p-7">
+              <div className="hum-card group flex h-full flex-col justify-between rounded-2xl border border-border/80 p-4 transition-all duration-300 hover:border-[var(--color-lavender)]/40 sm:p-6 md:p-7">
                 <div>
                   <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-lavender-accent/20 bg-lavender-accent/10 text-lavender-accent transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12 md:h-14 md:w-14">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[var(--color-lavender)]/20 bg-[var(--color-lavender)]/10 text-[var(--color-lavender-deep)] transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12 md:h-14 md:w-14 dark:text-[var(--color-lavender)]">
                       <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
                     </div>
                     <div className="min-w-0 flex-1">
@@ -134,7 +134,7 @@ export function EducationSection() {
                     {primaryEdu.subjects.map((sub) => (
                       <span
                         key={sub}
-                        className="inline-flex items-center rounded-full border border-lavender-accent/20 bg-lavender-accent/8 px-2.5 py-0.5 font-mono text-[11px] font-medium text-lavender-accent transition-all duration-200 hover:scale-105 hover:bg-lavender-accent/15 sm:px-3 sm:py-1 sm:text-xs"
+                        className="inline-flex items-center rounded-full border border-[var(--color-lavender)]/20 bg-[var(--color-lavender)]/8 px-2.5 py-0.5 font-mono text-[11px] font-medium text-[var(--color-lavender-deep)] transition-all duration-200 hover:scale-105 hover:bg-[var(--color-lavender)]/15 sm:px-3 sm:py-1 sm:text-xs dark:text-[var(--color-lavender)]"
                       >
                         {sub}
                       </span>

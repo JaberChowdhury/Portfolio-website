@@ -87,7 +87,8 @@ export function TechnologySection() {
                 data-cursor="text"
                 className="text-2xl font-extrabold tracking-tight text-foreground min-[380px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
               >
-                {t("title1")} <span className="text-pear">{t("title2")}</span>
+                {t("title1")}{" "}
+                <span className="text-[var(--color-pear)]">{t("title2")}</span>
               </h2>
               <p className="mt-1 max-w-2xl text-[11px] leading-relaxed font-normal text-muted-foreground min-[380px]:text-xs sm:mt-1.5 sm:text-sm md:text-base">
                 {t("description")}
@@ -117,7 +118,7 @@ export function TechnologySection() {
             type="button"
             onClick={handlePrev}
             aria-label="Previous technologies"
-            className="group absolute top-1/2 left-0 z-30 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/60 bg-secondary text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1/2 hover:scale-105 hover:border-[var(--color-pear)]/50 hover:bg-secondary hover:text-pear hover:shadow-md active:scale-95 min-[400px]:h-9 min-[400px]:w-9 sm:left-1 sm:h-11 sm:w-11 md:left-2 md:h-12 md:w-12"
+            className="group absolute top-1/2 left-0 z-30 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/60 bg-secondary text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1/2 hover:scale-105 hover:border-[var(--color-pear)]/50 hover:bg-secondary hover:text-[var(--color-pear)] hover:shadow-md active:scale-95 min-[400px]:h-9 min-[400px]:w-9 sm:left-1 sm:h-11 sm:w-11 md:left-2 md:h-12 md:w-12"
           >
             <ChevronLeft className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-0.5 min-[400px]:h-4 min-[400px]:w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
           </button>
@@ -127,7 +128,7 @@ export function TechnologySection() {
             type="button"
             onClick={handleNext}
             aria-label="Next technologies"
-            className="group absolute top-1/2 right-0 z-30 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/60 bg-secondary text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1/2 hover:scale-105 hover:border-[var(--color-pear)]/50 hover:bg-secondary hover:text-pear hover:shadow-md active:scale-95 min-[400px]:h-9 min-[400px]:w-9 sm:right-1 sm:h-11 sm:w-11 md:right-2 md:h-12 md:w-12"
+            className="group absolute top-1/2 right-0 z-30 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border/60 bg-secondary text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1/2 hover:scale-105 hover:border-[var(--color-pear)]/50 hover:bg-secondary hover:text-[var(--color-pear)] hover:shadow-md active:scale-95 min-[400px]:h-9 min-[400px]:w-9 sm:right-1 sm:h-11 sm:w-11 md:right-2 md:h-12 md:w-12"
           >
             <ChevronRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 min-[400px]:h-4 min-[400px]:w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
           </button>
@@ -173,8 +174,8 @@ export function TechnologySection() {
                         <div className="uiverse-overlay" />
                         <div
                           className={`uiverse-circle [&_svg]:h-4.5 [&_svg]:w-4.5 min-[380px]:[&_svg]:h-5 min-[380px]:[&_svg]:w-5 sm:[&_svg]:h-8 sm:[&_svg]:w-8 ${
-                            tech.id === "javascript"
-                              ? "[&_svg]:text-amber-950"
+                            tech.isDarkIcon
+                              ? "[&_svg]:text-amber-950 dark:[&_svg]:text-foreground"
                               : "[&_svg]:text-white"
                           }`}
                         >

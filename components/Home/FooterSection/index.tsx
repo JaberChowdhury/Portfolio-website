@@ -67,7 +67,7 @@ export function FooterSection() {
           maxWidth: "400px",
           maxHeight: "400px",
           background:
-            "radial-gradient(circle, rgba(139,111,191,0.07) 0%, transparent 70%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-lavender) 8%, transparent) 0%, transparent 70%)",
           filter: "blur(50px)",
           pointerEvents: "none",
           zIndex: 0,

@@ -82,7 +82,7 @@ export const Meteors = ({
             animationDelay: style.animationDelay,
           }}
           className={cn(
-            "animate-custom-meteor pointer-events-none absolute size-0.5 rounded-full bg-foreground/40 shadow-[0_0_0_1px_#ffffff10] dark:bg-foreground/60 dark:shadow-[0_0_0_1px_#ffffff20]",
+            "animate-custom-meteor pointer-events-none absolute size-0.5 rounded-full bg-foreground/40 shadow-[0_0_0_1px_var(--border)] dark:bg-foreground/60 dark:shadow-[0_0_0_1px_var(--border)]",
             className
           )}
         >
