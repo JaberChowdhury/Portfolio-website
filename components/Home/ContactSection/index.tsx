@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { Mail, ArrowUpRight, Trophy } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { AnimatePresence, motion } from "framer-motion"
+import Button from "@/components/ui/button"
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -224,15 +225,20 @@ export function ContactSection() {
               </p>
             </div>
 
-            {/* Canonical Hum Push Button */}
+            {/* Canonical Hum 3D Push Button */}
             <div className="w-full shrink-0 self-stretch sm:w-auto sm:self-center">
-              <a
+              <Button
+                variant="coral"
+                size="default"
                 href="mailto:jaberhc2002@gmail.com"
-                className="hum-btn min-h-[44px] w-full justify-center !px-4 !py-2.5 font-mono text-xs font-bold sm:w-auto sm:!px-5 sm:!py-3 sm:text-sm"
+                className="w-full rounded-full sm:w-auto"
+                frontClassName="rounded-full !px-5 !py-2.5 font-mono text-xs font-bold sm:text-sm text-white"
               >
-                <span>{t("sayHello")}</span>
-                <ArrowUpRight className="hum-arrow h-4 w-4 shrink-0 sm:h-4.5 sm:w-4.5" />
-              </a>
+                <span className="flex items-center gap-1.5">
+                  <span>{t("sayHello")}</span>
+                  <ArrowUpRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-4.5 sm:w-4.5" />
+                </span>
+              </Button>
             </div>
           </div>
         </div>

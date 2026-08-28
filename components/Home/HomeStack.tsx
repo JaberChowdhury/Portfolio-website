@@ -97,8 +97,8 @@ export function HomeStack() {
   return (
     <CardStack
       sections={sections}
-      transitionDuration={480}
-      wheelLockDuration={420}
+      transitionDuration={380}
+      wheelLockDuration={280}
       showProgress={false}
       showCounter={false}
     />

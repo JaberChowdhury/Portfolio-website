@@ -25,8 +25,8 @@ export function getCardPosition(index: number, current: number): CardPosition {
  */
 export function CardStack({
   sections,
-  transitionDuration = 480,
-  wheelLockDuration = 420,
+  transitionDuration = 380,
+  wheelLockDuration = 280,
   showProgress = false,
   showCounter = false,
   className = "",
@@ -53,10 +53,75 @@ export function CardStack({
     wheelLockDuration,
   })
 
+  // DOM Pre-warm & Cache:
+  // Track all cards that have been mounted so React keeps them in the DOM subtree
+  // and eliminates mount/unmount frame drops during active 3D transitions.
+  const [mountedIndices, setMountedIndices] = React.useState<Set<number>>(() => {
+    const initial = new Set<number>()
+    for (let i = 0; i < total; i++) {
+      if (Math.abs(i - 0) <= 2) {
+        initial.add(i)
+      }
+    }
+    return initial
+  })
+  const [prevCurrent, setPrevCurrent] = React.useState(current)
+
+  if (prevCurrent !== current) {
+    setPrevCurrent(current)
+    const nextSet = new Set(mountedIndices)
+    for (let i = 0; i < total; i++) {
+      if (Math.abs(i - current) <= 2) {
+        nextSet.add(i)
+      }
+    }
+    setMountedIndices(nextSet)
+  }
+
+  // Idle pre-warm: background load all remaining sections during browser idle time
+  useEffect(() => {
+    const prewarmAll = () => {
+      setMountedIndices((prev) => {
+        if (prev.size >= total) return prev
+        const nextSet = new Set(prev)
+        for (let i = 0; i < total; i++) {
+          nextSet.add(i)
+        }
+        return nextSet
+      })
+    }
+
+    if (typeof window !== "undefined") {
+      if ("requestIdleCallback" in window) {
+        const handle = (
+          window as unknown as {
+            requestIdleCallback: (
+              cb: () => void,
+              opts?: { timeout: number }
+            ) => number
+          }
+        ).requestIdleCallback(prewarmAll, { timeout: 1200 })
+
+        return () => {
+          if ("cancelIdleCallback" in window) {
+            ;(
+              window as unknown as {
+                cancelIdleCallback: (id: number) => void
+              }
+            ).cancelIdleCallback(handle)
+          }
+        }
+      } else {
+        const timer = setTimeout(prewarmAll, 400)
+        return () => clearTimeout(timer)
+      }
+    }
+  }, [total])
+
   // Smooth Section Navigation via Hash & Link Click Interception
   useEffect(() => {
     const navigateToHash = () => {
-      const hash = window.location.hash.replace("#", "")
+      const hash = window.location.hash.replace("#", "").split("?")[0]
       if (!hash) return
       const targetIndex = sections.findIndex(
         (s) =>
@@ -86,16 +151,29 @@ export function CardStack({
       } else {
         const href = target.getAttribute("href")
         if (!href) return
-        if (href.startsWith("#")) {
-          targetId = href.slice(1)
-        } else if (href.includes("/#")) {
-          targetId = href.split("/#")[1]
+
+        // Skip non-hash or external links
+        if (
+          href.startsWith("http://") ||
+          href.startsWith("https://") ||
+          href.startsWith("//") ||
+          href.startsWith("mailto:") ||
+          href.startsWith("tel:")
+        ) {
+          try {
+            const url = new URL(href, window.location.origin)
+            if (url.origin !== window.location.origin) return
+            targetId = url.hash.replace(/^#/, "")
+          } catch {
+            return
+          }
         } else if (href.includes("#")) {
           targetId = href.split("#")[1]
         }
       }
 
       if (targetId) {
+        targetId = targetId.split("?")[0].replace(/^\/+|\/+$/g, "")
         const targetIndex = sections.findIndex(
           (s) =>
             s.id === targetId ||
@@ -105,7 +183,9 @@ export function CardStack({
           e.preventDefault()
           e.stopPropagation()
           goTo(targetIndex)
-          window.history.pushState(null, "", `#${targetId}`)
+          if (window.location.hash !== `#${targetId}`) {
+            window.history.pushState(null, "", `#${targetId}`)
+          }
         }
       }
     }
@@ -141,9 +221,10 @@ export function CardStack({
             mouseOffset,
           }
 
-          // DOM Optimization: Only mount heavy subcomponents for cards in immediate view proximity (active, previous 1, next 1)
-          // Cards further away keep their section wrapper & background for seamless stack animation without holding 1000+ DOM nodes
-          const isProximate = Math.abs(index - current) <= 1
+          // DOM Optimization & Pre-warm:
+          // Keep mounted cards cached and pre-render cards within proximate view (+/- 2)
+          const shouldRenderContent =
+            Math.abs(index - current) <= 2 || mountedIndices.has(index)
           const ContentComponent = section.Component
 
           return (
@@ -166,9 +247,9 @@ export function CardStack({
                 <div className="card-stack-grid" aria-hidden="true" />
               )}
 
-              {/* Inner Content Area — rendered when proximate to active view */}
+              {/* Inner Content Area — rendered when proximate to active view or cached */}
               <div className="card-stack-scroll-wrapper px-3.5 py-4 sm:px-6 sm:py-8 md:px-8 md:py-10">
-                {isProximate &&
+                {shouldRenderContent &&
                   (ContentComponent ? (
                     <ContentComponent {...injectedProps} />
                   ) : typeof section.content === "function" ? (
