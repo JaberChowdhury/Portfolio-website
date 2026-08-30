@@ -1,4 +1,8 @@
-import { ElementType } from "react"
+"use client"
+
+import React, { ElementType } from "react"
+import { LucideIcon } from "lucide-react"
+import { M3FacetedBadge } from "@/components/m3/M3Shapes"
 
 export interface Highlight {
   title: string
@@ -11,48 +15,36 @@ interface HighlightCardProps {
   index?: number
 }
 
-const ACCENT_STYLES = [
-  {
-    iconBg:
-      "bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)] border-[var(--color-pear)]/20",
-    hoverBorder: "hover:border-[var(--color-pear)]/40",
-  },
-  {
-    iconBg:
-      "bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)] border-[var(--color-cyan)]/20",
-    hoverBorder: "hover:border-[var(--color-cyan)]/40",
-  },
-  {
-    iconBg:
-      "bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)] border-[var(--color-coral)]/20",
-    hoverBorder: "hover:border-[var(--color-coral)]/40",
-  },
-]
+const HIGHLIGHT_SHAPES = ["gem", "cookie8", "diamond"] as const
 
 export function HighlightCard({ highlight, index = 0 }: HighlightCardProps) {
-  const Icon = highlight.icon
-  const accent = ACCENT_STYLES[index % ACCENT_STYLES.length]
+  const Icon = highlight.icon as LucideIcon
+  const shape = HIGHLIGHT_SHAPES[index % HIGHLIGHT_SHAPES.length]
 
   return (
     <div
-      className={`hum-card group h-full rounded-2xl border border-border/80 p-3.5 sm:p-5 md:p-5.5 ${accent.hoverBorder}`}
+      data-cursor="cover"
+      className="group relative h-full rounded-[28px_10px_28px_10px] border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container)] p-4 sm:p-5 text-[var(--md-sys-color-on-surface)] transition-all duration-300 hover:bg-[var(--md-sys-color-surface-container-high)] hover:border-[var(--md-sys-color-primary)] active:scale-[0.99]"
     >
-      <div className="space-y-2 sm:space-y-3">
-        <div className="flex items-center gap-2.5 sm:gap-3.5">
-          <div
-            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11 md:h-12 md:w-12 ${accent.iconBg}`}
-          >
-            <Icon className="h-4.5 w-4.5 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-          </div>
-          <h3 className="text-xs font-bold break-words text-card-foreground sm:text-base md:text-lg">
+      <div className="space-y-2.5">
+        <div className="flex items-center gap-3">
+          <M3FacetedBadge
+            shape={shape}
+            icon={Icon}
+            size={44}
+            iconClassName="h-5 w-5"
+          />
+          <h3 className="text-sm sm:text-base font-bold break-words text-[var(--md-sys-color-on-surface)]">
             {highlight.title}
           </h3>
         </div>
 
-        <p className="line-clamp-2 text-[11px] leading-relaxed text-muted-foreground sm:text-xs md:text-sm">
+        <p className="text-xs sm:text-sm leading-relaxed text-[var(--md-sys-color-on-surface-variant)] line-clamp-3">
           {highlight.description}
         </p>
       </div>
     </div>
   )
 }
+
+export default HighlightCard

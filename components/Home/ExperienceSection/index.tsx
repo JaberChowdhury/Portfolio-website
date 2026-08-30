@@ -1,177 +1,127 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import { useTranslations } from "next-intl"
-import { AnimatePresence, motion } from "framer-motion"
 import { ExperienceCard, type Experience } from "./ExperienceCard"
+import { Briefcase, CheckCircle2, Users, Laptop } from "lucide-react"
+
+// SVG Cookie-6 Stepper Node Component
+function Cookie6Node({ index }: { index: number }) {
+  return (
+    <div className="relative flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center">
+      {/* SVG Cookie-6 silhouette */}
+      <svg
+        viewBox="0 0 100 100"
+        className="absolute inset-0 h-full w-full drop-shadow-sm transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
+      >
+        <path
+          d="M 50 6 C 58 6, 62 16, 71 13 C 80 10, 87 18, 91 27 C 95 36, 90 44, 94 53 C 98 62, 91 71, 84 77 C 77 83, 72 79, 64 86 C 56 93, 44 93, 36 86 C 28 79, 23 83, 16 77 C 9 71, 2 62, 6 53 C 10 44, 5 36, 9 27 C 13 18, 20 10, 29 13 C 38 16, 42 6, 50 6 Z"
+          className="fill-[var(--md-sys-color-primary-container,#ede7f6)] dark:fill-[var(--md-sys-color-primary-container,#2a1e3b)] stroke-[var(--md-sys-color-primary,#8b6fbf)] stroke-[3]"
+        />
+      </svg>
+      {/* Index or icon centered */}
+      <span className="relative z-10 font-mono text-xs sm:text-sm font-bold text-[var(--md-sys-color-on-primary-container,#321657)] dark:text-[var(--md-sys-color-on-primary-container,#e1d5f2)]">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+    </div>
+  )
+}
 
 export function ExperienceSection() {
   const t = useTranslations("Experience")
-  const experiences = (t.raw("items") as Experience[]).slice(0, 3)
-  const [currentIdx, setCurrentIdx] = useState(0)
-  const [direction, setDirection] = useState(0)
-
-  const handleNext = () => {
-    setDirection(1)
-    setCurrentIdx((prev) => (prev + 1) % experiences.length)
-  }
-
-  const handlePrev = () => {
-    setDirection(-1)
-    setCurrentIdx((prev) => (prev === 0 ? experiences.length - 1 : prev - 1))
-  }
+  const experiences = (t.raw("items") as Experience[]) || []
 
   return (
     <section
       id="experience"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
+      data-section="experience"
+      className="relative w-full py-16 sm:py-20 md:py-28 text-[var(--md-sys-color-on-surface,var(--foreground))] transition-colors duration-500 overflow-hidden"
     >
+      {/* Dynamic Lavender / Iris Section Ambient Glow */}
       <div
         aria-hidden="true"
-        style={{
-          position: "absolute",
-          top: "-15%",
-          left: "-5%",
-          width: "40vw",
-          height: "40vw",
-          maxWidth: "500px",
-          maxHeight: "500px",
-          background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-mint) 8%, transparent) 0%, transparent 70%)",
-          filter: "blur(70px)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
+        className="pointer-events-none absolute -top-24 -left-20 h-96 w-96 rounded-full
+          bg-[var(--md-sys-color-primary,#8b6fbf)]/10 blur-[100px] -z-10"
       />
-      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
+
+      <div className="relative mx-auto w-full max-w-5xl px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-6xl">
         {/* Section Header */}
-        <div className="mb-3 sm:mb-5 md:mb-7">
-          {/* Hum Eyebrow with Mint Dot & Mobile Swipe Indicator */}
-          <div className="mb-1.5 flex items-center justify-between gap-2 sm:mb-2.5">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-card/80 px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] text-muted-foreground uppercase shadow-2xs sm:px-3.5 sm:py-1.5 sm:text-xs sm:tracking-[0.2em] md:px-4 md:py-2 md:text-sm md:tracking-[0.25em]">
-              <span className="hum-dot hum-dot--mint" />
-              <span>05 ⁄ {t("eyebrow")}</span>
-            </div>
-            <div className="flex items-center gap-1 rounded-full border border-border/60 bg-card/60 px-2 py-0.5 font-mono text-[10px] font-medium text-muted-foreground md:hidden">
-              <span className="animate-pulse">←</span>
-              <span>Swipe</span>
-              <span className="animate-pulse">→</span>
+        <div className="mb-10 sm:mb-14">
+          <div className="mb-2.5 sm:mb-3 flex items-center gap-2">
+            <div
+              className="inline-flex items-center gap-2 rounded-full
+                border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/50
+                bg-[var(--md-sys-color-surface-container-high,var(--secondary))]/70
+                px-3 py-1 font-mono text-xs font-semibold tracking-wider
+                text-[var(--md-sys-color-primary,#8b6fbf)] shadow-2xs"
+            >
+              <span className="h-2 w-2 rounded-full bg-[var(--md-sys-color-primary,#8b6fbf)] animate-pulse" />
+              <span className="uppercase">05 ⁄ {t("eyebrow")}</span>
             </div>
           </div>
 
           <h2
             data-cursor="text"
-            className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
+            className="text-2xl font-black tracking-tight text-[var(--md-sys-color-on-surface,var(--foreground))] min-[380px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
           >
             {t("title1")}{" "}
-            <span className="hl-mint">
+            <span className="text-[var(--md-sys-color-primary,#8b6fbf)]">
               {t("title2")} {t("title3")}
             </span>
           </h2>
 
-          <p className="mt-1 max-w-2xl text-xs leading-relaxed font-normal text-muted-foreground sm:mt-1.5 sm:text-sm md:mt-2 md:text-base">
+          <p className="mt-2 max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed font-normal text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))]">
             {t("description")}
           </p>
         </div>
 
-        {/* Experience Cards: Desktop Grid */}
-        <div className="hidden md:grid md:grid-cols-2 md:gap-5">
+        {/* Work Experience Timeline with M3 Expressive Cookie-6 Stepper Node Badges */}
+        <div className="relative pl-6 sm:pl-10 md:pl-12 border-l-2 border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/60 space-y-8 sm:space-y-10">
           {experiences.map((exp, idx) => (
-            <div key={exp.role} className="h-full">
-              <ExperienceCard experience={exp} index={idx} />
+            <div key={exp.role || idx} className="group relative">
+              {/* Stepper Node Badge anchored on timeline border line */}
+              <div className="absolute -left-[37px] sm:-left-[45px] md:-left-[49px] top-1.5 z-20">
+                <Cookie6Node index={idx} />
+              </div>
+
+              {/* Tonal Card */}
+              <div className="pl-4 sm:pl-6">
+                <ExperienceCard experience={exp} index={idx} />
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Experience Cards: Mobile Framer Motion Swipe Slider */}
-        <div className="md:hidden">
-          <div className="relative overflow-hidden py-1">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={currentIdx}
-                custom={direction}
-                variants={{
-                  enter: (dir: number) => ({
-                    x: dir > 0 ? 45 : -45,
-                    opacity: 0,
-                    scale: 0.97,
-                  }),
-                  center: {
-                    x: 0,
-                    opacity: 1,
-                    scale: 1,
-                    transition: { duration: 0.28, ease: "easeOut" },
-                  },
-                  exit: (dir: number) => ({
-                    x: dir > 0 ? -45 : 45,
-                    opacity: 0,
-                    scale: 0.97,
-                    transition: { duration: 0.2, ease: "easeIn" },
-                  }),
-                }}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.18}
-                onDragEnd={(_e, info) => {
-                  if (info.offset.x < -35 || info.velocity.x < -250) {
-                    handleNext()
-                  } else if (info.offset.x > 35 || info.velocity.x > 250) {
-                    handlePrev()
-                  }
-                }}
-                className="w-full cursor-grab touch-pan-y active:cursor-grabbing"
-              >
-                <ExperienceCard
-                  experience={experiences[currentIdx]}
-                  index={currentIdx}
-                />
-              </motion.div>
-            </AnimatePresence>
+        {/* Timeline Stat Footer Pills */}
+        <div className="mt-10 sm:mt-14 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs">
+          <div
+            className="inline-flex items-center gap-2 rounded-full
+              border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/40
+              bg-[var(--md-sys-color-surface-container-low,var(--card))]
+              px-3.5 py-1.5 font-mono text-xs font-medium text-[var(--md-sys-color-on-surface,var(--foreground))] shadow-2xs"
+          >
+            <CheckCircle2 className="h-3.5 w-3.5 text-[var(--md-sys-color-primary,#8b6fbf)]" />
+            <span>{t("openToWork")}</span>
           </div>
 
-          {/* Dots Indicator */}
-          <div className="mt-2 flex items-center justify-center gap-1.5">
-            {experiences.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => {
-                  setDirection(idx > currentIdx ? 1 : -1)
-                  setCurrentIdx(idx)
-                }}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  idx === currentIdx
-                    ? "w-6 bg-[var(--color-mint)]"
-                    : "w-1.5 bg-muted-foreground/30"
-                }`}
-                aria-label={`Go to experience ${idx + 1}`}
-              />
-            ))}
+          <div
+            className="inline-flex items-center gap-2 rounded-full
+              border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/40
+              bg-[var(--md-sys-color-surface-container-low,var(--card))]
+              px-3.5 py-1.5 font-mono text-xs font-medium text-[var(--md-sys-color-on-surface,var(--foreground))] shadow-2xs"
+          >
+            <Users className="h-3.5 w-3.5 text-[var(--md-sys-color-primary,#8b6fbf)]" />
+            <span>{t("teamPlayer")}</span>
           </div>
-        </div>
 
-        {/* Timeline Stat Bar */}
-        <div className="mt-3 flex flex-wrap items-center gap-2 text-[10px] sm:mt-4 sm:gap-3 sm:text-xs md:mt-6">
-          <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-2.5 py-1 sm:px-3 sm:py-1">
-            <span className="hum-dot hum-dot--mint" />
-            <span className="font-mono text-muted-foreground">
-              {t("openToWork")}
-            </span>
-          </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-2.5 py-1 sm:px-3 sm:py-1">
-            <span className="hum-dot hum-dot--cyan" />
-            <span className="font-mono text-muted-foreground">
-              {t("teamPlayer")}
-            </span>
-          </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-2.5 py-1 sm:px-3 sm:py-1">
-            <span className="hum-dot hum-dot--pear" />
-            <span className="font-mono text-muted-foreground">
-              {t("remoteFriendly")}
-            </span>
+          <div
+            className="inline-flex items-center gap-2 rounded-full
+              border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/40
+              bg-[var(--md-sys-color-surface-container-low,var(--card))]
+              px-3.5 py-1.5 font-mono text-xs font-medium text-[var(--md-sys-color-on-surface,var(--foreground))] shadow-2xs"
+          >
+            <Laptop className="h-3.5 w-3.5 text-[var(--md-sys-color-primary,#8b6fbf)]" />
+            <span>{t("remoteFriendly")}</span>
           </div>
         </div>
       </div>

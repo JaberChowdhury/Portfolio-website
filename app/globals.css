@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "./tokens.css";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
@@ -140,6 +141,14 @@
   --color-lavender-foreground: var(--color-lavender-foreground);
   --color-lavender-accent: var(--color-lavender);
 
+  --color-surface-container-lowest: var(--md-sys-color-surface-container-lowest);
+  --color-surface-container-low: var(--md-sys-color-surface-container-low);
+  --color-surface-container: var(--md-sys-color-surface-container);
+  --color-surface-container-high: var(--md-sys-color-surface-container-high);
+  --color-surface-container-highest: var(--md-sys-color-surface-container-highest);
+  --color-on-surface-variant: var(--md-sys-color-on-surface-variant);
+  --color-outline-variant: var(--md-sys-color-outline-variant);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -266,6 +275,40 @@
   --card-bg-contact: #faf4e6;
   --card-bg-learning: #f1f7f5;
   --card-bg-footer: #dfd9c8;
+
+  /* Material 3 Expressive Tokens (Light) */
+  --md-sys-color-primary: #d4a017;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #faecc0;
+  --md-sys-color-on-primary-container: #493900;
+  --md-sys-color-secondary: #685f4b;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #f0eadc;
+  --md-sys-color-on-secondary-container: #231b0e;
+  --md-sys-color-tertiary: #2e8bc0;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #d0e4ff;
+  --md-sys-color-on-tertiary-container: #001d36;
+  --md-sys-color-surface: #f7f3e8;
+  --md-sys-color-on-surface: #1c1d19;
+  --md-sys-color-surface-variant: #eae5d9;
+  --md-sys-color-on-surface-variant: #4b473d;
+  --md-sys-color-outline: #7c776c;
+  --md-sys-color-outline-variant: #cdc6b9;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f4f0e5;
+  --md-sys-color-surface-container: #eeeae0;
+  --md-sys-color-surface-container-high: #e8e4da;
+  --md-sys-color-surface-container-highest: #e2ded4;
+
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-xs: 4px;
+  --md-sys-shape-corner-sm: 8px;
+  --md-sys-shape-corner-md: 12px;
+  --md-sys-shape-corner-lg: 16px;
+  --md-sys-shape-corner-xl: 28px;
+  --md-sys-shape-corner-xxl: 48px;
+  --md-sys-shape-corner-full: 9999px;
 }
 
 .dark {
@@ -348,6 +391,40 @@
   --sidebar-accent-foreground: #f0eddf;
   --sidebar-border: rgba(240, 237, 223, 0.1);
   --sidebar-ring: #e8b82a;
+
+  /* Material 3 Expressive Tokens (Dark) */
+  --md-sys-color-primary: #e8b82a;
+  --md-sys-color-on-primary: #3d2f00;
+  --md-sys-color-primary-container: #3d3520;
+  --md-sys-color-on-primary-container: #faecc0;
+  --md-sys-color-secondary: #d3c5af;
+  --md-sys-color-on-secondary: #383020;
+  --md-sys-color-secondary-container: #2a2822;
+  --md-sys-color-on-secondary-container: #e8e2d4;
+  --md-sys-color-tertiary: #5ab4e0;
+  --md-sys-color-on-tertiary: #003353;
+  --md-sys-color-tertiary-container: #1e3040;
+  --md-sys-color-on-tertiary-container: #cde5ff;
+  --md-sys-color-surface: #131411;
+  --md-sys-color-on-surface: #f0eddf;
+  --md-sys-color-surface-variant: #2a2c26;
+  --md-sys-color-on-surface-variant: #c8c6bc;
+  --md-sys-color-outline: #929087;
+  --md-sys-color-outline-variant: #474740;
+  --md-sys-color-surface-container-lowest: #0e0f0c;
+  --md-sys-color-surface-container-low: #181916;
+  --md-sys-color-surface-container: #1e1f1c;
+  --md-sys-color-surface-container-high: #252622;
+  --md-sys-color-surface-container-highest: #2e2f2b;
+
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-xs: 4px;
+  --md-sys-shape-corner-sm: 8px;
+  --md-sys-shape-corner-md: 12px;
+  --md-sys-shape-corner-lg: 16px;
+  --md-sys-shape-corner-xl: 28px;
+  --md-sys-shape-corner-xxl: 48px;
+  --md-sys-shape-corner-full: 9999px;
 }
 
 .light {
@@ -426,6 +503,252 @@
   --sidebar-accent-foreground: #1c1d19;
   --sidebar-border: rgba(28, 29, 25, 0.1);
   --sidebar-ring: #d4a017;
+
+  /* Material 3 Expressive Tokens (Light) */
+  --md-sys-color-primary: #d4a017;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #faecc0;
+  --md-sys-color-on-primary-container: #493900;
+  --md-sys-color-secondary: #685f4b;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #f0eadc;
+  --md-sys-color-on-secondary-container: #231b0e;
+  --md-sys-color-tertiary: #2e8bc0;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #d0e4ff;
+  --md-sys-color-on-tertiary-container: #001d36;
+  --md-sys-color-surface: #f7f3e8;
+  --md-sys-color-on-surface: #1c1d19;
+  --md-sys-color-surface-variant: #eae5d9;
+  --md-sys-color-on-surface-variant: #4b473d;
+  --md-sys-color-outline: #7c776c;
+  --md-sys-color-outline-variant: #cdc6b9;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f4f0e5;
+  --md-sys-color-surface-container: #eeeae0;
+  --md-sys-color-surface-container-high: #e8e4da;
+  --md-sys-color-surface-container-highest: #e2ded4;
+
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-xs: 4px;
+  --md-sys-shape-corner-sm: 8px;
+  --md-sys-shape-corner-md: 12px;
+  --md-sys-shape-corner-lg: 16px;
+  --md-sys-shape-corner-xl: 28px;
+  --md-sys-shape-corner-xxl: 48px;
+  --md-sys-shape-corner-full: 9999px;
+}
+
+/* ==========================================================================
+   DYNAMIC MULTI-SEED SECTION TONAL CONTAINERS (MATERIAL 3 EXPRESSIVE)
+   ========================================================================== */
+
+/* 1. Hero Section: Warm Gold / Pear Multi-Seed */
+[data-section="hero"] {
+  --md-sys-color-primary: #8a6a00;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #ffe086;
+  --md-sys-color-on-primary-container: #2b1f00;
+  --md-sys-color-secondary: #6c5e40;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #f5e2bb;
+  --md-sys-color-on-secondary-container: #251a04;
+  --md-sys-color-tertiary: #496547;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #cbebc5;
+  --md-sys-color-on-tertiary-container: #072109;
+  --md-sys-color-surface: #fbf8f1;
+  --md-sys-color-on-surface: #1d1b16;
+  --md-sys-color-surface-variant: #eae2d4;
+  --md-sys-color-on-surface-variant: #4b463c;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f5f2eb;
+  --md-sys-color-surface-container: #efede5;
+  --md-sys-color-surface-container-high: #e9e7df;
+  --md-sys-color-surface-container-highest: #e3e1d9;
+  --md-sys-color-outline: #7d766a;
+  --md-sys-color-outline-variant: #cec5b8;
+}
+.dark [data-section="hero"] {
+  --md-sys-color-primary: #ecc246;
+  --md-sys-color-on-primary: #3d2e00;
+  --md-sys-color-primary-container: #584400;
+  --md-sys-color-on-primary-container: #ffe086;
+  --md-sys-color-secondary: #d8c6a1;
+  --md-sys-color-on-secondary: #3b3016;
+  --md-sys-color-secondary-container: #53462b;
+  --md-sys-color-on-secondary-container: #f5e2bb;
+  --md-sys-color-tertiary: #b0cfab;
+  --md-sys-color-on-tertiary: #1c361c;
+  --md-sys-color-tertiary-container: #324d31;
+  --md-sys-color-on-tertiary-container: #cbebc5;
+  --md-sys-color-surface: #15130f;
+  --md-sys-color-on-surface: #e8e2d9;
+  --md-sys-color-surface-variant: #4b463c;
+  --md-sys-color-on-surface-variant: #cec5b8;
+  --md-sys-color-surface-container-lowest: #100e0a;
+  --md-sys-color-surface-container-low: #1d1b17;
+  --md-sys-color-surface-container: #211f1b;
+  --md-sys-color-surface-container-high: #2c2a25;
+  --md-sys-color-surface-container-highest: #373530;
+  --md-sys-color-outline: #979083;
+  --md-sys-color-outline-variant: #4b463c;
+}
+
+/* 2. Competitions Section: Terracotta / Coral Multi-Seed */
+[data-section="competitions"] {
+  --md-sys-color-primary: #a33f2b;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #ffdad3;
+  --md-sys-color-on-primary-container: #3d0700;
+  --md-sys-color-secondary: #77574e;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #ffdad3;
+  --md-sys-color-on-secondary-container: #2c1510;
+  --md-sys-color-tertiary: #6f5c2e;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #fae0a6;
+  --md-sys-color-on-tertiary-container: #251a00;
+  --md-sys-color-surface: #fff8f6;
+  --md-sys-color-on-surface: #231917;
+  --md-sys-color-surface-variant: #f5ded9;
+  --md-sys-color-on-surface-variant: #534340;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #fdf1ee;
+  --md-sys-color-surface-container: #f7ebe8;
+  --md-sys-color-surface-container-high: #f1e5e2;
+  --md-sys-color-surface-container-highest: #ebdfdc;
+  --md-sys-color-outline: #85736f;
+  --md-sys-color-outline-variant: #d8c2bd;
+}
+.dark [data-section="competitions"] {
+  --md-sys-color-primary: #ffb4a4;
+  --md-sys-color-on-primary: #621303;
+  --md-sys-color-primary-container: #822917;
+  --md-sys-color-on-primary-container: #ffdad3;
+  --md-sys-color-secondary: #e7bdb3;
+  --md-sys-color-on-secondary: #442a23;
+  --md-sys-color-secondary-container: #5d4038;
+  --md-sys-color-on-secondary-container: #ffdad3;
+  --md-sys-color-tertiary: #dcc48c;
+  --md-sys-color-on-tertiary: #3c2f05;
+  --md-sys-color-tertiary-container: #544519;
+  --md-sys-color-on-tertiary-container: #fae0a6;
+  --md-sys-color-surface: #1a1110;
+  --md-sys-color-on-surface: #f1dfdc;
+  --md-sys-color-surface-variant: #534340;
+  --md-sys-color-on-surface-variant: #d8c2bd;
+  --md-sys-color-surface-container-lowest: #140c0b;
+  --md-sys-color-surface-container-low: #231918;
+  --md-sys-color-surface-container: #271d1c;
+  --md-sys-color-surface-container-high: #322826;
+  --md-sys-color-surface-container-highest: #3e3230;
+  --md-sys-color-outline: #a08c88;
+  --md-sys-color-outline-variant: #534340;
+}
+
+/* 3. Education Section: Lavender / Purple Multi-Seed */
+[data-section="education"] {
+  --md-sys-color-primary: #6c4ea5;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #ecdcff;
+  --md-sys-color-on-primary-container: #25005b;
+  --md-sys-color-secondary: #635b71;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #e9def8;
+  --md-sys-color-on-secondary-container: #1e182b;
+  --md-sys-color-tertiary: #7d5260;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #ffd8e4;
+  --md-sys-color-on-tertiary-container: #31101d;
+  --md-sys-color-surface: #fef7ff;
+  --md-sys-color-on-surface: #1d1b20;
+  --md-sys-color-surface-variant: #e7e0ec;
+  --md-sys-color-on-surface-variant: #49454f;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f8f2fa;
+  --md-sys-color-surface-container: #f2ecf4;
+  --md-sys-color-surface-container-high: #ede6ee;
+  --md-sys-color-surface-container-highest: #e7e0e8;
+  --md-sys-color-outline: #7a757f;
+  --md-sys-color-outline-variant: #cac4cf;
+}
+.dark [data-section="education"] {
+  --md-sys-color-primary: #d5baff;
+  --md-sys-color-on-primary: #3c1c73;
+  --md-sys-color-primary-container: #53358b;
+  --md-sys-color-on-primary-container: #ecdcff;
+  --md-sys-color-secondary: #cdc2dc;
+  --md-sys-color-on-secondary: #342d41;
+  --md-sys-color-secondary-container: #4b4358;
+  --md-sys-color-on-secondary-container: #e9def8;
+  --md-sys-color-tertiary: #efb8c8;
+  --md-sys-color-on-tertiary: #492532;
+  --md-sys-color-tertiary-container: #633b48;
+  --md-sys-color-on-tertiary-container: #ffd8e4;
+  --md-sys-color-surface: #151218;
+  --md-sys-color-on-surface: #e6e0e9;
+  --md-sys-color-surface-variant: #49454f;
+  --md-sys-color-on-surface-variant: #cac4cf;
+  --md-sys-color-surface-container-lowest: #0f0d13;
+  --md-sys-color-surface-container-low: #1d1b21;
+  --md-sys-color-surface-container: #211f25;
+  --md-sys-color-surface-container-high: #2c2930;
+  --md-sys-color-surface-container-highest: #37343b;
+  --md-sys-color-outline: #948f99;
+  --md-sys-color-outline-variant: #49454f;
+}
+
+/* 4. Learning Section: Mint / Emerald Multi-Seed */
+[data-section="learning"] {
+  --md-sys-color-primary: #006c4c;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #8cf5c6;
+  --md-sys-color-on-primary-container: #002114;
+  --md-sys-color-secondary: #4d6356;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #d0e8d8;
+  --md-sys-color-on-secondary-container: #0b1f15;
+  --md-sys-color-tertiary: #3c6472;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #bfe9f9;
+  --md-sys-color-on-tertiary-container: #001f28;
+  --md-sys-color-surface: #f5fbf6;
+  --md-sys-color-on-surface: #171d19;
+  --md-sys-color-surface-variant: #dce5dd;
+  --md-sys-color-on-surface-variant: #404943;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #eff5f0;
+  --md-sys-color-surface-container: #e9f0ea;
+  --md-sys-color-surface-container-high: #e3eae4;
+  --md-sys-color-surface-container-highest: #dee5df;
+  --md-sys-color-outline: #707973;
+  --md-sys-color-outline-variant: #c0c9c1;
+}
+.dark [data-section="learning"] {
+  --md-sys-color-primary: #6fd8ab;
+  --md-sys-color-on-primary: #003825;
+  --md-sys-color-primary-container: #005138;
+  --md-sys-color-on-primary-container: #8cf5c6;
+  --md-sys-color-secondary: #b4ccbc;
+  --md-sys-color-on-secondary: #20352a;
+  --md-sys-color-secondary-container: #364b3f;
+  --md-sys-color-on-secondary-container: #d0e8d8;
+  --md-sys-color-tertiary: #a4cddc;
+  --md-sys-color-on-tertiary: #053542;
+  --md-sys-color-tertiary-container: #234c5a;
+  --md-sys-color-on-tertiary-container: #bfe9f9;
+  --md-sys-color-surface: #0f1512;
+  --md-sys-color-on-surface: #dee4df;
+  --md-sys-color-surface-variant: #404943;
+  --md-sys-color-on-surface-variant: #c0c9c1;
+  --md-sys-color-surface-container-lowest: #0a0f0d;
+  --md-sys-color-surface-container-low: #171d1a;
+  --md-sys-color-surface-container: #1b211e;
+  --md-sys-color-surface-container-high: #262c28;
+  --md-sys-color-surface-container-highest: #313733;
+  --md-sys-color-outline: #8a938c;
+  --md-sys-color-outline-variant: #404943;
 }
 
 @layer base {

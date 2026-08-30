@@ -1,11 +1,15 @@
 "use client"
 
 import React from "react"
-import { Trophy, Zap, Target, Award } from "lucide-react"
+import { Trophy, Zap, Target, Award, LucideIcon } from "lucide-react"
+import { M3FacetedBadge, M3Progress } from "@/components/m3/M3Shapes"
 
 export interface Achievement {
   title: string
   description: string
+  rating?: string
+  progress?: number
+  category?: string
 }
 
 interface AchievementCardProps {
@@ -13,49 +17,34 @@ interface AchievementCardProps {
   index?: number
 }
 
-// Hallmark Hum Multi-Accent Themes for Achievement Cards
-const ACHIEVEMENT_THEMES = [
+const ACHIEVEMENT_CONFIGS = [
   {
-    name: "coral",
-    chipBadge:
-      "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
-    hoverBorder: "hover:border-rose-500/40",
-    hoverGlow: "hover:shadow-rose-500/10",
-    iconBg:
-      "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
     icon: Trophy,
-    category: "CODEFORCES",
+    shape: "gem" as const,
+    category: "ICPC / NCPC CONTEST",
+    color: "primary" as const,
+    defaultProgress: 95,
   },
   {
-    name: "cyan",
-    chipBadge: "border-sky-500/25 bg-sky-500/10 text-sky-700 dark:text-sky-300",
-    hoverBorder: "hover:border-sky-500/40",
-    hoverGlow: "hover:shadow-sky-500/10",
-    iconBg: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20",
     icon: Target,
-    category: "BEECROWD",
+    shape: "cookie8" as const,
+    category: "CODEFORCES",
+    color: "secondary" as const,
+    defaultProgress: 82,
   },
   {
-    name: "mint",
-    chipBadge:
-      "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
-    hoverBorder: "hover:border-emerald-500/40",
-    hoverGlow: "hover:shadow-emerald-500/10",
-    iconBg:
-      "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
     icon: Zap,
-    category: "PROBLEM SOLVING",
+    shape: "diamond" as const,
+    category: "LEETCODE / JUDGE",
+    color: "tertiary" as const,
+    defaultProgress: 75,
   },
   {
-    name: "pear",
-    chipBadge:
-      "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-    hoverBorder: "hover:border-amber-500/40",
-    hoverGlow: "hover:shadow-amber-500/10",
-    iconBg:
-      "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
     icon: Award,
-    category: "DISCIPLINE",
+    shape: "cookie4" as const,
+    category: "ALGORITHMIC DISCIPLINE",
+    color: "primary" as const,
+    defaultProgress: 90,
   },
 ]
 
@@ -63,42 +52,57 @@ export function AchievementCard({
   achievement,
   index = 0,
 }: AchievementCardProps) {
-  const theme = ACHIEVEMENT_THEMES[index % ACHIEVEMENT_THEMES.length]
-  const Icon = theme.icon
+  const config = ACHIEVEMENT_CONFIGS[index % ACHIEVEMENT_CONFIGS.length]
+  const Icon = config.icon as LucideIcon
+  const categoryLabel = achievement.category || config.category
+  const progressValue = achievement.progress ?? config.defaultProgress
 
   return (
     <div
       data-cursor="cover"
-      className={`hum-card group relative flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-3 text-card-foreground shadow-2xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-4 md:p-5 ${theme.hoverBorder} ${theme.hoverGlow}`}
+      className="group relative flex flex-col justify-between rounded-2xl border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container)] p-4 sm:p-5 text-[var(--md-sys-color-on-surface)] transition-all duration-300 hover:bg-[var(--md-sys-color-surface-container-high)] hover:border-[var(--md-sys-color-outline)] active:scale-[0.99]"
     >
-      <div className="flex items-start gap-2.5 sm:gap-3.5">
-        {/* Glyph Container */}
-        <div
-          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-105 sm:h-10 sm:w-10 md:h-11 md:w-11 ${theme.iconBg}`}
-        >
-          <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
+      <div>
+        <div className="flex items-start justify-between gap-3">
+          {/* Faceted M3 Shape Icon Badge */}
+          <M3FacetedBadge
+            shape={config.shape}
+            icon={Icon}
+            size={44}
+            iconClassName="h-5 w-5"
+          />
+
+          {/* M3 Assist Pill / Category Tag */}
+          <span className="rounded-full border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-highest)] px-2.5 py-0.5 font-mono text-[9px] font-bold tracking-wider text-[var(--md-sys-color-on-surface-variant)] uppercase sm:text-[10px]">
+            {categoryLabel}
+          </span>
         </div>
 
-        {/* Content & Chip */}
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center justify-between gap-1.5">
-            <span
-              className={`rounded-full border px-2 py-0.5 font-mono text-[9px] font-bold tracking-wider uppercase sm:px-2.5 sm:text-[10px] md:text-xs ${theme.chipBadge}`}
-            >
-              {theme.category}
-            </span>
-          </div>
-
-          <div className="mt-1.5 space-y-0.5 sm:mt-2 sm:space-y-1">
-            <h3 className="text-xs font-bold text-foreground transition-colors sm:text-sm md:text-base lg:text-lg">
+        <div className="mt-3.5 space-y-1">
+          <div className="flex items-baseline justify-between gap-2">
+            <h3 className="font-sans text-sm sm:text-base font-bold text-[var(--md-sys-color-on-surface)]">
               {achievement.title}
             </h3>
-
-            <p className="line-clamp-2 text-[11px] leading-relaxed font-normal text-muted-foreground sm:text-xs md:text-sm">
-              {achievement.description}
-            </p>
+            {achievement.rating && (
+              <span className="font-mono text-xs font-bold text-[var(--md-sys-color-primary)]">
+                {achievement.rating}
+              </span>
+            )}
           </div>
+
+          <p className="text-xs sm:text-sm leading-relaxed text-[var(--md-sys-color-on-surface-variant)]">
+            {achievement.description}
+          </p>
         </div>
+      </div>
+
+      {/* Tonal Progress & Metric Bar */}
+      <div className="mt-4 pt-2 border-t border-[var(--md-sys-color-outline-variant)]/60">
+        <div className="flex items-center justify-between text-[10px] font-mono text-[var(--md-sys-color-on-surface-variant)] mb-1.5">
+          <span>Mastery / Milestone</span>
+          <span className="font-bold text-[var(--md-sys-color-primary)]">{progressValue}%</span>
+        </div>
+        <M3Progress value={progressValue} color={config.color} />
       </div>
     </div>
   )

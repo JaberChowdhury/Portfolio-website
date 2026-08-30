@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useState } from "react"
-import { Mail, ArrowUpRight, Trophy } from "lucide-react"
+import { Mail, ArrowUpRight, Trophy, Send, CheckCircle2, Sparkles } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { AnimatePresence, motion } from "framer-motion"
-import Button from "@/components/ui/button"
+import { motion } from "framer-motion"
+import { Button } from "@/components/m3/Button"
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -45,355 +45,351 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   )
 }
 
-const SOCIAL_CONFIGS = [
+const SOCIAL_ITEMS = [
   {
     icon: GithubIcon,
+    title: "GitHub",
+    desc: "Explore repositories & code",
+    badge: "CODE",
     href: "https://github.com/JaberChowdhury",
-    accentColor: "lavender",
-    iconBg:
-      "bg-[var(--color-lavender)]/10 text-[var(--color-lavender)] border-[var(--color-lavender)]/25",
-    hoverBorder: "hover:border-[var(--color-lavender)]/50",
-    ribbon:
-      "from-[var(--color-lavender)]/80 via-[var(--color-lavender-light)] to-[var(--color-lavender)]",
-    dot: "hum-dot hum-dot--lavender",
-    badgeText: "CODE & REPOS",
-    badgeStyle:
-      "border-[var(--color-lavender)]/30 bg-[var(--color-lavender)]/10 text-[var(--color-lavender)]",
   },
   {
     icon: Trophy,
+    title: "Codeforces",
+    desc: "229 solved problems",
+    badge: "RANKED",
     href: "https://codeforces.com/profile/jaber02",
-    accentColor: "pear",
-    iconBg:
-      "bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)] border-[var(--color-pear)]/25",
-    hoverBorder: "hover:border-[var(--color-pear)]/50",
-    ribbon:
-      "from-[var(--color-pear)]/80 via-[var(--color-pear-light)] to-[var(--color-pear)]",
-    dot: "hum-dot hum-dot--pear",
-    badgeText: "229 SOLVED",
-    badgeStyle:
-      "border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
   },
   {
     icon: LinkedinIcon,
+    title: "LinkedIn",
+    desc: "Connect professionally",
+    badge: "NETWORK",
     href: "https://www.linkedin.com/in/md-jaber-hossain-chowdhury-543335252/",
-    accentColor: "cyan",
-    iconBg:
-      "bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)] border-[var(--color-cyan)]/25",
-    hoverBorder: "hover:border-[var(--color-cyan)]/50",
-    ribbon:
-      "from-[var(--color-cyan)]/80 via-[var(--color-cyan-light)] to-[var(--color-cyan)]",
-    dot: "hum-dot hum-dot--cyan",
-    badgeText: "CONNECT",
-    badgeStyle:
-      "border-[var(--color-cyan)]/30 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
   },
   {
     icon: Mail,
+    title: "Email",
+    desc: "jaberhc2002@gmail.com",
+    badge: "DIRECT",
     href: "mailto:jaberhc2002@gmail.com",
-    accentColor: "coral",
-    iconBg:
-      "bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)] border-[var(--color-coral)]/25",
-    hoverBorder: "hover:border-[var(--color-coral)]/50",
-    ribbon:
-      "from-[var(--color-coral)]/80 via-[var(--color-coral-light)] to-[var(--color-coral)]",
-    dot: "hum-dot hum-dot--coral",
-    badgeText: "INBOX",
-    badgeStyle:
-      "border-[var(--color-coral)]/30 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
   },
 ]
 
 export function ContactSection() {
   const t = useTranslations("Contact")
-  const [socialIdx, setSocialIdx] = useState(0)
-  const [socialDirection, setSocialDirection] = useState(0)
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSocialNext = () => {
-    setSocialDirection(1)
-    setSocialIdx((prev) => (prev + 1) % 4)
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSocialPrev = () => {
-    setSocialDirection(-1)
-    setSocialIdx((prev) => (prev === 0 ? 3 : prev - 1))
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const mailtoUrl = `mailto:jaberhc2002@gmail.com?subject=${encodeURIComponent(
+      formData.subject || `Portfolio Message from ${formData.name}`
+    )}&body=${encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    )}`
+    window.location.href = mailtoUrl
+    setIsSubmitted(true)
+    setTimeout(() => setIsSubmitted(false), 5000)
   }
-
-  const rawSocials = t.raw("socials") as {
-    title: string
-    description: string
-  }[]
-
-  const socials = React.useMemo(() => {
-    return (rawSocials || []).map((social, i) => ({
-      ...social,
-      ...SOCIAL_CONFIGS[i % SOCIAL_CONFIGS.length],
-    }))
-  }, [rawSocials])
 
   return (
     <section
       id="contact"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
+      data-section="contact"
+      className="relative w-full py-16 sm:py-20 md:py-28 text-[var(--md-sys-color-on-surface,var(--foreground))] transition-colors duration-500 overflow-hidden"
     >
-      {/* Decorative ambient blobs */}
+      {/* Dynamic Amber / Saffron Section Ambient Glow */}
       <div
         aria-hidden="true"
-        style={{
-          position: "absolute",
-          top: "-15%",
-          right: "5%",
-          width: "45vw",
-          height: "45vw",
-          maxWidth: "500px",
-          maxHeight: "500px",
-          background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-pear) 9%, transparent) 0%, transparent 70%)",
-          filter: "blur(60px)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
+        className="pointer-events-none absolute -top-24 -right-20 h-96 w-96 rounded-full
+          bg-[var(--md-sys-color-primary,#d4a017)]/10 blur-[100px] -z-10"
       />
       <div
         aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: "-10%",
-          left: "5%",
-          width: "40vw",
-          height: "40vw",
-          maxWidth: "450px",
-          maxHeight: "450px",
-          background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-mint) 7%, transparent) 0%, transparent 70%)",
-          filter: "blur(60px)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
+        className="pointer-events-none absolute -bottom-24 -left-20 h-96 w-96 rounded-full
+          bg-[var(--md-sys-color-tertiary,#2e8bc0)]/10 blur-[100px] -z-10"
       />
 
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
         {/* Section Header */}
-        <div className="mb-3 max-w-3xl sm:mb-5 md:mb-6">
-          <div className="mb-1.5 flex items-center justify-between gap-2 sm:mb-2.5">
-            <span className="hum-eyebrow inline-flex items-center gap-2">
-              <span className="hum-dot hum-dot--pear" />
-              07 ⁄ {t("eyebrow")}
-            </span>
-            <div className="flex items-center gap-1 rounded-full border border-border/60 bg-card/60 px-2 py-0.5 font-mono text-[10px] font-medium text-muted-foreground sm:hidden">
-              <span className="animate-pulse">←</span>
-              <span>Swipe Socials</span>
-              <span className="animate-pulse">→</span>
+        <div className="mb-10 sm:mb-14">
+          <div className="mb-2.5 sm:mb-3 flex items-center gap-2">
+            <div
+              className="inline-flex items-center gap-2 rounded-full
+                border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/50
+                bg-[var(--md-sys-color-surface-container-high,var(--secondary))]/70
+                px-3 py-1 font-mono text-xs font-semibold tracking-wider
+                text-[var(--md-sys-color-primary,#d4a017)] shadow-2xs"
+            >
+              <span className="h-2 w-2 rounded-full bg-[var(--md-sys-color-primary,#d4a017)] animate-pulse" />
+              <span className="uppercase">07 ⁄ {t("eyebrow")}</span>
             </div>
           </div>
 
           <h2
             data-cursor="text"
-            className="text-2xl font-black tracking-tight text-foreground xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
+            className="text-2xl font-black tracking-tight text-[var(--md-sys-color-on-surface,var(--foreground))] min-[380px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
           >
-            {t("title1")} <span className="em-hum">{t("title2")}</span>
+            {t("title1")}{" "}
+            <span className="text-[var(--md-sys-color-primary,#d4a017)]">
+              {t("title2")}
+            </span>
             {t("title3")}
           </h2>
 
-          <p className="mt-1 max-w-2xl text-xs leading-relaxed font-normal text-muted-foreground sm:mt-2 sm:text-sm md:text-base">
+          <p className="mt-2 max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed font-normal text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))]">
             {t("description")}
           </p>
         </div>
 
-        {/* Start a Conversation Hub Card */}
-        <div
-          data-cursor="cover"
-          className="hum-card group relative mb-3.5 overflow-hidden rounded-2xl border border-border/80 bg-card p-3.5 transition-all duration-300 hover:border-[var(--color-pear)]/50 sm:mb-5 sm:p-6 md:p-7"
-        >
-          {/* Top accent ribbon */}
-          <div
-            className="absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r from-[var(--color-pear)] via-[var(--color-pear-light)] to-[var(--color-mint)] opacity-90 transition-opacity duration-300 group-hover:opacity-100 sm:h-1.5"
-            aria-hidden="true"
-          />
-
-          <div className="flex flex-col gap-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-            <div className="space-y-1.5 sm:space-y-2">
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-mint)]/30 bg-[var(--color-mint)]/10 px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider text-[var(--color-mint)] uppercase sm:px-3 sm:py-1 sm:text-xs">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-mint)] sm:h-2 sm:w-2" />
+        {/* 2-Column Responsive Layout: Contact Info Cards + M3 Form */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+          {/* Left Column (lg:col-span-5): Availability Banner + Info Cards in surface-container-high */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+            {/* Availability Banner */}
+            <div
+              className="rounded-3xl border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/40
+                bg-[var(--md-sys-color-surface-container-low,var(--card))] p-6 sm:p-7 shadow-xs"
+            >
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span>{t("available")}</span>
               </div>
-              <h3 className="text-base font-bold text-card-foreground xs:text-lg sm:text-2xl md:text-3xl">
+              <h3 className="mt-3 text-lg sm:text-xl font-bold text-[var(--md-sys-color-on-surface,var(--foreground))]">
                 {t("openTo")}
               </h3>
-              <p className="max-w-2xl text-xs leading-relaxed text-muted-foreground sm:text-sm md:text-base">
+              <p className="mt-2 text-xs sm:text-sm text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))] leading-relaxed">
                 {t("ifYouHave")}
               </p>
             </div>
 
-            {/* Canonical Hum 3D Push Button */}
-            <div className="w-full shrink-0 self-stretch sm:w-auto sm:self-center">
-              <Button
-                variant="coral"
-                size="default"
-                href="mailto:jaberhc2002@gmail.com"
-                className="w-full rounded-full sm:w-auto"
-                frontClassName="rounded-full !px-5 !py-2.5 font-mono text-xs font-bold sm:text-sm text-white"
-              >
-                <span className="flex items-center gap-1.5">
-                  <span>{t("sayHello")}</span>
-                  <ArrowUpRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-4.5 sm:w-4.5" />
-                </span>
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* 4 Multi-Accent Hum Social Cards: Desktop Grid */}
-        <div className="hidden sm:grid sm:grid-cols-2 sm:gap-3.5 md:grid-cols-4 md:gap-5">
-          {socials.map((social) => {
-            const Icon = social.icon
-            return (
-              <a
-                key={social.title}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cursor="cover"
-                className={`hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-3.5 transition-all duration-300 hover:-translate-y-1 sm:p-4.5 md:p-5.5 ${social.hoverBorder}`}
-              >
-                {/* Top ribbon per card accent */}
-                <div
-                  className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${social.ribbon} opacity-75 transition-opacity duration-300 group-hover:opacity-100`}
-                  aria-hidden="true"
-                />
-
-                <div className="flex items-center justify-between gap-2">
-                  <div
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10 md:h-11 md:w-11 ${social.iconBg}`}
-                  >
-                    <Icon className="h-4.5 w-4.5 sm:h-5 sm:w-5 md:h-5.5 md:w-5.5" />
-                  </div>
-                  <span
-                    className={`mono-label max-w-[120px] shrink-0 truncate rounded-full border px-2 py-0.5 text-[8px] font-bold tracking-wider sm:text-[9px] ${social.badgeStyle}`}
-                  >
-                    {social.badgeText}
-                  </span>
-                </div>
-
-                <div className="mt-3 sm:mt-3.5 md:mt-4">
-                  <div className="flex items-center justify-between gap-1.5">
-                    <h4 className="text-xs font-bold text-card-foreground sm:text-sm md:text-base">
-                      {social.title}
-                    </h4>
-                    <ArrowUpRight className="hum-arrow h-3.5 w-3.5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-4 sm:w-4" />
-                  </div>
-                  <p className="mt-0.5 truncate font-mono text-[9px] text-muted-foreground sm:text-[10px] md:text-xs">
-                    {social.description}
-                  </p>
-                </div>
-              </a>
-            )
-          })}
-        </div>
-
-        {/* 4 Social Cards: Mobile Framer Motion Swipe Slider */}
-        <div className="sm:hidden">
-          <div className="relative overflow-hidden py-1">
-            <AnimatePresence mode="wait" custom={socialDirection}>
-              <motion.div
-                key={socialIdx}
-                custom={socialDirection}
-                variants={{
-                  enter: (dir: number) => ({
-                    x: dir > 0 ? 40 : -40,
-                    opacity: 0,
-                    scale: 0.97,
-                  }),
-                  center: {
-                    x: 0,
-                    opacity: 1,
-                    scale: 1,
-                    transition: { duration: 0.28, ease: "easeOut" },
-                  },
-                  exit: (dir: number) => ({
-                    x: dir > 0 ? -40 : 40,
-                    opacity: 0,
-                    scale: 0.97,
-                    transition: { duration: 0.2, ease: "easeIn" },
-                  }),
-                }}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.18}
-                onDragEnd={(_e, info) => {
-                  if (info.offset.x < -35 || info.velocity.x < -250) {
-                    handleSocialNext()
-                  } else if (info.offset.x > 35 || info.velocity.x > 250) {
-                    handleSocialPrev()
-                  }
-                }}
-                className="w-full cursor-grab touch-pan-y active:cursor-grabbing"
-              >
-                {(() => {
-                  const social = socials[socialIdx]
-                  const Icon = social.icon
+            {/* Contact Info Cards in surface-container-high */}
+            <div className="space-y-3">
+              <h4 className="font-mono text-xs font-bold tracking-wider text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))] uppercase">
+                Direct Channels
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+                {SOCIAL_ITEMS.map((item) => {
+                  const Icon = item.icon
                   return (
                     <a
-                      href={social.href}
+                      key={item.title}
+                      href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`hum-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-4 shadow-xs ${social.hoverBorder}`}
+                      className="group flex items-center justify-between p-4 rounded-2xl
+                        border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.12))]/50
+                        bg-[var(--md-sys-color-surface-container-high,var(--secondary))]/90
+                        text-[var(--md-sys-color-on-surface,var(--foreground))]
+                        shadow-2xs transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]
+                        hover:-translate-y-1 hover:border-[var(--md-sys-color-primary,#d4a017)]/50
+                        hover:bg-[var(--md-sys-color-surface-container-highest,var(--secondary))]"
                     >
-                      <div
-                        className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${social.ribbon}`}
-                        aria-hidden="true"
-                      />
-                      <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-3.5">
                         <div
-                          className={`flex h-10 w-10 items-center justify-center rounded-xl border ${social.iconBg}`}
+                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px]
+                            bg-[var(--md-sys-color-surface-container-lowest,var(--background))]
+                            border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/40
+                            text-[var(--md-sys-color-primary,#d4a017)]
+                            transition-transform duration-300 group-hover:scale-110"
                         >
                           <Icon className="h-5 w-5" />
                         </div>
-                        <span
-                          className={`mono-label rounded-full border px-2.5 py-0.5 text-[9px] font-bold tracking-wider ${social.badgeStyle}`}
-                        >
-                          {social.badgeText}
-                        </span>
-                      </div>
-                      <div className="mt-3">
-                        <div className="flex items-center justify-between gap-1.5">
-                          <h4 className="text-sm font-bold text-card-foreground">
-                            {social.title}
-                          </h4>
-                          <ArrowUpRight className="hum-arrow h-4 w-4 text-muted-foreground" />
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-bold text-[var(--md-sys-color-on-surface,var(--foreground))]">
+                              {item.title}
+                            </span>
+                            <span className="rounded-full bg-[var(--md-sys-color-secondary-container,#f0eadc)] dark:bg-[var(--md-sys-color-secondary-container,#2e2a22)] px-2 py-0.5 font-mono text-[9px] font-bold text-[var(--md-sys-color-on-secondary-container,#3a2e16)] dark:text-[var(--md-sys-color-on-secondary-container,#f5e6a3)]">
+                              {item.badge}
+                            </span>
+                          </div>
+                          <p className="font-mono text-xs text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))]">
+                            {item.desc}
+                          </p>
                         </div>
-                        <p className="mt-0.5 font-mono text-[10px] text-muted-foreground">
-                          {social.description}
-                        </p>
                       </div>
+                      <ArrowUpRight className="h-4 w-4 text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--md-sys-color-primary,#d4a017)]" />
                     </a>
                   )
-                })()}
-              </motion.div>
-            </AnimatePresence>
+                })}
+              </div>
+            </div>
           </div>
 
-          {/* Dots Indicator */}
-          <div className="mt-2 flex items-center justify-center gap-1.5">
-            {socials.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => {
-                  setSocialDirection(idx > socialIdx ? 1 : -1)
-                  setSocialIdx(idx)
-                }}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  idx === socialIdx
-                    ? "w-6 bg-[var(--color-pear)]"
-                    : "w-1.5 bg-muted-foreground/30"
-                }`}
-                aria-label={`Go to social card ${idx + 1}`}
-              />
-            ))}
+          {/* Right Column (lg:col-span-7): M3 Expressive Form */}
+          <div className="lg:col-span-7">
+            <div
+              className="rounded-3xl border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/40
+                bg-[var(--md-sys-color-surface-container-low,var(--card))] p-6 sm:p-8 md:p-10 shadow-sm"
+            >
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--md-sys-color-on-surface,var(--foreground))]">
+                    Send a Message
+                  </h3>
+                  <p className="mt-1 text-xs sm:text-sm text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))]">
+                    Fill out the form below or write directly to my inbox.
+                  </p>
+                </div>
+                <Sparkles className="h-6 w-6 text-[var(--md-sys-color-primary,#d4a017)]" />
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Name Input — M3 Outlined / Filled Style */}
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="name"
+                      className="block font-mono text-xs font-semibold text-[var(--md-sys-color-on-surface-variant,var(--foreground))]"
+                    >
+                      Your Name
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Jane Doe"
+                      className="w-full h-11 px-4 text-sm rounded-[14px]
+                        border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/60
+                        bg-[var(--md-sys-color-surface-container-lowest,var(--background))]
+                        text-[var(--md-sys-color-on-surface,var(--foreground))]
+                        placeholder:text-muted-foreground/60
+                        transition-all duration-200
+                        focus:border-[var(--md-sys-color-primary,#d4a017)]
+                        focus:outline-none focus:ring-2 focus:ring-[var(--md-sys-color-primary,#d4a017)]/20"
+                    />
+                  </div>
+
+                  {/* Email Input */}
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="email"
+                      className="block font-mono text-xs font-semibold text-[var(--md-sys-color-on-surface-variant,var(--foreground))]"
+                    >
+                      Email Address
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="jane@example.com"
+                      className="w-full h-11 px-4 text-sm rounded-[14px]
+                        border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/60
+                        bg-[var(--md-sys-color-surface-container-lowest,var(--background))]
+                        text-[var(--md-sys-color-on-surface,var(--foreground))]
+                        placeholder:text-muted-foreground/60
+                        transition-all duration-200
+                        focus:border-[var(--md-sys-color-primary,#d4a017)]
+                        focus:outline-none focus:ring-2 focus:ring-[var(--md-sys-color-primary,#d4a017)]/20"
+                    />
+                  </div>
+                </div>
+
+                {/* Subject Input */}
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="subject"
+                    className="block font-mono text-xs font-semibold text-[var(--md-sys-color-on-surface-variant,var(--foreground))]"
+                  >
+                    Subject
+                  </label>
+                  <input
+                    id="subject"
+                    name="subject"
+                    type="text"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    placeholder="Project Inquiry / Job Opportunity"
+                    className="w-full h-11 px-4 text-sm rounded-[14px]
+                      border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/60
+                      bg-[var(--md-sys-color-surface-container-lowest,var(--background))]
+                      text-[var(--md-sys-color-on-surface,var(--foreground))]
+                      placeholder:text-muted-foreground/60
+                      transition-all duration-200
+                      focus:border-[var(--md-sys-color-primary,#d4a017)]
+                      focus:outline-none focus:ring-2 focus:ring-[var(--md-sys-color-primary,#d4a017)]/20"
+                  />
+                </div>
+
+                {/* Message Textarea */}
+                <div className="space-y-1.5">
+                  <label
+                    htmlFor="message"
+                    className="block font-mono text-xs font-semibold text-[var(--md-sys-color-on-surface-variant,var(--foreground))]"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Tell me about your project, idea, or challenge..."
+                    className="w-full p-4 text-sm rounded-[16px]
+                      border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/60
+                      bg-[var(--md-sys-color-surface-container-lowest,var(--background))]
+                      text-[var(--md-sys-color-on-surface,var(--foreground))]
+                      placeholder:text-muted-foreground/60
+                      transition-all duration-200
+                      focus:border-[var(--md-sys-color-primary,#d4a017)]
+                      focus:outline-none focus:ring-2 focus:ring-[var(--md-sys-color-primary,#d4a017)]/20 resize-y"
+                  />
+                </div>
+
+                {/* Prominent M3 Filled Button for "Send Message" with spring press feedback */}
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="w-full sm:w-auto"
+                  >
+                    <Button
+                      type="submit"
+                      variant="filled"
+                      size="lg"
+                      shape="full"
+                      trailingIcon={<Send className="h-4 w-4" />}
+                      className="w-full sm:w-auto px-8 !bg-[var(--md-sys-color-primary,#d4a017)] !text-[var(--md-sys-color-on-primary,#ffffff)] font-bold shadow-md hover:shadow-lg transition-all"
+                    >
+                      Send Message
+                    </Button>
+                  </motion.div>
+
+                  {isSubmitted && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="inline-flex items-center gap-2 text-xs font-mono font-medium text-emerald-600 dark:text-emerald-400"
+                    >
+                      <CheckCircle2 className="h-4 w-4" />
+                      <span>Ready in your email client!</span>
+                    </motion.div>
+                  )}
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

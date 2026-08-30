@@ -1,6 +1,8 @@
 "use client"
 
 import React, { ElementType } from "react"
+import { LucideIcon } from "lucide-react"
+import { M3FacetedBadge, M3Progress } from "@/components/m3/M3Shapes"
 
 export interface Stat {
   label: string
@@ -11,91 +13,95 @@ export interface Stat {
 interface StatCardProps {
   stat: Stat
   index?: number
+  shape?: "cookie8" | "gem" | "diamond" | "cookie4"
+  progressValue?: number
+  sublabel?: string
 }
 
-// 4 Distinct Hallmark Hum Multi-Accent Themes: Pear, Cyan, Mint, Coral
-const STAT_THEMES = [
+const STAT_CONFIGS = [
   {
-    name: "pear",
-    accentText: "text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
-    glyphBg:
-      "bg-[var(--color-pear)]/10 border-[var(--color-pear)]/25 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
-    hoverBorder: "hover:border-[var(--color-pear)]/40",
-    microBadge:
-      "border-[var(--color-pear)]/25 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
-    dot: "bg-[var(--color-pear)]",
+    shape: "cookie8" as const,
     tag: "CODEFORCES",
+    color: "primary" as const,
+    defaultProgress: 76,
+    sublabel: "Specialist track",
   },
   {
-    name: "cyan",
-    accentText: "text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
-    glyphBg:
-      "bg-[var(--color-cyan)]/10 border-[var(--color-cyan)]/25 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
-    hoverBorder: "hover:border-[var(--color-cyan)]/40",
-    microBadge:
-      "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
-    dot: "bg-[var(--color-cyan)]",
-    tag: "BEECROWD",
+    shape: "gem" as const,
+    tag: "BEECROWD / LEETCODE",
+    color: "secondary" as const,
+    defaultProgress: 65,
+    sublabel: "Algorithmic judge",
   },
   {
-    name: "mint",
-    accentText: "text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
-    glyphBg:
-      "bg-[var(--color-mint)]/10 border-[var(--color-mint)]/25 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
-    hoverBorder: "hover:border-[var(--color-mint)]/40",
-    microBadge:
-      "border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
-    dot: "bg-[var(--color-mint)]",
-    tag: "TOTAL",
+    shape: "diamond" as const,
+    tag: "TOTAL SOLVED",
+    color: "tertiary" as const,
+    defaultProgress: 89,
+    sublabel: "359+ Verified",
   },
   {
-    name: "coral",
-    accentText: "text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
-    glyphBg:
-      "bg-[var(--color-coral)]/10 border-[var(--color-coral)]/25 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
-    hoverBorder: "hover:border-[var(--color-coral)]/40",
-    microBadge:
-      "border-[var(--color-coral)]/25 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
-    dot: "bg-[var(--color-coral)]",
-    tag: "CONTEST",
+    shape: "cookie4" as const,
+    tag: "ICPC / NCPC",
+    color: "primary" as const,
+    defaultProgress: 100,
+    sublabel: "Regional Finalist",
   },
 ]
 
-export function StatCard({ stat, index = 0 }: StatCardProps) {
-  const Icon = stat.icon
-  const theme = STAT_THEMES[index % STAT_THEMES.length]
+export function StatCard({
+  stat,
+  index = 0,
+  shape,
+  progressValue,
+  sublabel,
+}: StatCardProps) {
+  const Icon = stat.icon as LucideIcon
+  const config = STAT_CONFIGS[index % STAT_CONFIGS.length]
+  const badgeShape = shape || config.shape
+  const currentProgress = progressValue ?? config.defaultProgress
+  const currentSublabel = sublabel ?? config.sublabel
 
   return (
     <div
       data-cursor="cover"
-      className={`group relative flex flex-col justify-between rounded-xl border border-border/80 bg-card p-2 text-card-foreground shadow-2xs transition-all duration-300 hover:-translate-y-0.5 sm:p-2.5 md:p-3 ${theme.hoverBorder}`}
+      className="group relative flex flex-col justify-between rounded-2xl border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container)] p-3 sm:p-4 text-[var(--md-sys-color-on-surface)] transition-all duration-300 hover:bg-[var(--md-sys-color-surface-container-high)] hover:border-[var(--md-sys-color-outline)] active:scale-[0.99]"
     >
-      {/* Card Top: Glyph Container + Micro-tag */}
-      <div className="flex items-center justify-between gap-1">
-        <div
-          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105 sm:h-7 sm:w-7 md:h-8 md:w-8 ${theme.glyphBg}`}
-        >
-          <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
-        </div>
+      {/* Top Row: Faceted M3 Shape Badge + Pill Micro-tag */}
+      <div className="flex items-center justify-between gap-2">
+        <M3FacetedBadge
+          shape={badgeShape}
+          icon={Icon}
+          size={38}
+          iconClassName="h-4 w-4"
+        />
 
-        <span
-          className={`truncate rounded-full border px-1.5 py-0.5 font-mono text-[7.5px] font-bold tracking-wider uppercase sm:px-2 sm:text-[8.5px] md:text-[9px] ${theme.microBadge}`}
-        >
-          {theme.tag}
+        <span className="truncate rounded-full border border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-high)] px-2 py-0.5 font-mono text-[9px] font-bold tracking-wider text-[var(--md-sys-color-on-surface-variant)] uppercase">
+          {config.tag}
         </span>
       </div>
 
-      {/* Card Body: Numeric Display + Label */}
-      <div className="mt-1.5 sm:mt-2">
-        <div
-          data-cursor="text"
-          className="tnum truncate font-mono text-base font-bold tracking-tight text-foreground sm:text-lg md:text-xl lg:text-2xl"
-        >
-          {stat.value}
+      {/* Numerical Stat Display */}
+      <div className="mt-3">
+        <div className="flex items-baseline justify-between gap-2">
+          <div
+            data-cursor="text"
+            className="font-mono text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-[var(--md-sys-color-on-surface)] tabular-nums"
+          >
+            {stat.value}
+          </div>
+          <span className="font-mono text-[10px] text-[var(--md-sys-color-primary)] font-semibold">
+            {currentSublabel}
+          </span>
         </div>
 
-        <div className="mt-0.5 truncate text-[10px] font-medium tracking-wide text-muted-foreground sm:text-[11px] md:text-xs">
+        <div className="mt-0.5 truncate font-sans text-xs font-semibold text-[var(--md-sys-color-on-surface-variant)]">
           {stat.label}
+        </div>
+
+        {/* M3 Tonal Progress Bar Indicator */}
+        <div className="mt-2.5">
+          <M3Progress value={currentProgress} color={config.color} />
         </div>
       </div>
     </div>

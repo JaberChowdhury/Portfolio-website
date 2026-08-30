@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl"
 import { AnimatePresence, motion, type Variants } from "framer-motion"
 import { ProjectCard, type Project } from "./ProjectCard"
 import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react"
+import { Button } from "@/components/m3/Button"
 
 const cardVariants: Variants = {
   enter: (direction: number) => ({
@@ -18,7 +19,7 @@ const cardVariants: Variants = {
     scale: 1,
     transition: {
       duration: 0.28,
-      ease: "easeOut",
+      ease: [0.2, 0, 0, 1],
     },
   },
   exit: (direction: number) => ({
@@ -27,7 +28,7 @@ const cardVariants: Variants = {
     scale: 0.96,
     transition: {
       duration: 0.2,
-      ease: "easeIn",
+      ease: [0.2, 0, 0, 1],
     },
   }),
 }
@@ -51,51 +52,60 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden py-4 text-foreground sm:py-6 md:py-8 lg:py-0"
+      data-section="projects"
+      className="relative w-full py-16 sm:py-20 md:py-28 text-[var(--md-sys-color-on-surface,var(--foreground))] transition-colors duration-500 overflow-hidden"
     >
+      {/* Dynamic Azure / Cyan Section Ambient Glow */}
       <div
         aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: "-10%",
-          left: "0%",
-          width: "40vw",
-          height: "40vw",
-          maxWidth: "500px",
-          maxHeight: "500px",
-          background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-cyan) 8%, transparent) 0%, transparent 70%)",
-          filter: "blur(70px)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
+        className="pointer-events-none absolute -bottom-24 -left-20 h-96 w-96 rounded-full
+          bg-[var(--md-sys-color-primary,#2e8bc0)]/10 blur-[100px] -z-10"
       />
-      <div className="relative mx-auto w-full max-w-7xl px-3 xs:px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
+
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
         {/* Section Header */}
-        <div className="mb-3 flex flex-col justify-between gap-2.5 xs:mb-4 sm:mb-7 sm:flex-row sm:items-end sm:gap-3">
+        <div className="mb-6 sm:mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            {/* Hum Eyebrow with Cyan Dot & Mobile Swipe Indicator */}
-            <div className="mb-1.5 flex items-center justify-between gap-2 sm:mb-2.5">
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-card px-2.5 py-0.5 text-xs shadow-2xs transition-all duration-300 hover:border-[var(--color-cyan)]/40 xs:px-3 xs:py-1 sm:gap-2 sm:px-3.5 sm:py-1.5">
-                <span className="hum-dot hum-dot--cyan" />
-                <span className="hum-eyebrow">03 ⁄ {t("eyebrow")}</span>
+            {/* M3 Expressive Eyebrow Pill */}
+            <div className="mb-2.5 sm:mb-3 flex items-center justify-between gap-2">
+              <div
+                className="inline-flex items-center gap-2 rounded-full
+                  border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/50
+                  bg-[var(--md-sys-color-surface-container-high,var(--secondary))]/70
+                  px-3 py-1 font-mono text-xs font-semibold tracking-wider
+                  text-[var(--md-sys-color-primary,#2e8bc0)] shadow-2xs"
+              >
+                <span className="h-2 w-2 rounded-full bg-[var(--md-sys-color-primary,#2e8bc0)]" />
+                <span className="uppercase">03 ⁄ {t("eyebrow")}</span>
               </div>
+
+              {/* Mobile Previous / Next Quick Stepper */}
               <div className="flex items-center gap-1.5 md:hidden">
                 <button
                   type="button"
                   onClick={handlePrev}
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-border/70 bg-card text-muted-foreground transition-colors hover:text-foreground active:scale-95"
+                  className="flex h-8 w-8 items-center justify-center rounded-full
+                    border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.2))]/50
+                    bg-[var(--md-sys-color-surface-container,var(--card))]
+                    text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))]
+                    transition-all hover:text-[var(--md-sys-color-on-surface,var(--foreground))]
+                    hover:border-[var(--md-sys-color-primary,#2e8bc0)] active:scale-95 shadow-2xs"
                   aria-label="Previous Project"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </button>
-                <span className="font-mono text-xs font-bold text-foreground">
+                <span className="font-mono text-xs font-bold text-[var(--md-sys-color-on-surface,var(--foreground))] px-1">
                   {currentIdx + 1} / {projects.length}
                 </span>
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-border/70 bg-card text-muted-foreground transition-colors hover:text-foreground active:scale-95"
+                  className="flex h-8 w-8 items-center justify-center rounded-full
+                    border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.2))]/50
+                    bg-[var(--md-sys-color-surface-container,var(--card))]
+                    text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))]
+                    transition-all hover:text-[var(--md-sys-color-on-surface,var(--foreground))]
+                    hover:border-[var(--md-sys-color-primary,#2e8bc0)] active:scale-95 shadow-2xs"
                   aria-label="Next Project"
                 >
                   <ChevronRight className="h-4 w-4" />
@@ -103,41 +113,44 @@ export function ProjectsSection() {
               </div>
             </div>
 
-            {/* Confident Headline with Cyan Accent */}
+            {/* Confident Headline with M3 Primary Color */}
             <h2
               data-cursor="text"
-              className="text-2xl font-black tracking-tight text-foreground xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
+              className="text-2xl font-black tracking-tight text-[var(--md-sys-color-on-surface,var(--foreground))] xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
             >
               {t("title1")}{" "}
-              <span className="text-[var(--color-cyan)]">{t("title2")}</span>{" "}
-              <span className="font-normal text-muted-foreground">
+              <span className="text-[var(--md-sys-color-primary,#2e8bc0)]">{t("title2")}</span>{" "}
+              <span className="font-normal text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))]">
                 {t("title3")}
               </span>
             </h2>
 
             {/* Micro-description */}
-            <p className="mt-1 max-w-2xl text-xs leading-relaxed font-normal text-muted-foreground sm:mt-2 sm:text-sm md:text-base">
+            <p className="mt-2 max-w-2xl text-xs leading-relaxed font-normal text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))] sm:text-sm md:text-base">
               {t("description")}
             </p>
           </div>
 
-          {/* Explore All Projects — hum-btn--outline with cyan accent */}
+          {/* Explore All Projects — M3 Outlined Button */}
           <div className="shrink-0">
-            <a
+            <Button
+              variant="outlined"
+              size="md"
+              shape="full"
               href="https://github.com/JaberChowdhury"
               target="_blank"
               rel="noopener noreferrer"
-              className="hum-btn hum-btn--outline group !border-[var(--color-cyan)]/30 !px-3 !py-1.5 !text-xs !text-foreground hover:!border-[var(--color-cyan)] hover:!bg-[var(--color-cyan-light)]/10 sm:!px-4 sm:!py-2 sm:!text-sm"
+              leadingIcon={<Sparkles className="h-4 w-4 text-[var(--md-sys-color-primary,#2e8bc0)]" />}
+              trailingIcon={<ArrowRight className="h-4 w-4 text-[var(--md-sys-color-primary,#2e8bc0)] transition-transform duration-200 group-hover:translate-x-1" />}
+              className="border-[var(--md-sys-color-primary,#2e8bc0)]/40 hover:border-[var(--md-sys-color-primary,#2e8bc0)] font-semibold"
             >
-              <Sparkles className="h-3.5 w-3.5 text-[var(--color-cyan)] sm:h-4 sm:w-4" />
               <span>{t("exploreAllProjects")}</span>
-              <ArrowRight className="h-3.5 w-3.5 text-[var(--color-cyan)] transition-transform duration-300 group-hover:translate-x-1 sm:h-4 sm:w-4" />
-            </a>
+            </Button>
           </div>
         </div>
 
-        {/* Desktop 3-Column Grid */}
-        <div className="hidden md:grid md:grid-cols-2 md:gap-4.5 lg:grid-cols-3">
+        {/* Desktop 3-Column Grid with M3 Asymmetric Cards */}
+        <div className="hidden md:grid md:grid-cols-2 md:gap-5 lg:grid-cols-3 lg:gap-6">
           {projects.map((project, index) => (
             <div key={index} className="h-full">
               <ProjectCard project={project} index={index} />
@@ -177,7 +190,7 @@ export function ProjectsSection() {
           </div>
 
           {/* Dots Indicator */}
-          <div className="mt-2.5 flex items-center justify-center gap-1.5">
+          <div className="mt-4 flex items-center justify-center gap-2">
             {projects.map((_, idx) => (
               <button
                 key={idx}
@@ -186,10 +199,10 @@ export function ProjectsSection() {
                   setDirection(idx > currentIdx ? 1 : -1)
                   setCurrentIdx(idx)
                 }}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
+                className={`h-2 rounded-full transition-all duration-300 ${
                   idx === currentIdx
-                    ? "w-6 bg-[var(--color-cyan)]"
-                    : "w-1.5 bg-muted-foreground/30"
+                    ? "w-8 bg-[var(--md-sys-color-primary,#2e8bc0)] shadow-xs"
+                    : "w-2 bg-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.2))]"
                 }`}
                 aria-label={`Go to project ${idx + 1}`}
               />

@@ -3,8 +3,8 @@
 import React from "react"
 import Image from "next/image"
 import { ExternalLink, GitPullRequestClosed, Sparkles } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
 import { useTranslations } from "next-intl"
+import { Button } from "@/components/m3/Button"
 
 export interface Project {
   title: string
@@ -20,125 +20,63 @@ interface ProjectCardProps {
   index?: number
 }
 
-// Hallmark Hum multi-accent palette schemes
-const CARD_ACCENTS = [
-  {
-    name: "cyan",
-    topGradient:
-      "from-[var(--color-cyan)] via-[var(--color-cyan-light)] to-[var(--color-cyan)]",
-    indexBadge:
-      "border-[var(--color-cyan)]/30 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
-    hoverBorder: "hover:border-[var(--color-cyan)]/50",
-    dot: "bg-[var(--color-cyan)]",
-    btnClass: "hum-btn hum-btn--cyan",
-  },
-  {
-    name: "pear",
-    topGradient:
-      "from-[var(--color-pear)] via-[var(--color-pear-light)] to-[var(--color-pear)]",
-    indexBadge:
-      "border-[var(--color-pear)]/30 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
-    hoverBorder: "hover:border-[var(--color-pear)]/50",
-    dot: "bg-[var(--color-pear)]",
-    btnClass: "hum-btn",
-  },
-  {
-    name: "mint",
-    topGradient:
-      "from-[var(--color-mint)] via-[var(--color-mint-light)] to-[var(--color-mint)]",
-    indexBadge:
-      "border-[var(--color-mint)]/30 bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
-    hoverBorder: "hover:border-[var(--color-mint)]/50",
-    dot: "bg-[var(--color-mint)]",
-    btnClass: "hum-btn hum-btn--mint",
-  },
-  {
-    name: "coral",
-    topGradient:
-      "from-[var(--color-coral)] via-[var(--color-coral-light)] to-[var(--color-coral)]",
-    indexBadge:
-      "border-[var(--color-coral)]/30 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
-    hoverBorder: "hover:border-[var(--color-coral)]/50",
-    dot: "bg-[var(--color-coral)]",
-    btnClass: "hum-btn hum-btn--coral",
-  },
-  {
-    name: "lavender",
-    topGradient:
-      "from-[var(--color-lavender)] via-[var(--color-lavender-light)] to-[var(--color-lavender)]",
-    indexBadge:
-      "border-[var(--color-lavender)]/30 bg-[var(--color-lavender)]/10 text-[var(--color-lavender-deep)] dark:text-[var(--color-lavender)]",
-    hoverBorder: "hover:border-[var(--color-lavender)]/50",
-    dot: "bg-[var(--color-lavender)]",
-    btnClass: "hum-btn hum-btn--lav",
-  },
-]
-
-// Hum Multi-Accent Tech Tag Badges
-const TECH_TAG_STYLES: Record<string, string> = {
-  "Next.js": "border-border bg-secondary/80 text-foreground",
-  TypeScript:
-    "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
-  Prisma:
-    "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender-deep)] dark:text-[var(--color-lavender)]",
-  Stripe:
-    "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender-deep)] dark:text-[var(--color-lavender)]",
-  "OpenAI API":
-    "border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
-  Tailwind:
-    "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
-  PostgreSQL:
-    "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
-  "Framer Motion":
-    "border-[var(--color-coral)]/25 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
-  Docker:
-    "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
-}
-
-const FALLBACK_TAG_STYLES = [
-  "border-[var(--color-pear)]/25 bg-[var(--color-pear)]/10 text-[var(--color-pear-deep)] dark:text-[var(--color-pear)]",
-  "border-[var(--color-cyan)]/25 bg-[var(--color-cyan)]/10 text-[var(--color-cyan-deep)] dark:text-[var(--color-cyan)]",
-  "border-[var(--color-mint)]/25 bg-[var(--color-mint)]/10 text-[var(--color-mint-deep)] dark:text-[var(--color-mint)]",
-  "border-[var(--color-coral)]/25 bg-[var(--color-coral)]/10 text-[var(--color-coral-deep)] dark:text-[var(--color-coral)]",
-  "border-[var(--color-lavender)]/25 bg-[var(--color-lavender)]/10 text-[var(--color-lavender-deep)] dark:text-[var(--color-lavender)]",
-]
-
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const t = useTranslations("Projects")
-  const accent = CARD_ACCENTS[index % CARD_ACCENTS.length]
   const formattedIndex = String(index + 1).padStart(2, "0")
 
   return (
-    <div
+    <article
       data-cursor="cover"
-      className={`hum-card group relative flex h-full flex-col justify-between rounded-2xl border border-border/80 bg-card p-3.5 text-card-foreground shadow-xs transition-all duration-300 ${accent.hoverBorder} xs:p-4 sm:p-5 md:p-6 lg:p-7`}
+      className="group relative flex h-full flex-col justify-between overflow-hidden
+        rounded-tl-3xl rounded-tr-[48px] rounded-bl-[48px] rounded-br-2xl
+        border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/40
+        bg-[var(--md-sys-color-surface-container-low,var(--card))]
+        p-4 sm:p-6 md:p-7
+        text-[var(--md-sys-color-on-surface,var(--foreground))]
+        shadow-xs transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]
+        hover:-translate-y-1.5 hover:shadow-xl hover:border-[var(--md-sys-color-primary,#2e8bc0)]/50
+        hover:bg-[var(--md-sys-color-surface-container,var(--card))]"
     >
-      {/* Top Accent Color Highlight Ribbon */}
+      {/* Decorative top asymmetric color accent indicator */}
       <div
-        className={`absolute inset-x-0 top-0 h-1.5 rounded-t-2xl bg-gradient-to-r ${accent.topGradient} opacity-90 transition-opacity duration-300 group-hover:opacity-100`}
+        className="absolute top-0 right-0 h-16 w-16 -mr-8 -mt-8 rounded-full
+          bg-[var(--md-sys-color-primary-container,#d0e4ff)]/40 blur-md
+          pointer-events-none transition-transform duration-500 group-hover:scale-150"
+        aria-hidden="true"
       />
 
-      <div className="relative pt-1.5">
+      <div className="relative z-10 flex flex-col flex-1">
         {/* Card Header Micro-meta (Index + Category Tag) */}
-        <div className="mb-2.5 flex items-center justify-between sm:mb-3">
+        <div className="mb-3.5 flex items-center justify-between">
           <div
-            className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-mono text-[10px] font-semibold tracking-widest uppercase sm:gap-1.5 sm:px-3 sm:text-xs ${accent.indexBadge}`}
+            className="inline-flex items-center gap-1.5 rounded-full
+              border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.2))]/60
+              bg-[var(--md-sys-color-surface-container-high,var(--secondary))]/80
+              px-2.5 py-0.5 font-mono text-[11px] font-bold tracking-widest
+              text-[var(--md-sys-color-primary,#2e8bc0)]"
           >
             <span
-              className={`h-1.5 w-1.5 rounded-full sm:h-2 sm:w-2 ${accent.dot}`}
+              className="h-2 w-2 rounded-full bg-[var(--md-sys-color-primary,#2e8bc0)] animate-pulse"
+              aria-hidden="true"
             />
             <span>#{formattedIndex}</span>
           </div>
 
-          <div className="flex items-center gap-1 font-mono text-[10px] font-medium tracking-wider text-muted-foreground/80 uppercase sm:gap-1.5 sm:text-xs">
-            <Sparkles className="h-3 w-3 text-muted-foreground/60 sm:h-3.5 sm:w-3.5" />
+          <div
+            className="inline-flex items-center gap-1.5 rounded-full
+              border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.12))]/40
+              bg-[var(--md-sys-color-surface-container-lowest,var(--background))]/60
+              px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider uppercase
+              text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))]"
+          >
+            <Sparkles className="h-3 w-3 text-[var(--md-sys-color-primary,#2e8bc0)]" />
             <span>FEATURED</span>
           </div>
         </div>
 
-        {/* Optional Responsive Image Preview Container */}
+        {/* Optional Responsive Image Preview Container with asymmetric arch corners */}
         {project.image && (
-          <div className="relative mb-3 h-36 w-full overflow-hidden rounded-xl border border-border/60 bg-muted/30 xs:h-40 sm:h-48 md:h-52">
+          <div className="relative mb-4 h-40 w-full overflow-hidden rounded-t-[32px] rounded-b-xl border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/30 bg-muted/20 sm:h-48 md:h-52">
             <Image
               src={project.image}
               alt={project.title}
@@ -150,64 +88,63 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         )}
 
         {/* Title and Description */}
-        <div className="space-y-1 sm:space-y-1.5 md:space-y-2">
-          <h3 className="text-sm font-bold tracking-tight text-foreground sm:text-base md:text-lg">
+        <div className="space-y-2 flex-1">
+          <h3 className="text-base sm:text-lg md:text-xl font-bold tracking-tight text-[var(--md-sys-color-on-surface,var(--foreground))]">
             {project.title}
           </h3>
 
-          <p className="line-clamp-3 text-xs leading-relaxed font-normal text-muted-foreground sm:text-sm">
+          <p className="line-clamp-3 text-xs sm:text-sm leading-relaxed font-normal text-[var(--md-sys-color-on-surface-variant,var(--muted-foreground))]">
             {project.description}
           </p>
         </div>
 
-        {/* Hallmark Multi-Accent Tech Badges */}
-        <div className="mt-3 flex flex-wrap gap-1.5 sm:mt-4 sm:gap-2">
-          {project.tech.slice(0, 4).map((tech, idx) => {
-            const tagStyle =
-              TECH_TAG_STYLES[tech] ||
-              FALLBACK_TAG_STYLES[idx % FALLBACK_TAG_STYLES.length]
-
-            return (
-              <Badge
-                key={idx}
-                variant="secondary"
-                className={`rounded-md border px-2 py-0.5 font-mono text-[9px] font-medium tracking-wide transition-all duration-200 hover:scale-105 sm:text-xs ${tagStyle}`}
-              >
-                {tech}
-              </Badge>
-            )
-          })}
-          {project.tech.length > 4 && (
-            <span className="self-center font-mono text-[9px] font-medium text-muted-foreground sm:text-xs">
-              +{project.tech.length - 4}
+        {/* Tonal Tech Pills */}
+        <div className="mt-4 sm:mt-5 flex flex-wrap gap-1.5">
+          {project.tech.map((tech, idx) => (
+            <span
+              key={idx}
+              className="inline-flex items-center rounded-full
+                border border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/40
+                bg-[var(--md-sys-color-secondary-container,#f0eadc)] dark:bg-[var(--md-sys-color-secondary-container,#2c2921)]
+                text-[var(--md-sys-color-on-secondary-container,#231b0e)] dark:text-[var(--md-sys-color-on-secondary-container,#f0eddf)]
+                px-2.5 py-0.5 font-mono text-[10px] sm:text-[11px] font-medium tracking-wide
+                transition-all duration-200 hover:scale-105 shadow-2xs"
+            >
+              {tech}
             </span>
-          )}
+          ))}
         </div>
       </div>
 
-      {/* Tactile Hum Action Push Buttons */}
-      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border/80 pt-3 sm:mt-5 sm:gap-3 sm:pt-4">
-        <a
+      {/* M3 Action Buttons (Tonal for Live Demo + Outlined for GitHub source) */}
+      <div className="relative z-10 mt-5 sm:mt-6 flex flex-wrap items-center gap-2.5 border-t border-[var(--md-sys-color-outline-variant,rgba(28,29,25,0.15))]/30 pt-3.5 sm:pt-4">
+        <Button
+          variant="tonal"
+          size="sm"
+          shape="full"
           href={project.live || "https://github.com"}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${accent.btnClass} min-w-[100px] flex-1 !px-3 !py-2 !text-xs sm:!text-sm`}
+          trailingIcon={<ExternalLink className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />}
+          className="flex-1 min-w-[110px] font-medium !text-xs sm:!text-sm"
         >
-          <span>{t("liveDemo")}</span>
-          <ExternalLink className="hum-arrow h-3.5 w-3.5 shrink-0" />
-        </a>
+          {t("liveDemo")}
+        </Button>
 
-        <a
+        <Button
+          variant="outlined"
+          size="sm"
+          shape="full"
           href={project.github || "https://github.com"}
           target="_blank"
           rel="noopener noreferrer"
-          className="hum-btn hum-btn--soft min-w-[100px] flex-1 !px-3 !py-2 !text-xs sm:!text-sm"
+          leadingIcon={<GitPullRequestClosed className="h-3.5 w-3.5 text-muted-foreground" />}
+          className="flex-1 min-w-[110px] font-medium !text-xs sm:!text-sm"
         >
-          <GitPullRequestClosed className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-          <span>{t("source")}</span>
-        </a>
+          {t("source")}
+        </Button>
       </div>
-    </div>
+    </article>
   )
 }
 
