@@ -1,9 +1,20 @@
-import createMiddleware from "next-intl/middleware"
-import { routing } from "./i18n/routing"
+import { NextResponse, type NextRequest } from "next/server"
 
-export default createMiddleware(routing)
+export function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl
+
+  if (pathname === "/en" || pathname === "/bn") {
+    return NextResponse.redirect(new URL("/", request.url), 308)
+  }
+
+  if (pathname.startsWith("/en/") || pathname.startsWith("/bn/")) {
+    const newPath = pathname.replace(/^\/(en|bn)/, "") || "/"
+    return NextResponse.redirect(new URL(newPath, request.url), 308)
+  }
+
+  return NextResponse.next()
+}
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ["/", "/(bn|en)/:path*", "/((?!api|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 }

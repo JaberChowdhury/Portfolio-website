@@ -68,10 +68,7 @@ export function TechnologySection() {
   }, [safeCurrentPage, itemsPerPage])
 
   return (
-    <section
-      id="technology"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
-    >
+    <div className="relative flex w-full flex-col justify-center text-foreground">
       <div className="relative z-10 mx-auto w-full max-w-7xl px-3 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
         {/* Top Header & Eyebrow */}
         <div className="mb-2.5 sm:mb-5">
@@ -217,7 +214,7 @@ export function TechnologySection() {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

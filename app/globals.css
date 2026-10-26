@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "lenis/dist/lenis.css";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
@@ -59,18 +60,6 @@
 
 .abc-font {
   font-family: "abcfont";
-}
-
-@font-face {
-  font-family: "Sohid Osman Hadi";
-  src: url("/font/Sohid_Osman_Hadi.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-.sohid-font {
-  font-family: "Sohid Osman Hadi", sans-serif;
 }
 
 @theme inline {
@@ -460,32 +449,6 @@
 
   html {
     @apply font-sans;
-    scroll-behavior: smooth;
-  }
-
-  html[lang="bn"] h1,
-  html[lang="bn"] h2,
-  html[lang="bn"] h3,
-  html[lang="bn"] h4,
-  html[lang="bn"] h5,
-  html[lang="bn"] h6 {
-    line-height: 1.9 !important;
-  }
-
-  html[lang="bn"] *:not(.preserve-design) {
-    letter-spacing: normal !important;
-    text-rendering: auto !important;
-  }
-  html[lang="bn"] .bg-clip-text:not(.preserve-design) {
-    background-clip: border-box !important;
-    -webkit-background-clip: border-box !important;
-    -webkit-text-fill-color: currentcolor !important;
-    color: var(--primary) !important;
-    background-image: none !important;
-  }
-
-  html[lang="bn"] > .last-name {
-    display: none;
   }
 }
 

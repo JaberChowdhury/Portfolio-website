@@ -1,11 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { Link } from "@/i18n/routing"
+import Link from "next/link"
 import { Mail, ArrowUpRight, Trophy, Globe2 } from "lucide-react"
 import { navLinks } from "@/components/Navbar"
 import { useTranslations } from "next-intl"
-import { LanguageToggle } from "@/components/LanguageToggle"
 import { ThemeToggle } from "@/components/ThemeToggle"
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -51,10 +50,7 @@ export function FooterSection() {
   const t = useTranslations()
 
   return (
-    <section
-      id="footer"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
-    >
+    <div className="relative flex w-full flex-col justify-center text-foreground">
       {/* Decorative lavender blob */}
       <div
         aria-hidden="true"
@@ -216,7 +212,6 @@ export function FooterSection() {
             </p>
             <div className="flex shrink-0 items-center gap-1.5">
               <ThemeToggle showKeyIndicator={false} />
-              <LanguageToggle />
             </div>
           </div>
         </div>
@@ -389,13 +384,12 @@ export function FooterSection() {
               </span>
               <div className="flex items-center gap-2.5 border-l border-border/70 pl-3">
                 <ThemeToggle />
-                <LanguageToggle />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

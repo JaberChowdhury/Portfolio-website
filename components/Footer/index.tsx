@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Link } from "@/i18n/routing"
+import Link from "next/link"
 import { useTheme } from "next-themes"
 import {
   AArrowDown as Github,
@@ -15,7 +15,6 @@ import { AnimatedGradientText } from "../ui/animated-gradient-text"
 import { Globe, GLOBE_CONFIG } from "../ui/globe"
 import { Meteors } from "../ui/meteors"
 import { useTranslations } from "next-intl"
-import { LanguageToggle } from "../LanguageToggle"
 import { ThemeToggle } from "../ThemeToggle"
 import { useMounted } from "@/hooks/use-mounted"
 
@@ -215,7 +214,6 @@ export default function Footer() {
             <p>{t("Footer.builtWith")}</p>
             <div className="flex items-center gap-2.5 border-l border-border pl-3 sm:pl-4">
               <ThemeToggle />
-              <LanguageToggle />
             </div>
           </div>
         </div>

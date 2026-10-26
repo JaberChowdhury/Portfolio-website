@@ -34,10 +34,7 @@ export function LearningSection() {
   }
 
   return (
-    <section
-      id="learning"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
-    >
+    <div className="relative flex w-full flex-col justify-center text-foreground">
       {/* Hallmark ambient glow blooms */}
       <div
         aria-hidden="true"
@@ -488,7 +485,7 @@ export function LearningSection() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

@@ -109,10 +109,7 @@ export function CompetitiveProgrammingSection() {
   ]
 
   return (
-    <section
-      id="programming"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
-    >
+    <div className="relative flex w-full flex-col justify-center text-foreground">
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-12 2xl:max-w-[1440px]">
         {/* Section Header */}
         <div className="mb-3 max-w-3xl sm:mb-5 md:mb-6">
@@ -985,7 +982,7 @@ export function CompetitiveProgrammingSection() {
           </AnimatePresence>,
           document.body
         )}
-    </section>
+    </div>
   )
 }
 

@@ -22,10 +22,7 @@ export function ExperienceSection() {
   }
 
   return (
-    <section
-      id="experience"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
-    >
+    <div className="relative flex w-full flex-col justify-center text-foreground">
       <div
         aria-hidden="true"
         style={{
@@ -175,7 +172,7 @@ export function ExperienceSection() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

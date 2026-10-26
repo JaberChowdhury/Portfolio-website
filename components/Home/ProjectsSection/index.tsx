@@ -49,10 +49,7 @@ export function ProjectsSection() {
   }
 
   return (
-    <section
-      id="projects"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden py-4 text-foreground sm:py-6 md:py-8 lg:py-0"
-    >
+    <div className="relative flex w-full flex-col justify-center text-foreground">
       <div
         aria-hidden="true"
         style={{
@@ -197,7 +194,7 @@ export function ProjectsSection() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

@@ -132,10 +132,7 @@ export function ContactSection() {
   }, [rawSocials])
 
   return (
-    <section
-      id="contact"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
-    >
+    <div className="relative flex w-full flex-col justify-center text-foreground">
       {/* Decorative ambient blobs */}
       <div
         aria-hidden="true"
@@ -397,7 +394,7 @@ export function ContactSection() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

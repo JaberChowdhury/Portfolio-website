@@ -1,13 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { Playwrite_AR_Guides } from "next/font/google"
 import { ArrowRight } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { LanguageToggle } from "../LanguageToggle"
 import { ThemeToggle } from "../ThemeToggle"
 
 const playwrite_AR_Guides = Playwrite_AR_Guides({
@@ -28,10 +27,27 @@ export const navLinks = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const t = useTranslations()
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <header className="fixed top-0 left-0 z-50 w-full bg-transparent">
+    <header
+      className={cn(
+        "fixed top-0 left-0 z-50 w-full transition-all duration-300",
+        isScrolled
+          ? "border-b border-border/50 bg-background/80 shadow-2xs backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+      )}
+    >
       {/* Main Navbar Container */}
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6 sm:py-3 md:px-10 md:py-3.5">
         {/* Left Side: Logo/Brand — Consistent across mobile and desktop */}
@@ -63,7 +79,6 @@ export const Navbar = () => {
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="hidden items-center gap-2 md:flex">
             <ThemeToggle />
-            <LanguageToggle />
           </div>
           <Button
             variant="rose"
@@ -157,15 +172,14 @@ export const Navbar = () => {
               </motion.div>
             </div>
 
-            {/* Theme & Language Switchers at bottom */}
+            {/* Theme Switcher at bottom */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.35, duration: 0.25 }}
-              className="flex w-full items-center justify-center gap-3 border-t border-border/60 pt-5 pb-2"
+              className="flex w-full items-center justify-center border-t border-border/60 pt-5 pb-2"
             >
               <ThemeToggle />
-              <LanguageToggle />
             </motion.div>
           </motion.div>
         )}

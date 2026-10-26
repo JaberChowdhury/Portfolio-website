@@ -15,10 +15,7 @@ export function Hero() {
   const [nameHovered, setNameHovered] = useState(false)
 
   return (
-    <section
-      id="home"
-      className="relative flex h-full min-h-0 w-full flex-col justify-center overflow-hidden text-foreground"
-    >
+    <div className="relative flex w-full flex-col justify-center text-foreground">
       {/* Animated gradient mesh background */}
       <div
         aria-hidden="true"
@@ -194,7 +191,7 @@ export function Hero() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
