@@ -635,10 +635,11 @@
 .portfolio-bg-pattern {
   position: absolute;
   inset: 0;
-  background-image: url("/bg-pattern-light.png");
+  background-image: url("/bg-pattern.svg");
   background-repeat: repeat;
   background-size: 374px 666px;
-  opacity: 0.05;
+  opacity: 0.045;
+  color: var(--color-foreground);
   pointer-events: none;
   contain: strict;
   transform: translateZ(0);
@@ -647,8 +648,7 @@
 
 .dark .card-stack-grid,
 .dark .portfolio-bg-pattern {
-  background-image: url("/bg-pattern-dark.png");
-  opacity: 0.038;
+  opacity: 0.035;
 }
 
 @media (max-width: 768px) {
