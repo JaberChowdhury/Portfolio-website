@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { Mail, ArrowUpRight, Trophy } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useTranslations } from "@/lib/i18n"
 import { AnimatePresence, motion } from "framer-motion"
 import Button from "@/components/ui/button"
 

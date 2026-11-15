@@ -4,16 +4,11 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Playwrite_AR_Guides } from "next/font/google"
 import { ArrowRight } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useTranslations } from "@/lib/i18n"
 import { ThemeToggle } from "../ThemeToggle"
 
-const playwrite_AR_Guides = Playwrite_AR_Guides({
-  weight: "400",
-  adjustFontFallback: false,
-  fallback: ["cursive", "sans-serif"],
-})
+// Google font loaded in layout
 
 export const navLinks = [
   { id: "skills", href: "#skills" },
@@ -53,7 +48,7 @@ export const Navbar = () => {
         {/* Left Side: Logo/Brand — Consistent across mobile and desktop */}
         <a href="#home" className="flex items-center gap-2">
           <span
-            className={`preserve-design font-sans text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl ${playwrite_AR_Guides.className}`}
+            className="preserve-design font-playwrite text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl"
           >
             Jaber.dev
           </span>

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useMemo, useEffect } from "react"
-import { useTranslations } from "next-intl"
+import { useTranslations } from "@/lib/i18n"
 import { AnimatePresence, motion, type Variants } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { TECH_STACK_DATA, type TechItem } from "./techdata"

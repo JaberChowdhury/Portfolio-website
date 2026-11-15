@@ -36,15 +36,15 @@
 
 ## 🛠️ Tech Stack
 
-| Domain | Technologies |
-|---|---|
-| **Core Framework** | [Next.js 16 (App Router)](https://nextjs.org/), [React 19](https://react.dev/), [TypeScript 6](https://www.typescriptlang.org/) |
-| **Styling & Design** | [Tailwind CSS v4](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.com/), [Base UI](https://base-ui.com/), [tw-animate-css](https://github.com/) |
-| **Motion & Animation** | [Framer Motion](https://www.framer.com/motion/), Motion One |
-| **Localization** | [next-intl](https://next-intl-docs.vercel.app/) (English & Bengali) |
-| **3D & Visuals** | [Cobe (3D Globe)](https://github.com/shuding/cobe), [Three.js](https://threejs.org/), [Recharts](https://recharts.org/) |
-| **Icons & Fonts** | [Lucide React](https://lucide.dev/), [React Icons](https://react-icons.github.io/react-icons/), [Next Font Google](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) |
-| **Theme & Utilities** | [next-themes](https://github.com/pacocoursey/next-themes), [clsx](https://github.com/lukeed/clsx), [tailwind-merge](https://github.com/dcastil/tailwind-merge) |
+| Domain                 | Technologies                                                                                                                                                                               |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Core Framework**     | [Next.js 16 (App Router)](https://nextjs.org/), [React 19](https://react.dev/), [TypeScript 6](https://www.typescriptlang.org/)                                                            |
+| **Styling & Design**   | [Tailwind CSS v4](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.com/), [Base UI](https://base-ui.com/), [tw-animate-css](https://github.com/)                                   |
+| **Motion & Animation** | [Framer Motion](https://www.framer.com/motion/), Motion One                                                                                                                                |
+| **Localization**       | [next-intl](https://next-intl-docs.vercel.app/) (English & Bengali)                                                                                                                        |
+| **3D & Visuals**       | [Cobe (3D Globe)](https://github.com/shuding/cobe), [Three.js](https://threejs.org/), [Recharts](https://recharts.org/)                                                                    |
+| **Icons & Fonts**      | [Lucide React](https://lucide.dev/), [React Icons](https://react-icons.github.io/react-icons/), [Next Font Google](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) |
+| **Theme & Utilities**  | [next-themes](https://github.com/pacocoursey/next-themes), [clsx](https://github.com/lukeed/clsx), [tailwind-merge](https://github.com/dcastil/tailwind-merge)                             |
 
 ---
 
@@ -96,6 +96,7 @@
 ### Prerequisites
 
 Ensure you have one of the following package managers installed:
+
 - [Node.js](https://nodejs.org/) (v18.18+ or later)
 - [Bun](https://bun.sh/) (recommended)
 - [pnpm](https://pnpm.io/) or [npm](https://www.npmjs.com/)
@@ -103,12 +104,14 @@ Ensure you have one of the following package managers installed:
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/JaberChowdhury/Portfolio-website.git
    cd Portfolio-website
    ```
 
 2. **Install dependencies:**
+
    ```bash
    # Using Bun
    bun install
@@ -118,6 +121,7 @@ Ensure you have one of the following package managers installed:
    ```
 
 3. **Start the development server:**
+
    ```bash
    # Using Bun
    bun dev
@@ -133,20 +137,21 @@ Ensure you have one of the following package managers installed:
 
 ## 🔧 Scripts
 
-| Script | Command | Description |
-|---|---|---|
-| `dev` | `next dev` | Launches the local development server |
-| `build` | `next build` | Compiles the production build |
-| `start` | `next start` | Starts the production server |
-| `typecheck` | `tsc --noEmit` | Runs TypeScript compiler checks |
-| `lint` | `eslint` | Lints files for code quality |
-| `format` | `prettier --write "**/*.{ts,tsx}"` | Formats codebase using Prettier |
+| Script      | Command                            | Description                           |
+| ----------- | ---------------------------------- | ------------------------------------- |
+| `dev`       | `next dev`                         | Launches the local development server |
+| `build`     | `next build`                       | Compiles the production build         |
+| `start`     | `next start`                       | Starts the production server          |
+| `typecheck` | `tsc --noEmit`                     | Runs TypeScript compiler checks       |
+| `lint`      | `eslint`                           | Lints files for code quality          |
+| `format`    | `prettier --write "**/*.{ts,tsx}"` | Formats codebase using Prettier       |
 
 ---
 
 ## 👤 Author
 
 **Jaber Chowdhury**
+
 - 🌐 **Portfolio**: [portfolio-website-git-v2-shadcn-jaberchowdhurys-projects.vercel.app](https://portfolio-website-git-v2-shadcn-jaberchowdhurys-projects.vercel.app/)
 - 🐙 **GitHub**: [@JaberChowdhury](https://github.com/JaberChowdhury)
 - 💼 **LinkedIn**: [Md. Jaber Hossain Chowdhury](https://www.linkedin.com/in/md-jaber-hossain-chowdhury-543335252/)

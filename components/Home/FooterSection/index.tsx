@@ -1,10 +1,10 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
+
 import { Mail, ArrowUpRight, Trophy, Globe2 } from "lucide-react"
 import { navLinks } from "@/components/Navbar"
-import { useTranslations } from "next-intl"
+import { useTranslations } from "@/lib/i18n"
 import { ThemeToggle } from "@/components/ThemeToggle"
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -128,13 +128,13 @@ export function FooterSection() {
             </div>
             <div className="grid grid-cols-3 gap-x-2 gap-y-1.5 text-[11px]">
               {navLinks.map((item) => (
-                <Link
+                <a
                   key={item.id}
                   href={item.href}
                   className="font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline"
                 >
                   {t(`Navigation.${item.id}`)}
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -291,20 +291,20 @@ export function FooterSection() {
               </h4>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 {navLinks.map((item) => (
-                  <Link
+                  <a
                     key={item.id}
                     href={item.href}
                     className="py-0.5 font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline"
                   >
                     {t(`Navigation.${item.id}`)}
-                  </Link>
+                  </a>
                 ))}
-                <Link
+                <a
                   href="/#skills"
                   className="py-0.5 font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline"
                 >
                   {t("Navigation.skills") || "Tech Stack"}
-                </Link>
+                </a>
               </div>
             </div>
 

@@ -16,7 +16,7 @@ import {
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import { useTranslations } from "next-intl"
+import { useTranslations } from "@/lib/i18n"
 import { AnimatePresence, motion } from "framer-motion"
 import { useMounted } from "@/hooks/use-mounted"
 import { StatCard } from "./StatCard"

@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
-import { useTheme } from "next-themes"
+
+import { useTheme } from "@/lib/theme-context"
 import {
   AArrowDown as Github,
   Asterisk as Linkedin,
@@ -14,7 +14,7 @@ import { navLinks } from "../Navbar"
 import { AnimatedGradientText } from "../ui/animated-gradient-text"
 import { Globe, GLOBE_CONFIG } from "../ui/globe"
 import { Meteors } from "../ui/meteors"
-import { useTranslations } from "next-intl"
+import { useTranslations } from "@/lib/i18n"
 import { ThemeToggle } from "../ThemeToggle"
 import { useMounted } from "@/hooks/use-mounted"
 
@@ -79,13 +79,13 @@ export default function Footer() {
               {t("Footer.description")}
             </p>
 
-            <Link
+            <a
               href="mailto:jaberhc2002@gmail.com"
               className="group mt-6 inline-flex items-center rounded-full border border-[var(--color-lavender)]/40 bg-[var(--color-lavender)]/10 px-5 py-2.5 text-xs font-semibold text-[var(--color-lavender)] transition-all duration-300 hover:border-[var(--color-lavender)] hover:bg-[var(--color-lavender)] hover:text-white active:scale-95 sm:mt-10 sm:px-7 sm:py-3 sm:text-sm"
             >
               {t("Footer.startConversation")}
               <ArrowUpRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </Link>
+            </a>
           </div>
 
           {/* Background Globe, bottom right, large, cut off by overflow-hidden */}
@@ -126,20 +126,20 @@ export default function Footer() {
 
             <div className="flex flex-col gap-2.5 text-xs sm:gap-3 sm:text-sm">
               {navLinks.map((item) => (
-                <Link
+                <a
                   key={item.id}
                   href={item.href}
                   className="w-fit text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {t(`Navigation.${item.id}`)}
-                </Link>
+                </a>
               ))}
-              <Link
+              <a
                 href="/#skills"
                 className="w-fit text-muted-foreground transition-colors hover:text-foreground"
               >
                 {t("Navigation.skills") || "Tech Stack"}
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -150,7 +150,7 @@ export default function Footer() {
             </h4>
 
             <div className="space-y-2.5 text-xs sm:space-y-4 sm:text-sm">
-              <Link
+              <a
                 href="https://github.com/JaberChowdhury"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -161,9 +161,9 @@ export default function Footer() {
                   <span>GitHub</span>
                 </div>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="https://www.linkedin.com/in/md-jaber-hossain-chowdhury-543335252/"
                 target="_blank"
                 className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-[var(--color-cyan)]/50 hover:bg-[var(--color-cyan)]/10 hover:shadow-sm sm:p-4"
@@ -173,9 +173,9 @@ export default function Footer() {
                   <span>LinkedIn</span>
                 </div>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="https://codeforces.com/profile/jaber02"
                 target="_blank"
                 className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-[var(--color-pear)]/50 hover:bg-[var(--color-pear)]/10 hover:shadow-sm sm:p-4"
@@ -185,9 +185,9 @@ export default function Footer() {
                   <span>Codeforces</span>
                 </div>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="mailto:jaberhc2002@gmail.com"
                 className="group flex items-center justify-between rounded-xl border border-border p-3 transition-all hover:border-[var(--color-coral)]/50 hover:bg-[var(--color-coral)]/10 hover:shadow-sm sm:p-4"
               >
@@ -196,7 +196,7 @@ export default function Footer() {
                   <span>Email</span>
                 </div>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </Link>
+              </a>
             </div>
           </div>
         </div>

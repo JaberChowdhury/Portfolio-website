@@ -88,7 +88,7 @@ export async function fetchAllSummaries(): Promise<RepoSummary[]> {
   const res = await fetch(
     "https://raw.githubusercontent.com/JaberChowdhury/my_github_data/main/api/projects/index.json",
     {
-      next: { revalidate: 60 },
+      
     }
   )
   if (!res.ok) {
@@ -109,7 +109,7 @@ export async function fetchDetailedRepo(
   const res = await fetch(
     `https://raw.githubusercontent.com/JaberChowdhury/my_github_data/main/api/projects/${repoName}.json`,
     {
-      next: { revalidate: 60 },
+      
     }
   )
   if (!res.ok) {
@@ -126,11 +126,11 @@ export async function fetchReadmeHtml(
   branchName: string
 ): Promise<string> {
   const rawUrl = `https://raw.githubusercontent.com/JaberChowdhury/${repoName}/${branchName}/README.md`
-  let res = await fetch(rawUrl, { next: { revalidate: 3600 } })
+  let res = await fetch(rawUrl, {})
   if (!res.ok) {
     // Try lowercase readme.md just in case
     const rawUrlLower = `https://raw.githubusercontent.com/JaberChowdhury/${repoName}/${branchName}/readme.md`
-    res = await fetch(rawUrlLower, { next: { revalidate: 3600 } })
+    res = await fetch(rawUrlLower, {})
   }
 
   if (!res.ok) {

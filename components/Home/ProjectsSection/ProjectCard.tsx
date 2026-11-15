@@ -1,10 +1,10 @@
 "use client"
 
 import React from "react"
-import Image from "next/image"
+// import Image from "next/image"
 import { ExternalLink, GitPullRequestClosed, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { useTranslations } from "next-intl"
+import { useTranslations } from "@/lib/i18n"
 
 export interface Project {
   title: string
@@ -139,12 +139,11 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         {/* Optional Responsive Image Preview Container */}
         {project.image && (
           <div className="relative mb-3 h-36 w-full overflow-hidden rounded-xl border border-border/60 bg-muted/30 xs:h-40 sm:h-48 md:h-52">
-            <Image
+            <img
               src={project.image}
               alt={project.title}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
         )}

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { useTranslations } from "next-intl"
+import { useTranslations } from "@/lib/i18n"
 import { AnimatePresence, motion } from "framer-motion"
 import { ExperienceCard, type Experience } from "./ExperienceCard"
 

@@ -27,9 +27,9 @@ export function useCardStack({
   }, [total])
 
   const animatingRef = useRef(false)
-  const animTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const animTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const wheelLockedRef = useRef(false)
-  const wheelTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const wheelTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastScrollDirectionRef = useRef<number>(0)
 
   const touchStartYRef = useRef(0)

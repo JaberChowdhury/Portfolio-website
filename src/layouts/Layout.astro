@@ -1,0 +1,149 @@
+---
+import '@/src/styles/globals.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Jaber Chowdhury - Full Stack Developer",
+  description = "Portfolio of Jaber Chowdhury, a Full Stack Developer specializing in React, TypeScript, Rust, and modern web architectures.",
+  image = "/favicon.ico"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://jaber.dev").href;
+const socialImageURL = new URL(image, Astro.site || "https://jaber.dev").href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://jaber.dev/#person",
+      "name": "Jaber Chowdhury",
+      "alternateName": "MD Jaber Hossain Chowdhury",
+      "url": "https://jaber.dev",
+      "jobTitle": "Full Stack Engineer",
+      "description": description,
+      "sameAs": [
+        "https://github.com/JaberChowdhury",
+        "https://codeforces.com/profile/JaberChowdhury",
+        "https://linkedin.com/in/jaberchowdhury"
+      ],
+      "knowsAbout": [
+        "React",
+        "TypeScript",
+        "Next.js",
+        "Astro",
+        "Rust",
+        "PostgreSQL",
+        "Competitive Programming",
+        "Web Performance",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://jaber.dev/#website",
+      "url": "https://jaber.dev",
+      "name": "Jaber Chowdhury Portfolio",
+      "description": description,
+      "publisher": {
+        "@id": "https://jaber.dev/#person"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonicalURL}#webpage`,
+      "url": canonicalURL,
+      "name": title,
+      "isPartOf": {
+        "@id": "https://jaber.dev/#website"
+      },
+      "about": {
+        "@id": "https://jaber.dev/#person"
+      },
+      "description": description,
+      "inLanguage": "en-US"
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="en" dir="ltr" class="antialiased marlin-font scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content="Jaber Chowdhury" />
+    <meta name="keywords" content="Jaber Chowdhury, Full Stack Developer, Software Engineer, Portfolio, React, Astro, Next.js, Rust, TypeScript, Competitive Programming" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Robots & Crawler Directives -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Jaber Chowdhury" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:alt" content="Jaber Chowdhury - Full Stack Developer Portfolio" />
+
+    <!-- Twitter / X -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={socialImageURL} />
+    <meta property="twitter:image:alt" content="Jaber Chowdhury - Full Stack Developer Portfolio" />
+    <meta property="twitter:creator" content="@jaberchowdhury" />
+
+    <!-- Theme & Mobile Browser Controls -->
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafafa" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#09090b" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+AR+Guides&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Syne:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Theme initialization script (prevents flash of wrong theme) -->
+    <script is:inline>
+      (function() {
+        try {
+          const stored = localStorage.getItem('theme');
+          const isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-background text-foreground min-h-screen selection:bg-[var(--color-pear)] selection:text-black">
+    <slot />
+  </body>
+</html>

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useMemo } from "react"
-import { useTranslations } from "next-intl"
+import { useTranslations } from "@/lib/i18n"
 import { cn } from "@/lib/utils"
 import { SectionWaveDivider } from "@/components/ui/SectionWaveDivider"
 import HeroSection from "@/components/Home/HeroSection"
@@ -128,11 +128,11 @@ export function HomeStack() {
             className={cn(
               "relative w-full overflow-hidden transition-colors duration-300",
               "scroll-mt-16 sm:scroll-mt-20",
-              isHome
-                ? "flex min-h-[calc(100vh-4rem)] flex-col justify-center pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-28 md:pb-24"
-                : isFooter
+              isFooter
                 ? "py-8 sm:py-12 md:py-16"
-                : "flex min-h-[85vh] flex-col justify-center pt-16 pb-20 sm:pt-20 sm:pb-24 md:pt-24 md:pb-28 lg:min-h-screen lg:pt-28 lg:pb-32",
+                : isHome
+                ? "flex min-h-screen flex-col justify-center pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-28 md:pb-24"
+                : "flex min-h-screen flex-col justify-center pt-16 pb-20 sm:pt-20 sm:pb-24 md:pt-24 md:pb-28",
               section.className
             )}
             style={{

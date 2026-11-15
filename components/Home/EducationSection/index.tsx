@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { Code2, Brain, Target, GraduationCap } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useTranslations } from "@/lib/i18n"
 import { AnimatePresence, motion } from "framer-motion"
 import { HighlightCard, type Highlight } from "./HighlightCard"
 import { type EducationCardProps } from "./EducationCard"
