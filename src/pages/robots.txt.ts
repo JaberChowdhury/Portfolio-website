@@ -3,7 +3,8 @@ export const prerender = true;
 const robots = `User-agent: *
 Allow: /
 
-Sitemap: https://jaber.dev/sitemap.xml
+Sitemap: https://jaber.dev/sitemap-index.xml
+Sitemap: https://jaber.dev/sitemap-0.xml
 `;
 
 export function GET() {

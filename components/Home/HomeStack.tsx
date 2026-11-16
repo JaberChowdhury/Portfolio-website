@@ -5,6 +5,7 @@ import { useTranslations } from "@/lib/i18n"
 import { cn } from "@/lib/utils"
 import { SectionWaveDivider } from "@/components/ui/SectionWaveDivider"
 import HeroSection from "@/components/Home/HeroSection"
+import ArtcraftStyleHero from "@/components/Home/HeroGalaxy"
 import TechnologySection from "@/components/Home/TechnologySection"
 import ProjectsSection from "@/components/Home/ProjectsSection"
 import CompetitiveProgrammingSection from "@/components/Home/CompetitiveProgrammingSection"
@@ -45,6 +46,14 @@ export function HomeStack() {
         showGrid: true,
         Component: HeroSection,
       },
+      // {
+      //   id: "hero-artcraft",
+      //   navLabel: "Galaxy Hero",
+      //   backgroundColor: "var(--card-bg-home)",
+      //   className: "text-foreground",
+      //   showGrid: true,
+      //   Component: ArtcraftStyleHero,
+      // },
       {
         id: "skills",
         navLabel: "Skills",

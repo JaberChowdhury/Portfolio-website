@@ -54,22 +54,6 @@ export const Navbar = () => {
           </span>
         </a>
 
-        {/* Center: Navigation Links (Desktop) */}
-        <div className="hidden items-center gap-1 md:flex lg:gap-2">
-          {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={link.href}
-              className={cn(
-                buttonVariants({ variant: "ghost" }),
-                "rounded-full px-3.5 py-1.5 font-mono text-xs font-semibold tracking-wider text-muted-foreground uppercase transition-all hover:bg-secondary/60 hover:text-foreground"
-              )}
-            >
-              {t(`Navigation.${link.id}`)}
-            </a>
-          ))}
-        </div>
-
         {/* Right Side: CTA Button & Mobile Toggle */}
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="hidden items-center gap-2 md:flex">

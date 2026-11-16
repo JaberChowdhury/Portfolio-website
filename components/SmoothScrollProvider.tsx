@@ -3,6 +3,7 @@
 import React, { useEffect } from "react"
 import { ReactLenis, useLenis } from "lenis/react"
 import "lenis/dist/lenis.css"
+import { lenisRef } from "@/lib/lenis-ref"
 
 interface SmoothScrollProviderProps {
   children: React.ReactNode
@@ -10,9 +11,17 @@ interface SmoothScrollProviderProps {
 
 /**
  * Global smooth anchor handler that integrates Lenis with in-page anchor links
+ * and syncs the live instance to lenisRef.
  */
 function LenisAnchorHandler() {
   const lenis = useLenis()
+
+  useEffect(() => {
+    lenisRef.current = lenis || null
+    return () => {
+      lenisRef.current = null
+    }
+  }, [lenis])
 
   useEffect(() => {
     if (!lenis) return

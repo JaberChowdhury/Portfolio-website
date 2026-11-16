@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar"
 import { SmoothScrollProvider } from "@/components/SmoothScrollProvider"
 import { ThemeProvider } from "@/lib/theme-context"
 import { I18nProvider } from "@/lib/i18n"
+import ScrollRuler from "@/components/ruler"
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -13,6 +14,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         <SmoothScrollProvider>
           <div className="relative min-h-screen w-full">
             <Navbar />
+            <ScrollRuler />
             <main className="relative min-h-screen w-full">{children}</main>
           </div>
         </SmoothScrollProvider>
